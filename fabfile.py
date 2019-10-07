@@ -11,6 +11,7 @@ with open(os.path.join(PROJECT_DIR, "deploy.json")) as f:
     envs = json.loads(f.read())
 
 REPO_URL = envs['REPO_URL']
+REPO_NAME = envs['REPO_NAME']
 PROJECT_NAME = envs['PROJECT_NAME']
 REMOTE_HOST_SSH = envs['REMOTE_HOST_SSH']
 REMOTE_HOST = envs['REMOTE_HOST']
@@ -23,7 +24,7 @@ env.hosts = [REMOTE_HOST_SSH, ]
 env.key_filename = ["~/.ssh/cole-rochman.pem", ]
 
 virtualenv_folder = '/home/{}/.pyenv/versions/production'.format(env.user)
-project_folder = '/home/{}/srv/{}'.format(env.user, PROJECT_NAME)
+project_folder = '/home/{}/srv/{}'.format(env.user, REPO_NAME)
 appname = 'core'
 
 
@@ -39,10 +40,8 @@ def _get_latest_source():
 
 def _update_settings():
     print(green('_update_settings'))
-    settings_path = project_folder + '/{}/settings.py'.format(PROJECT_NAME)
-    sed(settings_path, "DEBUG = True", "DEBUG = False")
-    sed(settings_path, 'ALLOWED_HOSTS = .+$',
-        'ALLOWED_HOSTS = [%s]' % ','.join(['\"%s\"' % host for host in ALLOWED_HOSTS]))
+    settings_path = project_folder + '/{}/settings/__init__.py'.format(PROJECT_NAME)
+    sed(settings_path, "dev", "prod")
 
 
 def _update_virtualenv():
@@ -99,7 +98,7 @@ def deploy():
     _get_latest_source()
     _update_settings()
     _update_virtualenv()
-    _update_static_files()
+    # _update_static_files()
     _update_database()
     _grant_uwsgi()
     _restart_uwsgi()
