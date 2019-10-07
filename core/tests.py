@@ -29,7 +29,7 @@ class ValidateTest(APITestCase):
         """
         url = reverse('validate-patient-code')
         data = {
-            'value': {'origin': 'P000012345'}
+            'value': {'origin': 'P12345678'}
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

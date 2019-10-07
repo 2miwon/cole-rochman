@@ -51,7 +51,7 @@ class PatientCreate(CreateAPIView):
 class ValidatePatientCode(APIView):
     def post(self, request, format='json', *args, **kwargs):
         value = request.data['value']['origin']
-        regex = re.compile('P\d{9}')
+        regex = re.compile('P\d{8}')
         matched = regex.match(value)
         if matched:
             response_data = {
@@ -59,7 +59,9 @@ class ValidatePatientCode(APIView):
                 "value": matched.string
             }
             return Response(response_data, status=status.HTTP_200_OK)
+
         response_data = {
-            "status": "FAIL"
+            "status": "FAIL",
+            "value": matched.string
         }
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
