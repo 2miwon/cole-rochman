@@ -106,3 +106,5 @@ venv.bak/
 
 cole_rochman/secrets.json
 .idea
+cole_rochman/settings_prod.py
+deploy.json

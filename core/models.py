@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 
@@ -14,3 +15,8 @@ class Patient(models.Model):
     class Meta:
         verbose_name = '환자'
         verbose_name_plural = '환자'
+
+
+class Test(models.Model):
+    data = JSONField()
+    created_at = models.DateTimeField(auto_now_add=True)

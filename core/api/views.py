@@ -1,8 +1,23 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import PatientSerializer
+from .serializers import PatientSerializer, TestSerializer
+from core.models import Test
+
+
+class TestView(APIView):
+    def post(self, request, format='json', *args, **kwargs):
+        serializer = TestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response_data = {
+                "status": "SUCCESS",
+                "value": "test data save complete",
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PatientCreate(CreateAPIView):
