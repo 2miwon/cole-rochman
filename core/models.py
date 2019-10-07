@@ -19,4 +19,5 @@ class Patient(models.Model):
 
 class Test(models.Model):
     data = JSONField()
+    memo = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
