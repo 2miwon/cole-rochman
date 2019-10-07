@@ -1,9 +1,12 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-import logging
+from rest_framework.views import APIView
 
 from .serializers import PatientSerializer, TestSerializer
+
+import logging
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -43,3 +46,20 @@ class PatientCreate(CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class ValidatePatientCode(APIView):
+    def post(self, request, format='json', *args, **kwargs):
+        value = request.data['value']['origin']
+        regex = re.compile('P\d{9}')
+        matched = regex.match(value)
+        if matched:
+            response_data = {
+                "status": "SUCCESS",
+                "value": matched.string
+            }
+            return Response(response_data, status=status.HTTP_200_OK)
+        response_data = {
+            "status": "FAIL"
+        }
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)

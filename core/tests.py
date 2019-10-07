@@ -22,6 +22,29 @@ class PatientTest(APITestCase):
         self.assertEqual(Patient.objects.get().kakao_user_id, 123)
 
 
+class ValidateTest(APITestCase):
+    def test_patient_code_success(self):
+        """
+        P00012345 - 9 characters code
+        """
+        url = reverse('validate-patient-code')
+        data = {
+            'value': {'origin': 'P000012345'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_patient_code_fail(self):
+        """
+        P00012345 - 9 characters code
+        """
+        url = reverse('validate-patient-code')
+        data = {
+            'value': {'origin': 'P0000125'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 class TestTest(APITestCase):
     def test_create(self):
         """
