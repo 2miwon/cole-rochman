@@ -1,0 +1,16 @@
+from django.db import models
+
+
+class Patient(models.Model):
+    code = models.CharField(max_length=20)
+    kakao_user_id = models.IntegerField()
+    nickname = models.CharField(max_length=20, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '%s/%s' % (self.code, self.nickname)
+
+    class Meta:
+        verbose_name = '환자'
+        verbose_name_plural = '환자'
