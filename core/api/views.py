@@ -4,7 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .serializers import PatientSerializer, TestSerializer
-from core.models import Test
 
 
 class TestView(APIView):
@@ -17,7 +16,12 @@ class TestView(APIView):
                 "value": "test data save complete",
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        response_data = {
+            "status": "FAIL",
+            "value": "test data save failed",
+        }
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PatientCreate(CreateAPIView):
