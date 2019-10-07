@@ -61,7 +61,6 @@ class ValidatePatientCode(APIView):
             return Response(response_data, status=status.HTTP_200_OK)
 
         response_data = {
-            "status": "FAIL",
-            "value": matched.string
+            "status": "FAIL"
         }
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
