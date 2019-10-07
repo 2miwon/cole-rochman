@@ -53,10 +53,11 @@ def _update_virtualenv():
 
 def _update_static_files():
     print(green('_update_static_files'))
-
+    run('sudo chown -R ubuntu:ubuntu /var/www/cole-rochman/static')
     run('cd %s && %s/bin/python3 manage.py collectstatic --noinput' % (
         project_folder, virtualenv_folder
     ))
+    run('sudo chown -R root:root /var/www/cole-rochman/static')
 
 
 def _update_database():
@@ -98,7 +99,7 @@ def deploy():
     _get_latest_source()
     _update_settings()
     _update_virtualenv()
-    # _update_static_files()
+    _update_static_files()
     _update_database()
     _grant_uwsgi()
     _restart_uwsgi()
