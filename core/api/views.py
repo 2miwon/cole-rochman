@@ -19,13 +19,13 @@ class TestView(CreateAPIView):
             serializer.save()
             response_data = {
                 "status": "SUCCESS",
-                "value": "test data save complete"
+                "value": serializer.data
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
 
         response_data = {
             "status": "FAIL",
-            "value": "test data save failed"
+            "value": serializer.data
         }
         logger.error(serializer.data)
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
