@@ -34,9 +34,7 @@ class PatientTest(APITestCase):
 
         response = self.client.post(url + '?test=true', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Patient.objects.count(), 1)
-        self.assertEqual(Patient.objects.get().code, 'test')
-        self.assertEqual(Patient.objects.get().kakao_user_id, 123)
+        self.assertEqual(Patient.objects.count(), 0)
 
 
 class ValidateTest(APITestCase):
