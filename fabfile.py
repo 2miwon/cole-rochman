@@ -26,6 +26,7 @@ env.key_filename = ["~/.ssh/cole-rochman.pem", ]
 virtualenv_folder = '/home/{}/.pyenv/versions/production'.format(env.user)
 project_folder = '/home/{}/srv/{}'.format(env.user, REPO_NAME)
 appname = 'core'
+local_project_folder = os.path.join(PROJECT_DIR, 'cole_rochman')
 
 
 def _get_latest_source():
@@ -36,6 +37,13 @@ def _get_latest_source():
         run('git clone %s %s' % (REPO_URL, project_folder))
     current_commit = local("git log -n 1 --format=%H", capture=True)
     run('cd %s && git reset --hard %s' % (project_folder, current_commit))
+
+
+def _upload_secrets_file():
+    print(green('_upload_secrets_file'))
+    secret_file_dir = os.path.join(local_project_folder, 'secrets.json')
+    remote_project_setting_dir = os.path.join(project_folder, 'cole_rochman')
+    local('scp {} {}'.format(secret_file_dir, remote_project_setting_dir))
 
 
 def _update_settings():
