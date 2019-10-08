@@ -26,7 +26,7 @@ env.key_filename = ["~/.ssh/cole-rochman.pem", ]
 virtualenv_folder = '/home/{}/.pyenv/versions/production'.format(env.user)
 project_folder = '/home/{}/srv/{}'.format(env.user, REPO_NAME)
 appname = 'core'
-local_project_folder = os.path.join(PROJECT_DIR, 'cole_rochman')
+local_project_folder = os.path.join(PROJECT_DIR, PROJECT_NAME)
 
 
 def _get_latest_source():
@@ -42,7 +42,7 @@ def _get_latest_source():
 def _upload_secrets_file():
     print(green('_upload_secrets_file'))
     secret_file_dir = os.path.join(local_project_folder, 'secrets.json')
-    remote_project_setting_dir = os.path.join(project_folder, 'cole_rochman')
+    remote_project_setting_dir = '{}@{}:{}'.format(REMOTE_USER, REMOTE_HOST_SSH, os.path.join(project_folder, PROJECT_NAME))
     local('scp {} {}'.format(secret_file_dir, remote_project_setting_dir))
 
 
@@ -105,6 +105,7 @@ def _restart_nginx():
 
 def deploy():
     _get_latest_source()
+    _upload_secrets_file()
     _update_settings()
     _update_virtualenv()
     _update_static_files()
