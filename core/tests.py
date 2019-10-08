@@ -6,9 +6,9 @@ from .models import Patient, Test
 
 
 class PatientTest(APITestCase):
-    def test_create(self):
+    def test_create_success(self):
         """
-        create post
+        create patient
         """
         url = reverse('patient-create')
         data = {
@@ -16,6 +16,23 @@ class PatientTest(APITestCase):
             'action': {'detailParams': {'patient_code': {'value': 'test'}}}
         }
         response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Patient.objects.count(), 1)
+        self.assertEqual(Patient.objects.get().code, 'test')
+        self.assertEqual(Patient.objects.get().kakao_user_id, 123)
+
+    def test_create_success_when_test_true(self):
+        """
+        create patient when request.data's test value is true.
+        It results not actually saving it, but it will respond with serializer's data
+        """
+        url = reverse('patient-create')
+        data = {
+            'userRequest': {'user': {'id': 123}},
+            'action': {'detailParams': {'patient_code': {'value': 'test'}}}
+        }
+
+        response = self.client.post(url + '?test=true', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Patient.objects.count(), 1)
         self.assertEqual(Patient.objects.get().code, 'test')
@@ -44,6 +61,7 @@ class ValidateTest(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 
 class TestTest(APITestCase):
     def test_create(self):
