@@ -45,10 +45,11 @@ class ValidateTest(APITestCase):
         """
         url = reverse('validate-patient-code')
         data = {
-            'value': {'origin': 'P12345678'}
+            'value': {'origin': 'P12345678입니다'}
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['value'], 'P12345678')
 
     def test_patient_code_fail(self):
         """

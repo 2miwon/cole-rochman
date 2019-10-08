@@ -56,11 +56,11 @@ class ValidatePatientCode(APIView):
     def post(self, request, format='json', *args, **kwargs):
         value = request.data['value']['origin']
         regex = re.compile('P\d{8}')
-        matched = regex.match(value)
+        matched = re.search(regex, value)
         if matched:
             response_data = {
                 "status": "SUCCESS",
-                "value": matched.string
+                "value": matched.group()
             }
             return Response(response_data, status=status.HTTP_200_OK)
 
