@@ -133,5 +133,4 @@ def deploy():
         _restart_nginx()
         _send_deploy_message(message='*Deploy succeed.*')
     except SystemExit as e:
-        _send_slack_message(message='*Deploy failed.*\n%s' % e)
-
+        _send_slack_message(message='*Deploy failed.*')
