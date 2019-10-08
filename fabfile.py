@@ -29,12 +29,16 @@ appname = 'core'
 local_project_folder = os.path.join(PROJECT_DIR, PROJECT_NAME)
 
 
-def _send_slack_message(message=''):
-    print(green('_send_slack_message'))
+def _send_deploy_message(message=''):
     current_commit = local("git log -n 1 --format=%H", capture=True)
     repo = local("git config --get remote.origin.url", capture=True).split('/')[1].split('.')[0]
     branch = local("git branch | grep \* | cut -d ' ' -f2", capture=True)
     message = '%s\n%s/%s\ncurrent commit `%s`' % (message, repo, branch, current_commit)
+    _send_slack_message(message)
+
+
+def _send_slack_message(message=''):
+    print(green('_send_slack_message'))
     local("curl -X POST -H 'Content-type: application/json' --data '{\"text\": \"%s\"}' %s"
           % (message, SLACK_WEBHOOK_URL)
           )
@@ -116,14 +120,18 @@ def _restart_nginx():
 
 
 def deploy():
-    _send_slack_message(message='*Deploy has been started.*')
-    _get_latest_source()
-    _upload_secrets_file()
-    _update_settings()
-    _update_virtualenv()
-    _update_static_files()
-    _update_database()
-    _grant_uwsgi()
-    _restart_uwsgi()
-    _restart_nginx()
-    _send_slack_message(message='*Deploy succeed.*')
+    try:
+        _send_deploy_message(message='*Deploy has been started.*')
+        _get_latest_source()
+        _upload_secrets_file()
+        _update_settings()
+        _update_virtualenv()
+        _update_static_files()
+        _update_database()
+        _grant_uwsgi()
+        _restart_uwsgi()
+        _restart_nginx()
+        _send_deploy_message(message='*Deploy succeed.*')
+    except SystemExit as e:
+        _send_slack_message(message='*Deploy failed.*\n%s' % e)
+
