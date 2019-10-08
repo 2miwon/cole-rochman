@@ -16,7 +16,7 @@ PROJECT_NAME = envs['PROJECT_NAME']
 REMOTE_HOST_SSH = envs['REMOTE_HOST_SSH']
 REMOTE_HOST = envs['REMOTE_HOST']
 REMOTE_USER = envs['REMOTE_USER']
-ALLOWED_HOSTS = envs['ALLOWED_HOSTS']
+SLACK_WEBHOOK_URL = envs['SLACK_WEBHOOK_URL']
 
 env.user = REMOTE_USER
 username = env.user
@@ -27,6 +27,17 @@ virtualenv_folder = '/home/{}/.pyenv/versions/production'.format(env.user)
 project_folder = '/home/{}/srv/{}'.format(env.user, REPO_NAME)
 appname = 'core'
 local_project_folder = os.path.join(PROJECT_DIR, PROJECT_NAME)
+
+
+def _send_slack_message(message=''):
+    print(green('_send_slack_message'))
+    current_commit = local("git log -n 1 --format=%H", capture=True)
+    repo = local("git config --get remote.origin.url", capture=True).split('/')[1].split('.')[0]
+    branch = local("git branch | grep \* | cut -d ' ' -f2", capture=True)
+    message = '%s\n%s/%s\ncurrent commit `%s`' % (message, repo, branch, current_commit)
+    local("curl -X POST -H 'Content-type: application/json' --data '{\"text\": \"%s\"}' %s"
+          % (message, SLACK_WEBHOOK_URL)
+          )
 
 
 def _get_latest_source():
@@ -42,7 +53,8 @@ def _get_latest_source():
 def _upload_secrets_file():
     print(green('_upload_secrets_file'))
     secret_file_dir = os.path.join(local_project_folder, 'secrets.json')
-    remote_project_setting_dir = '{}@{}:{}'.format(REMOTE_USER, REMOTE_HOST_SSH, os.path.join(project_folder, PROJECT_NAME))
+    remote_project_setting_dir = '{}@{}:{}'.format(REMOTE_USER, REMOTE_HOST_SSH,
+                                                   os.path.join(project_folder, PROJECT_NAME))
     local('scp {} {}'.format(secret_file_dir, remote_project_setting_dir))
 
 
@@ -104,6 +116,7 @@ def _restart_nginx():
 
 
 def deploy():
+    _send_slack_message(message='*Deploy has been started.*')
     _get_latest_source()
     _upload_secrets_file()
     _update_settings()
@@ -113,3 +126,4 @@ def deploy():
     _grant_uwsgi()
     _restart_uwsgi()
     _restart_nginx()
+    _send_slack_message(message='*Deploy succeed.*')
