@@ -39,7 +39,7 @@ class PatientCreate(CreateAPIView):
     def post(self, request, format='json', *args, **kwargs):
         payload = dict()
         payload['kakao_user_id'] = request.data['userRequest']['user']['id']
-        payload['code'] = request.data['action']['detailParams']['patient_code']['value']
+        payload['code'] = request.data['action']['params']['patient_code']
 
         serializer = self.get_serializer(data=payload)
         serializer.is_valid(raise_exception=True)
