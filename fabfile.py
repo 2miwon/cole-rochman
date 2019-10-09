@@ -1,6 +1,6 @@
 from fabric.contrib.files import append, exists, sed, put
 from fabric.api import env, local, run, sudo
-from fabric.colors import green
+from fabric.colors import green, red
 import os
 import json
 
@@ -98,6 +98,17 @@ def _update_database():
     run('cd %s && %s/bin/python3 manage.py migrate %s --noinput' % (
         project_folder, virtualenv_folder, appname
     ))
+
+
+def _run_django_test():
+    result = run(
+        '%s ./manage.py test %(test_apps)s --settings=settings_test -v 2 --failfast' % (virtualenv_folder, env),
+        capture=False)
+    if result.failed:
+        print(red("Some tests failed"))
+        raise SystemExit
+    else:
+        print(green("All tests passed!"))
 
 
 def _grant_uwsgi():
