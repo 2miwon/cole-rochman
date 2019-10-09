@@ -37,9 +37,6 @@ class PatientCreate(CreateAPIView):
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
-        print(request.data['userRequest']['user']['id'])
-        print(request.data['action']['params']['patient_code'])
-        print(request.query_params.get('test'))
         payload = dict()
         payload['kakao_user_id'] = request.data['userRequest']['user']['id']
         payload['code'] = request.data['action']['params']['patient_code']
@@ -61,12 +58,12 @@ class PatientCreate(CreateAPIView):
 class ValidatePatientCode(APIView):
     def post(self, request, format='json', *args, **kwargs):
         value = request.data['value']['origin']
-        regex = re.compile('P\d{8}')
+        regex = re.compile(r'[a-zA-Z]\d{8}')
         matched = re.search(regex, value)
         if matched:
             response_data = {
                 "status": "SUCCESS",
-                "value": matched.group()
+                "value": matched.group().upper()
             }
             return Response(response_data, status=status.HTTP_200_OK)
 

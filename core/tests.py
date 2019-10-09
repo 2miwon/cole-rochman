@@ -42,10 +42,11 @@ class ValidateTest(APITestCase):
     def test_patient_code_success(self):
         """
         P00012345 - 9 characters code
+        expect upper case
         """
         url = reverse('validate-patient-code')
         data = {
-            'value': {'origin': 'P12345678입니다'}
+            'value': {'origin': 'p12345678입니다'}
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
