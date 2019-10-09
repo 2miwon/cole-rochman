@@ -37,13 +37,16 @@ class PatientCreate(CreateAPIView):
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
+        print(request.data['userRequest']['user']['id'])
+        print(request.data['action']['params']['patient_code'])
+        print(request.query_params.get('test'))
         payload = dict()
         payload['kakao_user_id'] = request.data['userRequest']['user']['id']
         payload['code'] = request.data['action']['params']['patient_code']
 
         serializer = self.get_serializer(data=payload)
-        if serializer.is_valid():
-            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if not request.query_params.get('test'):
             self.perform_create(serializer)

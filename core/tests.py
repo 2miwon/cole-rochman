@@ -12,14 +12,14 @@ class PatientTest(APITestCase):
         """
         url = reverse('patient-create')
         data = {
-            'userRequest': {'user': {'id': 123}},
-            'action': {'detailParams': {'patient_code': {'value': 'test'}}}
+            'userRequest': {'user': {'id': 'asd123'}},
+            'action': {'params': {'patient_code': 'test'}}
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Patient.objects.count(), 1)
         self.assertEqual(Patient.objects.get().code, 'test')
-        self.assertEqual(Patient.objects.get().kakao_user_id, 123)
+        self.assertEqual(Patient.objects.get().kakao_user_id, 'asd123')
 
     def test_create_success_when_test_true(self):
         """
@@ -28,8 +28,8 @@ class PatientTest(APITestCase):
         """
         url = reverse('patient-create')
         data = {
-            'userRequest': {'user': {'id': 123}},
-            'action': {'detailParams': {'patient_code': {'value': 'test'}}}
+            'userRequest': {'user': {'id': 'asd123'}},
+            'action': {'params': {'patient_code': 'test'}}
         }
 
         response = self.client.post(url + '?test=true', data, format='json')
