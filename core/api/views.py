@@ -42,11 +42,14 @@ class PatientCreate(CreateAPIView):
         payload['code'] = request.data['action']['params']['patient_code']
 
         serializer = self.get_serializer(data=payload)
-        serializer.is_valid(raise_exception=True)
+        if serializer.is_valid():
+            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
         if not request.query_params.get('test'):
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
         response = serializer.data
         response['test'] = True
         return Response(response, status=status.HTTP_201_CREATED)
