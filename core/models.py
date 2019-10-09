@@ -4,7 +4,7 @@ from django.db import models
 
 class Patient(models.Model):
     code = models.CharField(max_length=20)
-    kakao_user_id = models.IntegerField()
+    kakao_user_id = models.CharField(max_length=150)
     nickname = models.CharField(max_length=20, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
