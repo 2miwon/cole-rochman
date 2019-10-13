@@ -1,3 +1,4 @@
+import os
 from .base import *
 
 DATABASES = {
@@ -24,7 +25,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/kyujoohan/PycharmProjects/cole-rochman/cole_rochman/settings/debug.log',
+            'filename': os.path.join(PROJECT_DIR, 'settings/debug.log'),
         },
     },
     'loggers': {
