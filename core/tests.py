@@ -46,19 +46,31 @@ class ValidateTest(APITestCase):
         """
         url = reverse('validate-patient-code')
         data = {
-            'value': {'origin': 'p12345678입니다'}
+            'value': {'origin': 'p12312345678입니다'}
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['value'], 'P12345678')
+        self.assertEqual(response.data['value'], 'P12312345678')
 
-    def test_patient_code_fail(self):
+    def test_invalid_patient_code_fail(self):
         """
-        P00012345 - 9 characters code
+        P00012345678 - 12 characters code
         """
         url = reverse('validate-patient-code')
         data = {
-            'value': {'origin': 'P0000125'}
+            'value': {'origin': 'P123'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_duplicate_patient_code_fail(self):
+        """
+        return 400 when requested duplicated patient code. (unique test)
+        """
+        Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
+        url = reverse('validate-patient-code')
+        data = {
+            'value': {'origin': 'P12312345678'}
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

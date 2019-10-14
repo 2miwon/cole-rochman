@@ -58,7 +58,7 @@ class PatientCreate(CreateAPIView):
 class ValidatePatientCode(APIView):
     def post(self, request, format='json', *args, **kwargs):
         value = request.data['value']['origin']
-        regex = re.compile(r'[a-zA-Z]\d{8}')
+        regex = re.compile(r'[a-zA-Z]\d{11}')
         matched = re.search(regex, value)
         if matched:
             response_data = {

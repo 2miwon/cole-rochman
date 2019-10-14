@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Patient(models.Model):
-    code = models.CharField(max_length=20)
+    code = models.CharField(max_length=12, unique=True)
     kakao_user_id = models.CharField(max_length=150)
     nickname = models.CharField(max_length=20, default='')
     created_at = models.DateTimeField(auto_now_add=True)
