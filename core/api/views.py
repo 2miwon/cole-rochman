@@ -86,3 +86,34 @@ class ValidatePatientCode(CreateAPIView):
             "value": matched.group().upper()
         }
         return Response(response_data, status=status.HTTP_200_OK)
+
+
+class MediacationNotificationTest(CreateAPIView):
+    serializer_class = PatientSerializer
+    model_class = PatientSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        response = {
+            'version': '1.0',
+            'template': {
+                'output': [
+                    {
+                        "simpleText": {
+                            "text": "1회차 알림받을 시간을 선택해주세요."
+                        }
+                    }
+                ],
+                'quickReplies': [
+                    {
+                        "type": "block",
+                        "label": "오후 1시",
+                        "message": "1회차 알람으로 오후 1시에 알람을 설정합니다.",
+                    }
+                ]
+            },
+            'data': {
+                'number': 1
+            }
+        }
+        return Response(response, status=status.HTTP_200_OK)
