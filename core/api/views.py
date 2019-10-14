@@ -93,27 +93,52 @@ class MediacationNotificationTest(CreateAPIView):
     model_class = PatientSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format='json', *args, **kwargs):
+        # response = {
+        #     'version': '1.0',
+        #     'template': {
+        #         'outputs': [
+        #             {
+        #                 "simpleText": {
+        #                     "text": "1회차 알림받을 시간을 선택해주세요."
+        #                 }
+        #             }
+        #         ],
+        #         'quickReplies': [
+        #             {
+        #                 "label": "오후 1시",
+        #                 "action": "message",
+        #                 "messageText": "1회차 알람으로 오후 1시에 알람을 설정합니다.",
+        #             }
+        #         ]
+        #     },
+        #     'data': {
+        #         'number': 1
+        #     }
+        # }
+
         response = {
-            'version': '1.0',
-            'template': {
-                'outputs': [
+            "version": "2.0",
+            "template": {
+                "outputs": [
                     {
                         "simpleText": {
                             "text": "1회차 알림받을 시간을 선택해주세요."
                         }
                     }
                 ],
-                'quickReplies': [
+                "quickReplies": [
                     {
-                        "label": "오후 1시",
                         "action": "message",
-                        "messageText": "1회차 알람으로 오후 1시에 알람을 설정합니다.",
-                    }
+                        "label": "오후 1시",
+                        "messageText": "1회차 알람으로 오후 1시에 알람을 설정합니다."
+                    },
+                    {
+                        "action": "message",
+                        "label": "오후 2시",
+                        "messageText": "1회차 알람으로 오후 2시에 알람을 설정합니다."
+                    },
                 ]
-            },
-            'data': {
-                'number': 1
             }
         }
         return Response(response, status=status.HTTP_200_OK)
