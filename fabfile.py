@@ -49,7 +49,7 @@ def _check_if_migration_needed(skip_migrations=False):
 
 
 def _local_test():
-    result = local('/manage.py test --keepdb'.format(PROJECT_DIR), capture=True)
+    result = local('./manage.py test --keepdb'.format(PROJECT_DIR), capture=True)
     if result.failed and not confirm("FAIL: Local tests are failed.\nContinue anyway?"):
         abort("Aborting at user request.")
 
