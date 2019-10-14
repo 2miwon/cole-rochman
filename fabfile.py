@@ -1,8 +1,11 @@
+from fabric.contrib.console import confirm
 from fabric.contrib.files import append, exists, sed, put
 from fabric.api import env, local, run, sudo
 from fabric.colors import green, red
 import os
 import json
+
+from fabric.utils import abort
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -29,10 +32,32 @@ appname = 'core'
 local_project_folder = os.path.join(PROJECT_DIR, PROJECT_NAME)
 
 
+def _check_if_migration_needed(skip_migrations=False):
+    if skip_migrations:
+        return
+
+    result = local('./manage.py makemigrations --dry-run', capture=True)
+
+    if result.stdout != 'No changes detected' and not confirm(red("FAIL: Local tests are failed.\nContinue anyway?")):
+        print(red('\n\t'.join(result.stdout.strip().split('[ ]'))))
+        print(red(
+            "Please apply migrations with 'python manage.py migrate'\n\n"
+            "If you want to skip them, execute it with 'fab deploy:skip_migrations=True'\n"
+            "For doing this, please check if migrations are committed in remote VCS."
+            "If so, it will be applied to your remote machine."))
+        raise SystemExit
+
+
+def _local_test():
+    result = local('/manage.py test --keepdb'.format(PROJECT_DIR), capture=True)
+    if result.failed and not confirm("FAIL: Local tests are failed.\nContinue anyway?"):
+        abort("Aborting at user request.")
+
+
 def _send_deploy_message(message=''):
     current_commit = local("git log -n 1 --format=%H", capture=True)
     repo = local("git config --get remote.origin.url", capture=True).split('/')[1].split('.')[0]
-    branch = local("git branch | grep \* | cut -d ' ' -f2", capture=True)
+    branch = local("git branch | grep \\* | cut -d ' ' -f2", capture=True)
     message = '{}\n{}/{}\ncurrent commit `{}`'.format(message, repo, branch, current_commit)
 
     _send_slack_message(message)
@@ -91,9 +116,7 @@ def _update_database():
 
 
 def _run_django_test():
-    result = run(
-        '{} ./manage.py test {test_apps} --settings=settings_test -v 2 --failfast'.format(virtualenv_folder, env),
-        capture=False)
+    result = run('{} ./manage.py test -keepdb -v 2 --failfast'.format(virtualenv_folder), capture=False)
     if result.failed:
         print(red("Some tests failed"))
         raise SystemExit
@@ -120,7 +143,9 @@ def _restart_nginx():
     sudo('sudo systemctl restart nginx')
 
 
-def deploy():
+def deploy(skip_migrations=False):
+    _check_if_migration_needed(skip_migrations)
+    _local_test()
     try:
         _send_deploy_message(message='*Deploy has been started.*')
         _get_latest_source()
