@@ -33,25 +33,26 @@ def _send_deploy_message(message=''):
     current_commit = local("git log -n 1 --format=%H", capture=True)
     repo = local("git config --get remote.origin.url", capture=True).split('/')[1].split('.')[0]
     branch = local("git branch | grep \* | cut -d ' ' -f2", capture=True)
-    message = '%s\n%s/%s\ncurrent commit `%s`' % (message, repo, branch, current_commit)
+    message = '{}\n{}/{}\ncurrent commit `{}`'.format(message, repo, branch, current_commit)
+
     _send_slack_message(message)
 
 
 def _send_slack_message(message=''):
     print(green('_send_slack_message'))
-    local("curl -X POST -H 'Content-type: application/json' --data '{\"text\": \"%s\"}' %s"
-          % (message, SLACK_WEBHOOK_URL)
+    local("curl -X POST -H 'Content-type: application/json' --data '{{\"text\": \"{}\"}}' {}"
+          .format(message, SLACK_WEBHOOK_URL)
           )
 
 
 def _get_latest_source():
     print(green('_get_latest_source'))
     if exists(project_folder + '/.git'):
-        run('cd %s && git fetch' % (project_folder,))
+        run('cd {} && git fetch'.format(project_folder, ))
     else:
-        run('git clone %s %s' % (REPO_URL, project_folder))
+        run('git clone {} {}'.format(REPO_URL, project_folder))
     current_commit = local("git log -n 1 --format=%H", capture=True)
-    run('cd %s && git reset --hard %s' % (project_folder, current_commit))
+    run('cd {} && git reset --hard {}'.format(project_folder, current_commit))
 
 
 def _upload_secrets_file():
@@ -70,39 +71,28 @@ def _update_settings():
 
 def _update_virtualenv():
     print(green('_update_virtualenv'))
-    run('%s/bin/pip install -r %s/requirements.txt' % (
-        virtualenv_folder, project_folder
-    ))
+    run('{}/bin/pip install -r {}/requirements.txt'.format(virtualenv_folder, project_folder))
 
 
 def _update_static_files():
     print(green('_update_static_files'))
     run('sudo chown -R ubuntu:ubuntu /var/www/cole-rochman/static')
-    run('cd %s && %s/bin/python3 manage.py collectstatic --noinput' % (
-        project_folder, virtualenv_folder
-    ))
+    run('cd {} && {}/bin/python3 manage.py collectstatic --noinput'.format(project_folder, virtualenv_folder))
     run('sudo chown -R root:root /var/www/cole-rochman/static')
 
 
 def _update_database():
     print(green('_update_database'))
-    run('cd %s && %s/bin/python3 manage.py makemigrations --noinput' % (
-        project_folder, virtualenv_folder
-    ))
-    run('cd %s && %s/bin/python3 manage.py migrate --noinput' % (
-        project_folder, virtualenv_folder
-    ))
-    run('cd %s && %s/bin/python3 manage.py makemigrations %s --noinput' % (
-        project_folder, virtualenv_folder, appname
-    ))
-    run('cd %s && %s/bin/python3 manage.py migrate %s --noinput' % (
-        project_folder, virtualenv_folder, appname
-    ))
+    run('cd {} && {}/bin/python3 manage.py makemigrations --noinput'.format(project_folder, virtualenv_folder))
+    run('cd {} && {}/bin/python3 manage.py migrate --noinput'.format(project_folder, virtualenv_folder))
+    run('cd {} && {}/bin/python3 manage.py makemigrations {} --noinput'.format(project_folder, virtualenv_folder,
+                                                                               appname))
+    run('cd {} && {}/bin/python3 manage.py migrate {} --noinput'.format(project_folder, virtualenv_folder, appname))
 
 
 def _run_django_test():
     result = run(
-        '%s ./manage.py test %(test_apps)s --settings=settings_test -v 2 --failfast' % (virtualenv_folder, env),
+        '{} ./manage.py test {test_apps} --settings=settings_test -v 2 --failfast'.format(virtualenv_folder, env),
         capture=False)
     if result.failed:
         print(red("Some tests failed"))
