@@ -97,7 +97,7 @@ class MediacationNotificationTest(CreateAPIView):
         response = {
             'version': '1.0',
             'template': {
-                'output': [
+                'outputs': [
                     {
                         "simpleText": {
                             "text": "1회차 알림받을 시간을 선택해주세요."
