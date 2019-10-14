@@ -106,9 +106,9 @@ class MediacationNotificationTest(CreateAPIView):
                 ],
                 'quickReplies': [
                     {
-                        "type": "block",
                         "label": "오후 1시",
-                        "message": "1회차 알람으로 오후 1시에 알람을 설정합니다.",
+                        "action": "message",
+                        "messageText": "1회차 알람으로 오후 1시에 알람을 설정합니다.",
                     }
                 ]
             },
