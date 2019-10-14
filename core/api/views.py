@@ -55,19 +55,34 @@ class PatientCreate(CreateAPIView):
         return Response(response, status=status.HTTP_201_CREATED)
 
 
-class ValidatePatientCode(APIView):
+class ValidatePatientCode(CreateAPIView):
+    serializer_class = PatientSerializer
+    model_class = PatientSerializer.Meta.model
+    queryset = model_class.objects.all()
+
     def post(self, request, format='json', *args, **kwargs):
         value = request.data['value']['origin']
         regex = re.compile(r'[a-zA-Z]\d{11}')
         matched = re.search(regex, value)
-        if matched:
+
+        if not matched:
             response_data = {
-                "status": "SUCCESS",
-                "value": matched.group().upper()
+                "status": "FAIL",
+                "message": "유효하지 않은 코드입니다."
             }
-            return Response(response_data, status=status.HTTP_200_OK)
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+        qs = self.get_queryset()
+        qs = qs.filter(code=matched.group().upper())
+        if qs.exists():
+            response_data = {
+                "status": "FAIL",
+                "message": "이미 등록된 코드입니다."
+            }
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
         response_data = {
-            "status": "FAIL"
+            "status": "SUCCESS",
+            "value": matched.group().upper()
         }
-        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(response_data, status=status.HTTP_200_OK)
