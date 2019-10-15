@@ -72,7 +72,10 @@ class PatientUpdate(GenericAPIView):
         serializer = self.get_serializer(patient, data=params, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        serializer.save()
+
+        if not request.query_params.get('test'):
+            serializer.save()
+
         response = serializer.validated_data
         return Response(response, status=status.HTTP_204_NO_CONTENT)
 

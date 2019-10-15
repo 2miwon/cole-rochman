@@ -27,7 +27,7 @@ class PatientCreateTest(APITestCase):
 
     def test_create_success_when_test_true(self):
         """
-        create patient when request.data's test value is true.
+        create patient when request.queryparams's test value is true.
         It results not actually saving it, but it will respond with serializer's data
         """
         url = reverse('patient-create')
@@ -89,6 +89,24 @@ class PatientUpdateTest(APITestCase):
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(getattr(p, field_name), value_db)
+
+    def test_update_success_when_test_true(self):
+        """
+        update patient when request.queryparams's test value is true.
+        It results not actually saving it, but it will respond with serializer's data
+        """
+        field, value = ('nickname', 'test')
+        url = reverse('patient-update')
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123')
+        original_data = getattr(p, field)
+        data = {
+            'userRequest': {'user': {'id': 'abc123'}},
+            'action': {'params': {field: value}}
+        }
+        response = self.client.post(url + '?test=true', data, format='json')
+        p.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(getattr(p, field), original_data)
 
 
 class ValidateTest(APITestCase):
