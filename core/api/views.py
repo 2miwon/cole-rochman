@@ -1,9 +1,8 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from .serializers import PatientSerializer, TestSerializer
+from .serializers import PatientCreateSerializer, PatientUpdateSerializer, TestSerializer
 
 import logging
 import re
@@ -19,21 +18,21 @@ class TestView(CreateAPIView):
             serializer.save()
             response_data = {
                 "status": "SUCCESS",
-                "value": serializer.data
+                "value": serializer.validated_data
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
 
         response_data = {
             "status": "FAIL",
-            "value": serializer.data
+            "value": serializer.validated_data
         }
         logger.error(serializer.data)
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PatientCreate(CreateAPIView):
-    serializer_class = PatientSerializer
-    model_class = PatientSerializer.Meta.model
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -50,14 +49,37 @@ class PatientCreate(CreateAPIView):
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-        response = serializer.data
+        response = serializer.validated_data
         response['test'] = True
         return Response(response, status=status.HTTP_201_CREATED)
 
 
+class PatientUpdate(GenericAPIView):
+    serializer_class = PatientUpdateSerializer
+    model_class = PatientUpdateSerializer.Meta.model
+    queryset = model_class.objects.all()
+    lookup_field = 'kakao_user_id'
+
+    def post(self, request, *args, **kwargs):
+        kakao_user_id = request.data['userRequest']['user']['id']
+        patient = self.queryset.get(kakao_user_id=kakao_user_id)
+
+        params = request.data['action']['params']
+        params['kakao_user_id'] = kakao_user_id
+        if 'patient_code' in params:
+            params['code'] = params['patient_code']
+
+        serializer = self.get_serializer(patient, data=params, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        response = serializer.validated_data
+        return Response(response, status=status.HTTP_204_NO_CONTENT)
+
+
 class ValidatePatientCode(CreateAPIView):
-    serializer_class = PatientSerializer
-    model_class = PatientSerializer.Meta.model
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -89,8 +111,8 @@ class ValidatePatientCode(CreateAPIView):
 
 
 class MediacationNotificationTest(CreateAPIView):
-    serializer_class = PatientSerializer
-    model_class = PatientSerializer.Meta.model
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
