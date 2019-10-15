@@ -160,3 +160,9 @@ def deploy(skip_migrations=False):
         _send_deploy_message(message='*Deploy succeed.*')
     except SystemExit as e:
         _send_slack_message(message='*Deploy failed.*\n<@한규주>')
+
+
+def refresh():
+    _grant_uwsgi()
+    _restart_uwsgi()
+    _restart_nginx()
