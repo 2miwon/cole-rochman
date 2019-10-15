@@ -4,8 +4,36 @@ from django.db import models
 
 class Patient(models.Model):
     code = models.CharField(max_length=12, unique=True)
-    kakao_user_id = models.CharField(max_length=150)
+    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
+    kakao_user_id = models.CharField(max_length=150, unique=True)
     nickname = models.CharField(max_length=20, default='')
+
+    treatment_started_date = models.DateField(verbose_name='치료 시작일', null=True)
+    additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', null=True, default=None)
+    additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', null=True)
+    discharged_flag = models.NullBooleanField(verbose_name='퇴원 여부', null=True, default=None)
+    registered_flag = models.NullBooleanField(verbose_name='계정 등록 완료 여부', null=True, default=None)
+    medication_manage_flag = models.NullBooleanField(verbose_name='복약관리 여부', null=True, default=None)
+    daily_medication_count = models.IntegerField(verbose_name='하루 복약 횟수', default=0)
+    medication_noti_flag = models.NullBooleanField(verbose_name='복약알림 여부', null=True, default=None)
+    medication_noti_time_1 = models.TimeField(verbose_name='복약알림 시간 1', null=True, default=None)
+    medication_noti_time_2 = models.TimeField(verbose_name='복약알림 시간 2', null=True, default=None)
+    medication_noti_time_3 = models.TimeField(verbose_name='복약알림 시간 3', null=True, default=None)
+    medication_noti_time_4 = models.TimeField(verbose_name='복약알림 시간 4', null=True, default=None)
+    medication_noti_time_5 = models.TimeField(verbose_name='복약알림 시간 5', null=True, default=None)
+    visit_manage_flag = models.NullBooleanField(verbose_name='내원관리 여부', null=True, default=None)
+    next_visiting_date = models.DateField(verbose_name='다음 내원일', null=True, default=None)
+    visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', null=True, default=None)
+    visit_notification_time = models.TimeField(verbose_name='내원알림 시간', null=True, default=None)
+    health_manage_flag = models.NullBooleanField(verbose_name='건강관리 여부', null=True, default=None)
+    daily_measurement_count = models.IntegerField(verbose_name='하루 측정 횟수', default=0)
+    measurement_noti_flag = models.NullBooleanField(verbose_name='측정 알림 여부', null=True, default=None)
+    measurement_noti_time_1 = models.TimeField(verbose_name='측정 알림 시간 1', null=True, default=None)
+    measurement_noti_time_2 = models.TimeField(verbose_name='측정 알림 시간 2', null=True, default=None)
+    measurement_noti_time_3 = models.TimeField(verbose_name='측정 알림 시간 3', null=True, default=None)
+    measurement_noti_time_4 = models.TimeField(verbose_name='측정 알림 시간 4', null=True, default=None)
+    measurement_noti_time_5 = models.TimeField(verbose_name='측정 알림 시간 5', null=True, default=None)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -15,6 +43,19 @@ class Patient(models.Model):
     class Meta:
         verbose_name = '환자'
         verbose_name_plural = '환자'
+
+
+class Hospital(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.name}({self.id})'
+
+    class Meta:
+        verbose_name = '병원'
+        verbose_name_plural = '병원'
 
 
 class Test(models.Model):
