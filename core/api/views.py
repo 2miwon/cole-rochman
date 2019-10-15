@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.response import Response
@@ -62,7 +63,10 @@ class PatientUpdate(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         kakao_user_id = request.data['userRequest']['user']['id']
-        patient = self.queryset.get(kakao_user_id=kakao_user_id)
+        try:
+            patient = self.queryset.get(kakao_user_id=kakao_user_id)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         params = request.data['action']['params']
         params['kakao_user_id'] = kakao_user_id
