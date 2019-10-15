@@ -1,3 +1,5 @@
+import json
+
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, GenericAPIView
@@ -73,6 +75,64 @@ class PatientUpdate(GenericAPIView):
         if 'patient_code' in params:
             params['code'] = params['patient_code']
 
+        for key, value in params.items():
+            if 'flag' in key:
+                if value == '예':
+                    params[key] = True
+                elif value == '아니요' or '아니오':
+                    params[key] = False
+
+            if 'count' in key:
+                params[key] = value.strip('회')
+
+            if 'time' in key:
+                params[key] = value['time']
+
+        serializer = self.get_serializer(patient, data=params, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        if not request.query_params.get('test'):
+            serializer.save()
+        response = {
+            "version": "2.0",
+            "data": {
+            }
+        }
+        # response = serializer.validated_data
+        return Response(response, status=status.HTTP_200_OK)
+
+
+class PatientMediacationNotiSetTime(CreateAPIView):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        kakao_user_id = request.data['userRequest']['user']['id']
+        try:
+            patient = self.queryset.get(kakao_user_id=kakao_user_id)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        params = dict()
+        params['medication_noti_time'] = request.data['action']['params']['medication_noti_time']
+        params[''] = request.data['action']['detailParams']['medication_noti_flag']['value']
+        params['kakao_user_id'] = kakao_user_id
+
+        for key, value in params.items():
+            if 'flag' in key:
+                if value == '예':
+                    params[key] = True
+                elif value == '아니요' or '아니오':
+                    params[key] = False
+
+            if 'count' in key:
+                params[key] = value.strip('회')
+
+            if 'time' in key:
+                params[key] = json.loads(value)['time']
+
         serializer = self.get_serializer(patient, data=params, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -80,8 +140,19 @@ class PatientUpdate(GenericAPIView):
         if not request.query_params.get('test'):
             serializer.save()
 
-        response = serializer.validated_data
-        return Response(response, status=status.HTTP_204_NO_CONTENT)
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": "%d회차 복약을 몇 시에 해야 하나요?\n('오전 몇 시', 또는 '오후 몇 시'로 입력해주세요)\n예) 오후 1시"
+                        }
+                    }
+                ]
+            }
+        }
+        return Response(response, status=status.HTTP_200_OK)
 
 
 class ValidatePatientCode(CreateAPIView):
@@ -115,36 +186,3 @@ class ValidatePatientCode(CreateAPIView):
             "value": matched.group().upper()
         }
         return Response(response_data, status=status.HTTP_200_OK)
-
-
-class MediacationNotificationTest(CreateAPIView):
-    serializer_class = PatientCreateSerializer
-    model_class = PatientCreateSerializer.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        response = {
-            "version": "2.0",
-            "template": {
-                "outputs": [
-                    {
-                        "simpleText": {
-                            "text": "1회차 알림받을 시간을 선택해주세요."
-                        }
-                    }
-                ],
-                "quickReplies": [
-                    {
-                        "action": "message",
-                        "label": "오후 1시",
-                        "messageText": "1회차 알람으로 오후 1시에 알람을 설정합니다."
-                    },
-                    {
-                        "action": "message",
-                        "label": "오후 2시",
-                        "messageText": "1회차 알람으로 오후 2시에 알람을 설정합니다."
-                    },
-                ]
-            }
-        }
-        return Response(response, status=status.HTTP_200_OK)
