@@ -103,6 +103,56 @@ class PatientUpdate(GenericAPIView):
         return Response(response, status=status.HTTP_200_OK)
 
 
+class PatientMediacationNotiTimeStart(CreateAPIView):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        kakao_user_id = request.data['userRequest']['user']['id']
+        try:
+            patient = self.queryset.get(kakao_user_id=kakao_user_id)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if not patient.has_undefined_noti_time():
+            time_list = ','.join([x.strftime('%H시 %i분') for x in patient.medication_noti_time_list()])
+            response = {
+                "version": "2.0",
+                "template": {
+                    "outputs": [
+                        {
+                            "simpleText": {
+                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list
+                            }
+                        }
+                    ]
+                }
+            }
+            return Response(response, status=status.HTTP_200_OK)
+
+        params = dict()
+        params['kakao_user_id'] = kakao_user_id
+
+        next_undefined_number = patient.next_undefined_noti_time_number()
+
+        message = "%d회차 복약을 몇 시에 해야 하나요?\n('오전 몇 시', 또는 '오후 몇 시'로 입력해주세요)\n예) 오후 1시" % next_undefined_number
+
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": message
+                        }
+                    }
+                ]
+            }
+        }
+        return Response(response, status=status.HTTP_200_OK)
+
+
 class PatientMediacationNotiSetTime(CreateAPIView):
     serializer_class = PatientCreateSerializer
     model_class = PatientCreateSerializer.Meta.model
@@ -115,23 +165,51 @@ class PatientMediacationNotiSetTime(CreateAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+        if not patient.has_undefined_noti_time():
+            time_list = ','.join([x.strftime('%H시 %i분') for x in patient.medication_noti_time_list()])
+            response = {
+                "version": "2.0",
+                "template": {
+                    "outputs": [
+                        {
+                            "simpleText": {
+                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list
+                            }
+                        }
+                    ]
+                }
+            }
+            return Response(response, status=status.HTTP_200_OK)
+
         params = dict()
-        params['medication_noti_time'] = request.data['action']['params']['medication_noti_time']
-        params[''] = request.data['action']['detailParams']['medication_noti_flag']['value']
+        next_undefined_number = patient.next_undefined_noti_time_number()
+        field = ''
+        if next_undefined_number == 1:
+            field = 'medication_noti_time_1'
+        elif next_undefined_number == 2:
+            field = 'medication_noti_time_2'
+        elif next_undefined_number == 3:
+            field = 'medication_noti_time_3'
+        elif next_undefined_number == 4:
+            field = 'medication_noti_time_4'
+        elif next_undefined_number == 5:
+            field = 'medication_noti_time_5'
+
+        medication_noti_time = request.data['action']['detailParams'].get('noti_time')
+        if medication_noti_time:
+            params[field] = medication_noti_time['value']
         params['kakao_user_id'] = kakao_user_id
 
-        for key, value in params.items():
-            if 'flag' in key:
-                if value == '예':
-                    params[key] = True
-                elif value == '아니요' or '아니오':
-                    params[key] = False
-
-            if 'count' in key:
-                params[key] = value.strip('회')
-
-            if 'time' in key:
-                params[key] = json.loads(value)['time']
+        if next_undefined_number == 1:
+            params['medication_noti_time_1'] = medication_noti_time
+        elif next_undefined_number == 2:
+            params['medication_noti_time_2'] = medication_noti_time
+        elif next_undefined_number == 3:
+            params['medication_noti_time_3'] = medication_noti_time
+        elif next_undefined_number == 4:
+            params['medication_noti_time_4'] = medication_noti_time
+        elif next_undefined_number == 5:
+            params['medication_noti_time_5'] = medication_noti_time
 
         serializer = self.get_serializer(patient, data=params, partial=True)
         if not serializer.is_valid():
@@ -140,14 +218,43 @@ class PatientMediacationNotiSetTime(CreateAPIView):
         if not request.query_params.get('test'):
             serializer.save()
 
+        patient.refresh_from_db()
+        if not patient.has_undefined_noti_time():
+            time_list = ','.join([x.strftime('%H시 %i분') for x in patient.medication_noti_time_list()])
+            response = {
+                "version": "2.0",
+                "template": {
+                    "outputs": [
+                        {
+                            "simpleText": {
+                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list
+                            }
+                        }
+                    ]
+                }
+            }
+            return Response(response, status=status.HTTP_200_OK)
         response = {
             "version": "2.0",
             "template": {
                 "outputs": [
                     {
                         "simpleText": {
-                            "text": "%d회차 복약을 몇 시에 해야 하나요?\n('오전 몇 시', 또는 '오후 몇 시'로 입력해주세요)\n예) 오후 1시"
+                            "text": "다음 회차를 설정하시려면 '예'를 눌러주세요."
                         }
+                    }
+                ],
+                "quickReplies": [
+                    {
+                        "action": "message",
+                        "label": "예",
+                        "messageText": "예",
+                        "blockId": "5da5eac292690d0001a489e4"
+                    },
+                    {
+                        "action": "message",
+                        "label": "아니요",
+                        "messageText": "아니요"
                     }
                 ]
             }

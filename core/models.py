@@ -40,6 +40,20 @@ class Patient(models.Model):
     def __str__(self):
         return '%s/%s' % (self.code, self.nickname)
 
+    def medication_noti_time_list(self):
+        if not (self.medication_manage_flag or self.medication_noti_flag):
+            return list()
+
+        time_list = [self.medication_noti_time_1, self.medication_noti_time_2, self.medication_noti_time_3,
+                     self.medication_noti_time_4, self.medication_noti_time_5]
+        return time_list[:self.daily_medication_count]
+
+    def has_undefined_noti_time(self):
+        return None in self.medication_noti_time_list()
+
+    def next_undefined_noti_time_number(self):
+        return self.medication_noti_time_list().index(None) + 1
+
     class Meta:
         verbose_name = '환자'
         verbose_name_plural = '환자'
