@@ -77,9 +77,9 @@ class PatientUpdate(GenericAPIView):
 
         for key, value in params.items():
             if 'flag' in key:
-                if value == '예':
+                if value == '예' or 'true':
                     params[key] = True
-                elif value == '아니요' or '아니오':
+                elif value == '아니요' or '아니오' or 'false':
                     params[key] = False
 
             if 'count' in key:
