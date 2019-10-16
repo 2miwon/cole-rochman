@@ -198,19 +198,21 @@ class PatientMediacationNotiSetTime(CreateAPIView):
         medication_noti_time = request.data['action']['detailParams'].get('noti_time')
         if medication_noti_time:
             time_dict = json.loads(medication_noti_time['value'])
+            print(time_dict)
+            print(time_dict['time'])
             params[field] = time_dict['time']
         params['kakao_user_id'] = kakao_user_id
 
-        if next_undefined_number == 1:
-            params['medication_noti_time_1'] = medication_noti_time
-        elif next_undefined_number == 2:
-            params['medication_noti_time_2'] = medication_noti_time
-        elif next_undefined_number == 3:
-            params['medication_noti_time_3'] = medication_noti_time
-        elif next_undefined_number == 4:
-            params['medication_noti_time_4'] = medication_noti_time
-        elif next_undefined_number == 5:
-            params['medication_noti_time_5'] = medication_noti_time
+        # if next_undefined_number == 1:
+        #     params['medication_noti_time_1'] = medication_noti_time
+        # elif next_undefined_number == 2:
+        #     params['medication_noti_time_2'] = medication_noti_time
+        # elif next_undefined_number == 3:
+        #     params['medication_noti_time_3'] = medication_noti_time
+        # elif next_undefined_number == 4:
+        #     params['medication_noti_time_4'] = medication_noti_time
+        # elif next_undefined_number == 5:
+        #     params['medication_noti_time_5'] = medication_noti_time
 
         serializer = self.get_serializer(patient, data=params, partial=True)
         if not serializer.is_valid():
@@ -249,7 +251,7 @@ class PatientMediacationNotiSetTime(CreateAPIView):
                     {
                         "action": "message",
                         "label": "예",
-                        "messageText": "예",
+                        "messageText": "복약 알림 시간 설정 테스트",
                         "blockId": "5da5eac292690d0001a489e4"
                     },
                     {
