@@ -197,7 +197,7 @@ class PatientMediacationNotiSetTime(CreateAPIView):
 
         medication_noti_time = request.data['action']['detailParams'].get('noti_time')
         if medication_noti_time:
-            params[field] = medication_noti_time['value']
+            params[field] = medication_noti_time['value']['time']
         params['kakao_user_id'] = kakao_user_id
 
         if next_undefined_number == 1:
