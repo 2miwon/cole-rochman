@@ -1,10 +1,11 @@
+import copy
 import json
 
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.response import Response
 
+from core.api.util.helper import KakaoResponseAPI
 from .serializers import PatientCreateSerializer, PatientUpdateSerializer, TestSerializer
 
 import logging
@@ -14,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class TestView(CreateAPIView):
-    def post(self, request, format='json', *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = TestSerializer(data={'data': request.data})
 
         if serializer.is_valid():
@@ -38,7 +39,7 @@ class PatientCreate(CreateAPIView):
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         data = dict()
         data['kakao_user_id'] = request.data['userRequest']['user']['id']
         data['code'] = request.data['action']['params']['patient_code']
@@ -57,23 +58,15 @@ class PatientCreate(CreateAPIView):
         return Response(response, status=status.HTTP_201_CREATED)
 
 
-class PatientUpdate(GenericAPIView):
+class PatientUpdate(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = PatientUpdateSerializer.Meta.model
     queryset = model_class.objects.all()
-    lookup_field = 'kakao_user_id'
 
     def post(self, request, *args, **kwargs):
-        kakao_user_id = request.data['userRequest']['user']['id']
-        try:
-            patient = self.queryset.get(kakao_user_id=kakao_user_id)
-        except ObjectDoesNotExist:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        params = request.data['action']['params']
-        params['kakao_user_id'] = kakao_user_id
-        if 'patient_code' in params:
-            params['code'] = params['patient_code']
+        self.preprocess(request)
+        params = self.data
+        patient = self.get_object_by_kakao_user_id()
 
         for key, value in params.items():
             if 'flag' in key:
@@ -86,7 +79,8 @@ class PatientUpdate(GenericAPIView):
                 params[key] = value.strip('회')
 
             if 'time' in key:
-                params[key] = value['time']
+                time_dict = json.loads(value)
+                params[key] = time_dict['time']
 
         serializer = self.get_serializer(patient, data=params, partial=True)
         if not serializer.is_valid():
@@ -99,44 +93,39 @@ class PatientUpdate(GenericAPIView):
             "data": {
             }
         }
-        # response = serializer.validated_data
         return Response(response, status=status.HTTP_200_OK)
 
 
-class PatientMediacationNotiTimeStart(CreateAPIView):
-    serializer_class = PatientCreateSerializer
+class PatientMedicationNotiTimeStart(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        kakao_user_id = request.data['userRequest']['user']['id']
-        try:
-            patient = self.queryset.get(kakao_user_id=kakao_user_id)
-        except ObjectDoesNotExist:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        patient = self.get_object_by_kakao_user_id()
 
         if not patient.has_undefined_noti_time():
-            time_list = ','.join([x.strftime('%H시 %i분') for x in patient.medication_noti_time_list()])
+            time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
+            # TODO response = KakaoResponseAPI.build_response() 구현. 코드량 줄이기
             response = {
                 "version": "2.0",
                 "template": {
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list
+                                "text": f"이미 모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n{time_list}"
                             }
                         }
                     ]
                 }
             }
+            # TODO 다음 액션 없음
+            # TODO-2 시간 재설정할건지 물어보면 좋을 듯
             return Response(response, status=status.HTTP_200_OK)
-
-        params = dict()
-        params['kakao_user_id'] = kakao_user_id
 
         next_undefined_number = patient.next_undefined_noti_time_number()
 
-        message = "%d회차 복약을 몇 시에 해야 하나요?\n('오전 몇 시', 또는 '오후 몇 시'로 입력해주세요)\n예) 오후 1시" % next_undefined_number
+        message = f'{next_undefined_number:d}회차 복약을 몇 시에 해야 하나요?\n(\'오전 몇 시\', 또는 \'오후 몇 시\'로 입력해주세요)\n예) 오후 1시'
 
         response = {
             "version": "2.0",
@@ -153,20 +142,16 @@ class PatientMediacationNotiTimeStart(CreateAPIView):
         return Response(response, status=status.HTTP_200_OK)
 
 
-class PatientMediacationNotiSetTime(CreateAPIView):
+class PatientMedicationNotiSetTime(KakaoResponseAPI):
     serializer_class = PatientCreateSerializer
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        kakao_user_id = request.data['userRequest']['user']['id']
-        try:
-            patient = self.queryset.get(kakao_user_id=kakao_user_id)
-        except ObjectDoesNotExist:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        patient = self.get_object_by_kakao_user_id()
 
-        if not patient.has_undefined_noti_time():
-            time_list = ','.join([x.strftime('%H시 %i분') for x in patient.medication_noti_time_list()])
+        if not patient.has_undefined_noti_time():  # TODO has_undefined_noti_time() 로직에 버그있음. (엣지 케이스 확인 필요)
+            time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
             response = {
                 "version": "2.0",
                 "template": {
@@ -182,37 +167,21 @@ class PatientMediacationNotiSetTime(CreateAPIView):
             return Response(response, status=status.HTTP_200_OK)
 
         params = dict()
-        next_undefined_number = patient.next_undefined_noti_time_number()
-        field = ''
-        if next_undefined_number == 1:
-            field = 'medication_noti_time_1'
-        elif next_undefined_number == 2:
-            field = 'medication_noti_time_2'
-        elif next_undefined_number == 3:
-            field = 'medication_noti_time_3'
-        elif next_undefined_number == 4:
-            field = 'medication_noti_time_4'
-        elif next_undefined_number == 5:
-            field = 'medication_noti_time_5'
-
-        medication_noti_time = request.data['action']['detailParams'].get('noti_time')
+        medication_noti_time = self.data.get('noti_time')
         if medication_noti_time:
             time_dict = json.loads(medication_noti_time['value'])
-            print(time_dict)
-            print(time_dict['time'])
-            params[field] = time_dict['time']
-        params['kakao_user_id'] = kakao_user_id
+            next_undefined_number = patient.next_undefined_noti_time_number()
 
-        # if next_undefined_number == 1:
-        #     params['medication_noti_time_1'] = medication_noti_time
-        # elif next_undefined_number == 2:
-        #     params['medication_noti_time_2'] = medication_noti_time
-        # elif next_undefined_number == 3:
-        #     params['medication_noti_time_3'] = medication_noti_time
-        # elif next_undefined_number == 4:
-        #     params['medication_noti_time_4'] = medication_noti_time
-        # elif next_undefined_number == 5:
-        #     params['medication_noti_time_5'] = medication_noti_time
+            if next_undefined_number == 1:
+                params['medication_noti_time_1'] = time_dict['time']
+            elif next_undefined_number == 2:
+                params['medication_noti_time_2'] = time_dict['time']
+            elif next_undefined_number == 3:
+                params['medication_noti_time_3'] = time_dict['time']
+            elif next_undefined_number == 4:
+                params['medication_noti_time_4'] = time_dict['time']
+            elif next_undefined_number == 5:
+                params['medication_noti_time_5'] = time_dict['time']
 
         serializer = self.get_serializer(patient, data=params, partial=True)
         if not serializer.is_valid():
@@ -223,7 +192,7 @@ class PatientMediacationNotiSetTime(CreateAPIView):
 
         patient.refresh_from_db()
         if not patient.has_undefined_noti_time():
-            time_list = ','.join([x.strftime('%H시 %i분') for x in patient.medication_noti_time_list()])
+            time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
             response = {
                 "version": "2.0",
                 "template": {
@@ -237,6 +206,7 @@ class PatientMediacationNotiSetTime(CreateAPIView):
                 }
             }
             return Response(response, status=status.HTTP_200_OK)
+
         response = {
             "version": "2.0",
             "template": {
@@ -251,7 +221,7 @@ class PatientMediacationNotiSetTime(CreateAPIView):
                     {
                         "action": "message",
                         "label": "예",
-                        "messageText": "복약 알림 시간 설정 테스트",
+                        # "messageText": "복약 알림 시간 설정 테스트",
                         "blockId": "5da5eac292690d0001a489e4"
                     },
                     {
@@ -270,7 +240,7 @@ class ValidatePatientCode(CreateAPIView):
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         value = request.data['value']['origin']
         regex = re.compile(r'[a-zA-Z]\d{11}')
         matched = re.search(regex, value)
