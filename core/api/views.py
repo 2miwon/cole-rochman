@@ -156,15 +156,28 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
         patient = self.get_object_by_kakao_user_id()
 
         if not patient.has_undefined_noti_time():  # TODO has_undefined_noti_time() 로직에 버그있음. (엣지 케이스 확인 필요)
-            time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
+            time_list = ', '.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
             response = {
                 "version": "2.0",
                 "template": {
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list
+                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list \
+                                        + "내원 관리를 시작할까요?"
                             }
+                        }
+                    ],
+                    "quickReplies": [
+                        {
+                            "action": "message",
+                            "label": "예",
+                            "blockId": "5d9df0a9ffa7480001dacfd7"
+                        },
+                        {
+                            "action": "message",
+                            "label": "아니요",
+                            "messageText": "아니요"
                         }
                     ]
                 }
@@ -197,15 +210,28 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
 
         patient.refresh_from_db()
         if not patient.has_undefined_noti_time():
-            time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
+            time_list = ', '.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
             response = {
                 "version": "2.0",
                 "template": {
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list
+                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list \
+                                        + "내원 관리를 시작할까요?"
                             }
+                        }
+                    ],
+                    "quickReplies": [
+                        {
+                            "action": "message",
+                            "label": "예",
+                            "blockId": "5d9df0a9ffa7480001dacfd7"
+                        },
+                        {
+                            "action": "message",
+                            "label": "아니요",
+                            "messageText": "아니요"
                         }
                     ]
                 }
