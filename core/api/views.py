@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class TestView(CreateAPIView):
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format='json', *args, **kwargs):
         serializer = TestSerializer(data={'data': request.data})
 
         if serializer.is_valid():
@@ -39,7 +39,7 @@ class PatientCreate(CreateAPIView):
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format='json', *args, **kwargs):
         data = dict()
         data['kakao_user_id'] = request.data['userRequest']['user']['id']
         data['code'] = request.data['action']['params']['patient_code']
@@ -63,7 +63,7 @@ class PatientUpdate(KakaoResponseAPI):
     model_class = PatientUpdateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
         params = self.data
         patient = self.get_object_by_kakao_user_id()
@@ -101,7 +101,7 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
 
@@ -148,7 +148,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
 
@@ -242,7 +242,7 @@ class ValidatePatientCode(CreateAPIView):
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format='json', *args, **kwargs):
         value = request.data['value']['origin']
         regex = re.compile(r'[a-zA-Z]\d{11}')
         matched = re.search(regex, value)
