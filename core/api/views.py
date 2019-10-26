@@ -76,7 +76,10 @@ class PatientUpdate(KakaoResponseAPI):
                     params[key] = False
 
             if 'count' in key:
-                params[key] = value.strip('회')
+                try:
+                    params[key] = value.strip('회')
+                except AttributeError:
+                    params[key] = value['value'].strip('회')
 
             if 'time' in key:
                 time_dict = json.loads(value)
