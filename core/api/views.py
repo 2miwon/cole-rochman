@@ -102,6 +102,7 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
     queryset = model_class.objects.all()
 
     def post(self, request, *args, **kwargs):
+        self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
 
         if not patient.has_undefined_noti_time():
@@ -148,6 +149,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
     queryset = model_class.objects.all()
 
     def post(self, request, *args, **kwargs):
+        self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
 
         if not patient.has_undefined_noti_time():  # TODO has_undefined_noti_time() 로직에 버그있음. (엣지 케이스 확인 필요)
