@@ -1,4 +1,5 @@
 import copy
+import datetime
 import json
 
 from rest_framework import status
@@ -317,6 +318,70 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
         return Response(response, status=status.HTTP_200_OK)
 
 
+class PatientVisitTimeBefore(KakaoResponseAPI):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        patient = self.get_object_by_kakao_user_id()
+
+        minutes = self.data['visit_notification_before']  # 분 단위의 integer
+
+        serializer = self.get_serializer(patient, data={'visit_notification_before': minutes}, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        if not request.query_params.get('test'):
+            serializer.save()
+
+        timedelta = datetime.timedelta(minutes=minutes)
+        time_before_verbose = ''
+
+        timedelta_hours = timedelta.seconds // (60 * 60)
+        timedelta_minutes = timedelta.seconds // 60
+
+        if timedelta.days:
+            time_before_verbose += '%d일 ' % timedelta.days
+        if not timedelta_hours == 0:
+            time_before_verbose += '%d시간 ' % timedelta_hours
+        if not timedelta_minutes == 0:
+            time_before_verbose += '%d분 ' % timedelta_minutes
+
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": "내원 시간 %s 전에 알람을 드리겠습니다." % time_before_verbose.strip()
+                        }
+                    },
+                    {
+                        "simpleText": {
+                            "text": "이대로 알람을 설정할까요?"
+                        }
+                    }
+                ],
+                "quickReplies": [
+                    {
+                        "action": "message",
+                        "label": "예",
+                        "blockId": "5d9df7978192ac0001156891"  # (블록) 05 치료 관리 설정_내원 관리 완료
+                    },
+                    {
+                        "action": "message",
+                        "label": "아니요",
+                        "message": "아니요, 지금은 안 할래요.",
+                        "blockId": "5d9df9368192ac00011568a9"  # (블록) 치료 관리 설정_내원 알람 종료
+                    }
+                ]
+            }
+        }
+        return Response(response, status=status.HTTP_200_OK)
+
+
 class ValidatePatientCode(CreateAPIView):
     serializer_class = PatientCreateSerializer
     model_class = PatientCreateSerializer.Meta.model
@@ -346,5 +411,54 @@ class ValidatePatientCode(CreateAPIView):
         response_data = {
             "status": "SUCCESS",
             "value": matched.group().upper()
+        }
+        return Response(response_data, status=status.HTTP_200_OK)
+
+
+class ValidateTimeBefore(KakaoResponseAPI):
+    def post(self, request, format='json', *args, **kwargs):
+        SECONDS_FOR_MINUTE = 60
+        SECONDS_FOR_HOUR = 60 * SECONDS_FOR_MINUTE
+        SECONDS_FOR_DAY = 24 * SECONDS_FOR_HOUR
+
+        value = request.data['value']['origin']
+
+        minutes = re.search(r'\d{1,2}분', value)
+        hours = re.search(r'\d{1,2}시', value)
+        days = re.search(r'하루|이틀|\d+일', value)
+
+        timedelta = 0
+
+        if days:
+            if days.group() == '하루':
+                days_str = 1
+            elif days.group() == '이틀':
+                days_str = 2
+            else:
+                days_str = days.group().strip('일')
+            timedelta += int(days_str) * SECONDS_FOR_DAY
+
+        elif minutes and hours:
+            minutes_str = minutes.group().strip('분')
+            hours_str = hours.group().strip('시')
+            timedelta += int(hours_str) * SECONDS_FOR_HOUR + int(minutes_str) * SECONDS_FOR_MINUTE
+
+        elif minutes:
+            minutes_str = minutes.group().strip('분')
+            timedelta += int(minutes_str) * SECONDS_FOR_MINUTE
+
+        elif hours:
+            hours_str = hours.group().strip('시')
+            timedelta += int(hours_str) * SECONDS_FOR_HOUR
+
+        else:
+            response_data = {
+                "status": "FAIL"
+            }
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+        response_data = {
+            "status": "SUCCESS",
+            "value": timedelta
         }
         return Response(response_data, status=status.HTTP_200_OK)
