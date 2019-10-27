@@ -333,7 +333,7 @@ class PatientVisitTimeBefore(KakaoResponseAPI):
         patient = self.get_object_by_kakao_user_id()
 
         minutes = self.data['visit_notification_before']  # 분 단위의 integer
-
+        minutes = int(minutes)
         serializer = self.get_serializer(patient, data={'visit_notification_before': minutes}, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
