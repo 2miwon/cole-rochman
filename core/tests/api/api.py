@@ -114,6 +114,21 @@ class PatientUpdateTest(APITestCase):
         self.assertEqual(getattr(p, field), original_data)
 
 
+class PatientVisitTimeBeforeTest(APITestCase):
+    def test_success(self):
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123')
+        url = reverse('patient-visit-noti-time')
+        data = {
+            'userRequest': {'user': {'id': 'abc123'}},
+            'action': {'params': {'visit_notification_before': '12600'}}
+        }
+        response = self.client.post(url, data, format='json')
+        p.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(getattr(p, 'visit_notification_before'), 12600)
+        self.assertEqual(getattr(p, 'visit_notification_flag'), True)
+
+
 class ValidateTest(APITestCase):
     def test_patient_code_success(self):
         """
