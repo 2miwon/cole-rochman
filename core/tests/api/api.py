@@ -10,6 +10,8 @@ from django.utils import timezone
 from core.models import Patient, Test
 
 time_request_example_1am = '{"timeHeadword": "am", "hour": "1", "second": null, "timeTag": "am", "time": "01:00:00", "date": "2019-10-16", "minute": null}'
+date_time_request_example = '{"dateTag": null, "timeHeadword": "pm", "hour": null, "dateHeadword": null, "time": "15:00:00",\
+          "second": null, "month": "11", "timeTag": "pm", "year": null, "date": "2019-11-01", "day": "1", "minute": null}'
 
 
 class PatientCreateTest(APITestCase):
@@ -65,10 +67,8 @@ class PatientUpdateTest(APITestCase):
         ('medication_noti_time_4', 'medication_noti_time_4', time_request_example_1am, datetime.time(1, 0)),
         ('medication_noti_time_5', 'medication_noti_time_5', time_request_example_1am, datetime.time(1, 0)),
         ('visit_manage_flag', 'visit_manage_flag', 'true', True),
-        ('next_visiting_date_time', 'next_visiting_date_time', json.dumps(
-            {"dateTag": None, "timeHeadword": "pm", "hour": None, "dateHeadword": None, "time": "15:00:00",
-             "second": None, "month": "11", "timeTag": "pm", "year": None, "date": "2019-11-01", "day": "1",
-             "minute": None}),
+        ('next_visiting_date_time', 'next_visiting_date_time',
+         json.loads(date_time_request_example),
          datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone()),
         ('visit_notification_flag', 'visit_notification_flag', 'true', True),
         ('visit_notification_before', 'visit_notification_before', 3600, 3600),

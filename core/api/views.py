@@ -81,7 +81,9 @@ class PatientUpdate(KakaoResponseAPI):
                 except AttributeError:
                     params[key] = value['value'].strip('회')
             elif 'date_time' in key:
-                date_time_dict = json.loads(value)
+                logger.log(0, msg=value)
+                logger.log(0, msg=type(value))
+                date_time_dict = value
                 params[key] = date_time_dict['date'] + " " + date_time_dict['time']
             elif 'time' in key:
                 time_dict = json.loads(value)
@@ -246,7 +248,8 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                         {
                             "action": "block",
                             "label": "예",
-                            "blockId": "5d9df0a9ffa7480001dacfd7"  # (블록) 01 치료 관리 설정_내원 관리 시작
+                            "blockId": "5d9df31692690d0001a458e6"  # (블록) 02 치료 관리 설정_내원 예정일 확인
+                        #     TODO 퇴원환자의 경우 내원관리로 가면 안됨
                         },
                         {
                             "action": "message",
