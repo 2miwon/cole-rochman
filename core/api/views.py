@@ -105,7 +105,8 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
+        self.preprocess(
+            request)  # TODO medication_manage_flag가 기본값으로 '예'를 보내고 있으나 들어오지 않고 있는 문제. 오픈빌더 확인 해보거나 코드상으로 기본값 구현 고려.
         patient = self.get_object_by_kakao_user_id()
 
         if not patient.has_undefined_noti_time():
@@ -156,15 +157,25 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
         patient = self.get_object_by_kakao_user_id()
 
         if not patient.has_undefined_noti_time():  # TODO has_undefined_noti_time() 로직에 버그있음. (엣지 케이스 확인 필요)
-            time_list = ', '.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
+            times_str = ''
+
+            for index, time in enumerate(patient.medication_noti_time_list()):
+                times_str += '%d회차 알람 시간은 %s\n' % (index + 1, time.strftime('%H시 %M분'))
+
+            times_str += '입니다.'
+
             response = {
                 "version": "2.0",
                 "template": {
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list \
-                                        + "내원 관리를 시작할까요?"
+                                "text": "모든 회차 알림 설정을 마쳤습니다.\n%s" % times_str
+                            }
+                        },
+                        {
+                            "simpleText": {
+                                "text": "이대로 복약 알람을 설정할까요?"
                             }
                         }
                     ],
@@ -172,7 +183,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                         {
                             "action": "message",
                             "label": "예",
-                            "blockId": "5d9df0a9ffa7480001dacfd7"
+                            "blockId": "5da5ac8fb617ea00012b4363"  # (블록) 06 치료 관리 설정_알람 설정 완료
                         },
                         {
                             "action": "message",
@@ -217,8 +228,12 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list \
-                                        + "내원 관리를 시작할까요?"
+                                "text": "모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list
+                            }
+                        },
+                        {
+                            "simpleText": {
+                                "text": "내원 관리를 시작할까요?"
                             }
                         }
                     ],
@@ -226,7 +241,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                         {
                             "action": "message",
                             "label": "예",
-                            "blockId": "5d9df0a9ffa7480001dacfd7"
+                            "blockId": "5d9df0a9ffa7480001dacfd7"  # (블록) 01 치료 관리 설정_내원 관리 시작
                         },
                         {
                             "action": "message",
@@ -252,8 +267,43 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                     {
                         "action": "message",
                         "label": "예",
-                        # "messageText": "복약 알림 시간 설정 테스트",
-                        "blockId": "5da5eac292690d0001a489e4"
+                        "blockId": "5da5eac292690d0001a489e4"  # (블록) 03 치료 관리 설정_복약 알림 시간 확인
+                    },
+                    {
+                        "action": "message",
+                        "label": "아니요",
+                        "messageText": "아니요"
+                    }
+                ]
+            }
+        }
+        return Response(response, status=status.HTTP_200_OK)
+
+
+class PatientMedicationNotiReset(KakaoResponseAPI):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        patient = self.get_object_by_kakao_user_id()
+        patient.reset_medication_noti()
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": "복약 알람 설정을 취소했습니다.\n다시 설정할까요?"
+                        }
+                    }
+                ],
+                "quickReplies": [
+                    {
+                        "action": "message",
+                        "label": "예",
+                        "blockId": "5da5e59ab617ea00012b43ee"  # (블록) 02 치료 관리 설정_복약횟수
                     },
                     {
                         "action": "message",

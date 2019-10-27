@@ -94,6 +94,7 @@ class Kakao:
         if not check_nested_key_exist(self.request_data, keys):
             return
         parsed = self.__parse_request(keys)
+        # TODO 이미 params에 있다면 거를 수 있어야함
         setattr(self, 'detail_params', parsed)
         self.detail_params_parsed = True
         self.data.update(parsed)

@@ -54,6 +54,16 @@ class Patient(models.Model):
     def next_undefined_noti_time_number(self):
         return self.medication_noti_time_list().index(None) + 1
 
+    def reset_medication_noti(self):
+        self.daily_medication_count = 0
+        self.medication_noti_flag = None
+        self.medication_noti_time_1 = None
+        self.medication_noti_time_2 = None
+        self.medication_noti_time_3 = None
+        self.medication_noti_time_4 = None
+        self.medication_noti_time_5 = None
+        return self.save()
+
     class Meta:
         verbose_name = '환자'
         verbose_name_plural = '환자'

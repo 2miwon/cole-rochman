@@ -150,16 +150,32 @@ class ValidateTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
-class TestTest(APITestCase):
-    def test_create(self):
-        """
-        create post
-        """
-        url = reverse('test')
+class PatientMedicationNotiTest(APITestCase):
+    def test_medication_noti_reset(self):
+        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
+        p.daily_medication_count = 5
+        p.medication_noti_flag = True
+        p.medication_noti_time_1 = datetime.datetime.now()
+        p.medication_noti_time_2 = datetime.datetime.now()
+        p.medication_noti_time_3 = datetime.datetime.now()
+        p.medication_noti_time_4 = datetime.datetime.now()
+        p.medication_noti_time_5 = datetime.datetime.now()
+        p.save()
+
+        url = reverse('patient-medication-noti-reset')
         data = {
-            'userRequest': {'user': {'id': 123}},
-            'action': {'detailParams': {'patient_code': {'value': 'test'}}}
+            'userRequest': {'user': {'id': 'asd123'}},
         }
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Test.objects.count(), 1)
+        p.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(p.medication_noti_flag, None)
+        self.assertEqual(p.daily_medication_count, 0)
+        self.assertEqual(p.medication_noti_time_1, None)
+        self.assertEqual(p.medication_noti_time_2, None)
+        self.assertEqual(p.medication_noti_time_3, None)
+        self.assertEqual(p.medication_noti_time_4, None)
+        self.assertEqual(p.medication_noti_time_5, None)
+        self.assertEqual(p.medication_noti_time_list(), list())
+        self.assertEqual(p.has_undefined_noti_time(), False)
+
