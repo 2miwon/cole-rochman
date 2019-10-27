@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.urls import reverse
 from rest_framework import status
@@ -64,8 +65,8 @@ class PatientUpdateTest(APITestCase):
         ('medication_noti_time_4', 'medication_noti_time_4', time_request_example_1am, datetime.time(1, 0)),
         ('medication_noti_time_5', 'medication_noti_time_5', time_request_example_1am, datetime.time(1, 0)),
         ('visit_manage_flag', 'visit_manage_flag', 'true', True),
-        ('next_visiting_date', 'next_visiting_date', timezone.now().today().strftime('%Y-%m-%d'),
-         timezone.now().today().date()),
+        ('next_visiting_date_time', 'next_visiting_date_time', json.dumps({"dateTag": None, "timeHeadword": "pm", "hour": None, "dateHeadword": None, "time": "15:00:00", "second": None, "month": "11", "timeTag": "pm", "year": None, "date": "2019-11-01", "day": "1", "minute": None}),
+         datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone()),
         ('visit_notification_flag', 'visit_notification_flag', 'true', True),
         ('visit_notification_time', 'visit_notification_time', time_request_example_1am, datetime.time(1, 0)),
         ('health_manage_flag', 'health_manage_flag', 'true', True),

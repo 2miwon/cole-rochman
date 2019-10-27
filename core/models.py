@@ -22,7 +22,7 @@ class Patient(models.Model):
     medication_noti_time_4 = models.TimeField(verbose_name='복약알림 시간 4', null=True, default=None)
     medication_noti_time_5 = models.TimeField(verbose_name='복약알림 시간 5', null=True, default=None)
     visit_manage_flag = models.NullBooleanField(verbose_name='내원관리 여부', null=True, default=None)
-    next_visiting_date = models.DateField(verbose_name='다음 내원일', null=True, default=None)
+    next_visiting_date_time = models.DateTimeField(verbose_name='다음 내원일', null=True, default=None)
     visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', null=True, default=None)
     visit_notification_time = models.TimeField(verbose_name='내원알림 시간', null=True, default=None)
     health_manage_flag = models.NullBooleanField(verbose_name='건강관리 여부', null=True, default=None)
