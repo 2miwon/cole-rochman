@@ -95,9 +95,10 @@ class Kakao:
             return
         parsed = self.__parse_request(keys)
         # TODO 이미 params에 있다면 거를 수 있어야함
-        setattr(self, 'detail_params', parsed)
+        for key, value in parsed.items():
+            self.detail_params[key] = value['value']
         self.detail_params_parsed = True
-        self.data.update(parsed)
+        self.data.update(self.detail_params)
 
     def parse_kakao_user_id(self):
         parsed = self.__parse_request(keys='userRequest.user.id')  # TODO parse 할수없는 경우 400 response -> 모든 폴백에 적용 고려

@@ -54,7 +54,8 @@ class KakaoTest(APITestCase):
         request = HttpRequest()
         data = {
             'action': {
-                'detailParams': {'test_key': 'test_value'}
+                'detailParams': {'test_key': {'origin': 'some_origin',
+                                              'value': {'some_value': 'test_value'}}}
             }
         }
         setattr(request, 'data', data)
@@ -62,7 +63,7 @@ class KakaoTest(APITestCase):
         kakao = Kakao()
         kakao.preprocess(request)
         kakao.parse_detail_params()
-        self.assertEqual(kakao.detail_params, {'test_key': 'test_value'})
+        self.assertEqual(kakao.detail_params, {'test_key': {'some_value': 'test_value'}})
         self.assertEqual(kakao.detail_params_parsed, True)
 
     def test_parse_patient_code(self):

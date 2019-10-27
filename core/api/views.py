@@ -81,9 +81,7 @@ class PatientUpdate(KakaoResponseAPI):
                 except AttributeError:
                     params[key] = value['value'].strip('회')
             elif 'date_time' in key:
-                logger.log(0, msg=value)
-                logger.log(0, msg=type(value))
-                date_time_dict = value
+                date_time_dict = json.loads(value)
                 params[key] = date_time_dict['date'] + " " + date_time_dict['time']
             elif 'time' in key:
                 time_dict = json.loads(value)
