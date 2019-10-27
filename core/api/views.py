@@ -203,7 +203,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
         params = dict()
         medication_noti_time = self.data.get('noti_time')
         if medication_noti_time:
-            time_dict = json.loads(medication_noti_time['value'])
+            time_dict = json.loads(medication_noti_time)
             next_undefined_number = patient.next_undefined_noti_time_number()
 
             if next_undefined_number == 1:
@@ -344,8 +344,8 @@ class PatientVisitTimeBefore(KakaoResponseAPI):
         timedelta = datetime.timedelta(seconds=seconds)
         time_before_verbose = ''
 
-        timedelta_hours = timedelta.seconds // (60 * 60)
-        timedelta_minutes = timedelta.seconds // 60
+        timedelta_hours = seconds // (60 * 60)
+        timedelta_minutes = (seconds // 60) - (timedelta_hours * 60)
 
         if timedelta.days:
             time_before_verbose += '%d일 ' % timedelta.days
