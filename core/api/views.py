@@ -186,7 +186,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                     ],
                     "quickReplies": [
                         {
-                            "action": "message",
+                            "action": "block",
                             "label": "예",
                             "blockId": "5da5ac8fb617ea00012b4363"  # (블록) 06 치료 관리 설정_알람 설정 완료
                         },
@@ -244,7 +244,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                     ],
                     "quickReplies": [
                         {
-                            "action": "message",
+                            "action": "block",
                             "label": "예",
                             "blockId": "5d9df0a9ffa7480001dacfd7"  # (블록) 01 치료 관리 설정_내원 관리 시작
                         },
@@ -270,9 +270,10 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                 ],
                 "quickReplies": [
                     {
-                        "action": "message",
+                        "action": "block",
                         "label": "예",
-                        "blockId": "5da5eac292690d0001a489e4"  # (블록) 03 치료 관리 설정_복약 알림 시간 확인
+                        # "messageText": "예",
+                        "blockId": "5da5eac292690d0001a489e4"  # (블록) 03 치료 관리 설정_복약 알림 시간
                     },
                     {
                         "action": "message",
@@ -306,7 +307,7 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
                 ],
                 "quickReplies": [
                     {
-                        "action": "message",
+                        "action": "block",
                         "label": "예",
                         "blockId": "5da5e59ab617ea00012b43ee"  # (블록) 02 치료 관리 설정_복약횟수
                     },
@@ -369,12 +370,12 @@ class PatientVisitTimeBefore(KakaoResponseAPI):
                 ],
                 "quickReplies": [
                     {
-                        "action": "message",
+                        "action": "block",
                         "label": "예",
                         "blockId": "5d9df7978192ac0001156891"  # (블록) 05 치료 관리 설정_내원 관리 완료
                     },
                     {
-                        "action": "message",
+                        "action": "block",
                         "label": "아니요",
                         "message": "아니요, 지금은 안 할래요.",
                         "blockId": "5d9df9368192ac00011568a9"  # (블록) 치료 관리 설정_내원 알람 종료
