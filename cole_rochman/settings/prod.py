@@ -44,11 +44,6 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['file', 'console', 'SysLog'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
         'django.request': {
             'handlers': ['file', 'console', 'SysLog'],
             'level': 'DEBUG',
