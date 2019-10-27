@@ -62,6 +62,7 @@ class Kakao:
     def preprocess(self, request):
         self.request_data = request.data
         self.parse_detail_params()
+        # detailParams보다 정확한 params의 데이터 확보를 위해 순서 는 params를 마지막으로
         self.parse_params()
 
     def __parse_request(self, keys):

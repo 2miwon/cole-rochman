@@ -15,16 +15,6 @@ class FunctionTest(APITestCase):
             'random': {'key2': 'value'}
         }
         self.assertEqual(find_nested_key_from_dict(_dict, 'random.key'), None)
-    #
-    # def test_check_nested_key_exist_success(self):
-    #     _dict = {
-    #         'random': {'key2': 'value'}
-    #     }
-    #     self.assertEqual(check_nested_key_exist(_dict, 'random.key'), False)
-    #     _dict = {
-    #         'random': 'value'
-    #     }
-    #     self.assertEqual(check_nested_key_exist(_dict, 'random'), True)
 
 
 class KakaoTest(APITestCase):
