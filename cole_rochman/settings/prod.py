@@ -29,11 +29,22 @@ LOGGING = {
         },
         'console': {
             'class': 'logging.StreamHandler',
-        }
+        },
+        'SysLog': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.SysLogHandler',
+            'formatter': 'simple',
+            'address': ('logs2.papertrailapp.com', 50435)
+        },
     },
     'loggers': {
+        'django': {
+            'handlers': ['file', 'console', 'SysLog'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
         'django.request': {
-            'handlers': ['file', 'console'],
+            'handlers': ['file', 'console', 'SysLog'],
             'level': 'DEBUG',
             'propagate': True,
         },
