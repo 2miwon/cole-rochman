@@ -332,16 +332,16 @@ class PatientVisitTimeBefore(KakaoResponseAPI):
         self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
 
-        minutes = self.data['visit_notification_before']  # 분 단위의 integer
-        minutes = int(minutes)
-        serializer = self.get_serializer(patient, data={'visit_notification_before': minutes}, partial=True)
+        seconds = self.data['visit_notification_before']  # 초 단위의 integer
+        seconds = int(seconds)
+        serializer = self.get_serializer(patient, data={'visit_notification_before': seconds}, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if not request.query_params.get('test'):
             serializer.save()
 
-        timedelta = datetime.timedelta(minutes=minutes)
+        timedelta = datetime.timedelta(seconds=seconds)
         time_before_verbose = ''
 
         timedelta_hours = timedelta.seconds // (60 * 60)
