@@ -107,9 +107,12 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(
-            request)  # TODO medication_manage_flag가 기본값으로 '예'를 보내고 있으나 들어오지 않고 있는 문제. 오픈빌더 확인 해보거나 코드상으로 기본값 구현 고려.
+        self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
+
+        patient.medication_manage_flag = True
+        patient.medication_noti_flag = True
+        patient.save()
 
         if not patient.has_undefined_noti_time():
             time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
