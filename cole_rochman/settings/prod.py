@@ -37,6 +37,12 @@ LOGGING = {
             'address': ('logs2.papertrailapp.com', 50435)
         },
     },
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s SENDER_NAME PROGRAM_NAME: %(message)s',
+            'datefmt': '%Y-%m-%dT%H:%M:%S',
+        },
+    }
     'loggers': {
         'django': {
             'handlers': ['file', 'console', 'SysLog'],
