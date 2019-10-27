@@ -15,6 +15,16 @@ class FunctionTest(APITestCase):
             'random': {'key2': 'value'}
         }
         self.assertEqual(find_nested_key_from_dict(_dict, 'random.key'), None)
+    #
+    # def test_check_nested_key_exist_success(self):
+    #     _dict = {
+    #         'random': {'key2': 'value'}
+    #     }
+    #     self.assertEqual(check_nested_key_exist(_dict, 'random.key'), False)
+    #     _dict = {
+    #         'random': 'value'
+    #     }
+    #     self.assertEqual(check_nested_key_exist(_dict, 'random'), True)
 
 
 class KakaoTest(APITestCase):
@@ -46,7 +56,6 @@ class KakaoTest(APITestCase):
 
         kakao = Kakao()
         kakao.preprocess(request)
-        kakao.parse_params()
         self.assertEqual(kakao.params, {'test_key': 'test_value'})
         self.assertEqual(kakao.params_parsed, True)
 
@@ -55,16 +64,35 @@ class KakaoTest(APITestCase):
         data = {
             'action': {
                 'detailParams': {'test_key': {'origin': 'some_origin',
-                                              'value': {'some_value': 'test_value'}}}
+                                              'value': {'some_key': 'test_value'}}}
             }
         }
         setattr(request, 'data', data)
 
         kakao = Kakao()
         kakao.preprocess(request)
-        kakao.parse_detail_params()
-        self.assertEqual(kakao.detail_params, {'test_key': {'some_value': 'test_value'}})
+        self.assertEqual(kakao.detail_params, {'test_key': {'some_key': 'test_value'}})
         self.assertEqual(kakao.detail_params_parsed, True)
+
+    def test_parse_detail_params_override(self):
+        """
+        override parse_detail_params() when params exists with same key
+        """
+        request = HttpRequest()
+        data = {
+            'action': {
+                'params': {'test_key': {'some_key': 'not_value'}},
+                'detailParams': {'test_key': {'origin': 'some_origin',
+                                              'value': {'some_key': 'test_value'}}}
+            }
+        }
+        setattr(request, 'data', data)
+
+        kakao = Kakao()
+        kakao.preprocess(request)
+        self.assertEqual(kakao.detail_params, {'test_key': {'some_key': 'test_value'}})
+        self.assertEqual(kakao.detail_params_parsed, True)
+        self.assertEqual(kakao.data['test_key'], {'some_key': 'not_value'})
 
     def test_parse_patient_code(self):
         request = HttpRequest()

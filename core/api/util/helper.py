@@ -26,29 +26,18 @@ def require_patient_code(method):
     return wrapper
 
 
-def check_nested_key_exist(_dict, keys):
-    """
-    :param _dict: dictionary to parse. e.g. request.data
-    :param keys: string with delimiter. e.g. 'action.detailParams'
-    :return: boolean
-    """
-    for key in keys.split('.'):
-        try:
-            _dict = _dict[key]
-        except KeyError:
-            return False
-    return True
-
-
 def find_nested_key_from_dict(_dict: dict, keys):
     """
     :param _dict: dictionary to parse. e.g. request.data
     :param keys: string with delimiter. e.g. 'action.detailParams'
     :return: dict or str
     """
-    for key in keys.split('.'):
-        _dict = _dict.get(key)
-    return _dict
+    try:
+        for key in keys.split('.'):
+            _dict = _dict.get(key)
+        return _dict
+    except AttributeError:
+        return None
 
 
 class Kakao:
@@ -72,8 +61,8 @@ class Kakao:
 
     def preprocess(self, request):
         self.request_data = request.data
-        self.parse_params()
         self.parse_detail_params()
+        self.parse_params()
 
     def __parse_request(self, keys):
         result = find_nested_key_from_dict(self.request_data, keys)
@@ -81,22 +70,21 @@ class Kakao:
 
     def parse_params(self):
         keys = 'action.params'
-        if not check_nested_key_exist(self.request_data, keys):
-            return
-
         parsed = self.__parse_request(keys)
+        if parsed is None:
+            return
         setattr(self, 'params', parsed)
         self.params_parsed = True
         self.data.update(parsed)
 
     def parse_detail_params(self):
         keys = 'action.detailParams'
-        if not check_nested_key_exist(self.request_data, keys):
-            return
         parsed = self.__parse_request(keys)
-        # TODO 이미 params에 있다면 거를 수 있어야함
+        if parsed is None:
+            return
         for key, value in parsed.items():
             self.detail_params[key] = value['value']
+
         self.detail_params_parsed = True
         self.data.update(self.detail_params)
 
