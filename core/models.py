@@ -49,7 +49,7 @@ class Patient(models.Model):
         return time_list[:self.daily_medication_count]
 
     def has_undefined_noti_time(self):
-        return None in self.medication_noti_time_list()
+        return self.daily_medication_count > 0 and None in self.medication_noti_time_list()
 
     def next_undefined_noti_time_number(self):
         return self.medication_noti_time_list().index(None) + 1
