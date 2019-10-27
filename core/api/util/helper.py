@@ -121,14 +121,6 @@ class KakaoResponseAPI(Kakao, GenericAPIView):
     lookup_field = 'kakao_user_id'
     response = {}
 
-    # def dosomething(self, request, *args, **kwargs):
-    #     super().do(request)
-    #     # super(GenericAPIView, self).__init__(request, *args, **kwargs)
-    #
-    # def dispatch(self, request, *args, **kwargs):
-    #     super(Kakao).__init__(request)
-    #     return super(GenericAPIView, self).dispatch(request, *args, **kwargs)
-
     @require_kakao_user_id
     def get_object_by_kakao_user_id(self) -> Patient:
         queryset = self.filter_queryset(self.get_queryset())
