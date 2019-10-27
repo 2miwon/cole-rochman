@@ -22,9 +22,9 @@ class Patient(models.Model):
     medication_noti_time_4 = models.TimeField(verbose_name='복약알림 시간 4', null=True, default=None)
     medication_noti_time_5 = models.TimeField(verbose_name='복약알림 시간 5', null=True, default=None)
     visit_manage_flag = models.NullBooleanField(verbose_name='내원관리 여부', null=True, default=None)
-    next_visiting_date = models.DateField(verbose_name='다음 내원일', null=True, default=None)
+    next_visiting_date_time = models.DateTimeField(verbose_name='다음 내원일', null=True, default=None)
     visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', null=True, default=None)
-    visit_notification_time = models.TimeField(verbose_name='내원알림 시간', null=True, default=None)
+    visit_notification_before = models.IntegerField(verbose_name='내원알림 시간', null=True, default=None)
     health_manage_flag = models.NullBooleanField(verbose_name='건강관리 여부', null=True, default=None)
     daily_measurement_count = models.IntegerField(verbose_name='하루 측정 횟수', default=0)
     measurement_noti_flag = models.NullBooleanField(verbose_name='측정 알림 여부', null=True, default=None)
@@ -57,6 +57,19 @@ class Patient(models.Model):
     def reset_medication_noti(self):
         self.daily_medication_count = 0
         self.medication_noti_flag = None
+        self.medication_noti_time_1 = None
+        self.medication_noti_time_2 = None
+        self.medication_noti_time_3 = None
+        self.medication_noti_time_4 = None
+        self.medication_noti_time_5 = None
+        return self.save()
+
+    class Meta:
+        verbose_name = '환자'
+        verbose_name_plural = '환자'
+
+    def reset_visit_noti(self):
+        self.visit_manage_flag = None
         self.medication_noti_time_1 = None
         self.medication_noti_time_2 = None
         self.medication_noti_time_3 = None

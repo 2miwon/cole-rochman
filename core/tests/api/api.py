@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.urls import reverse
 from rest_framework import status
@@ -64,10 +65,13 @@ class PatientUpdateTest(APITestCase):
         ('medication_noti_time_4', 'medication_noti_time_4', time_request_example_1am, datetime.time(1, 0)),
         ('medication_noti_time_5', 'medication_noti_time_5', time_request_example_1am, datetime.time(1, 0)),
         ('visit_manage_flag', 'visit_manage_flag', 'true', True),
-        ('next_visiting_date', 'next_visiting_date', timezone.now().today().strftime('%Y-%m-%d'),
-         timezone.now().today().date()),
+        ('next_visiting_date_time', 'next_visiting_date_time', json.dumps(
+            {"dateTag": None, "timeHeadword": "pm", "hour": None, "dateHeadword": None, "time": "15:00:00",
+             "second": None, "month": "11", "timeTag": "pm", "year": None, "date": "2019-11-01", "day": "1",
+             "minute": None}),
+         datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone()),
         ('visit_notification_flag', 'visit_notification_flag', 'true', True),
-        ('visit_notification_time', 'visit_notification_time', time_request_example_1am, datetime.time(1, 0)),
+        ('visit_notification_before', 'visit_notification_before', 3600, 3600),
         ('health_manage_flag', 'health_manage_flag', 'true', True),
         ('daily_measurement_count', 'daily_measurement_count', '1회', 1),
         ('measurement_noti_flag', 'measurement_noti_flag', 'true', True),
@@ -114,6 +118,7 @@ class PatientUpdateTest(APITestCase):
 class ValidateTest(APITestCase):
     def test_patient_code_success(self):
         """
+        test for ValidatePatientCode
         P00012345 - 9 characters code
         * expect upper case
         """
@@ -127,6 +132,7 @@ class ValidateTest(APITestCase):
 
     def test_invalid_patient_code_fail(self):
         """
+        test for ValidatePatientCode
         P00012345678 - 12 characters code
         """
         url = reverse('validate-patient-code')
@@ -138,7 +144,8 @@ class ValidateTest(APITestCase):
 
     def test_duplicate_patient_code_fail(self):
         """
-        fail. expect return 400 when requested duplicated patient code. (unique test)
+        test for ValidatePatientCode
+        expect fail. expect return 400 when requested duplicated patient code. (unique test)
         """
         Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
 
@@ -149,8 +156,32 @@ class ValidateTest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    @parameterized.expand([
+        ('1일 전', 86400),
+        ('하루 전', 86400),
+        ('이틀 전', 86400 * 2),
+        ('1시간 전', 60 * 60),
+        ('1시간 30분전', 60 * 60 * 1.5),
+        ('5분전', 60 * 5),
+    ])
+    def test_time_before_success(self, request, response_value):
+        """
+        test for ValidateTimeBefore
+        """
+        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
+
+        url = reverse('validate-time-before')
+        data = {
+            'value': {'origin': request}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['value'], response_value)
+
 
 class PatientMedicationNotiTest(APITestCase):
+    # TODO 시간대 설정 성공/실패 테스트
+
     def test_medication_noti_reset(self):
         p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
         p.daily_medication_count = 5
@@ -178,4 +209,3 @@ class PatientMedicationNotiTest(APITestCase):
         self.assertEqual(p.medication_noti_time_5, None)
         self.assertEqual(p.medication_noti_time_list(), list())
         self.assertEqual(p.has_undefined_noti_time(), False)
-
