@@ -11,8 +11,7 @@ class Patient(models.Model):
 
     treatment_started_date = models.DateField(verbose_name='치료 시작일', null=True)
 
-    # add teatement_end_date
-    treatment_end_date = models.DateField(verbose_name='치료 시작일', null=True)
+    treatment_end_date = models.DateField(verbose_name='치료 종료일', null=True)
 
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', null=True)
@@ -89,7 +88,7 @@ class Patient(models.Model):
 
     def set_default_end_date(self):
         if(self.treatment_started_date):
-            self.treatment_end_date=self.treatment_started_date+timedelta(days=30)
+            self.treatment_end_date=self.treatment_started_date+timedelta(days=180)
 
 
 
@@ -112,16 +111,29 @@ class Test(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class MedicationResult(models.Model):
-    # code = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='code', null=True)
-    code=models.CharField(max_length=12)
+    PADDING='PA'
+    SUCCESS='SC'
+    DELAY_SUCCESS='DC'
+    NO_RESPONSE='NR'
+    FAIL='FA'
+    SIDE_EFFECT='SE'
+    RESULTS=(
+        (PADDING,'padding'),
+        (SUCCESS,'success'),
+        (DELAY_SUCCESS,'delay_success'),
+        (NO_RESPONSE,'no_response'),
+        (FAIL,'fail'),
+        (SIDE_EFFECT,'side_effect')
+    )
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_patient', null=True)
     date=models.DateField(verbose_name='날짜')
-    medication_result_1 = models.IntegerField(default=0,verbose_name='복용 결과 1')
-    medication_result_2 = models.IntegerField(default=0,verbose_name='복용 결과 2')
-    medication_result_3 = models.IntegerField(default=0,verbose_name='복용 결과 3')
-    medication_result_4 = models.IntegerField(default=0,verbose_name='복용 결과 4')
-    medication_result_5 = models.IntegerField(default=0,verbose_name='복용 결과 5')
+    medication_result_1 = models.CharField(max_length=2,verbose_name='복용 결과 1',choices=RESULTS,default=PADDING)
+    medication_result_2 = models.CharField(max_length=2,verbose_name='복용 결과 2',choices=RESULTS,default=PADDING)
+    medication_result_3 = models.CharField(max_length=2,verbose_name='복용 결과 3',choices=RESULTS,default=PADDING)
+    medication_result_4 = models.CharField(max_length=2,verbose_name='복용 결과 4',choices=RESULTS,default=PADDING)
+    medication_result_5 = models.CharField(max_length=2,verbose_name='복용 결과 5',choices=RESULTS,default=PADDING)
 
 class MeasurementResult(models.Model):
-    code = models.CharField(max_length=12)
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_patient', null=True)
     date = models.DateTimeField(verbose_name='날짜')
     measurement_result=models.IntegerField(verbose_name='측정 결과')
