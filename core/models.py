@@ -123,5 +123,5 @@ class MedicationResult(models.Model):
 
 class MeasurementResult(models.Model):
     code = models.CharField(max_length=12)
-    date = models.DateTimeFieldField(verbose_name='날짜')
+    date = models.DateTimeField(verbose_name='날짜')
     measurement_result=models.IntegerField(verbose_name='측정 결과')
