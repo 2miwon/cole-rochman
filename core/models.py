@@ -135,5 +135,5 @@ class MedicationResult(models.Model):
 
 class MeasurementResult(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_patient', null=True)
-    date = models.DateTimeField(verbose_name='날짜')
+    datetime = models.DateTimeField(verbose_name='날짜')
     measurement_result=models.IntegerField(verbose_name='측정 결과')
