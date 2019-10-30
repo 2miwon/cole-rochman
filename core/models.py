@@ -133,6 +133,6 @@ class MedicationResult(models.Model):
 class MeasurementResult(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_result', null=True)
     measured_at = models.DateTimeField(verbose_name='날짜')
-    measurement_result = models.IntegerField(verbose_name='측정 결과')
+    oxygen_saturation = models.IntegerField(default=0, verbose_name='산소 포화도 측정 결과')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
