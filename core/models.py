@@ -1,5 +1,6 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from datetime import timedelta
 
 
 class Patient(models.Model):
@@ -9,6 +10,10 @@ class Patient(models.Model):
     nickname = models.CharField(max_length=20, default='')
 
     treatment_started_date = models.DateField(verbose_name='치료 시작일', null=True)
+
+    # add teatement_end_date
+    treatment_end_date = models.DateField(verbose_name='치료 시작일', null=True)
+
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', null=True)
     discharged_flag = models.NullBooleanField(verbose_name='퇴원 여부', null=True, default=None)
@@ -82,6 +87,11 @@ class Patient(models.Model):
         verbose_name = '환자'
         verbose_name_plural = '환자'
 
+    def set_default_end_date(self):
+        if(self.treatment_started_date):
+            self.treatment_end_date=self.treatment_started_date+timedelta(days=30)
+
+
 
 class Hospital(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -100,3 +110,18 @@ class Test(models.Model):
     data = JSONField()
     memo = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
+
+class MedicationResult(models.Model):
+    # code = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='code', null=True)
+    code=models.CharField(max_length=12)
+    date=models.DateField(verbose_name='날짜')
+    medication_result_1 = models.IntegerField(default=0)
+    medication_result_2 = models.IntegerField(default=0)
+    medication_result_3 = models.IntegerField(default=0)
+    medication_result_4 = models.IntegerField(default=0)
+    medication_result_5 = models.IntegerField(default=0)
+
+class MeasurementResult(models.Model):
+    code = models.CharField(max_length=12)
+    date = models.DateTimeFieldField(verbose_name='날짜')
+    measurement_result=models.IntegerField()
