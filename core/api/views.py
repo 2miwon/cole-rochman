@@ -65,28 +65,28 @@ class PatientUpdate(KakaoResponseAPI):
 
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
-        params = self.data
+        data = self.data
         patient = self.get_object_by_kakao_user_id()
 
-        for key, value in params.items():
+        for key, value in data.items():
             if 'flag' in key:
                 if value == '예' or 'true':
-                    params[key] = True
+                    data[key] = True
                 elif value == '아니요' or '아니오' or 'false':
-                    params[key] = False
+                    data[key] = False
             elif 'count' in key:
                 try:
-                    params[key] = value.strip('회')
+                    data[key] = value.strip('회')
                 except AttributeError:
-                    params[key] = value['value'].strip('회')
+                    data[key] = value['value'].strip('회')
             elif 'date_time' in key:
                 date_time_dict = json.loads(value)
-                params[key] = date_time_dict['date'] + " " + date_time_dict['time']
+                data[key] = date_time_dict['date'] + " " + date_time_dict['time']
             elif 'time' in key:
                 time_dict = json.loads(value)
-                params[key] = time_dict['time']
+                data[key] = time_dict['time']
 
-        serializer = self.get_serializer(patient, data=params, partial=True)
+        serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -212,7 +212,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             }
             return Response(response, status=status.HTTP_200_OK)
 
-        params = dict()
+        data = dict()
         medication_noti_time = request.data['action']['params']['noti_time']
         if medication_noti_time:
 
@@ -221,9 +221,9 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
 
             if next_undefined_number:
                 field_name = 'medication_noti_time_%d' % next_undefined_number
-                params[field_name] = time
+                data[field_name] = time
 
-        serializer = self.get_serializer(patient, data=params, partial=True)
+        serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -339,16 +339,16 @@ class PatientVisitDateSet(KakaoResponseAPI):
         patient = self.get_object_by_kakao_user_id()
 
         next_visiting_date_time = request.data['action']['params']['next_visiting_date_time']
-        params = dict()
-        params['visit_manage_flag'] = True
+        data = dict()
+        data['visit_manage_flag'] = True
 
         if next_visiting_date_time:
             # "value": "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}",
             value = json.loads(next_visiting_date_time)['value']
             value = datetime.datetime.strptime(value, self.DATETIME_FORMAT_STRING)
-            params['next_visiting_date_time'] = value.astimezone()
+            data['next_visiting_date_time'] = value.astimezone()
 
-        serializer = self.get_serializer(patient, data=params, partial=True)
+        serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
