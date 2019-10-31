@@ -97,8 +97,8 @@ class Hospital(models.Model):
         return f'{self.name}({self.id})'
 
     class Meta:
-        verbose_name = '병원'
-        verbose_name_plural = '병원'
+        verbose_name = '병원/기관'
+        verbose_name_plural = '병원/기관'
 
 
 class Test(models.Model):
