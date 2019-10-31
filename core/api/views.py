@@ -174,7 +174,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
         self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
 
-        if patient.medication_noti_flag and patient.need_medication_noti_time_set():
+        if patient.medication_noti_flag and not patient.need_medication_noti_time_set():
             times_str = ''
 
             for index, time in enumerate(patient.medication_noti_time_list()):
@@ -214,21 +214,15 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             return Response(response, status=status.HTTP_200_OK)
 
         params = dict()
-        medication_noti_time = self.data.get('noti_time')
+        medication_noti_time = request.data['action']['params']['noti_time']
         if medication_noti_time:
-            time_dict = json.loads(medication_noti_time)
+
+            time = json.loads(medication_noti_time)['value']
             next_undefined_number = patient.next_undefined_noti_time_number()
 
-            if next_undefined_number == 1:
-                params['medication_noti_time_1'] = time_dict['time']
-            elif next_undefined_number == 2:
-                params['medication_noti_time_2'] = time_dict['time']
-            elif next_undefined_number == 3:
-                params['medication_noti_time_3'] = time_dict['time']
-            elif next_undefined_number == 4:
-                params['medication_noti_time_4'] = time_dict['time']
-            elif next_undefined_number == 5:
-                params['medication_noti_time_5'] = time_dict['time']
+            if next_undefined_number:
+                field_name = 'medication_noti_time_%d' % next_undefined_number
+                params[field_name] = time
 
         serializer = self.get_serializer(patient, data=params, partial=True)
         if not serializer.is_valid():
@@ -238,7 +232,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             serializer.save()
 
         patient.refresh_from_db()
-        if patient.medication_noti_flag and patient.need_medication_noti_time_set():
+        if patient.medication_noti_flag and not patient.need_medication_noti_time_set():
             time_list = ', '.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
             response = {
                 "version": "2.0",
