@@ -1,5 +1,6 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from datetime import timedelta
 
 
 class Patient(models.Model):
@@ -8,7 +9,6 @@ class Patient(models.Model):
     kakao_user_id = models.CharField(max_length=150, unique=True)
     nickname = models.CharField(max_length=20, default='')
 
-    treatment_started_date = models.DateField(verbose_name='치료 시작일', null=True)
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', null=True)
     discharged_flag = models.NullBooleanField(verbose_name='퇴원 여부', null=True, default=None)
@@ -33,9 +33,15 @@ class Patient(models.Model):
     measurement_noti_time_3 = models.TimeField(verbose_name='측정 알림 시간 3', null=True, default=None)
     measurement_noti_time_4 = models.TimeField(verbose_name='측정 알림 시간 4', null=True, default=None)
     measurement_noti_time_5 = models.TimeField(verbose_name='측정 알림 시간 5', null=True, default=None)
+    treatment_started_date = models.DateField(verbose_name='치료 시작일', null=True)
+    treatment_end_date = models.DateField(verbose_name='치료 종료일', null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = '환자'
+        verbose_name_plural = '환자'
 
     def __str__(self):
         return '%s/%s' % (self.code, self.nickname)
@@ -64,10 +70,6 @@ class Patient(models.Model):
         self.medication_noti_time_5 = None
         return self.save()
 
-    class Meta:
-        verbose_name = '환자'
-        verbose_name_plural = '환자'
-
     def reset_visit_noti(self):
         self.visit_manage_flag = None
         self.medication_noti_time_1 = None
@@ -77,9 +79,9 @@ class Patient(models.Model):
         self.medication_noti_time_5 = None
         return self.save()
 
-    class Meta:
-        verbose_name = '환자'
-        verbose_name_plural = '환자'
+    def set_default_end_date(self):
+        if self.treatment_started_date:
+            self.treatment_end_date = self.treatment_started_date + timedelta(days=180)
 
 
 class Hospital(models.Model):
@@ -99,3 +101,37 @@ class Test(models.Model):
     data = JSONField()
     memo = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class MedicationResult(models.Model):
+    PENDING = 'PENDING'
+    SUCCESS = 'SUCCESS'
+    DELAYED_SUCCESS = 'DELAYED_SUCCESS'
+    NO_RESPONSE = 'NO_RESPONSE'
+    FAILED = 'FAILED'
+    SIDE_EFFECT = 'SIDE_EFFECT'
+    RESULTS = (
+        (PENDING, 'pending'),
+        (SUCCESS, 'success'),
+        (DELAYED_SUCCESS, 'delay_success'),
+        (NO_RESPONSE, 'no_response'),
+        (FAILED, 'fail'),
+        (SIDE_EFFECT, 'side_effect')
+    )
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_result', null=True)
+    date = models.DateField(verbose_name='날짜', auto_now_add=True)
+    medication_result_1 = models.CharField(max_length=2, verbose_name='1회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_2 = models.CharField(max_length=2, verbose_name='2회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_3 = models.CharField(max_length=2, verbose_name='3회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_4 = models.CharField(max_length=2, verbose_name='4회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_5 = models.CharField(max_length=2, verbose_name='5회차 복용 결과', choices=RESULTS, default=PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class MeasurementResult(models.Model):
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_result', null=True)
+    measured_at = models.DateTimeField(verbose_name='날짜')
+    oxygen_saturation = models.IntegerField(default=0, verbose_name='산소 포화도 측정 결과')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
