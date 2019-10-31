@@ -114,7 +114,7 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
         patient.medication_noti_flag = True
         patient.save()
 
-        if not patient.has_undefined_noti_time():
+        if patient.medication_noti_flag and not patient.need_medication_noti_time_set():
             time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
             # TODO response = KakaoResponseAPI.build_response() 구현. 코드량 줄이기
             response = {
@@ -174,7 +174,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
         self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
 
-        if not patient.has_undefined_noti_time():  # TODO has_undefined_noti_time() 로직에 버그있음. (엣지 케이스 확인 필요)
+        if patient.medication_noti_flag and patient.need_medication_noti_time_set():
             times_str = ''
 
             for index, time in enumerate(patient.medication_noti_time_list()):
@@ -238,7 +238,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             serializer.save()
 
         patient.refresh_from_db()
-        if not patient.has_undefined_noti_time():
+        if patient.medication_noti_flag and patient.need_medication_noti_time_set():
             time_list = ', '.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
             response = {
                 "version": "2.0",

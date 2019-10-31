@@ -222,4 +222,4 @@ class PatientMedicationNotiTest(APITestCase):
         self.assertEqual(p.medication_noti_time_4, None)
         self.assertEqual(p.medication_noti_time_5, None)
         self.assertEqual(p.medication_noti_time_list(), list())
-        self.assertEqual(p.has_undefined_noti_time(), False)
+        self.assertEqual(p.need_medication_noti_time_set(), False)

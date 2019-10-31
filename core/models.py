@@ -54,8 +54,8 @@ class Patient(models.Model):
                      self.medication_noti_time_4, self.medication_noti_time_5]
         return time_list[:self.daily_medication_count]
 
-    def has_undefined_noti_time(self):
-        return self.medication_manage_flag is False or None in self.medication_noti_time_list()
+    def need_medication_noti_time_set(self):
+        return None in self.medication_noti_time_list()
 
     def next_undefined_noti_time_number(self):
         return self.medication_noti_time_list().index(None) + 1
