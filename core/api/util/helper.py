@@ -2,6 +2,7 @@ import functools
 
 from rest_framework.generics import GenericAPIView, get_object_or_404
 
+from core.api.util.response_builder import ResponseBuilder
 from core.models import Patient
 
 
@@ -45,6 +46,9 @@ class Kakao:
     :var data: saving dict data from request_data parsed
     """
     DATETIME_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S'
+
+    RESPONSE_VALIDATION = 'validation'
+    RESPONSE_SKILL = 'skill'
 
     def __init__(self):
         self.request_data = {}
@@ -103,6 +107,10 @@ class Kakao:
         self.data.update({'code': code})
         self.patient_code = code
         self.patient_code_parsed = True
+
+    @staticmethod
+    def build_response(response_type, status):
+        return ResponseBuilder(response_type, status)
 
 
 class KakaoResponseAPI(Kakao, GenericAPIView):
