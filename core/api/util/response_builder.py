@@ -5,8 +5,9 @@ class ResponseBuilder:
 
     def __init__(self, response_type, status=None):
         """
+        use status only when response_type is VALIDATION
+
         :param response_type: use ResponseBuilder.VALIDATION or ResponseBuilder.SKILL
-        :param args:
         """
         if response_type not in [self.VALIDATION, self.SKILL]:
             raise ValueError('Response_type must be ResponseBuilder.VALIDATION or ResponseBuilder.SKILL')
@@ -29,12 +30,24 @@ class ResponseBuilder:
             }
 
     def __add_outputs(self, data: dict):
+        """
+        append data to self.response['template']['outputs']
+
+        :param data: dict
+        :return: None
+        """
         if self.response_type != self.SKILL:
             raise ValueError('You cannot use this when response_type is ResponseBuilder.VALIDATION')
 
         self.response.get('template').get('outputs').append(data)
 
     def __add_quick_reply(self, data: dict):
+        """
+        append data to self.response['template']['quickReplies']
+
+        :param data: dict
+        :return: None
+        """
         if self.response_type != self.SKILL:
             raise ValueError('You cannot use this when response_type is ResponseBuilder.VALIDATION')
 
@@ -46,6 +59,8 @@ class ResponseBuilder:
 
     def add_value(self, value):
         """
+        append value to self.response
+
         :type value: string or int
         """
         if self.response_type != self.VALIDATION: raise ValueError(
@@ -56,6 +71,8 @@ class ResponseBuilder:
 
     def add_simple_text(self, message: str):
         """
+        append simpleText(dict) with message to self.response['template']['outputs']
+
         :param message: It can be up to 1,000 letters.
         :return: None
 
@@ -80,6 +97,8 @@ class ResponseBuilder:
 
     def add_image(self, image_url: str, alt_text: str):
         """
+        append simpleImage(dict) with image_url and alt_text to self.response['template']['outputs']
+
         :param image_url: URL
         :param alt_text: It can be up to 1,000 letters.
         :return: None
@@ -105,6 +124,8 @@ class ResponseBuilder:
 
     def add_quick_reply(self, action: str, label: str, block_id: str = None, message_text: str = None):
         """
+        append quickReplies with action, label, or maybe block_id, message_text to self.response['template']['outputs']
+
         :type action: string. "block" or "message"
         :param label: string.
         :param block_id: string. It is necessary when action is "block"
@@ -124,7 +145,6 @@ class ResponseBuilder:
             "label": "아니요",
             "messageText": "아니요"
         }
-
         """
         if action is None or label is None: raise ValueError('action or label is None.')
         if action not in ['block', 'message']: raise ValueError('action should be block or message.')
