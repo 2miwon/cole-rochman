@@ -1,9 +1,13 @@
+from rest_framework import status
+from rest_framework.response import Response
+
+
 class ResponseBuilder:
     version = '2.0'
     VALIDATION = 'validation'
     SKILL = 'skill'
 
-    def __init__(self, response_type, status=None):
+    def __init__(self, response_type):
         """
         use status only when response_type is VALIDATION
 
@@ -11,23 +15,34 @@ class ResponseBuilder:
         """
         if response_type not in [self.VALIDATION, self.SKILL]:
             raise ValueError('Response_type must be ResponseBuilder.VALIDATION or ResponseBuilder.SKILL')
-        if response_type == self.VALIDATION and status not in ['FAIL', 'SUCCESS']:
-            raise ValueError('Status must be "FAIL" or "SUCCESS" when response_type is VALIDATION')
 
         self.response_type = response_type
+        self.status = None
 
-        if response_type == self.VALIDATION:
-            self.status = status
-            self.response = {
-                'status': status
-            }
-        elif response_type == self.SKILL:
+        if response_type == self.SKILL:
             self.response = {
                 'version': self.version,
                 'template': {
                     'outputs': []
                 }
             }
+
+    def __set_status(self, status: str):
+        """
+        Set self.status. Only Valid when response_type is VALIDATION.
+
+        :param status: str
+        :return: None
+        """
+        if self.response_type != self.VALIDATION: raise ValueError(
+            'This cannot be called when response_type is not VALIDATION.')
+        if status not in ['FAIL', 'SUCCESS']:
+            raise ValueError('Status must be "FAIL" or "SUCCESS" when response_type is VALIDATION')
+
+        self.status = status
+        self.response = {
+            'status': status
+        }
 
     def __add_outputs(self, data: dict):
         """
@@ -57,7 +72,7 @@ class ResponseBuilder:
 
         self.response.get('template').get('quickReplies').append(data)
 
-    def add_value(self, value):
+    def __add_value(self, value):
         """
         append value to self.response
 
@@ -65,9 +80,28 @@ class ResponseBuilder:
         """
         if self.response_type != self.VALIDATION: raise ValueError(
             'You cannot use add_value() when response_type is ResponseBuilder.VALIDATION')
+        if self.status is None: raise ValueError('You should call set_status() first.')
         if not (type(value) == int or type(value) == str): raise ValueError('value should be int or string.')
 
         self.response['value'] = value
+
+    def validation_success(self, value):
+        """
+        Build response with value when validaion is successful.
+        :param value: string or int
+        :return: None
+        """
+        self.__set_status('SUCCESS')
+        self.__add_value(value)
+
+    def validation_fail(self, value):
+        """
+        Build response with value when validaion is failed.
+        :param value: string or int
+        :return: None
+        """
+        self.__set_status('FAIL')
+        self.__add_value(value)
 
     def add_simple_text(self, message: str):
         """
@@ -184,8 +218,24 @@ class ResponseBuilder:
 
     def get_response(self):
         """
-        Return self.response
+        Return self.response with status_code 200
 
         :return: dict. self.response
         """
         return self.response
+
+    def get_response_200(self):
+        """
+        Return Response with self.response and status_code(200)
+
+        :return: object. Response()
+        """
+        return Response(self.response, status=status.HTTP_200_OK)
+
+    def get_response_400(self):
+        """
+        Return Response with self.response and status_code(400)
+
+        :return: object. Response()
+        """
+        return Response(self.response, status=status.HTTP_400_BAD_REQUEST)
