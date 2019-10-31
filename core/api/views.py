@@ -1,4 +1,3 @@
-import copy
 import datetime
 import json
 
@@ -318,6 +317,66 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
                         "action": "block",
                         "label": "예",
                         "blockId": "5da5e59ab617ea00012b43ee"  # (블록) 02 치료 관리 설정_복약횟수
+                    },
+                    {
+                        "action": "message",
+                        "label": "아니요",
+                        "messageText": "아니요"
+                    }
+                ]
+            }
+        }
+        return Response(response, status=status.HTTP_200_OK)
+
+
+class PatientVisitDateSet(KakaoResponseAPI):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        patient = self.get_object_by_kakao_user_id()
+
+        next_visiting_date_time = request.data['action']['params']['next_visiting_date_time']
+        params = dict()
+        params['visit_manage_flag'] = True
+
+        if next_visiting_date_time:
+            # "value": "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}",
+            value = json.loads(next_visiting_date_time)['value']
+            value = datetime.datetime.strptime(value, self.DATETIME_FORMAT_STRING)
+            params['next_visiting_date_time'] = value.astimezone()
+
+        serializer = self.get_serializer(patient, data=params, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        if not request.query_params.get('test'):
+            serializer.save()
+
+        patient.refresh_from_db()
+
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": "%s이 내원일이군요." % patient.next_visiting_date_time_str()
+                        }
+                    },
+                    {
+                        "simpleText": {
+                            "text": "내원 알람을 설정할까요?"
+                        }
+                    }
+                ],
+                "quickReplies": [
+                    {
+                        "action": "block",
+                        "label": "예",
+                        "blockId": "5da5eac292690d0001a489e4"  # (블록) 03 치료 관리 설정_복약 알림 시간
                     },
                     {
                         "action": "message",

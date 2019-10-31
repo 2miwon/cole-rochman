@@ -44,6 +44,7 @@ class Kakao:
     """
     :var data: saving dict data from request_data parsed
     """
+    DATETIME_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S'
 
     def __init__(self):
         self.request_data = {}

@@ -7,6 +7,7 @@ from rest_framework.test import APITestCase
 from parameterized import parameterized
 from django.utils import timezone
 
+from core.api.util.helper import Kakao
 from core.models import Patient, Test
 
 time_request_example_1am = '{"timeHeadword": "am", "hour": "1", "second": null, "timeTag": "am", "time": "01:00:00", "date": "2019-10-16", "minute": null}'
@@ -112,6 +113,23 @@ class PatientUpdateTest(APITestCase):
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(getattr(p, field), original_data)
+
+
+class PatientVisitDateSetTest(APITestCase):
+    def test_success(self):
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123')
+        url = reverse('patient-visit-date-set')
+        data = {
+            'userRequest': {'user': {'id': 'abc123'}},
+            'action': {
+                'params': {'next_visiting_date_time': "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}"}}
+        }
+        response = self.client.post(url, data, format='json')
+        p.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(p.next_visiting_date_time,
+                         datetime.datetime.strptime('2018-03-20T10:15:00', Kakao.DATETIME_FORMAT_STRING).astimezone())
+        self.assertEqual(p.next_visiting_date_time_str(), '2018년 03월 20일 오전 10시 15분')
 
 
 class PatientVisitTimeBeforeTest(APITestCase):

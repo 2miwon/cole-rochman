@@ -83,6 +83,10 @@ class Patient(models.Model):
         if self.treatment_started_date:
             self.treatment_end_date = self.treatment_started_date + timedelta(days=180)
 
+    def next_visiting_date_time_str(self):
+        dt = self.next_visiting_date_time.astimezone().strftime('%Y년 %m월 %d일 %p %I시 %M분')
+        return dt.replace('PM', '오후').replace('AM', '오전')
+
 
 class Hospital(models.Model):
     name = models.CharField(max_length=100, unique=True)
