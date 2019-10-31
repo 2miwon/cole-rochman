@@ -254,7 +254,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
                             "action": "block",
                             "label": "예",
                             "blockId": "5d9df31692690d0001a458e6"  # (블록) 02 치료 관리 설정_내원 예정일 확인
-                        #     TODO 퇴원환자의 경우 내원관리로 가면 안됨
+                            #     TODO 퇴원환자의 경우 내원관리로 가면 안됨
                         },
                         {
                             "action": "message",
@@ -330,7 +330,7 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
         return Response(response, status=status.HTTP_200_OK)
 
 
-class PatientVisitTimeBefore(KakaoResponseAPI):
+class PatientVisitNotiTimeBefore(KakaoResponseAPI):
     serializer_class = PatientCreateSerializer
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
