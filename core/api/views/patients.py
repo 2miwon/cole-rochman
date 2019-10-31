@@ -38,11 +38,15 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
-        data = dict()
-        data['kakao_user_id'] = request.data['userRequest']['user']['id']
-        data['code'] = request.data['action']['params']['patient_code']
+        self.preprocess(request)
+        self.parse_kakao_user_id()
+        self.parse_patient_code()
 
-        nickname = request.data['action']['detailParams']['nickname']
+        data = dict()
+        data['kakao_user_id'] = self.kakao_user_id
+        data['code'] = self.patient_code
+
+        nickname = self.detail_params.get('nickname')
         if nickname:
             data['nickname'] = json.loads(nickname)['value']
 
