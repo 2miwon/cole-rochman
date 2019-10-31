@@ -166,4 +166,9 @@ class ResponseBuilder:
         self.__add_quick_reply(data=data)
 
     def get_response(self):
+        """
+        Return self.response
+
+        :return: dict. self.response
+        """
         return self.response
