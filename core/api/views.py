@@ -135,7 +135,8 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
 
         next_undefined_number = patient.next_undefined_noti_time_number()
 
-        message = f'{next_undefined_number:d}회차 복약을 몇 시에 해야 하나요?\n(\'오전 몇 시\', 또는 \'오후 몇 시\'로 입력해주세요)\n예) 오후 1시'
+        # message = f'{next_undefined_number:d}회차 복약을 몇 시에 해야 하나요?\n(\'오전 몇 시\', 또는 \'오후 몇 시\'로 입력해주세요)\n예) 오후 1시'
+        message = f'{next_undefined_number:d}회차 복약 알람을 설정할까요?'
 
         response = {
             "version": "2.0",
@@ -145,6 +146,18 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
                         "simpleText": {
                             "text": message
                         }
+                    }
+                ],
+                "quickReplies": [
+                    {
+                        "action": "block",
+                        "label": "예",
+                        "blockId": "5da68fb1ffa7480001db0361"  # (블록) 04 치료 관리 설정_복약 알림 시간대
+                    },
+                    {
+                        "action": "message",
+                        "label": "아니요",
+                        "messageText": "아니요, 종료할게요."
                     }
                 ]
             }
