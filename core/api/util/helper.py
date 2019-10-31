@@ -109,7 +109,7 @@ class Kakao:
         self.patient_code_parsed = True
 
     @staticmethod
-    def build_response(response_type, status):
+    def build_response(response_type, status=None):
         return ResponseBuilder(response_type, status)
 
 
