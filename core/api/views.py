@@ -400,7 +400,10 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
 
         seconds = self.data['visit_notification_before']  # 초 단위의 integer
         seconds = int(seconds)
-        serializer = self.get_serializer(patient, data={'visit_notification_before': seconds}, partial=True)
+        data = dict()
+        data['visit_notification_before'] = seconds
+        data['visit_notification_flag'] = True
+        serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
