@@ -376,7 +376,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
                     {
                         "action": "block",
                         "label": "예",
-                        "blockId": "5da5eac292690d0001a489e4"  # (블록) 03 치료 관리 설정_복약 알림 시간
+                        "blockId": "5d9df34e92690d0001a458ed"  # (블록) 03 치료 관리 설정_내원 알람 설정
                     },
                     {
                         "action": "message",
