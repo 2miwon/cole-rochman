@@ -165,8 +165,7 @@ class ResponseBuilder:
 
         self.__add_quick_reply(data=data)
 
-    def set_quick_replies_yes_or_no(self, block: bool = True, block_id_for_yes: str = None,
-                                    message_text_for_no: str = '아니요, 종료할게요.'):
+    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, message_text_for_no: str = '아니요, 종료할게요.'):
         """
         Automaticaly add quick_replies for 예/아니요.
         Currently you can only set block_id for yes, and message_text for no.
@@ -177,7 +176,7 @@ class ResponseBuilder:
         :param message_text_for_no: str. default is '아니요, 종료할게요.'
         :return: None
         """
-        if block and block_id_for_yes is None:
+        if block_id_for_yes is None:
             raise ValueError('block_id is necessary when action is "block".')
 
         self.add_quick_reply(action='block', label='예', block_id=block_id_for_yes)
