@@ -44,6 +44,10 @@ class PatientCreate(CreateAPIView):
         data['kakao_user_id'] = request.data['userRequest']['user']['id']
         data['code'] = request.data['action']['params']['patient_code']
 
+        nickname = request.data['action']['detailParams']['nickname']
+        if nickname:
+            data['nickname'] = json.loads(nickname)['value']
+
         serializer = self.get_serializer(data=data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
