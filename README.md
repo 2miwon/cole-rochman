@@ -18,12 +18,16 @@
 - Celery (예정)
 - Redis (예정)
 - Fabric3
-- AWS EC2(Ubuntu 18.04), RDS(PostgreSQL)
+- AWS 
+    - EC2(Ubuntu 18.04)
+    - RDS(PostgreSQL)
+- Nginx, UWSGI
 
 # Client
-- [Kakao i 오픈빌더 베타](https://i.kakao.com/openbuilder)
-- [오픈빌더 Document](https://i.kakao.com/docs/getting-started-overview)
+- [Kakao i 오픈빌더 베타](https://i.kakao.com/openbuilder)\
 *베타이므로 개발자 등록이 필요합니다.*
+- [오픈빌더 Document](https://i.kakao.com/docs/getting-started-overview)
+
 
 # Before Start..
 ### 보안 관련 파일이 필요합니다.
