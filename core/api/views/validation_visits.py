@@ -9,7 +9,7 @@ class ValidateTimeBefore(KakaoResponseAPI):
         SECONDS_FOR_HOUR = 60 * SECONDS_FOR_MINUTE
         SECONDS_FOR_DAY = 24 * SECONDS_FOR_HOUR
 
-        response_builder = self.build_response(response_type=self.RESPONSE_VALIDATION)
+        response = self.build_response(response_type=self.RESPONSE_VALIDATION)
 
         value = request.data['value']['origin']
 
@@ -42,8 +42,8 @@ class ValidateTimeBefore(KakaoResponseAPI):
             timedelta += int(hours_str) * SECONDS_FOR_HOUR
 
         else:
-            response_builder.validation_fail()
-            return response_builder.get_response_400()
+            response.validation_fail()
+            return response.get_response_400()
 
-        response_builder.validation_success(value=timedelta)
-        return response_builder.get_response_200()
+        response.validation_success(value=timedelta)
+        return response.get_response_200()

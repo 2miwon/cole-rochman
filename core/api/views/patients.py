@@ -18,16 +18,16 @@ logger = logging.getLogger(__name__)
 class TestView(CreateAPIView):
     def post(self, request, format='json', *args, **kwargs):
         serializer = TestSerializer(data={'data': request.data})
-        response_builder = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
+        response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
 
         if serializer.is_valid():
             serializer.save()
-            response_builder.validation_success(value=serializer.validated_data)
+            response.validation_success(value=serializer.validated_data)
 
-            return response_builder.get_response_200()
+            return response.get_response_200()
 
-        response_builder.validation_fail(value=serializer.validated_data)
-        return response_builder.get_response_400()
+        response.validation_fail(value=serializer.validated_data)
+        return response.get_response_400()
 
 
 class PatientCreate(KakaoResponseAPI, CreateAPIView):
