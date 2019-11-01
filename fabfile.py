@@ -38,7 +38,7 @@ def _check_if_migration_needed(skip_migrations=False):
 
     result = local('./manage.py makemigrations --dry-run', capture=True)
 
-    if result.stdout != 'No changes detected' and not confirm(red("FAIL: Local tests are failed.\nContinue anyway?")):
+    if result.stdout != 'No changes detected' and not confirm(red("FAIL: Some migrations need to be migrated.\nContinue anyway?")):
         print(red('\n\t'.join(result.stdout.strip().split('[ ]'))))
         print(red(
             "Please apply migrations with 'python manage.py migrate'\n\n"
