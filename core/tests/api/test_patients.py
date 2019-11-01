@@ -1,5 +1,4 @@
 import datetime
-import json
 
 from django.urls import reverse
 from rest_framework import status
@@ -7,8 +6,7 @@ from rest_framework.test import APITestCase
 from parameterized import parameterized
 from django.utils import timezone
 
-from core.api.util.helper import Kakao
-from core.models import Patient, Test
+from core.models import Patient
 
 time_request_example_1am = '{"timeHeadword": "am", "hour": "1", "second": null, "timeTag": "am", "time": "01:00:00", "date": "2019-10-16", "minute": null}'
 date_time_request_example = '{"dateTag": null, "timeHeadword": "pm", "hour": null, "dateHeadword": null, "time": "15:00:00",\
@@ -113,131 +111,3 @@ class PatientUpdateTest(APITestCase):
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(getattr(p, field), original_data)
-
-
-class PatientVisitDateSetTest(APITestCase):
-    def test_success(self):
-        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123')
-        url = reverse('patient-visit-date-set')
-        data = {
-            'userRequest': {'user': {'id': 'abc123'}},
-            'action': {
-                'params': {'next_visiting_date_time': "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}"}}
-        }
-        response = self.client.post(url, data, format='json')
-        p.refresh_from_db()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(p.next_visiting_date_time,
-                         datetime.datetime.strptime('2018-03-20T10:15:00', Kakao.DATETIME_FORMAT_STRING).astimezone())
-        self.assertEqual(p.next_visiting_date_time_str(), '2018년 03월 20일 오전 10시 15분')
-
-
-class PatientVisitTimeBeforeTest(APITestCase):
-    def test_success(self):
-        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123')
-        url = reverse('patient-visit-noti-time')
-        data = {
-            'userRequest': {'user': {'id': 'abc123'}},
-            'action': {'params': {'visit_notification_before': '12600'}}
-        }
-        response = self.client.post(url, data, format='json')
-        p.refresh_from_db()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(getattr(p, 'visit_notification_before'), 12600)
-        self.assertEqual(getattr(p, 'visit_notification_flag'), True)
-
-
-class ValidateTest(APITestCase):
-    def test_patient_code_success(self):
-        """
-        test for ValidatePatientCode
-        P00012345 - 9 characters code
-        * expect upper case
-        """
-        url = reverse('validate-patient-code')
-        data = {
-            'value': {'origin': 'p12312345678입니다'}
-        }
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['value'], 'P12312345678')
-
-    def test_invalid_patient_code_fail(self):
-        """
-        test for ValidatePatientCode
-        P00012345678 - 12 characters code
-        """
-        url = reverse('validate-patient-code')
-        data = {
-            'value': {'origin': 'P123'}
-        }
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_duplicate_patient_code_fail(self):
-        """
-        test for ValidatePatientCode
-        expect fail. expect return 400 when requested duplicated patient code. (unique test)
-        """
-        Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
-
-        url = reverse('validate-patient-code')
-        data = {
-            'value': {'origin': 'P12312345678입니다'}
-        }
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    @parameterized.expand([
-        ('1일 전', 86400),
-        ('하루 전', 86400),
-        ('이틀 전', 86400 * 2),
-        ('1시간 전', 60 * 60),
-        ('1시간 30분전', 60 * 60 * 1.5),
-        ('5분전', 60 * 5),
-    ])
-    def test_time_before_success(self, request, response_value):
-        """
-        test for ValidateTimeBefore
-        """
-        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
-
-        url = reverse('validate-time-before')
-        data = {
-            'value': {'origin': request}
-        }
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['value'], response_value)
-
-
-class PatientMedicationNotiTest(APITestCase):
-    # TODO 시간대 설정 성공/실패 테스트
-
-    def test_medication_noti_reset(self):
-        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
-        p.daily_medication_count = 5
-        p.medication_noti_flag = True
-        p.medication_noti_time_1 = datetime.datetime.now()
-        p.medication_noti_time_2 = datetime.datetime.now()
-        p.medication_noti_time_3 = datetime.datetime.now()
-        p.medication_noti_time_4 = datetime.datetime.now()
-        p.medication_noti_time_5 = datetime.datetime.now()
-        p.save()
-
-        url = reverse('patient-medication-noti-reset')
-        data = {
-            'userRequest': {'user': {'id': 'asd123'}},
-        }
-        response = self.client.post(url, data, format='json')
-        p.refresh_from_db()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(p.medication_noti_flag, None)
-        self.assertEqual(p.daily_medication_count, 0)
-        self.assertEqual(p.medication_noti_time_1, None)
-        self.assertEqual(p.medication_noti_time_2, None)
-        self.assertEqual(p.medication_noti_time_3, None)
-        self.assertEqual(p.medication_noti_time_4, None)
-        self.assertEqual(p.medication_noti_time_5, None)
-        self.assertEqual(p.medication_noti_time_list(), list())
-        self.assertEqual(p.need_medication_noti_time_set(), False)
