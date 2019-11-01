@@ -35,7 +35,7 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
             response_builder.set_quick_replies_yes_or_no(
                 block_id_for_yes='5da68fb1ffa7480001db0361')  # (블록) 04 치료 관리 설정_복약 알림 시간대
 
-        return response_builder.get_response_400()
+        return response_builder.get_response_200()
 
 
 class PatientMedicationNotiSetTime(KakaoResponseAPI):
