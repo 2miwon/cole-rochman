@@ -89,7 +89,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
 
             return response_builder.get_response_200()
         else:
-            response_builder.add_simple_text(text=f"{time.strftime('%H시 %M분')}을 입력하셨어요.\n다음 회차를 설정하시려면 '예'를 눌러주세요.")
+            response_builder.add_simple_text(text=f"{time}을 입력하셨어요.\n다음 회차를 설정하시려면 '예'를 눌러주세요.")
             response_builder.set_quick_replies_yes_or_no(
                 block_id_for_yes="5da5eac292690d0001a489e4")  # (블록) 03 치료 관리 설정_복약 알림 시간
 
