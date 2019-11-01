@@ -43,9 +43,9 @@ class PatientVisitDateSet(KakaoResponseAPI):
         patient.refresh_from_db()
 
         response_builder.add_simple_text(text="%s이 내원일이군요." % patient.next_visiting_date_time_str())
-        response_builder.add_simple_text(text="내원 알람을 설정할까요?")
+        response_builder.add_simple_text(text="내원 알림을 설정할까요?")
         response_builder.set_quick_replies_yes_or_no(block_id_for_yes="5d9df34e92690d0001a458ed",
-                                                     message_text_for_no="아니요")  # (블록) 03 치료 관리 설정_내원 알람 설정
+                                                     message_text_for_no="아니요")  # (블록) 03 치료 관리 설정_내원 알림 설정
 
         return response_builder.get_response_200()
 
@@ -90,12 +90,12 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
         if not timedelta_minutes == 0:
             time_before_verbose += '%d분 ' % timedelta_minutes
 
-        response_builder.add_simple_text(text="내원 시간 %s 전에 알람을 드리겠습니다." % time_before_verbose.strip())
-        response_builder.add_simple_text(text="이대로 알람을 설정할까요?")
+        response_builder.add_simple_text(text="내원 시간 %s 전에 알림을 드리겠습니다." % time_before_verbose.strip())
+        response_builder.add_simple_text(text="이대로 알림을 설정할까요?")
         response_builder.set_quick_replies_yes_or_no(block_id_for_yes="5d9df7978192ac0001156891",
                                                      # (블록) 05 치료 관리 설정_내원 관리 완료
                                                      block_id_for_no="5d9df9368192ac00011568a9",
-                                                     # (블록) 치료 관리 설정_내원 알람 종료
+                                                     # (블록) 치료 관리 설정_내원 알림 종료
                                                      message_text_for_no="아니요, 지금은 안 할래요.")
 
         return response_builder.get_response_200()

@@ -60,7 +60,8 @@ class Patient(models.Model):
     def next_undefined_noti_time_number(self):
         return self.medication_noti_time_list().index(None) + 1
 
-    def reset_medication_noti(self):
+    def reset_medication(self):
+        self.medication_manage_flag = None
         self.daily_medication_count = 0
         self.medication_noti_flag = None
         self.medication_noti_time_1 = None
