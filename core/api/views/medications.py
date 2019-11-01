@@ -60,7 +60,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             response_builder.set_quick_replies_yes_or_no(message_text_for_no="아니요",
                                                          block_id_for_yes="5da5ac8fb617ea00012b4363")  # (블록) 06 치료 관리 설정_알람 설정 완료
 
-            return Response(response_builder.get_response(), status=status.HTTP_200_OK)
+            return response_builder.get_response_200()
 
         data = dict()
         medication_noti_time = request.data['action']['params']['noti_time']
@@ -90,13 +90,13 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             response_builder.set_quick_replies_yes_or_no(
                 block_id_for_yes="5d9df31692690d0001a458e6")  # (블록) 02 치료 관리 설정_내원 예정일 확인
 
-            return Response(response_builder.get_response(), status=status.HTTP_200_OK)
+            return response_builder.get_response_200()
 
         response_builder.add_simple_text(text="다음 회차를 설정하시려면 '예'를 눌러주세요.")
         response_builder.set_quick_replies_yes_or_no(
             block_id_for_yes="5da5eac292690d0001a489e4")  # (블록) 03 치료 관리 설정_복약 알림 시간
 
-        return Response(response_builder.get_response(), status=status.HTTP_200_OK)
+        return response_builder.get_response_200()
 
 
 class PatientMedicationNotiReset(KakaoResponseAPI):
@@ -114,4 +114,4 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
         response_builder.set_quick_replies_yes_or_no(
             block_id_for_yes="5da5e59ab617ea00012b43ee")  # (블록) 02 치료 관리 설정_복약횟수
 
-        return Response(response_builder.get_response(), status=status.HTTP_200_OK)
+        return response_builder.get_response_200()
