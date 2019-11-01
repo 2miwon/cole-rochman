@@ -72,6 +72,14 @@ fab deploy
 fab refresh
 ```
 
+### Code
+- API는 boilerplate를 줄이기 위해 아래 두 모듈을 사용합니다.
+    - [helper](https://github.com/hanqyu/cole-rochman/blob/master/core/api/util/helper.py)
+        - API 미들웨어 역할 (request parsing, user_id에 따른 patient 객체 준비 등)
+    - [response_builder](https://github.com/hanqyu/cole-rochman/blob/master/core/api/util/response_builder.py)
+        - Skill과 Validation 두가지 케이스
+        - 오타로 인한 에러를 줄이기 위해 이 모듈을 사용하도록 합니다.
+
 ### Trouble Shooting
 - uwsgi 관련 에러가 나는 경우
   - window 환경에서는 uwsgi를 설치할 수 없습니다. requirements.txt에서 uwsgi를 제거하고 진행하세요
