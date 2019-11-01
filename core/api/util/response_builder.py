@@ -1,9 +1,13 @@
+from rest_framework import status
+from rest_framework.response import Response
+
+
 class ResponseBuilder:
     version = '2.0'
     VALIDATION = 'validation'
     SKILL = 'skill'
 
-    def __init__(self, response_type, status=None):
+    def __init__(self, response_type):
         """
         use status only when response_type is VALIDATION
 
@@ -11,23 +15,34 @@ class ResponseBuilder:
         """
         if response_type not in [self.VALIDATION, self.SKILL]:
             raise ValueError('Response_type must be ResponseBuilder.VALIDATION or ResponseBuilder.SKILL')
-        if response_type == self.VALIDATION and status not in ['FAIL', 'SUCCESS']:
-            raise ValueError('Status must be "FAIL" or "SUCCESS" when response_type is VALIDATION')
 
         self.response_type = response_type
+        self.status = None
 
-        if response_type == self.VALIDATION:
-            self.status = status
-            self.response = {
-                'status': status
-            }
-        elif response_type == self.SKILL:
+        if response_type == self.SKILL:
             self.response = {
                 'version': self.version,
                 'template': {
                     'outputs': []
                 }
             }
+
+    def __set_status(self, status: str):
+        """
+        Set self.status. Only Valid when response_type is VALIDATION.
+
+        :param status: str
+        :return: None
+        """
+        if self.response_type != self.VALIDATION: raise ValueError(
+            'This cannot be called when response_type is not VALIDATION.')
+        if status not in ['FAIL', 'SUCCESS']:
+            raise ValueError('Status must be "FAIL" or "SUCCESS" when response_type is VALIDATION')
+
+        self.status = status
+        self.response = {
+            'status': status
+        }
 
     def __add_outputs(self, data: dict):
         """
@@ -57,23 +72,59 @@ class ResponseBuilder:
 
         self.response.get('template').get('quickReplies').append(data)
 
-    def add_value(self, value):
+    def __add_value(self, value):
         """
         append value to self.response
 
         :type value: string or int
         """
         if self.response_type != self.VALIDATION: raise ValueError(
-            'You cannot use add_value() when response_type is ResponseBuilder.VALIDATION')
+            'You cannot use __add_value() when response_type is ResponseBuilder.VALIDATION')
+        if self.status is None: raise ValueError('You should call set_status() first.')
         if not (type(value) == int or type(value) == str): raise ValueError('value should be int or string.')
 
         self.response['value'] = value
 
-    def add_simple_text(self, message: str):
+    def __add_message(self, message):
         """
-        append simpleText(dict) with message to self.response['template']['outputs']
+        append message to self.response
 
-        :param message: It can be up to 1,000 letters.
+        :type message: string
+        """
+        if self.response_type != self.VALIDATION: raise ValueError(
+            'You cannot use __add_message() when response_type is ResponseBuilder.VALIDATION')
+        if self.status is None: raise ValueError('You should call set_status() first.')
+        if not type(message) == str: raise ValueError('message should be string.')
+
+        self.response['message'] = message
+
+    def validation_success(self, value):
+        """
+        Build response with value when validaion is successful.
+        :param value: string or int
+        :return: None
+        """
+        self.__set_status('SUCCESS')
+        self.__add_value(value)
+
+    def validation_fail(self, value, message=None):
+        """
+        Build response with value when validaion is failed.
+        :param value: string or int
+        :param message: str. Client will use it when failed.
+        :return: None
+        """
+        self.__set_status('FAIL')
+        if value:
+            self.__add_value(value)
+        if message:
+            self.__add_message(message)
+
+    def add_simple_text(self, text: str):
+        """
+        append simpleText(dict) with text to self.response['template']['outputs']
+
+        :param text: It can be up to 1,000 letters.
         :return: None
 
         (완성 예제)
@@ -84,12 +135,12 @@ class ResponseBuilder:
         }
         """
 
-        if not (type(message) == int or type(message) == str):
+        if not (type(text) == int or type(text) == str):
             raise ValueError('message should be int or string.')
 
         data = {
             'simpleText': {
-                'text': message
+                'text': text
             }
         }
 
@@ -165,27 +216,53 @@ class ResponseBuilder:
 
         self.__add_quick_reply(data=data)
 
-    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, message_text_for_no: str = '아니요, 종료할게요.'):
+    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, block_id_for_no: str = None,
+                                    message_text_for_yes: str = '예', message_text_for_no: str = '아니요, 종료할게요.'):
         """
         Automaticaly add quick_replies for 예/아니요.
         Currently you can only set block_id for yes, and message_text for no.
         Use add_quick_reply() when you want other way.
 
         :param block: bool
-        :param block_id_for_yes: str. It is necessary when block is True
+        :param block_id_for_yes: str.
+        :param block_id_for_no: str.
+        :param message_text_for_yes: str. default is '예.'
         :param message_text_for_no: str. default is '아니요, 종료할게요.'
         :return: None
         """
-        if block_id_for_yes is None:
-            raise ValueError('block_id is necessary when action is "block".')
+        if block_id_for_yes:
+            self.add_quick_reply(action='block', label='예', block_id=block_id_for_yes,
+                                 message_text=message_text_for_yes)
+        else:
+            self.add_quick_reply(action='message', label='예', block_id=block_id_for_yes,
+                                 message_text=message_text_for_yes)
 
-        self.add_quick_reply(action='block', label='예', block_id=block_id_for_yes)
-        self.add_quick_reply(action='message', label='아니요', message_text=message_text_for_no)
+        if block_id_for_no:
+            self.add_quick_reply(action='block', label='아니요', block_id=block_id_for_no,
+                                 message_text=message_text_for_no)
+        else:
+            self.add_quick_reply(action='message', label='아니요', message_text=message_text_for_no)
 
     def get_response(self):
         """
-        Return self.response
+        Return self.response with status_code 200
 
         :return: dict. self.response
         """
         return self.response
+
+    def get_response_200(self):
+        """
+        Return Response with self.response and status_code(200)
+
+        :return: object. Response()
+        """
+        return Response(self.response, status=status.HTTP_200_OK)
+
+    def get_response_400(self):
+        """
+        Return Response with self.response and status_code(400)
+
+        :return: object. Response()
+        """
+        return Response(self.response, status=status.HTTP_400_BAD_REQUEST)

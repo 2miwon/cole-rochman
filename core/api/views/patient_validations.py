@@ -1,10 +1,9 @@
 import re
 
-from rest_framework import status
 from rest_framework.generics import CreateAPIView
-from rest_framework.response import Response
 
 from core.api.serializers import PatientCreateSerializer
+from core.api.util.response_builder import ResponseBuilder
 
 
 class ValidatePatientCode(CreateAPIView):
@@ -13,28 +12,20 @@ class ValidatePatientCode(CreateAPIView):
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
+        response_builder = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
         value = request.data['value']['origin']
         regex = re.compile(r'[a-zA-Z]\d{11}')
         matched = re.search(regex, value)
 
         if not matched:
-            response_data = {
-                "status": "FAIL",
-                "message": "유효하지 않은 코드입니다."
-            }
-            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+            response_builder.validation_fail(message="유효하지 않은 코드입니다.")
+            return response_builder.get_response_400()
 
         qs = self.get_queryset()
         qs = qs.filter(code=matched.group().upper())
         if qs.exists():
-            response_data = {
-                "status": "FAIL",
-                "message": "이미 등록된 코드입니다."
-            }
-            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+            response_builder.validation_fail(message="이미 등록된 코드입니다.")
+            return response_builder.get_response_400()
 
-        response_data = {
-            "status": "SUCCESS",
-            "value": matched.group().upper()
-        }
-        return Response(response_data, status=status.HTTP_200_OK)
+        response_builder.validation_success(value=matched.group().upper())
+        return response_builder.get_response_200()
