@@ -40,7 +40,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.SysLogHandler',
             'formatter': 'simple',
-            'address': ('logs2.papertrailapp.com', 50435)
+            'address': secrets['PAPERTRAIL_ADDRESS']
         },
     },
     'loggers': {
