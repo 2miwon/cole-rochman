@@ -1,8 +1,5 @@
 import re
 
-from rest_framework import status
-from rest_framework.response import Response
-
 from core.api.util.helper import KakaoResponseAPI
 
 
@@ -11,6 +8,8 @@ class ValidateTimeBefore(KakaoResponseAPI):
         SECONDS_FOR_MINUTE = 60
         SECONDS_FOR_HOUR = 60 * SECONDS_FOR_MINUTE
         SECONDS_FOR_DAY = 24 * SECONDS_FOR_HOUR
+
+        response_builder = self.build_response(response_type=self.RESPONSE_VALIDATION)
 
         value = request.data['value']['origin']
 
@@ -43,13 +42,8 @@ class ValidateTimeBefore(KakaoResponseAPI):
             timedelta += int(hours_str) * SECONDS_FOR_HOUR
 
         else:
-            response_data = {
-                "status": "FAIL"
-            }
-            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+            response_builder.validation_fail()
+            return response_builder.get_response_400()
 
-        response_data = {
-            "status": "SUCCESS",
-            "value": timedelta
-        }
-        return Response(response_data, status=status.HTTP_200_OK)
+        response_builder.validation_success(value=timedelta)
+        return response_builder.get_response_200()

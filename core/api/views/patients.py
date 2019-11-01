@@ -9,27 +9,24 @@ from core.api.util.helper import KakaoResponseAPI
 
 import logging
 
+from core.api.util.response_builder import ResponseBuilder
+
 logger = logging.getLogger(__name__)
 
 
 class TestView(CreateAPIView):
     def post(self, request, format='json', *args, **kwargs):
         serializer = TestSerializer(data={'data': request.data})
+        response_builder = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
 
         if serializer.is_valid():
             serializer.save()
-            response_data = {
-                "status": "SUCCESS",
-                "value": serializer.validated_data
-            }
-            return Response(response_data, status=status.HTTP_201_CREATED)
+            response_builder.validation_success(value=serializer.validated_data)
 
-        response_data = {
-            "status": "FAIL",
-            "value": serializer.validated_data
-        }
-        logger.error(serializer.data)
-        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+            return response_builder.get_response_200()
+
+        response_builder.validation_fail(value=serializer.validated_data)
+        return response_builder.get_response_400()
 
 
 class PatientCreate(KakaoResponseAPI, CreateAPIView):
@@ -98,6 +95,7 @@ class PatientUpdate(KakaoResponseAPI):
 
         if not request.query_params.get('test'):
             serializer.save()
+
         response = {
             "version": "2.0",
             "data": {

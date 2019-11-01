@@ -79,11 +79,24 @@ class ResponseBuilder:
         :type value: string or int
         """
         if self.response_type != self.VALIDATION: raise ValueError(
-            'You cannot use add_value() when response_type is ResponseBuilder.VALIDATION')
+            'You cannot use __add_value() when response_type is ResponseBuilder.VALIDATION')
         if self.status is None: raise ValueError('You should call set_status() first.')
         if not (type(value) == int or type(value) == str): raise ValueError('value should be int or string.')
 
         self.response['value'] = value
+
+    def __add_message(self, message):
+        """
+        append message to self.response
+
+        :type message: string
+        """
+        if self.response_type != self.VALIDATION: raise ValueError(
+            'You cannot use __add_message() when response_type is ResponseBuilder.VALIDATION')
+        if self.status is None: raise ValueError('You should call set_status() first.')
+        if not type(message) == str: raise ValueError('message should be string.')
+
+        self.response['message'] = message
 
     def validation_success(self, value):
         """
@@ -94,20 +107,24 @@ class ResponseBuilder:
         self.__set_status('SUCCESS')
         self.__add_value(value)
 
-    def validation_fail(self, value):
+    def validation_fail(self, value, message=None):
         """
         Build response with value when validaion is failed.
         :param value: string or int
+        :param message: str. Client will use it when failed.
         :return: None
         """
         self.__set_status('FAIL')
-        self.__add_value(value)
+        if value:
+            self.__add_value(value)
+        if message:
+            self.__add_message(message)
 
-    def add_simple_text(self, message: str):
+    def add_simple_text(self, text: str):
         """
-        append simpleText(dict) with message to self.response['template']['outputs']
+        append simpleText(dict) with text to self.response['template']['outputs']
 
-        :param message: It can be up to 1,000 letters.
+        :param text: It can be up to 1,000 letters.
         :return: None
 
         (완성 예제)
@@ -118,12 +135,12 @@ class ResponseBuilder:
         }
         """
 
-        if not (type(message) == int or type(message) == str):
+        if not (type(text) == int or type(text) == str):
             raise ValueError('message should be int or string.')
 
         data = {
             'simpleText': {
-                'text': message
+                'text': text
             }
         }
 
@@ -199,22 +216,32 @@ class ResponseBuilder:
 
         self.__add_quick_reply(data=data)
 
-    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, message_text_for_no: str = '아니요, 종료할게요.'):
+    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, block_id_for_no: str = None,
+                                    message_text_for_yes: str = '예', message_text_for_no: str = '아니요, 종료할게요.'):
         """
         Automaticaly add quick_replies for 예/아니요.
         Currently you can only set block_id for yes, and message_text for no.
         Use add_quick_reply() when you want other way.
 
         :param block: bool
-        :param block_id_for_yes: str. It is necessary when block is True
+        :param block_id_for_yes: str.
+        :param block_id_for_no: str.
+        :param message_text_for_yes: str. default is '예.'
         :param message_text_for_no: str. default is '아니요, 종료할게요.'
         :return: None
         """
-        if block_id_for_yes is None:
-            raise ValueError('block_id is necessary when action is "block".')
+        if block_id_for_yes:
+            self.add_quick_reply(action='block', label='예', block_id=block_id_for_yes,
+                                 message_text=message_text_for_yes)
+        else:
+            self.add_quick_reply(action='message', label='예', block_id=block_id_for_yes,
+                                 message_text=message_text_for_yes)
 
-        self.add_quick_reply(action='block', label='예', block_id=block_id_for_yes)
-        self.add_quick_reply(action='message', label='아니요', message_text=message_text_for_no)
+        if block_id_for_no:
+            self.add_quick_reply(action='block', label='아니요', block_id=block_id_for_no,
+                                 message_text=message_text_for_no)
+        else:
+            self.add_quick_reply(action='message', label='아니요', message_text=message_text_for_no)
 
     def get_response(self):
         """

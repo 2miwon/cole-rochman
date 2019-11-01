@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -15,6 +16,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
+        response_builder = self.build_response(response_type=self.RESPONSE_SKILL)
 
         next_visiting_date_time = request.data['action']['params']['next_visiting_date_time']
         data = dict()
@@ -35,36 +37,12 @@ class PatientVisitDateSet(KakaoResponseAPI):
 
         patient.refresh_from_db()
 
-        response = {
-            "version": "2.0",
-            "template": {
-                "outputs": [
-                    {
-                        "simpleText": {
-                            "text": "%s이 내원일이군요." % patient.next_visiting_date_time_str()
-                        }
-                    },
-                    {
-                        "simpleText": {
-                            "text": "내원 알람을 설정할까요?"
-                        }
-                    }
-                ],
-                "quickReplies": [
-                    {
-                        "action": "block",
-                        "label": "예",
-                        "blockId": "5d9df34e92690d0001a458ed"  # (블록) 03 치료 관리 설정_내원 알람 설정
-                    },
-                    {
-                        "action": "message",
-                        "label": "아니요",
-                        "messageText": "아니요"
-                    }
-                ]
-            }
-        }
-        return Response(response, status=status.HTTP_200_OK)
+        response_builder.add_simple_text(text="%s이 내원일이군요." % patient.next_visiting_date_time_str())
+        response_builder.add_simple_text(text="내원 알람을 설정할까요?")
+        response_builder.set_quick_replies_yes_or_no(block_id_for_yes="5d9df34e92690d0001a458ed",
+                                                     message_text_for_no="아니요")  # (블록) 03 치료 관리 설정_내원 알람 설정
+
+        return response_builder.get_response_200()
 
 
 class PatientVisitNotiTimeBefore(KakaoResponseAPI):
@@ -75,12 +53,14 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
         patient = self.get_object_by_kakao_user_id()
+        response_builder = self.build_response(response_type=self.RESPONSE_SKILL)
 
         seconds = self.data['visit_notification_before']  # 초 단위의 integer
         seconds = int(seconds)
         data = dict()
         data['visit_notification_before'] = seconds
         data['visit_notification_flag'] = True
+
         serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -101,35 +81,12 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
         if not timedelta_minutes == 0:
             time_before_verbose += '%d분 ' % timedelta_minutes
 
-        response = {
-            "version": "2.0",
-            "template": {
-                "outputs": [
-                    {
-                        "simpleText": {
-                            "text": "내원 시간 %s 전에 알람을 드리겠습니다." % time_before_verbose.strip()
-                        }
-                    },
-                    {
-                        "simpleText": {
-                            "text": "이대로 알람을 설정할까요?"
-                        }
-                    }
-                ],
-                "quickReplies": [
-                    {
-                        "action": "block",
-                        "label": "예",
-                        "blockId": "5d9df7978192ac0001156891"  # (블록) 05 치료 관리 설정_내원 관리 완료
-                    },
-                    {
-                        "action": "block",
-                        "label": "아니요",
-                        "message": "아니요, 지금은 안 할래요.",
-                        "blockId": "5d9df9368192ac00011568a9"  # (블록) 치료 관리 설정_내원 알람 종료
-                    }
-                ]
-            }
-        }
-        return Response(response, status=status.HTTP_200_OK)
+        response_builder.add_simple_text(text="내원 시간 %s 전에 알람을 드리겠습니다." % time_before_verbose.strip())
+        response_builder.add_simple_text(text="이대로 알람을 설정할까요?")
+        response_builder.set_quick_replies_yes_or_no(block_id_for_yes="5d9df7978192ac0001156891",
+                                                     # (블록) 05 치료 관리 설정_내원 관리 완료
+                                                     block_id_for_no="5d9df9368192ac00011568a9",
+                                                     # (블록) 치료 관리 설정_내원 알람 종료
+                                                     message_text_for_no="아니요, 지금은 안 할래요.")
 
+        return response_builder.get_response_200()
