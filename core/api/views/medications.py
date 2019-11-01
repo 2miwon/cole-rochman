@@ -83,7 +83,9 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             response_builder.add_simple_text(text="모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n%s" % time_list)
             response_builder.add_simple_text(text="이대로 복약 알림을 설정할까요?")
             response_builder.set_quick_replies_yes_or_no(
-                block_id_for_yes="5da5ac8fb617ea00012b4363")  # (블록) 05 치료 관리 설정_알림 설정 완료
+                block_id_for_yes="5da5ac8fb617ea00012b4363",  # (블록) 05 치료 관리 설정_알림 설정 완료
+                block_id_for_no="5da549a6ffa7480001daf819",  # (블록) 01-1 치료 관리 설정_복약 관리 취소
+                message_text_for_no="아니요")
 
             return response_builder.get_response_200()
         else:
