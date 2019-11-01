@@ -3,9 +3,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset
-from core.api.views.patient_validations import ValidatePatientCode
+from core.api.views.validation_patients import ValidatePatientCode
 from core.api.views.patients import PatientCreate, PatientUpdate, TestView
-from core.api.views.visit_validations import ValidateTimeBefore
+from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart
 
 urlpatterns = [
