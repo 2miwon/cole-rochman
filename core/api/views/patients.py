@@ -1,5 +1,6 @@
 import json
 
+from django.http import Http404
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
@@ -69,7 +70,10 @@ class PatientUpdate(KakaoResponseAPI):
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
         data = self.data
-        patient = self.get_object_by_kakao_user_id()
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
 
         for key, value in data.items():
             if 'flag' in key:

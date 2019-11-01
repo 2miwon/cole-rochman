@@ -1,6 +1,10 @@
+from django.http import Http404
 from django.http.request import HttpRequest
 from rest_framework.test import APITestCase
-from core.api.util.helper import find_nested_key_from_dict, Kakao
+
+from core.api.serializers import PatientUpdateSerializer
+from core.api.util.helper import find_nested_key_from_dict, Kakao, KakaoResponseAPI
+from core.models import Patient
 
 
 class FunctionTest(APITestCase):
@@ -97,3 +101,43 @@ class KakaoTest(APITestCase):
         kakao.preprocess(request)
         kakao.parse_patient_code()
         self.assertEqual(kakao.patient_code, 'P12312345678')
+
+
+class KakaoResponseAPITest(APITestCase):
+    KakaoResponseAPI.serializer_class = PatientUpdateSerializer
+    KakaoResponseAPI.queryset = KakaoResponseAPI.serializer_class.Meta.model.objects.all()
+
+    def test_get_object_by_kakao_user_id_success(self):
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='test123')
+        request = HttpRequest()
+        data = {
+            'userRequest': {
+                'user': {
+                    'id': 'test123'
+                }
+            }
+        }
+        setattr(request, 'data', data)
+
+        kakao = KakaoResponseAPI()
+        kakao.preprocess(request)
+        kakao.request = request
+
+        self.assertEqual(kakao.get_object_by_kakao_user_id(), p)
+
+    def test_get_object_by_kakao_user_id_fail(self):
+        request = HttpRequest()
+        data = {
+            'userRequest': {
+                'user': {
+                    'id': 'test123'
+                }
+            }
+        }
+        setattr(request, 'data', data)
+
+        kakao = KakaoResponseAPI()
+        kakao.preprocess(request)
+        kakao.request = request
+
+        self.assertRaises(Http404, kakao.get_object_by_kakao_user_id)

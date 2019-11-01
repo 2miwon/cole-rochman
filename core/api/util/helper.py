@@ -1,5 +1,6 @@
 import functools
 
+from django.http import Http404
 from rest_framework.generics import GenericAPIView, get_object_or_404
 
 from core.api.util.response_builder import ResponseBuilder
@@ -27,6 +28,7 @@ def require_patient_code(method):
     return wrapper
 
 
+# functions
 def find_nested_key_from_dict(_dict: dict, keys):
     """
     :param _dict: dictionary to parse. e.g. request.data
@@ -129,3 +131,15 @@ class KakaoResponseAPI(Kakao, GenericAPIView):
         self.check_object_permissions(self.request, obj)
 
         return obj
+
+    @staticmethod
+    def build_response_fallback_404():
+        """
+        Build response for fallback of 404, which can be raised when Patient is not exists.
+        Response will notice that the user have to register.
+        :return: dict of response
+        """
+        response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
+        response.add_simple_text(text='계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?')
+        response.set_quick_replies_yes_or_no(block_id_for_yes='5d8e22948192ac0001fbf889')  # 계정등록_별명 등록
+        return response.get_response_200()
