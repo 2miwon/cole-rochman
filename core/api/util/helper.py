@@ -1,6 +1,5 @@
 import functools
 
-from django.http import Http404
 from rest_framework.generics import GenericAPIView, get_object_or_404
 
 from core.api.util.response_builder import ResponseBuilder

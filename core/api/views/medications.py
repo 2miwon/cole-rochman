@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.utils import json
@@ -13,7 +14,10 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
 
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
-        patient = self.get_object_by_kakao_user_id()
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
         response_builder = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
         patient.medication_manage_flag = True
@@ -45,7 +49,10 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
 
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
-        patient = self.get_object_by_kakao_user_id()
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
         response_builder = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
         if patient.medication_noti_flag and not patient.need_medication_noti_time_set():
@@ -106,7 +113,11 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
 
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
-        patient = self.get_object_by_kakao_user_id()
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
         patient.reset_medication_noti()
         response_builder = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 

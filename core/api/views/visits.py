@@ -1,6 +1,7 @@
 import datetime
 import json
 
+from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -15,9 +16,13 @@ class PatientVisitDateSet(KakaoResponseAPI):
 
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
-        patient = self.get_object_by_kakao_user_id()
-        response_builder = self.build_response(response_type=self.RESPONSE_SKILL)
 
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
+        response_builder = self.build_response(response_type=self.RESPONSE_SKILL)
         next_visiting_date_time = request.data['action']['params']['next_visiting_date_time']
         data = dict()
         data['visit_manage_flag'] = True
@@ -52,7 +57,11 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
 
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
-        patient = self.get_object_by_kakao_user_id()
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
         response_builder = self.build_response(response_type=self.RESPONSE_SKILL)
 
         seconds = self.data['visit_notification_before']  # 초 단위의 integer
