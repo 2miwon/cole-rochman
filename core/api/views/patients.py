@@ -16,6 +16,10 @@ logger = logging.getLogger(__name__)
 
 
 class TestView(CreateAPIView):
+    serializer_class = PatientCreateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
     def post(self, request, format='json', *args, **kwargs):
         serializer = TestSerializer(data={'data': request.data})
         response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
@@ -32,7 +36,7 @@ class TestView(CreateAPIView):
 
 class PatientCreate(KakaoResponseAPI, CreateAPIView):
     serializer_class = PatientCreateSerializer
-    model_class = PatientCreateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):

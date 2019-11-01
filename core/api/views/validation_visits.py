@@ -1,9 +1,14 @@
 import re
 
+from core.api.serializers import PatientCreateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 
 class ValidateTimeBefore(KakaoResponseAPI):
+    serializer_class = PatientCreateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
     def post(self, request, format='json', *args, **kwargs):
         SECONDS_FOR_MINUTE = 60
         SECONDS_FOR_HOUR = 60 * SECONDS_FOR_MINUTE
