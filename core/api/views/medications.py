@@ -32,7 +32,7 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
 
             response_builder.add_simple_text(text="복약 알림을 모두 재설정하시겠어요?")
             response_builder.set_quick_replies_yes_or_no(
-                block_id_for_yes="5d9dfab48192ac00011568ac")  # (블록) 01 치료 관리 재설정_복약 관리 시작
+                block_id_for_yes="5db30f398192ac000115f9a0")  # (블록) 02 치료 관리 재설정_복약횟수 확인
         else:
             next_undefined_number = patient.next_undefined_noti_time_number()
             message = f'{next_undefined_number:d}회차 복약 알림을 설정할까요?'
