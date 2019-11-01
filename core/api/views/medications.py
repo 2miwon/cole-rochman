@@ -97,9 +97,6 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             return response_builder.get_response_200()
 
 
-# TODO 퇴원환자의 경우 내원관리로 가면 안됨
-
-
 class PatientMedicationNotiReset(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = PatientUpdateSerializer.Meta.model

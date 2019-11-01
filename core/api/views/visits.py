@@ -9,6 +9,37 @@ from core.api.serializers import PatientCreateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 
+class PatientVisitStart(KakaoResponseAPI):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+        response_builder = self.build_response(response_type=self.RESPONSE_SKILL)
+
+        if patient.discharged_flag:
+            response_builder.add_simple_text(text='내원 관리를 시작하시겠습니까?')
+            response_builder.set_quick_replies_yes_or_no(
+                block_id_for_yes='5d9df31692690d0001a458e6',  # (블록) 02 치료 관리 설정_내원 예정일 확인
+                block_id_for_no='5d9df7dfb617ea00012b17f3'  # (블록) 치료 관리 설정_내원 관리 종료
+            )
+            return response_builder.get_response_200()
+        else:
+            response_builder.add_simple_text(text='아직 퇴원을 하지 않으셔서 내원 관리를 하실 필요가 없어요.')
+            response_builder.add_simple_text(text='치료 관리 모드로 이동할까요?')
+            response_builder.add_simple_text(text='(아직 이동할 블록이 설정되지 않았습니다.)')
+            # TODO 치료관리 모드 의 블록이 확실해지면 block_id 넣기
+            # response_builder.set_quick_replies_yes_or_no(
+            #     block_id_for_yes=''
+            # )
+            return response_builder.get_response_200()
+
+
 class PatientVisitDateSet(KakaoResponseAPI):
     serializer_class = PatientCreateSerializer
     model_class = PatientCreateSerializer.Meta.model
@@ -23,7 +54,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
             return self.build_response_fallback_404()
 
         response_builder = self.build_response(response_type=self.RESPONSE_SKILL)
-        next_visiting_date_time = request.data['action']['params']['next_visiting_date_time']
+        next_visiting_date_time = request.data['action']['params'].get('next_visiting_date_time')
         data = dict()
         data['visit_manage_flag'] = True
 
