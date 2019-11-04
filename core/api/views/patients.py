@@ -88,6 +88,9 @@ class PatientUpdate(KakaoResponseAPI):
             elif 'date_time' in key:
                 date_time_dict = json.loads(value)
                 data[key] = date_time_dict['date'] + " " + date_time_dict['time']
+            elif 'date' in key:
+                date_dict = json.loads(value)
+                data[key] = date_dict['date']
             elif 'time' in key:
                 time_dict = json.loads(value)
                 data[key] = time_dict['time']
