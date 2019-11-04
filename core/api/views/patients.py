@@ -102,6 +102,7 @@ class PatientUpdate(KakaoResponseAPI):
         response = {
             "version": "2.0",
             "data": {
+                'nickname': patient.nickname
             }
         }
         return Response(response, status=status.HTTP_200_OK)
