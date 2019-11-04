@@ -104,6 +104,11 @@ class PatientUpdateTest(APITestCase):
             'userRequest': {'user': {'id': 'abc123'}},
             'action': {'params': {request_param: value}}
         }
+        if 'date' in request_param and 'date_time' not in request_param:
+            data = {
+                'userRequest': {'user': {'id': 'abc123'}},
+                'action': {'params': {request_param: {'value': value}}}
+            }
         response = self.client.post(url, data, format='json')
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
