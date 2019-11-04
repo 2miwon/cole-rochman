@@ -31,7 +31,7 @@ class PatientCreateTest(APITestCase):
             }
         }
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Patient.objects.count(), 1)
         self.assertEqual(Patient.objects.first().code, 'T00112345678')
         self.assertEqual(Patient.objects.first().hospital, h)

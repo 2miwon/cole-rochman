@@ -56,7 +56,7 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         if serializer.is_valid():
             if not request.query_params.get('test'):
                 serializer.save()
-                return Response(status=status.HTTP_201_CREATED)
+                return response.get_response_200()
 
             return response.get_response_200()
         else:
