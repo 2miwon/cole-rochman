@@ -11,8 +11,10 @@ class Patient(models.Model):
 
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', null=True)
+    treatment_started_date = models.DateField(verbose_name='치료 시작일', null=True)
+    treatment_end_date = models.DateField(verbose_name='치료 종료일', null=True)
     discharged_flag = models.NullBooleanField(verbose_name='퇴원 여부', null=True, default=None)
-    registered_flag = models.NullBooleanField(verbose_name='계정 등록 완료 여부', null=True, default=None)
+    register_completed_flag = models.BooleanField(verbose_name='계정 등록 완료 여부', default=False)
     medication_manage_flag = models.NullBooleanField(verbose_name='복약관리 여부', null=True, default=None)
     daily_medication_count = models.IntegerField(verbose_name='하루 복약 횟수', default=0)
     medication_noti_flag = models.NullBooleanField(verbose_name='복약알림 여부', null=True, default=None)
@@ -33,8 +35,6 @@ class Patient(models.Model):
     measurement_noti_time_3 = models.TimeField(verbose_name='측정 알림 시간 3', null=True, default=None)
     measurement_noti_time_4 = models.TimeField(verbose_name='측정 알림 시간 4', null=True, default=None)
     measurement_noti_time_5 = models.TimeField(verbose_name='측정 알림 시간 5', null=True, default=None)
-    treatment_started_date = models.DateField(verbose_name='치료 시작일', null=True)
-    treatment_end_date = models.DateField(verbose_name='치료 종료일', null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -91,7 +91,9 @@ class Patient(models.Model):
         return dt.replace('PM', '오후').replace('AM', '오전')
 
     def hospital_code(self):
-        return self.hospital.proper_code()
+        if self.hospital:
+            return self.hospital.proper_code()
+
 
 
 class Hospital(models.Model):

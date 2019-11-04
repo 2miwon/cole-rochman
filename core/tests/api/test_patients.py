@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase
 from parameterized import parameterized
 from django.utils import timezone
 
-from core.models import Patient
+from core.models import Patient, Hospital
 
 time_request_example_1am = '{"timeHeadword": "am", "hour": "1", "second": null, "timeTag": "am", "time": "01:00:00", "date": "2019-10-16", "minute": null}'
 date_time_request_example = '{"dateTag": null, "timeHeadword": "pm", "hour": null, "dateHeadword": null, "time": "15:00:00",\
@@ -18,31 +18,46 @@ class PatientCreateTest(APITestCase):
         """
         create patient
         """
+        h = Hospital.objects.create(code='A001', name='seobuk')
         url = reverse('patient-create')
         data = {
             'userRequest': {'user': {'id': 'asd123'}},
-            'action': {'params': {'patient_code': 'test'}}
+            'action': {
+                'detailParams': {
+                    'patient_code': {'value': 'T00112345678'},
+                    'hospital_code': {'value': 'A001'},
+                    'nickname': {'value': '별님'}
+                }
+            }
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Patient.objects.count(), 1)
-        self.assertEqual(Patient.objects.get().code, 'test')
-        self.assertEqual(Patient.objects.get().kakao_user_id, 'asd123')
+        self.assertEqual(Patient.objects.first().code, 'T00112345678')
+        self.assertEqual(Patient.objects.first().hospital, h)
+        self.assertEqual(Patient.objects.first().nickname, '별님')
+        self.assertEqual(Patient.objects.first().kakao_user_id, 'asd123')
 
     def test_create_success_when_test_true(self):
         """
         create patient when request.queryparams's test value is true.
         It results not actually saving it, but it will respond with serializer's data
         """
+        h = Hospital.objects.create(code='A001', name='seobuk')
         url = reverse('patient-create')
         data = {
             'userRequest': {'user': {'id': 'asd123'}},
-            'action': {'params': {'patient_code': 'test'}}
+            'action': {
+                'detailParams': {
+                    'patient_code': {'value': 'T00112345678'},
+                    'hospital_code': {'value': 'A001'},
+                    'nickname': {'value': '별님'}
+                }
+            }
         }
 
         response = self.client.post(url + '?test=true', data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['test'], True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Patient.objects.count(), 0)
 
 

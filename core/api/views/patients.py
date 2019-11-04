@@ -48,26 +48,17 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         self.parse_kakao_user_id()
         self.parse_patient_code()
 
-        data = dict()
-        data['kakao_user_id'] = self.kakao_user_id
-        data['code'] = self.patient_code
+        self.data['hospital'] = self.data['hospital_code']
 
-        nickname = self.detail_params.get('nickname')
-        if nickname:
-            data['nickname'] = json.loads(nickname)['value']
-
-        serializer = self.get_serializer(data=data)
+        serializer = self.get_serializer(data=self.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         if not request.query_params.get('test'):
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
 
-        response = serializer.validated_data
-        response['test'] = True
-        return Response(response, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_200_OK)
 
 
 class PatientUpdate(KakaoResponseAPI):
@@ -111,6 +102,7 @@ class PatientUpdate(KakaoResponseAPI):
         response = {
             "version": "2.0",
             "data": {
+                'nickname': patient.nickname
             }
         }
         return Response(response, status=status.HTTP_200_OK)
