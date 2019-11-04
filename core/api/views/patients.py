@@ -98,7 +98,7 @@ class PatientUpdate(KakaoResponseAPI):
 
                 try:
                     data[key] = date_time_dict['date'] + " " + date_time_dict['time']
-                except TypeError or KeyError:
+                except (TypeError, KeyError):
                     data[key] = date_time_dict['date'] + " " + date_time_dict['time']
             elif 'date' in key:
                 try:
@@ -108,7 +108,7 @@ class PatientUpdate(KakaoResponseAPI):
 
                 try:
                     data[key] = date_dict['date']
-                except TypeError or KeyError:
+                except (TypeError, KeyError):
                     data[key] = date_dict['value']
             elif 'time' in key:
                 try:
@@ -118,7 +118,7 @@ class PatientUpdate(KakaoResponseAPI):
 
                 try:
                     data[key] = time_dict['time']
-                except TypeError or KeyError:
+                except (TypeError, KeyError):
                     data[key] = time_dict['value']
 
         serializer = self.get_serializer(patient, data=data, partial=True)
