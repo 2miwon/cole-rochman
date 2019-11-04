@@ -44,6 +44,8 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
+        response = self.build_response(response_type=self.RESPONSE_SKILL)
+
         self.preprocess(request)
         self.parse_kakao_user_id()
         self.parse_patient_code()
@@ -51,14 +53,17 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         self.data['hospital'] = self.data['hospital_code']
 
         serializer = self.get_serializer(data=self.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            if not request.query_params.get('test'):
+                serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
 
-        if not request.query_params.get('test'):
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(status=status.HTTP_200_OK)
+            return response.get_response_200()
+        else:
+            response.add_simple_text(text='이미 등록된 계정입니다.')
+            response.add_quick_reply(action='block', label='다음으로 진행하기',
+                                     block_id='5dba635892690d000164f9b2')  # 06 계정등록_결핵 치료 시작일 알고 있는지
+            return response.get_response_200()
 
 
 class PatientUpdate(KakaoResponseAPI):
