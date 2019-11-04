@@ -71,7 +71,7 @@ class PatientUpdateTest(APITestCase):
         ('additionally_detected_date', 'additionally_detected_date', timezone.now().today().strftime('%Y-%m-%d'),
          timezone.now().today().date()),
         ('discharged_flag', 'discharged_flag', 'true', True),
-        ('registered_flag', 'registered_flag', 'true', True),
+        ('register_completed_flag', 'register_completed_flag', 'true', True),
         ('medication_manage_flag', 'medication_manage_flag', 'true', True),
         ('daily_medication_count', 'daily_medication_count', '1회', 1),
         ('medication_noti_flag', 'medication_noti_flag', 'true', True),
