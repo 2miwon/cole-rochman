@@ -22,7 +22,6 @@ urlpatterns = [
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
     path('validate/hospital/code/', ValidateHospitalCode.as_view(), name='validate-hospital-code'),
     path('validate/time-before/', ValidateTimeBefore.as_view(), name='validate-time-before'),
-
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

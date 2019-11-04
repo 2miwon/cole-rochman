@@ -91,7 +91,8 @@ class Patient(models.Model):
         return dt.replace('PM', '오후').replace('AM', '오전')
 
     def hospital_code(self):
-        return self.hospital.proper_code()
+        if self.hospital:
+            return self.hospital.proper_code()
 
 
 class Hospital(models.Model):

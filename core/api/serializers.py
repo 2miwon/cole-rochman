@@ -1,16 +1,21 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
-from core.models import Patient
+from core.models import Patient, Hospital
 
 
-class PatientCreateSerializer(ModelSerializer):
+class PatientCreateSerializer(serializers.ModelSerializer):
+    hospital = serializers.SlugRelatedField(
+        slug_field='code',
+        queryset=Hospital.objects.all()
+    )
+
     class Meta:
         model = Patient
         exclude = ('created_at', 'updated_at')
         lookup_field = 'kakao_user_id'
 
 
-class PatientUpdateSerializer(ModelSerializer):
+class PatientUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
         exclude = ('created_at', 'updated_at')
