@@ -91,19 +91,31 @@ class PatientUpdate(KakaoResponseAPI):
                 except AttributeError:
                     data[key] = value['value'].strip('회')
             elif 'date_time' in key:
-                date_time_dict = json.loads(value)
+                try:
+                    date_time_dict = json.loads(value)
+                except TypeError:
+                    date_time_dict = value
+
                 try:
                     data[key] = date_time_dict['date'] + " " + date_time_dict['time']
                 except TypeError or KeyError:
                     data[key] = date_time_dict['date'] + " " + date_time_dict['time']
             elif 'date' in key:
-                date_dict = json.loads(value)
+                try:
+                    date_dict = json.loads(value)
+                except TypeError:
+                    date_dict = value
+
                 try:
                     data[key] = date_dict['date']
                 except TypeError or KeyError:
                     data[key] = date_dict['value']
             elif 'time' in key:
-                time_dict = json.loads(value)
+                try:
+                    time_dict = json.loads(value)
+                except TypeError:
+                    time_dict = value
+
                 try:
                     data[key] = time_dict['time']
                 except TypeError or KeyError:
