@@ -1,16 +1,41 @@
 import json
+import re
 
 from django.http import Http404
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from core.api.serializers import PatientCreateSerializer, PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 import logging
 
+from core.api.util.response_builder import ResponseBuilder
+
 logger = logging.getLogger(__name__)
+
+
+class NicknameSkill(APIView):
+
+    def post(self, request, *args, **kwargs):
+        self.response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
+        nickname = request.data.get('actions').get('detailParams').get('nickname').get('value')
+
+        if nickname:
+            regex = re.compile(r'[a-zA-Z0-9ㄱ-힣]{1,10}')
+            matched = re.search(regex, nickname)
+            self.response.add_simple_text(text='%s를 입력받았습니다.' % nickname)
+            if matched:
+                self.response.add_simple_text(text='%s님 반갑습니다. 현재 결핵 치료를 위해서 병원에 다니시나요?' % nickname)
+                self.response.set_quick_replies_yes_or_no(block_id_for_yes='TEXT')
+            else:
+                self.build_fallback_response()
+        else:
+            self.build_fallback_response()
+
+        return Response(self.response, status=status.HTTP_200_OK)
 
 
 class PatientCreate(KakaoResponseAPI, CreateAPIView):

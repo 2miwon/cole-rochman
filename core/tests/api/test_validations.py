@@ -7,6 +7,33 @@ from core.models import Patient
 
 
 class ValidateTest(APITestCase):
+    def test_patient_nickname_success(self):
+        """
+        test for ValidatePatientNickname
+        P00012345 - 9 characters code
+        * expect upper case
+        """
+        url = reverse('validate-patient-nickname')
+        data = {
+            'value': {'origin': '테스트별명'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['value'], '테스트별명')
+
+    def test_patient_nickname_fail(self):
+        """
+        test for ValidatePatientNickname
+        P00012345 - 9 characters code
+        * expect upper case
+        """
+        url = reverse('validate-patient-nickname')
+        data = {
+            'value': {'origin': ''}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_patient_code_success(self):
         """
         test for ValidatePatientCode

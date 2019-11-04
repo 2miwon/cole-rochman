@@ -74,7 +74,7 @@ class ResponseBuilder:
 
     def __add_value(self, value):
         """
-        append value to self.response
+        append value to self.response. only use for validation.
 
         :type value: string or int
         """
@@ -242,6 +242,37 @@ class ResponseBuilder:
                                  message_text=message_text_for_no)
         else:
             self.add_quick_reply(action='message', label='아니요', message_text=message_text_for_no)
+
+    def add_context(self, name: str, life_span: int = 10, params: dict = None):
+        """
+        add context data
+
+        :param name: Name of Context. Camel case recommended.
+        :param life_span: default is 10.
+        :param params: dict of param's key and value. can include multiple parameters.
+        :return: None
+
+        ref) https://i.kakao.com/docs/skill-response-format#%EC%98%88%EC%A0%9C-%EC%BD%94%EB%93%9C-3
+        """
+        if self.response_type != self.SKILL:
+            raise ValueError('You cannot use this when response_type is ResponseBuilder.VALIDATION')
+
+        if name or params is None:
+            raise ValueError('name or params is empty.')
+
+        value = {
+            "name": name,
+            "lifeSpan": life_span,
+            "params": params
+        }
+
+        try:
+            self.response['context']['value']
+        except KeyError:
+            self.response.__setitem__('context', {})
+            self.response['context'].__setitem__('values', [])
+        finally:
+            self.response['context']['values'].append(value)
 
     def get_response(self):
         """

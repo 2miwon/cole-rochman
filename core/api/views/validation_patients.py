@@ -1,9 +1,26 @@
 import re
 
 from rest_framework.generics import CreateAPIView
+from rest_framework.views import APIView
 
 from core.api.serializers import PatientCreateSerializer
 from core.api.util.response_builder import ResponseBuilder
+
+
+class ValidatePatientNickname(APIView):
+    def post(self, request, *args, **kwargs):
+        response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
+        nickname = request.data.get('value').get('origin')
+
+        if nickname:
+            regex = re.compile(r'[a-zA-Z0-9ㄱ-힣]{1,10}')
+            matched = re.search(regex, nickname)
+            if matched:
+                response.validation_success(value=matched.group())
+                return response.get_response_200()
+
+        response.validation_fail()
+        return response.get_response_400()
 
 
 class ValidatePatientCode(CreateAPIView):
