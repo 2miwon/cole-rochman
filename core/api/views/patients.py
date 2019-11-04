@@ -5,33 +5,12 @@ from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from core.api.serializers import TestSerializer, PatientCreateSerializer, PatientUpdateSerializer
+from core.api.serializers import PatientCreateSerializer, PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 import logging
 
-from core.api.util.response_builder import ResponseBuilder
-
 logger = logging.getLogger(__name__)
-
-
-class TestView(CreateAPIView):
-    serializer_class = PatientCreateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        serializer = TestSerializer(data={'data': request.data})
-        response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
-
-        if serializer.is_valid():
-            serializer.save()
-            response.validation_success(value=serializer.validated_data)
-
-            return response.get_response_200()
-
-        response.validation_fail(value=serializer.validated_data)
-        return response.get_response_400()
 
 
 class PatientCreate(KakaoResponseAPI, CreateAPIView):
