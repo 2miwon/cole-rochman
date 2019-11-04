@@ -90,24 +90,25 @@ class Patient(models.Model):
         dt = self.next_visiting_date_time.astimezone().strftime('%Y년 %m월 %d일 %p %I시 %M분')
         return dt.replace('PM', '오후').replace('AM', '오전')
 
+    def hospital_code(self):
+        return self.hospital.proper_code()
+
 
 class Hospital(models.Model):
+    code = models.CharField(max_length=4, unique=True)
     name = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.name}({self.id})'
 
     class Meta:
         verbose_name = '병원/기관'
         verbose_name_plural = '병원/기관'
 
+    def __str__(self):
+        return f'{self.name}({self.code.zfill(3)})'
 
-class Test(models.Model):
-    data = JSONField()
-    memo = models.TextField(default='')
-    created_at = models.DateTimeField(auto_now_add=True)
+    def proper_code(self):
+        return self.code.zfill(3)
 
 
 class MedicationResult(models.Model):

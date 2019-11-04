@@ -3,8 +3,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset
-from core.api.views.validation_patients import ValidatePatientCode
-from core.api.views.patients import PatientCreate, PatientUpdate, TestView
+from core.api.views.validate_hospitals import ValidateHospitalCode
+from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
+from core.api.views.patients import PatientCreate, PatientUpdate
 from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart
 
@@ -18,8 +19,10 @@ urlpatterns = [
     path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),
     path('patients/visit/noti/time/', PatientVisitNotiTimeBefore.as_view(), name='patient-visit-noti-time'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
+    path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
+    path('validate/hospital/code/', ValidateHospitalCode.as_view(), name='validate-hospital-code'),
     path('validate/time-before/', ValidateTimeBefore.as_view(), name='validate-time-before'),
-    path('test/', TestView.as_view(), name='test'),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

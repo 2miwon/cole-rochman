@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Patient, Test
+from .models import Patient, Hospital
 
 
 @admin.register(Patient)
@@ -7,6 +7,6 @@ class PatientAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Test)
-class TestAdmin(admin.ModelAdmin):
+@admin.register(Hospital)
+class HospitalAdmin(admin.ModelAdmin):
     pass
