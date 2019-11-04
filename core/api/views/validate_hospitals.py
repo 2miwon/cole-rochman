@@ -10,7 +10,7 @@ class ValidateHospitalCode(APIView):
     def post(self, request, *args, **kwargs):
         response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
         hospital_code = request.data.get('value').get('origin')
-        regex = re.compile(r'\W\d{3}')
+        regex = re.compile(r'\w\d{3}')
 
         if not hospital_code:
             response.validation_fail()
