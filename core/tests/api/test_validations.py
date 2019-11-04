@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from parameterized import parameterized
 
-from core.models import Patient
+from core.models import Patient, Hospital
 
 
 class ValidateTest(APITestCase):
@@ -33,6 +33,36 @@ class ValidateTest(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_hospital_code_success_number(self, value):
+        """
+        test for ValidateHospitalCode success
+        001 - 3 characters code
+        """
+        Hospital.objects.create(code='A001', name='test')
+
+        url = reverse('validate-hospital-code')
+        data = {
+            'value': {'origin': 'A001'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['value'], 'A001')
+
+    def test_hospital_code_fail_not_found(self):
+        """
+        fail when hospital code not exists
+        001 - 3 characters code
+        """
+        Hospital.objects.create(code='A001', name='test')
+
+        url = reverse('validate-hospital-code')
+        data = {
+            'value': {'origin': 'A002'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data.message, '알 수 없는 병원 코드입니다. 다시 한 번 확인해주세요.')
 
     def test_patient_code_success(self):
         """
