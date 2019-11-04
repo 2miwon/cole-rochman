@@ -95,6 +95,7 @@ class Patient(models.Model):
             return self.hospital.proper_code()
 
 
+
 class Hospital(models.Model):
     code = models.CharField(max_length=4, unique=True)
     name = models.CharField(max_length=100, unique=True)
