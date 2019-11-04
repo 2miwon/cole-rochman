@@ -91,23 +91,23 @@ class PatientUpdate(KakaoResponseAPI):
                 except AttributeError:
                     data[key] = value['value'].strip('회')
             elif 'date_time' in key:
+                date_time_dict = json.loads(value)
                 try:
-                    date_time_dict = json.loads(value)
                     data[key] = date_time_dict['date'] + " " + date_time_dict['time']
                 except TypeError or KeyError:
-                    data[key] = value['date'] + " " + value['time']
+                    data[key] = date_time_dict['date'] + " " + date_time_dict['time']
             elif 'date' in key:
+                date_dict = json.loads(value)
                 try:
-                    date_dict = json.loads(value)
                     data[key] = date_dict['date']
                 except TypeError or KeyError:
-                    data[key] = value['value']
+                    data[key] = date_dict['value']
             elif 'time' in key:
+                time_dict = json.loads(value)
                 try:
-                    time_dict = json.loads(value)
                     data[key] = time_dict['time']
                 except TypeError or KeyError:
-                    data[key] = value['value']
+                    data[key] = time_dict['value']
 
         serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
