@@ -297,3 +297,11 @@ class ResponseBuilder:
         :return: object. Response()
         """
         return Response(self.response, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_response_404(self):
+        """
+        Return Response with self.response and status_code(404)
+
+        :return: object. Response()
+        """
+        return Response(self.response, status=status.HTTP_404_NOT_FOUND)
