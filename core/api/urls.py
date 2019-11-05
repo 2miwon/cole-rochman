@@ -3,6 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset
+from core.api.views.temp import TempPatientDestroy
 from core.api.views.validate_hospitals import ValidateHospitalCode
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
 from core.api.views.patients import PatientCreate, PatientUpdate
@@ -18,6 +19,7 @@ urlpatterns = [
     path('patients/visit/start/', PatientVisitStart.as_view(), name='patient-visit-start'),
     path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),
     path('patients/visit/noti/time/', PatientVisitNotiTimeBefore.as_view(), name='patient-visit-noti-time'),
+    path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
     path('validate/hospital/code/', ValidateHospitalCode.as_view(), name='validate-hospital-code'),
