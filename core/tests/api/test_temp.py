@@ -26,5 +26,4 @@ class TempTest(APITestCase):
         url = reverse('temp-patient-destroy')
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, '계정 등록이 되어 있지 않습니다.')
         self.assertEqual(Patient.objects.count(), 1)
