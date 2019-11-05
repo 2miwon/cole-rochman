@@ -38,11 +38,5 @@ class ValidatePatientCode(CreateAPIView):
             response.validation_fail(message="유효하지 않은 코드입니다.")
             return response.get_response_400()
 
-        qs = self.get_queryset()
-        qs = qs.filter(code=matched.group().upper())
-        if qs.exists():
-            response.validation_fail(message="이미 등록된 코드입니다.")
-            return response.get_response_400()
-
         response.validation_success(value=matched.group().upper())
         return response.get_response_200()
