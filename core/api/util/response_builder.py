@@ -279,7 +279,7 @@ class ResponseBuilder:
         if self.response_type != self.SKILL:
             raise ValueError('You cannot use this when response_type is ResponseBuilder.VALIDATION')
 
-        if name or params is None:
+        if name is None or params is None:
             raise ValueError('name or params is empty.')
 
         value = {

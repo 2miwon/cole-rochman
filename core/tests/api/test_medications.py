@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from core.models import Patient
-from core.tests.helper.helper import get_first_simple_text
+from core.tests.helper.helper import get_first_simple_text, get_context
 
 
 class PatientMedicationNotiTest(APITestCase):
@@ -68,7 +68,7 @@ class PatientMedicationNotiTest(APITestCase):
         Expect successful response for the request to PatientMedicationRestart()
         when p.medication_manage_flag = True
         """
-        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123', medication_manage_flag=True)
+        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123', medication_manage_flag=True, daily_medication_count=3)
         url = reverse('patient-medication-restart')
         data = {
             'userRequest': {'user': {'id': 'asd123'}},
@@ -77,6 +77,7 @@ class PatientMedicationNotiTest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual('지난 번, 복약 관리를 설정한 적이 있습니다.' in get_first_simple_text(response), True)
+        self.assertEqual(get_context(response)[0]['params']['daily_medication_count'], 3)
 
     def test_medication_restart_fail_when_no_patient(self):
         """
