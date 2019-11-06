@@ -103,7 +103,7 @@ class ValidateTest(APITestCase):
             'value': {'origin': 'P123'}
         }
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_OK)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['status'], 'FAIL')
 
     @parameterized.expand([
