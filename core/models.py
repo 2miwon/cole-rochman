@@ -71,7 +71,7 @@ class Patient(models.Model):
         self.medication_noti_time_5 = None
         return self.save()
 
-    def reset_visit_noti(self):
+    def reset_visit(self):
         self.visit_manage_flag = None
         self.visit_notification_flag = None
         self.visit_notification_before = None
