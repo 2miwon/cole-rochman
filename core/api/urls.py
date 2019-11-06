@@ -10,6 +10,7 @@ from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUp
 from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart, \
     PatientVisitRestart
+from core.api.views.validation_measurement import ValidateOxygenSaturation
 
 urlpatterns = [
     path('patients/create/start/', PatientCreateStart.as_view(), name='patient-create-start'),
@@ -31,6 +32,8 @@ urlpatterns = [
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
     path('validate/hospital/code/', ValidateHospitalCode.as_view(), name='validate-hospital-code'),
     path('validate/time-before/', ValidateTimeBefore.as_view(), name='validate-time-before'),
+    path('validate/measurement/oxygen-saturation/', ValidateOxygenSaturation.as_view(), name='validate-oxygen-saturation'),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
