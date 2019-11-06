@@ -84,23 +84,38 @@ class ValidateTest(APITestCase):
         P00012345 - 9 characters code
         * expect upper case
         """
+        Hospital.objects.create(code='A001', name='test')
         url = reverse('validate-patient-code')
         data = {
-            'value': {'origin': 'p12312345678입니다'}
+            'value': {'origin': 'a00112345678입니다'}
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['status'], 'SUCCESS')
-        self.assertEqual(response.data['value'], 'P12312345678')
+        self.assertEqual(response.data['value'], 'A00112345678')
 
     def test_invalid_patient_code_fail(self):
         """
         test for ValidatePatientCode
-        P00012345678 - 12 characters code
+        A00112345678 - 12 characters code
         """
         url = reverse('validate-patient-code')
         data = {
             'value': {'origin': 'P123'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['status'], 'FAIL')
+
+    def test_invalid_patient_code_fail_invalid_hospital_code(self):
+        """
+        test for ValidatePatientCode
+        A00112345678 - 12 characters code
+        A001 -> hospital_code
+        """
+        url = reverse('validate-patient-code')
+        data = {
+            'value': {'origin': 'A00212345678'}  # unknown Hospital code
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

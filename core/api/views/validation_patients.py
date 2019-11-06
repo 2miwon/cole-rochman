@@ -39,7 +39,8 @@ class ValidatePatientCode(CreateAPIView):
             response.validation_fail(message="유효하지 않은 코드입니다.")
             return response.get_response_400()
 
-        if self.hospital_exists(matched.group().upper()):
+        hospital_code = matched.group().upper()[:4]
+        if not self.hospital_exists(hospital_code):
             response.validation_fail(message="유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요")
             return response.get_response_400()
 
@@ -48,4 +49,4 @@ class ValidatePatientCode(CreateAPIView):
 
     @staticmethod
     def hospital_exists(code):
-        Hospital.objects.filter(code=code).exists()
+        return Hospital.objects.filter(code=code).exists()
