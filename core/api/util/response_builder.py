@@ -265,7 +265,7 @@ class ResponseBuilder:
         else:
             self.add_quick_reply(action='message', label='아니요', message_text=message_text_for_no)
 
-    def add_context(self, name: str, life_span: int = 10, params: dict = None):
+    def add_context(self, name: str, life_span: int = 5, params: dict = None):
         """
         add context data
 
