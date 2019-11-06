@@ -37,11 +37,11 @@ class ValidatePatientCode(CreateAPIView):
 
         if not matched:
             response.validation_fail(message="유효하지 않은 코드입니다.")
-            return response.get_response_200()
+            return response.get_response_400()
 
         if self.hospital_exists(matched.group().upper()):
             response.validation_fail(message="유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요")
-            return response.get_response_200()
+            return response.get_response_400()
 
         response.validation_success(value=matched.group().upper())
         return response.get_response_200()
