@@ -112,7 +112,7 @@ class PatientUpdate(KakaoResponseAPI):
             patient.reset_visit()
             patient.visit_manage_flag = True
             patient.visit_notification_flag = True
-            p.save()
+            patient.save()
 
         if self.data.get('reset_medication_noti'):
             patient.reset_medication()
