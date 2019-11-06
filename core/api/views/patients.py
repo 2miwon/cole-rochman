@@ -108,6 +108,18 @@ class PatientUpdate(KakaoResponseAPI):
         except Http404:
             return self.build_response_fallback_404()
 
+        if self.data.get('reset_visit_noti'):
+            patient.reset_visit()
+            patient.visit_manage_flag = True
+            patient.visit_notification_flag = True
+            p.save()
+
+        if self.data.get('reset_medication_noti'):
+            patient.reset_medication()
+            patient.medication_manage_flag = True
+            patient.medication_noti_flag = True
+            patient.save()
+
         for key, value in data.items():
             if 'flag' in key:
                 if value == '예' or 'true':
