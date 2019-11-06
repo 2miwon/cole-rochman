@@ -50,7 +50,7 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         self.parse_kakao_user_id()
         self.parse_patient_code()
 
-        self.data['hospital'] = self.data['hospital_code']
+        self.data['hospital'] = self.patient_code[:3]
 
         serializer = self.get_serializer(data=self.data)
         if serializer.is_valid():

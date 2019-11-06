@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from core.api.serializers import PatientCreateSerializer
 from core.api.util.response_builder import ResponseBuilder
+from core.models import Hospital
 
 
 class ValidatePatientNickname(APIView):
@@ -36,7 +37,15 @@ class ValidatePatientCode(CreateAPIView):
 
         if not matched:
             response.validation_fail(message="유효하지 않은 코드입니다.")
-            return response.get_response_400()
+            return response.get_response_200()
+
+        if self.hospital_exists(matched.group().upper()):
+            response.validation_fail(message="유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요")
+            return response.get_response_200()
 
         response.validation_success(value=matched.group().upper())
         return response.get_response_200()
+
+    @staticmethod
+    def hospital_exists(code):
+        Hospital.objects.filter(code=code).exists()
