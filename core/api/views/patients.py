@@ -36,13 +36,13 @@ class PatientCreateStart(KakaoResponseAPI):
             response.add_simple_text(text='계정을 등록하시겠습니까?\n계정을 등록해주시면\n저와 함께 치료 관리와 건강관리를\n시작하실 수 있습니다.')
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5dbfcfe892690d0001e882d8',  # (블록) 02 계정등록_별명 등록
-                message_text_for_no='처음으로 돌아가기'
+                block_id_for_no='5d732d1b92690d0001813d45'  # (블록) Generic_시작하기 처음으로
             )
         else:
             response.add_simple_text(text='이미 계정이 등록되어 있습니다.\n계정 설정을 변경하시겠어요?')
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5dbf9e1592690d0001e87f9f',  # (블록) 01 계정관리_시작
-                message_text_for_no='처음으로 돌아가기'
+                block_id_for_no='5d732d1b92690d0001813d45'  # (블록) Generic_시작하기 처음으로
             )
 
         return response.get_response_200()
