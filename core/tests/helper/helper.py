@@ -14,4 +14,4 @@ def check_build_response_fallback_404_called(response):
 
 
 def message_in_response(response):
-    return response.content.decode()
+    return str(response.content.decode())
