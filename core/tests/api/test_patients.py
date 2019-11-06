@@ -14,9 +14,7 @@ date_time_request_example = '{"dateTag": null, "timeHeadword": "pm", "hour": nul
           "second": null, "month": "11", "timeTag": "pm", "year": null, "date": "2019-11-01", "day": "1", "minute": null}'
 
 
-
-
-class PatientCreateTest(APITestCase):
+class PatientCreateStartTest(APITestCase):
     def test_create_start_success_already_exist(self):
         """
         patient create start. expects different responses by the existence of user.
@@ -41,6 +39,9 @@ class PatientCreateTest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual('이미 계정이 등록되어 있습니다' in get_first_simple_text(response), True)
+
+
+class PatientCreateTest(APITestCase):
 
     def test_create_success(self):
         """

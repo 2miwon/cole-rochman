@@ -9,7 +9,7 @@ from core.models import Patient
 from core.tests.helper.helper import get_first_simple_text, get_context
 
 
-class PatientMedicationNotiTest(APITestCase):
+class PatientMedicationStartTest(APITestCase):
     def test_medication_start_success(self):
         p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
         url = reverse('patient-medication-start')
@@ -32,6 +32,10 @@ class PatientMedicationNotiTest(APITestCase):
         #     build_response_fallback_404.assert_called()
         self.assertEqual(get_first_simple_text(response), '계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?')
 
+
+# TODO 시간대 설정 성공/실패 테스트
+
+class PatientMedicationNotiResetTest(APITestCase):
     def test_medication_noti_reset(self):
         p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
         p.daily_medication_count = 5
@@ -61,14 +65,15 @@ class PatientMedicationNotiTest(APITestCase):
         self.assertEqual(p.medication_noti_time_list(), list())
         self.assertEqual(p.need_medication_noti_time_set(), False)
 
-    # TODO 시간대 설정 성공/실패 테스트
 
+class PatientMedicationRestartTest(APITestCase):
     def test_medication_restart_success(self):
         """
         Expect successful response for the request to PatientMedicationRestart()
         when p.medication_manage_flag = True
         """
-        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123', medication_manage_flag=True, daily_medication_count=3)
+        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123', medication_manage_flag=True,
+                                   daily_medication_count=3)
         url = reverse('patient-medication-restart')
         data = {
             'userRequest': {'user': {'id': 'asd123'}},
