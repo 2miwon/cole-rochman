@@ -23,7 +23,7 @@ class PatientVisitStart(KakaoResponseAPI):
         response = self.build_response(response_type=self.RESPONSE_SKILL)
         if patient.visit_manage_flag and patient.next_visiting_date_time is not None:
             response.add_simple_text(
-                '이미 내원일을 설정하신 적이 있어요.\n현재 설정된 내원 예정일: %s\n내원 일정을 수정하시겠습니까?' % patient.next_visiting_date_time_str())
+                '이미 내원일을 설정하신 적이 있어요.\n현재 설정된 내원 예정일: %s\n\n내원 일정을 수정하시겠습니까?' % patient.next_visiting_date_time_str())
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5db314e38192ac000115f9af',  # (블록) 02 치료 관리 재설정_내원 예정일 설정
                 block_id_for_no='5da549bcffa7480001daf821'  # (블록) 치료 관리 설정_시작하기 처음으로
