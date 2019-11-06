@@ -24,8 +24,7 @@ class PatientCreateTest(APITestCase):
             'userRequest': {'user': {'id': 'asd123'}},
             'action': {
                 'detailParams': {
-                    'patient_code': {'value': 'T00112345678'},
-                    'hospital_code': {'value': 'A001'},
+                    'patient_code': {'value': 'A00112345678'},
                     'nickname': {'value': '별님'}
                 }
             }
@@ -33,7 +32,7 @@ class PatientCreateTest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Patient.objects.count(), 1)
-        self.assertEqual(Patient.objects.first().code, 'T00112345678')
+        self.assertEqual(Patient.objects.first().code, 'A00112345678')
         self.assertEqual(Patient.objects.first().hospital, h)
         self.assertEqual(Patient.objects.first().nickname, '별님')
         self.assertEqual(Patient.objects.first().kakao_user_id, 'asd123')
