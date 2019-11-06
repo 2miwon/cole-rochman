@@ -160,6 +160,7 @@ class PatientMedicationRestart(KakaoResponseAPI):
                 block_id_for_yes='5db30f398192ac000115f9a0',  # (블록) 02 치료 관리 재설정_복약횟수 확인
                 block_id_for_no='5da549bcffa7480001daf821'  # (블록) 치료 관리 설정_시작하기 처음으로
             )
+            response.add_context(name='복약관리재시작', params={'daily_medication_count': patient.daily_medication_count})
         else:
             response.add_simple_text('설정된 복약 관리가 없습니다.\n복약 관리를 새로 설정하러 가볼까요?')
             response.set_quick_replies_yes_or_no(
