@@ -61,7 +61,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
         if next_visiting_date_time:
             # "value": "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}",
             value = json.loads(next_visiting_date_time)['value']
-            value = datetime.datetime.strptime(value, self.DATETIME_FORMAT_STRING)
+            value = datetime.datetime.strptime(value, self.DATETIME_STRPTIME_FORMAT)
             data['next_visiting_date_time'] = value.astimezone()
 
         serializer = self.get_serializer(patient, data=data, partial=True)

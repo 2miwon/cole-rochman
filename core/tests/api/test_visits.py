@@ -6,6 +6,7 @@ from rest_framework.test import APITestCase
 
 from core.api.util.helper import Kakao
 from core.models import Patient
+from core.tests.helper.helper import check_build_response_fallback_404_called, message_in_response
 
 
 class PatientVisitStartTest(APITestCase):
@@ -21,7 +22,7 @@ class PatientVisitStartTest(APITestCase):
         response = self.client.post(url, data, format='json')
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.content.decode().find('내원 관리를 시작하시겠습니까?') > 0, True)
+        self.assertIn(message_in_response(response), '내원 관리를 시작하시겠습니까?')
 
     def test_success_not_discharged(self):
         p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', discharged_flag=False)
@@ -35,7 +36,7 @@ class PatientVisitStartTest(APITestCase):
         response = self.client.post(url, data, format='json')
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.content.decode().find('아직 퇴원을 하지 않으셔서 내원 관리를 하실 필요가 없어요.') > 0, True)
+        self.assertIn(message_in_response(response), '아직 퇴원을 하지 않으셔서 내원 관리를 하실 필요가 없어요')
 
     def test_fail_404(self):
         url = reverse('patient-visit-start')
@@ -47,7 +48,7 @@ class PatientVisitStartTest(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.content.decode().find('계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?') > 0, True)
+        self.assertEqual(check_build_response_fallback_404_called(response), True)
 
 
 class PatientVisitDateSetTest(APITestCase):
@@ -63,7 +64,7 @@ class PatientVisitDateSetTest(APITestCase):
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(p.next_visiting_date_time,
-                         datetime.datetime.strptime('2018-03-20T10:15:00', Kakao.DATETIME_FORMAT_STRING).astimezone())
+                         datetime.datetime.strptime('2018-03-20T10:15:00', Kakao.DATETIME_STRPTIME_FORMAT).astimezone())
         self.assertEqual(p.next_visiting_date_time_str(), '2018년 03월 20일 오전 10시 15분')
 
 

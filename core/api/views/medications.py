@@ -169,3 +169,9 @@ class PatientMedicationRestart(KakaoResponseAPI):
             )
 
         return response.get_response_200()
+
+
+class PatientVisitRestart(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()

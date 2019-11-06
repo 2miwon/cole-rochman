@@ -46,7 +46,11 @@ class Kakao:
     """
     :var data: saving dict data from request_data parsed
     """
-    DATETIME_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S'
+    DATETIME_STRPTIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
+    
+    DATETIME_STRFTIME_FORMAT = '%Y년 %m월 %d일 %H시 %M분'
+    DATE_STRFTIME_FORMAT = '%Y년 %m월 %d일'
+    TIME_STRFTIME_FORMAT = '%H시 %M분'
 
     RESPONSE_VALIDATION = 'validation'
     RESPONSE_SKILL = 'skill'
