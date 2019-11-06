@@ -18,6 +18,8 @@ urlpatterns = [
     path('patients/medication/start/', PatientMedicationStart.as_view(), name='patient-medication-start'),
     path('patients/medication/noti/time/start/', PatientMedicationNotiTimeStart.as_view(),
          name='patient-medication-noti-time-start'),
+    path('patients/medication/noti/time/start/restart/', PatientMedicationNotiTimeStart.as_view(),
+         name='patient-medication-noti-time-start-in-restart'),
     path('patients/medication/noti/time/set/', PatientMedicationNotiSetTime.as_view(),
          name='patient-medication-noti-set-time'),
     path('patients/medication/noti/time/set/restart/', PatientMedicationNotiSetTimeInRestart.as_view(),

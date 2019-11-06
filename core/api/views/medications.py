@@ -73,6 +73,45 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
         return response.get_response_200()
 
 
+class PatientMedicationNotiTimeStartInRestart(KakaoResponseAPI):
+    """
+    Different response with PatientMedicationNotiTimeStart
+    """
+    serializer_class = PatientUpdateSerializer
+    model_class = PatientUpdateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+        patient.medication_manage_flag = True
+        patient.medication_noti_flag = True
+        patient.save()
+
+        if patient.medication_noti_flag and not patient.need_medication_noti_time_set():
+            time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
+
+            message = f"이미 모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n{time_list}"
+            response.add_simple_text(text=message)
+
+            response.add_simple_text(text="복약 알림을 모두 재설정하시겠어요?")
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes="5db30f398192ac000115f9a0")  # (블록) 02 치료 관리 재설정_복약횟수 확인
+        else:
+            next_undefined_number = patient.next_undefined_noti_time_number()
+            message = f'{next_undefined_number:d}회차 복약 알림을 설정할까요?'
+            response.add_simple_text(text=message)
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5db3129e8192ac000115f9a8')  # (블록) 05 치료 관리 재설정_복약 알림 시간대
+
+        return response.get_response_200()
+
+
 class PatientMedicationNotiSetTime(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = PatientUpdateSerializer.Meta.model
