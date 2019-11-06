@@ -6,11 +6,12 @@ from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMe
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
-from core.api.views.patients import PatientCreate, PatientUpdate
+from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate
 from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart
 
 urlpatterns = [
+    path('patients/create/start/', PatientCreateStart.as_view(), name='patient-create-start'),
     path('patients/create/', PatientCreate.as_view(), name='patient-create'),
     path('patients/update/', PatientUpdate.as_view(), name='patient-update'),
     path('patients/medication/start/', PatientMedicationStart.as_view(), name='patient-medication-start'),

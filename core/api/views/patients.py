@@ -17,8 +17,38 @@ from core.api.util.response_builder import ResponseBuilder
 logger = logging.getLogger(__name__)
 
 
-class NicknameSkill(APIView):
+class PatientCreateStart(KakaoResponseAPI):
+    serializer_class = PatientCreateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
 
+    def post(self, request, *args, **kwargs):
+        self.preprocess(request)
+        response = self.build_response(response_type=self.RESPONSE_SKILL)
+
+        try:
+            self.get_object_by_kakao_user_id()
+            register_need = False
+        except Http404:
+            register_need = True
+
+        if register_need:
+            response.add_simple_text(text='계정을 등록하시겠습니까?\n계정을 등록해주시면\n저와 함께 치료 관리와 건강관리를\n시작하실 수 있습니다.')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5dbfcfe892690d0001e882d8',  # (블록) 02 계정등록_별명 등록
+                message_text_for_no='처음으로 돌아가기'
+            )
+        else:
+            response.add_simple_text(text='이미 계정이 등록되어 있습니다.\n계정 설정을 변경하시겠어요?')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5dbf9e1592690d0001e87f9f',  # (블록) 01 계정관리_시작
+                message_text_for_no='처음으로 돌아가기'
+            )
+
+        return response.get_response_200()
+
+
+class NicknameSkill(APIView):
     def post(self, request, *args, **kwargs):
         self.response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
         nickname = request.data.get('actions').get('detailParams').get('nickname').get('value')
@@ -63,7 +93,6 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
             serializer.save()
 
         return response.get_response_200()
-
 
 
 class PatientUpdate(KakaoResponseAPI):
