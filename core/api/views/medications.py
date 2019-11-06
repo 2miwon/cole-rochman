@@ -14,18 +14,26 @@ class PatientMedicationStart(KakaoResponseAPI):
 
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
         try:
-            self.get_object_by_kakao_user_id()
+            patient = self.get_object_by_kakao_user_id()
         except Http404:
             return self.build_response_fallback_404()
 
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-        response.add_simple_text(text='안녕하세요 콜로크만입니다.\n저와 함께 복약 관리를 시작하시겠습니까?')
-        response.set_quick_replies_yes_or_no(
-            block_id_for_yes='5da5e59ab617ea00012b43ee',  # (블록) 02 치료 관리 설정_복약횟수
-            block_id_for_no='5da549a6ffa7480001daf819',  # (블록) 01-1 치료 관리 설정_복약 관리 취소
-            message_text_for_no='아니요'
-        )
+        if patient.medication_manage_flag:
+            response.add_simple_text('안녕하세요 콜로크만입니다.\n지난 번, 복약 관리를 설정한 적이 있습니다.\n다시 설정할까요?')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5db30f398192ac000115f9a0',  # (블록) 02 치료 관리 재설정_복약횟수 확인
+                block_id_for_no='5da549bcffa7480001daf821'  # (블록) 치료 관리 설정_시작하기 처음으로
+            )
+            response.add_context(name='복약관리재시작', params={'daily_medication_count': patient.daily_medication_count})
+        else:
+            response.add_simple_text(text='안녕하세요 콜로크만입니다.\n저와 함께 복약 관리를 시작하시겠습니까?')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5da5e59ab617ea00012b43ee',  # (블록) 02 치료 관리 설정_복약횟수
+                block_id_for_no='5da549a6ffa7480001daf819',  # (블록) 01-1 치료 관리 설정_복약 관리 취소
+                message_text_for_no='아니요'
+            )
         return response.get_response_200()
 
 
@@ -169,5 +177,3 @@ class PatientMedicationRestart(KakaoResponseAPI):
             )
 
         return response.get_response_200()
-
-

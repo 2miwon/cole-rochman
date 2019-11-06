@@ -20,6 +20,19 @@ class PatientMedicationStartTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(get_first_simple_text(response), '안녕하세요 콜로크만입니다.\n저와 함께 복약 관리를 시작하시겠습니까?')
 
+    def test_medication_start_success_when_already_set(self):
+        """
+        Test successful response when medication_manage_flag is True
+        """
+        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123', medication_manage_flag=True)
+        url = reverse('patient-medication-start')
+        data = {
+            'userRequest': {'user': {'id': 'asd123'}},
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('지난 번, 복약 관리를 설정한 적이 있습니다', get_first_simple_text(response))
+
     def test_medication_start_fail(self):
         url = reverse('patient-medication-start')
         data = {
