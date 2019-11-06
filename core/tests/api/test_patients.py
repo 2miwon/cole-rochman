@@ -7,14 +7,13 @@ from parameterized import parameterized
 from django.utils import timezone
 
 from core.models import Patient, Hospital
+from core.tests.helper.helper import get_first_simple_text
 
 time_request_example_1am = '{"timeHeadword": "am", "hour": "1", "second": null, "timeTag": "am", "time": "01:00:00", "date": "2019-10-16", "minute": null}'
 date_time_request_example = '{"dateTag": null, "timeHeadword": "pm", "hour": null, "dateHeadword": null, "time": "15:00:00",\
           "second": null, "month": "11", "timeTag": "pm", "year": null, "date": "2019-11-01", "day": "1", "minute": null}'
 
 
-def get_first_simple_text(response):
-    return response.data['template']['outputs'][0]['simpleText']['text']
 
 
 class PatientCreateTest(APITestCase):

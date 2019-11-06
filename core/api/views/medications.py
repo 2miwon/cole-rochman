@@ -139,3 +139,32 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
             block_id_for_yes="5da5e59ab617ea00012b43ee")  # (블록) 02 치료 관리 설정_복약횟수
 
         return response.get_response_200()
+
+
+class PatientMedicationRestart(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = PatientUpdateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        response = self.build_response(response_type=self.RESPONSE_SKILL)
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
+        if patient.medication_manage_flag:
+            response.add_simple_text('안녕하세요 콜로크만입니다.\n지난 번, 복약 관리를 설정한 적이 있습니다.\n다시 설정할까요?')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5db30f398192ac000115f9a0',  # (블록) 02 치료 관리 재설정_복약횟수 확인
+                block_id_for_no='5da549bcffa7480001daf821'  # (블록) 치료 관리 설정_시작하기 처음으로
+            )
+        else:
+            response.add_simple_text('설정된 복약 관리가 없습니다.\n복약 관리를 새로 설정하러 가볼까요?')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5d9d8f74b617ea00012b14c6',  # (블록) 01 치료 관리 설정_복약 관리 시작
+                block_id_for_no='5da549bcffa7480001daf821'  # (블록) 치료 관리 설정_시작하기 처음으로
+            )
+
+        return response.get_response_200()
