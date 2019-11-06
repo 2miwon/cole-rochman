@@ -11,6 +11,18 @@ from core.tests.helper.helper import check_build_response_fallback_404_called, m
 
 class PatientVisitStartTest(APITestCase):
     def test_success_discharged(self):
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', visit_manage_flag=True,
+                                   next_visiting_date_time=datetime.datetime(year=2019, month=11, day=7, hour=10,
+                                                                             minute=10).astimezone())
+        url = reverse('patient-visit-start')
+        data = {
+            'userRequest': {'user': {'id': 'abc123'}},
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('이미 내원일을 설정하신 적이 있어요', message_in_response(response))
+
+    def test_success_discharged(self):
         p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', discharged_flag=True)
         url = reverse('patient-visit-start')
         data = {
@@ -20,7 +32,6 @@ class PatientVisitStartTest(APITestCase):
             }
         }
         response = self.client.post(url, data, format='json')
-        p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('내원 관리를 시작하시겠습니까?', message_in_response(response))
 
@@ -34,7 +45,6 @@ class PatientVisitStartTest(APITestCase):
             }
         }
         response = self.client.post(url, data, format='json')
-        p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('아직 퇴원을 하지 않으셔서 내원 관리를 하실 필요가 없어요', message_in_response(response))
 

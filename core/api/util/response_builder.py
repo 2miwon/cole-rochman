@@ -7,7 +7,7 @@ class ResponseBuilder:
     VALIDATION = 'validation'
     SKILL = 'skill'
 
-    def __init__(self, response_type):
+    def __init__(self, response_type: object) -> object:
         """
         use status only when response_type is VALIDATION
 
