@@ -4,7 +4,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset
 from core.api.views.temp import TempPatientDestroy
-from core.api.views.validate_hospitals import ValidateHospitalCode
+from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
 from core.api.views.patients import PatientCreate, PatientUpdate
 from core.api.views.validation_visits import ValidateTimeBefore
