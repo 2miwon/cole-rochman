@@ -216,6 +216,28 @@ class ResponseBuilder:
 
         self.__add_quick_reply(data=data)
 
+    def add_data(self, key: str, value: str):
+        """
+        Add data field to response.
+
+        :param key: key must be string.
+        :param value: value must be JSON parsable.
+        :return: None
+
+        result will be like...
+
+        {
+        "version": "2.0",
+        "data": {
+                'nickname': patient.nickname
+            }
+        }
+        """
+        if 'data' not in self.response:
+            self.response['data'] = {}
+
+        self.response['data'][key] = value
+
     def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, block_id_for_no: str = None,
                                     message_text_for_yes: str = '예', message_text_for_no: str = '아니요, 종료할게요.'):
         """
