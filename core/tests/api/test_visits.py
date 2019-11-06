@@ -32,7 +32,6 @@ class PatientVisitStartTest(APITestCase):
             }
         }
         response = self.client.post(url, data, format='json')
-        p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('내원 관리를 시작하시겠습니까?', message_in_response(response))
 
@@ -46,7 +45,6 @@ class PatientVisitStartTest(APITestCase):
             }
         }
         response = self.client.post(url, data, format='json')
-        p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('아직 퇴원을 하지 않으셔서 내원 관리를 하실 필요가 없어요', message_in_response(response))
 
