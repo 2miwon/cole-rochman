@@ -169,3 +169,5 @@ class PatientMedicationRestart(KakaoResponseAPI):
             )
 
         return response.get_response_200()
+
+

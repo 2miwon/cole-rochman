@@ -5,13 +5,13 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 
-from core.api.serializers import PatientCreateSerializer
+from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 
 class PatientVisitStart(KakaoResponseAPI):
-    serializer_class = PatientCreateSerializer
-    model_class = PatientCreateSerializer.Meta.model
+    serializer_class = PatientUpdateSerializer
+    model_class = PatientUpdateSerializer.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -41,8 +41,8 @@ class PatientVisitStart(KakaoResponseAPI):
 
 
 class PatientVisitDateSet(KakaoResponseAPI):
-    serializer_class = PatientCreateSerializer
-    model_class = PatientCreateSerializer.Meta.model
+    serializer_class = PatientUpdateSerializer
+    model_class = PatientUpdateSerializer.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -61,7 +61,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
         if next_visiting_date_time:
             # "value": "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}",
             value = json.loads(next_visiting_date_time)['value']
-            value = datetime.datetime.strptime(value, self.DATETIME_FORMAT_STRING)
+            value = datetime.datetime.strptime(value, self.DATETIME_STRPTIME_FORMAT)
             data['next_visiting_date_time'] = value.astimezone()
 
         serializer = self.get_serializer(patient, data=data, partial=True)
@@ -82,8 +82,8 @@ class PatientVisitDateSet(KakaoResponseAPI):
 
 
 class PatientVisitNotiTimeBefore(KakaoResponseAPI):
-    serializer_class = PatientCreateSerializer
-    model_class = PatientCreateSerializer.Meta.model
+    serializer_class = PatientUpdateSerializer
+    model_class = PatientUpdateSerializer.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -128,5 +128,34 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
                                              block_id_for_no="5d9df9368192ac00011568a9",
                                              # (블록) 치료 관리 설정_내원 알림 종료
                                              message_text_for_no="아니요, 지금은 안 할래요.")
+
+        return response.get_response_200()
+
+
+class PatientVisitRestart(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        response = self.build_response(response_type=self.RESPONSE_SKILL)
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
+        if patient.visit_manage_flag and patient.next_visiting_date_time is not None:
+            response.add_simple_text('내원 일정을 수정하시겠습니까?\n현재 설정된 내원 예정일: %s' % patient.next_visiting_date_time_str())
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5db314e38192ac000115f9af',  # (블록) 02 치료 관리 재설정_내원 예정일 설정
+                block_id_for_no='5da549bcffa7480001daf821'  # (블록) 치료 관리 설정_시작하기 처음으로
+            )
+        else:
+            response.add_simple_text('설정된 내원일이 없습니다.\n내원 관리를 새로 설정하러 가볼까요?')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5d9df0a9ffa7480001dacfd7',  # (블록) 01 치료 관리 설정_내원 관리 시작
+                block_id_for_no='5da549bcffa7480001daf821'  # (블록) 치료 관리 설정_시작하기 처음으로
+            )
 
         return response.get_response_200()
