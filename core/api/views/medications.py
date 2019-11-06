@@ -7,6 +7,28 @@ from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 
+class PatientMedicationStart(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        try:
+            self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+        response.add_simple_text(text='안녕하세요 콜로크만입니다.\n저와 함께 복약 관리를 시작하시겠습니까?')
+        response.set_quick_replies_yes_or_no(
+            block_id_for_yes='5da5e59ab617ea00012b43ee',  # (블록) 02 치료 관리 설정_복약횟수
+            block_id_for_no='5da549a6ffa7480001daf819',  # (블록) 01-1 치료 관리 설정_복약 관리 취소
+            message_text_for_no='아니요'
+        )
+        return response.get_response_200()
+
+
 class PatientMedicationNotiTimeStart(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = PatientUpdateSerializer.Meta.model

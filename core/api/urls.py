@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
-    PatientMedicationNotiReset
+    PatientMedicationNotiReset, PatientMedicationStart
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
@@ -13,6 +13,7 @@ from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefor
 urlpatterns = [
     path('patients/create/', PatientCreate.as_view(), name='patient-create'),
     path('patients/update/', PatientUpdate.as_view(), name='patient-update'),
+    path('patients/medication/start/', PatientMedicationStart.as_view(), name='patient-medication-start'),
     path('patients/medication/noti/time/start/', PatientMedicationNotiTimeStart.as_view(), name='patient-medication-noti-time-start'),
     path('patients/medication/noti/time/set/', PatientMedicationNotiSetTime.as_view(), name='patient-medication-noti-set-time'),
     path('patients/medication/noti/reset/', PatientMedicationNotiReset.as_view(), name='patient-medication-noti-reset'),

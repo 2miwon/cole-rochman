@@ -1,4 +1,5 @@
 import datetime
+from unittest.mock import patch
 
 from django.urls import reverse
 from rest_framework import status
@@ -9,6 +10,29 @@ from core.models import Patient
 
 class PatientMedicationNotiTest(APITestCase):
     # TODO 시간대 설정 성공/실패 테스트
+    def test_medication_start_success(self):
+        p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
+        url = reverse('patient-medication-start')
+        data = {
+            'userRequest': {'user': {'id': 'asd123'}},
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['template']['outputs'][0]['simpleText']['text'],
+                         '안녕하세요 콜로크만입니다.\n저와 함께 복약 관리를 시작하시겠습니까?')
+
+    def test_medication_start_fail(self):
+        url = reverse('patient-medication-start')
+        data = {
+            'userRequest': {'user': {'id': 'asd123'}},  # unknown user
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # with patch('core.api.views.medications.PatientMedicationStart.build_response_fallback_404'
+        #            ) as build_response_fallback_404:
+        #     build_response_fallback_404.assert_called()
+        self.assertEqual(response.data['template']['outputs'][0]['simpleText']['text'],
+                         '계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?')
 
     def test_medication_noti_reset(self):
         p = Patient.objects.create(code='P12312345678', kakao_user_id='asd123')
@@ -25,6 +49,7 @@ class PatientMedicationNotiTest(APITestCase):
         data = {
             'userRequest': {'user': {'id': 'asd123'}},
         }
+
         response = self.client.post(url, data, format='json')
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
