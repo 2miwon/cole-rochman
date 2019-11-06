@@ -6,6 +6,7 @@ from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMe
     PatientMedicationNotiTimeStartInRestart
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
+from core.api.views.validation_measurement_result import ValidateMeasurementResultOxygenSaturation
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
 from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate
 from core.api.views.validation_visits import ValidateTimeBefore
@@ -36,6 +37,8 @@ urlpatterns = [
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
     path('validate/hospital/code/', ValidateHospitalCode.as_view(), name='validate-hospital-code'),
     path('validate/time-before/', ValidateTimeBefore.as_view(), name='validate-time-before'),
+    path('validate/measurement-result/oxygen-saturation/', ValidateMeasurementResultOxygenSaturation.as_view(),
+         name='validate-measurement-result-oxygen-saturation'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

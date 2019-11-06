@@ -142,3 +142,16 @@ class ValidateTest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['value'], response_value)
+
+    def test_measurement_result_oxygen_saturation_success(self):
+        """
+        test for ValidateMeasurementResultOxygenSaturation
+        """
+        url = reverse('validate-measurement-result-oxygen-saturation')
+        data = {
+            'value': {'origin': "12"}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['value'], 12)
+
