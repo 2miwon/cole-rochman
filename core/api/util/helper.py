@@ -47,7 +47,7 @@ class Kakao:
     :var data: saving dict data from request_data parsed
     """
     DATETIME_STRPTIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
-    
+
     DATETIME_STRFTIME_FORMAT = '%Y년 %m월 %d일 %H시 %M분'
     DATE_STRFTIME_FORMAT = '%Y년 %m월 %d일'
     TIME_STRFTIME_FORMAT = '%H시 %M분'
@@ -144,5 +144,8 @@ class KakaoResponseAPI(Kakao, GenericAPIView):
         """
         response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
         response.add_simple_text(text='계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?')
-        response.set_quick_replies_yes_or_no(block_id_for_yes='5d8e22948192ac0001fbf889')  # 계정등록_별명 등록
+        response.set_quick_replies_yes_or_no(
+            block_id_for_yes='5d8e22948192ac0001fbf889',  # (블록) 02 계정등록_별명 등록
+            block_id_for_no='5dc38fa2b617ea0001320fbd'  # (블록) 계정등록_취소
+        )
         return response.get_response_200()
