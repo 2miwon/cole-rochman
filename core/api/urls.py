@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from core.api.views.measurements import MeasurementResultCreate
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset, PatientMedicationStart, PatientMedicationRestart, PatientMedicationNotiSetTimeInRestart, \
     PatientMedicationNotiTimeStartInRestart
@@ -32,6 +33,7 @@ urlpatterns = [
     path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),
     path('patients/visit/noti/time/', PatientVisitNotiTimeBefore.as_view(), name='patient-visit-noti-time'),
     path('patients/visit/restart/', PatientVisitRestart.as_view(), name='patient-visit-restart'),
+    path('patients/measurement/create/', MeasurementResultCreate.as_view(), name='patient-measurement-create'),
     path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),

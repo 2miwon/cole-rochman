@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-
-from core.models import Patient, Hospital
+from core.models import Patient, Hospital, MeasurementResult
 
 
 class PatientCreateSerializer(serializers.ModelSerializer):
@@ -21,3 +20,9 @@ class PatientUpdateSerializer(serializers.ModelSerializer):
         model = Patient
         exclude = ('created_at', 'updated_at')
         lookup_field = 'kakao_user_id'
+
+
+class MeasurementResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MeasurementResult
+        exclude = ('created_at', 'updated_at')
