@@ -42,9 +42,9 @@ class PatientVisitStart(KakaoResponseAPI):
             response.add_simple_text(text='치료 관리 모드로 이동할까요?')
             response.add_simple_text(text='(아직 이동할 블록이 설정되지 않았습니다.)')
             # TODO 치료관리 모드 의 블록이 확실해지면 block_id 넣기
-            # response.set_quick_replies_yes_or_no(
-            #     block_id_for_yes=''
-            # )
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5dbc2eac92690d0001e876d6'
+            )
             return response.get_response_200()
 
 
