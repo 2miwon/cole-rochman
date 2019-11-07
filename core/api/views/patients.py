@@ -162,6 +162,9 @@ class PatientUpdate(KakaoResponseAPI):
                 except (TypeError, KeyError):
                     data[key] = time_dict['value']
 
+        if self.data.get('patient_code'):
+            data['code'] = self.data.get('patient_code')
+
         serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
