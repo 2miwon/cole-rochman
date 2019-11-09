@@ -212,6 +212,36 @@ class PatientMeasurementNotiSetTimeTest(APITestCase):
 #         self.assertEqual(p.measurement_noti_time_list(), [])
 #         self.assertEqual(p.need_measurement_noti_time_set(), False)
 
+class PatientMeasurementNotiResetTest(APITestCase):
+    url = reverse('patient-measurement-noti-reset')
+    data = {
+        'userRequest': {'user': {'id': 'abc123'}},
+    }
+
+    def test_success(self):
+        """
+        리셋 성공
+        """
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_manage_flag=True,
+                                   measurement_noti_flag=True, daily_measurement_count=5,
+                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone(),
+                                   measurement_noti_time_2=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone(),
+                                   measurement_noti_time_3=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone(),
+                                   measurement_noti_time_4=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone(),
+                                   measurement_noti_time_5=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone(),
+                                   )
+        response = self.client.post(self.url, self.data, format='json')
+        p.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(p.measurement_manage_flag, None)
+        self.assertEqual(p.measurement_noti_flag, None)
+        self.assertEqual(p.daily_measurement_count, 0)
+        self.assertEqual(p.measurement_noti_time_1, None)
+        self.assertEqual(p.measurement_noti_time_2, None)
+        self.assertEqual(p.measurement_noti_time_3, None)
+        self.assertEqual(p.measurement_noti_time_4, None)
+        self.assertEqual(p.measurement_noti_time_5, None)
+
 
 class MeasurementResultCreateTest(APITestCase):
     url = reverse('patient-measurement-create')
