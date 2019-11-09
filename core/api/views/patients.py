@@ -97,7 +97,7 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
 
 class PatientUpdate(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):

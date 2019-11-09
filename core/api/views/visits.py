@@ -11,7 +11,7 @@ from core.api.util.helper import KakaoResponseAPI
 
 class PatientVisitStart(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -50,7 +50,7 @@ class PatientVisitStart(KakaoResponseAPI):
 
 class PatientVisitDateSet(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -91,7 +91,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
 
 class PatientVisitNotiTimeBefore(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):

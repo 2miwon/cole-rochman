@@ -39,7 +39,7 @@ class PatientMedicationEntrance(KakaoResponseAPI):
 
 class PatientMedicationNotiTimeQuestion(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -78,7 +78,7 @@ class PatientMedicationNotiTimeQuestionRestart(KakaoResponseAPI):
     Different response with PatientMedicationNotiTimeQuestion
     """
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -114,7 +114,7 @@ class PatientMedicationNotiTimeQuestionRestart(KakaoResponseAPI):
 
 class PatientMedicationNotiSetTime(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -168,7 +168,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
 
 class PatientMedicationNotiSetTimeInRestart(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -222,7 +222,7 @@ class PatientMedicationNotiSetTimeInRestart(KakaoResponseAPI):
 
 class PatientMedicationNotiReset(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
@@ -244,7 +244,7 @@ class PatientMedicationNotiReset(KakaoResponseAPI):
 
 class PatientMedicationRestart(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
-    model_class = PatientUpdateSerializer.Meta.model
+    model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
 
     def post(self, request, format='json', *args, **kwargs):
