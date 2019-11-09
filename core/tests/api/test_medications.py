@@ -1,5 +1,4 @@
 import datetime
-from unittest.mock import patch
 
 from django.urls import reverse
 from rest_framework import status
@@ -40,7 +39,7 @@ class PatientMedicationStartTest(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # with patch('core.api.views.medications.PatientMedicationStart.build_response_fallback_404'
+        # with patch('core.api.views.medications.PatientMedicationEntrance.build_response_fallback_404'
         #            ) as build_response_fallback_404:
         #     build_response_fallback_404.assert_called()
         self.assertEqual(get_first_simple_text(response), '계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?')

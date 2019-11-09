@@ -7,7 +7,7 @@ from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 
-class PatientMedicationStart(KakaoResponseAPI):
+class PatientMedicationEntrance(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()

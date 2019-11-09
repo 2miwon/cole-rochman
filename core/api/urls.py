@@ -4,7 +4,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from core.api.views.health import HealthManangementEntrance
 from core.api.views.measurements import MeasurementResultCreate
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
-    PatientMedicationNotiReset, PatientMedicationStart, PatientMedicationRestart, PatientMedicationNotiSetTimeInRestart, \
+    PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, PatientMedicationNotiSetTimeInRestart, \
     PatientMedicationNotiTimeStartInRestart
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
