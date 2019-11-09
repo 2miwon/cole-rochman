@@ -63,16 +63,23 @@ class Patient(models.Model):
         return time_list[:self.daily_measurement_count]
 
     def need_medication_noti_time_set(self):
-        return None in self.medication_noti_time_list()
+        return None in self.medication_noti_time_list() and self.medication_noti_time_list() != []
 
     def next_undefined_medication_noti_time_number(self):
-        return self.medication_noti_time_list().index(None) + 1
+        if None in self.medication_noti_time_list():
+            return self.medication_noti_time_list().index(None) + 1
+        else:
+            return None
 
     def need_measurement_noti_time_set(self):
-        return None in self.measurement_noti_time_list()
+        return None in self.measurement_noti_time_list() and self.measurement_noti_time_list() != []
 
     def next_undefined_measurement_noti_time_number(self):
-        return self.measurement_noti_time_list().index(None) + 1
+        if None in self.measurement_noti_time_list():
+            return self.measurement_noti_time_list().index(None) + 1
+        else:
+            return None
+
 
     def reset_medication(self):
         self.medication_manage_flag = None
@@ -98,8 +105,7 @@ class Patient(models.Model):
 
     def reset_measurement(self):
         self.measurement_manage_flag = None
-        self.measurement_notification_flag = None
-        self.measurement_notification_before = None
+        self.daily_measurement_count = 0
         self.measurement_noti_time_1 = None
         self.measurement_noti_time_2 = None
         self.measurement_noti_time_3 = None
