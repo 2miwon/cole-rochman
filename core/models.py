@@ -47,18 +47,32 @@ class Patient(models.Model):
         return '%s/%s' % (self.code, self.nickname)
 
     def medication_noti_time_list(self):
-        if not (self.medication_manage_flag or self.medication_noti_flag):
+        if not (self.measurement_manage_flag or self.medication_noti_flag):
             return list()
 
         time_list = [self.medication_noti_time_1, self.medication_noti_time_2, self.medication_noti_time_3,
                      self.medication_noti_time_4, self.medication_noti_time_5]
         return time_list[:self.daily_medication_count]
 
+    def measurement_noti_time_list(self):
+        if not (self.measurement_manage_flag or self.measurement_noti_flag):
+            return list()
+
+        time_list = [self.measurement_noti_time_1, self.measurement_noti_time_2, self.measurement_noti_time_3,
+                     self.measurement_noti_time_4, self.measurement_noti_time_5]
+        return time_list[:self.daily_measurement_count]
+
     def need_medication_noti_time_set(self):
         return None in self.medication_noti_time_list()
 
-    def next_undefined_noti_time_number(self):
+    def next_undefined_medication_noti_time_number(self):
         return self.medication_noti_time_list().index(None) + 1
+
+    def need_measurement_noti_time_set(self):
+        return None in self.measurement_noti_time_list()
+
+    def next_undefined_measurement_noti_time_number(self):
+        return self.measurement_noti_time_list().index(None) + 1
 
     def reset_medication(self):
         self.medication_manage_flag = None
@@ -72,6 +86,17 @@ class Patient(models.Model):
         return self.save()
 
     def reset_visit(self):
+        self.visit_manage_flag = None
+        self.visit_notification_flag = None
+        self.visit_notification_before = None
+        self.medication_noti_time_1 = None
+        self.medication_noti_time_2 = None
+        self.medication_noti_time_3 = None
+        self.medication_noti_time_4 = None
+        self.medication_noti_time_5 = None
+        return self.save()
+
+    def reset_measurement(self):
         self.visit_manage_flag = None
         self.visit_notification_flag = None
         self.visit_notification_before = None
