@@ -24,16 +24,17 @@ class PatientMeasurementEntrance(KakaoResponseAPI):
         if patient.measurement_manage_flag:
             response.add_simple_text(text='산소포화도 관리를 설정한 적이 있습니다. 다시 설정할까요?')
             response.set_quick_replies_yes_or_no(
-                block_id_for_yes='5dc6d54fffa7480001410748',  # (블록) 01-1 건강재설정_재설정 시작
+                block_id_for_yes='5dc708cdffa74800014107a8',  # (블록) 02 건강재설정_알림횟수 확인
                 block_id_for_no='5dc6d5d3b617ea0001798e2b',  # (블록) 01-2 건강재설정_취소
                 message_text_for_yes='네, 설정할께요!', message_text_for_no='아니요, 괜찮아요!'
             )
+            response.add_context(name='건강관리재설정', params={'daily_measurement_count': patient.daily_measurement_count})
         else:
             response.add_simple_text(text='산소포화도 관리를 시작하시겠습니까?')
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5dbfa982b617ea000165eeee',  # (블록) 01-1 건강관리_횟수
                 block_id_for_no='5dbfa931ffa748000115199e',  # (블록) 01-2 건강관리_취소
-                message_text_for_yes='네, 시작할께요', message_text_for_no='5dbfa931ffa748000115199e'
+                message_text_for_yes='네, 시작할께요', message_text_for_no='아니요, 괜찮아요!'
             )
 
         return response.get_response_200()
@@ -160,7 +161,7 @@ class PatientMeasurementRestart(KakaoResponseAPI):
             block_id_for_yes='5dc708cdffa74800014107a8',  # (블록) 02 건강재설정_알림횟수 확인
             block_id_for_no='5dc6d5d3b617ea0001798e2b'  # (블록) 01-2 건강재설정_취소
         )
-        response.add_context(name='건강관리재설정', params={'daily_measurement_count': patient.daily_measurement_count})
+
 
         return response.get_response_200()
 
