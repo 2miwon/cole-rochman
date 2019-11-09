@@ -126,7 +126,7 @@ class KakaoResponseAPI(Kakao, GenericAPIView):
 
     @require_kakao_user_id
     def get_object_by_kakao_user_id(self) -> Patient:
-        queryset = self.filter_queryset(self.get_queryset())
+        queryset = Patient.objects.all()
         filter_kwargs = {self.lookup_field: self.kakao_user_id}
         obj = get_object_or_404(queryset, **filter_kwargs)
 
