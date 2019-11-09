@@ -12,7 +12,10 @@ from core.tests.helper.helper import check_build_response_fallback_404_called, m
 class PatientVisitStartTest(APITestCase):
     url = reverse('patient-visit-start')
 
-    def test_success_discharged(self):
+    def test_success_already_setup(self):
+        """
+        이미 내원일 설정한 경우
+        """
         p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', visit_manage_flag=True,
                                    next_visiting_date_time=datetime.datetime(year=2019, month=11, day=7, hour=10,
                                                                              minute=10).astimezone())
@@ -25,6 +28,9 @@ class PatientVisitStartTest(APITestCase):
         self.assertIn('이미 내원일을 설정하신 적이 있어요', message_in_response(response))
 
     def test_success_discharged(self):
+        """
+        퇴원 환자인 경우
+        """
         p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', discharged_flag=True)
         data = {
             'userRequest': {'user': {'id': 'abc123'}},
@@ -37,6 +43,9 @@ class PatientVisitStartTest(APITestCase):
         self.assertIn('내원 관리를 시작하시겠습니까?', message_in_response(response))
 
     def test_success_not_discharged(self):
+        """
+        퇴원 환자가 아닌 경우
+        """
         p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', discharged_flag=False)
         data = {
             'userRequest': {'user': {'id': 'abc123'}},
