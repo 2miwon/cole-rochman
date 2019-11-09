@@ -27,7 +27,7 @@ class Patient(models.Model):
     next_visiting_date_time = models.DateTimeField(verbose_name='다음 내원일', null=True, default=None)
     visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', null=True, default=None)
     visit_notification_before = models.IntegerField(verbose_name='내원알림 시간', null=True, default=None)
-    health_manage_flag = models.NullBooleanField(verbose_name='건강관리 여부', null=True, default=None)
+    measurement_manage_flag = models.NullBooleanField(verbose_name='건강관리 여부', null=True, default=None)
     daily_measurement_count = models.IntegerField(verbose_name='하루 측정 횟수', default=0)
     measurement_noti_flag = models.NullBooleanField(verbose_name='측정 알림 여부', null=True, default=None)
     measurement_noti_time_1 = models.TimeField(verbose_name='측정 알림 시간 1', null=True, default=None)
