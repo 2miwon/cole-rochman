@@ -26,7 +26,7 @@ class PatientMeasurementEntrance(KakaoResponseAPI):
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5dc708cdffa74800014107a8',  # (블록) 02 건강재설정_알림횟수 확인
                 block_id_for_no='5dc6d5d3b617ea0001798e2b',  # (블록) 01-2 건강재설정_취소
-                message_text_for_yes='네, 설정할께요!', message_text_for_no='아니요, 괜찮아요!'
+                message_text_for_yes='네, 설정할게요!', message_text_for_no='아니요, 괜찮아요!'
             )
             response.add_context(name='건강관리재설정', params={'daily_measurement_count': patient.daily_measurement_count})
         else:
@@ -163,7 +163,6 @@ class PatientMeasurementRestart(KakaoResponseAPI):
             block_id_for_yes='5dc708cdffa74800014107a8',  # (블록) 02 건강재설정_알림횟수 확인
             block_id_for_no='5dc6d5d3b617ea0001798e2b'  # (블록) 01-2 건강재설정_취소
         )
-
 
         return response.get_response_200()
 

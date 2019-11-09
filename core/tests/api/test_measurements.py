@@ -65,7 +65,6 @@ class PatientMeasurementNotiTimeQuestionTest(APITestCase):
         """
         Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_manage_flag=True,
                                daily_measurement_count=3)
-
         response = self.client.post(self.url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('1회차 산소포화도 확인 알림을 설정할까요', message_in_response(response))
@@ -116,13 +115,12 @@ class PatientMeasurementNotiTimeQuestionTest(APITestCase):
         p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_noti_flag=True,
                                    daily_measurement_count=1,
                                    measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
-        data = self.data
-        data['action'] = {
-            'detailParams': {'reset_measurement_noti_time': {'value': 'true'}}
-        }
+        data = self.data.copy()
+        data['action'] = {'detailParams': {'reset_measurement_noti_time': {'value': 'true'}}}
         response = self.client.post(self.url + '?restart=true', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertNotIn('이미 모든 회차 알림 설정을 마쳤습니다', message_in_response(response))
+
 
 class PatientMeasurementNotiSetTimeTest(APITestCase):
     url = reverse('patient-measurement-noti-set-time')
@@ -182,37 +180,37 @@ class PatientMeasurementNotiSetTimeTest(APITestCase):
         self.assertIn('5dc709d48192ac0001c5d9cd', message_in_response(response))
 
 
-class PatientMeasurementRestartTest(APITestCase):
-    url = reverse('patient-measurement-restart')
-    data = {
-        'userRequest': {'user': {'id': 'abc123'}},
-    }
-
-    def test_success(self):
-        Patient.objects.create(code='A00112345678', kakao_user_id='abc123', daily_measurement_count=3)
-
-        response = self.client.post(self.url, self.data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('산소포화도 관리를 설정한 적이 있습니다', message_in_response(response))
-        self.assertIn('"context":{"values":[{"name":"건강관리재설정","lifeSpan":5,"params":{"daily_measurement_count":3',
-                      message_in_response(response))
-
-    def test_reset_measurement(self):
-        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', daily_measurement_count=3,
-                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
-        url = reverse('patient-update')
-        data = self.data
-        data['action'] = {
-            'detailParams': {'reset_measurement_noti': {'value': 'true'}}
-        }
-        response = self.client.post(url, data, format='json')
-
-        p.refresh_from_db()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(p.daily_measurement_count, 0)
-        self.assertEqual(p.measurement_noti_time_1, None)
-        self.assertEqual(p.measurement_noti_time_list(), [])
-        self.assertEqual(p.need_measurement_noti_time_set(), False)
+# class PatientMeasurementRestartTest(APITestCase):
+#     url = reverse('patient-measurement-restart')
+#     data = {
+#         'userRequest': {'user': {'id': 'abc123'}},
+#     }
+#
+#     def test_success(self):
+#         Patient.objects.create(code='A00112345678', kakao_user_id='abc123', daily_measurement_count=3)
+#
+#         response = self.client.post(self.url, self.data, format='json')
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.assertIn('산소포화도 관리를 설정한 적이 있습니다', message_in_response(response))
+#         self.assertIn('"context":{"values":[{"name":"건강관리재설정","lifeSpan":5,"params":{"daily_measurement_count":3',
+#                       message_in_response(response))
+#
+#     def test_reset_measurement(self):
+#         p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', daily_measurement_count=3,
+#                                    measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
+#         url = reverse('patient-update')
+#         data = self.data
+#         data['action'] = {
+#             'detailParams': {'reset_measurement_noti': {'value': 'true'}}
+#         }
+#         response = self.client.post(url, data, format='json')
+#
+#         p.refresh_from_db()
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.assertEqual(p.daily_measurement_count, 0)
+#         self.assertEqual(p.measurement_noti_time_1, None)
+#         self.assertEqual(p.measurement_noti_time_list(), [])
+#         self.assertEqual(p.need_measurement_noti_time_set(), False)
 
 
 class MeasurementResultCreateTest(APITestCase):
