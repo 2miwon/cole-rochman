@@ -41,6 +41,7 @@ urlpatterns = [
          name='patient-measurement-noti-set-time'),
     path('patients/measurement-result/create/', MeasurementResultCreate.as_view(), name='patient-measurement-create'),
     path('patients/measurement/restart/', PatientMeasurementRestart.as_view(), name='patient-measurement-restart'),
+    path('patients/measurement/noti/reset/', PatientMeasurementRestart.as_view(), name='patient-measurement-noti-reset'),
     path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),

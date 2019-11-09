@@ -167,6 +167,22 @@ class PatientMeasurementRestart(KakaoResponseAPI):
         return response.get_response_200()
 
 
+class PatientMeasurementNotiReset(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+        patient.reset_measurement()
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+        return response.get_response_200()
+
+
 class MeasurementResultCreate(KakaoResponseAPI):
     serializer_class = MeasurementResultSerializer
     model_class = serializer_class.Meta.model
