@@ -20,10 +20,13 @@ class MeasurementResultCreate(KakaoResponseAPI):
         response = self.build_response(response_type=self.RESPONSE_SKILL)
         data = {
             'patient': patient.id,
-            'oxygen_saturation': self.data['oxygen_saturation'],
+            'oxygen_saturation': self.data.get('oxygen_saturation'),
             'measured_at': datetime.datetime.today().astimezone().strftime(self.DATETIME_STRPTIME_FORMAT)
         }
         serializer = self.get_serializer(data=data)
-        if serializer.is_valid:
+        if serializer.is_valid():
             serializer.save()
             return response.get_response_200()
+
+        response.add_simple_text(text='알 수 없는 오류가 발생하였습니다')
+        return response.get_response_200()
