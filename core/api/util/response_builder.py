@@ -238,7 +238,7 @@ class ResponseBuilder:
 
         self.response['data'][key] = value
 
-    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, block_id_for_no: str = '5d732d1b92690d0001813d45',
+    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, block_id_for_no: str = '5dc72a7492690d0001caebba',
                                     message_text_for_yes: str = '예', message_text_for_no: str = '아니요, 종료할게요.'):
         """
         Automaticaly add quick_replies for 예/아니요.
@@ -247,7 +247,7 @@ class ResponseBuilder:
 
         :param block: bool
         :param block_id_for_yes: str.
-        :param block_id_for_no: str. default is '5d732d1b92690d0001813d45' (시작하기/처음으로)
+        :param block_id_for_no: str. default is '5dc72a7492690d0001caebba' (취소 or 탈출 - 시작하기 처음으로)
         :param message_text_for_yes: str. default is '예.'
         :param message_text_for_no: str. default is '아니요, 종료할게요.'
         :return: None
