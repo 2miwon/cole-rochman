@@ -96,7 +96,9 @@ class PatientVisitTimeBeforeTest(APITestCase):
 
 class PatientVisitRestartTest(APITestCase):
     url = reverse('patient-visit-restart')
-
+    data = {
+        'userRequest': {'user': {'id': 'abc123'}},
+    }
     def test_success(self):
         """
         Test successful response when patient exists and visit_manage_flag is True.
@@ -105,10 +107,8 @@ class PatientVisitRestartTest(APITestCase):
         Patient.objects.create(code='A00112345678', kakao_user_id='abc123', visit_manage_flag=True,
                                next_visiting_date_time=datetime.datetime(year=2019, month=11, day=7, hour=10,
                                                                          minute=10).astimezone())
-        data = {
-            'userRequest': {'user': {'id': 'abc123'}},
-        }
-        response = self.client.post(self.url, data, format='json')
+
+        response = self.client.post(self.url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('내원 일정을 수정하시겠습니까', message_in_response(response))
 
@@ -116,10 +116,7 @@ class PatientVisitRestartTest(APITestCase):
         """
         Test failed response when patient does not exist.
         """
-        data = {
-            'userRequest': {'user': {'id': 'abc123'}},
-        }
-        response = self.client.post(self.url, data, format='json')
+        response = self.client.post(self.url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(check_build_response_fallback_404_called(response), True)
 
@@ -130,9 +127,6 @@ class PatientVisitRestartTest(APITestCase):
         Patient.objects.create(code='A00112345678', kakao_user_id='abc123', visit_manage_flag=False,
                                next_visiting_date_time=datetime.datetime(year=2019, month=11, day=7, hour=10,
                                                                          minute=10).astimezone())
-        data = {
-            'userRequest': {'user': {'id': 'abc123'}},
-        }
-        response = self.client.post(self.url, data, format='json')
+        response = self.client.post(self.url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('설정된 내원일이 없습니다', message_in_response(response))
