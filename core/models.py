@@ -80,7 +80,6 @@ class Patient(models.Model):
         else:
             return None
 
-
     def reset_medication(self):
         self.medication_manage_flag = None
         self.daily_medication_count = 0
@@ -103,14 +102,19 @@ class Patient(models.Model):
         self.medication_noti_time_5 = None
         return self.save()
 
-    def reset_measurement(self):
-        self.measurement_manage_flag = None
-        self.daily_measurement_count = 0
+    def reset_measurement_noti_time(self):
         self.measurement_noti_time_1 = None
         self.measurement_noti_time_2 = None
         self.measurement_noti_time_3 = None
         self.measurement_noti_time_4 = None
         self.measurement_noti_time_5 = None
+        return self.save()
+
+    def reset_measurement(self):
+        self.measurement_manage_flag = None
+        self.measurement_noti_flag = None
+        self.daily_measurement_count = 0
+        self.reset_measurement_noti_time()
         return self.save()
 
     def set_default_end_date(self):
