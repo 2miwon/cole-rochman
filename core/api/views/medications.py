@@ -37,7 +37,7 @@ class PatientMedicationEntrance(KakaoResponseAPI):
         return response.get_response_200()
 
 
-class PatientMedicationNotiTimeStart(KakaoResponseAPI):
+class PatientMedicationNotiTimeQuestion(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = PatientUpdateSerializer.Meta.model
     queryset = model_class.objects.all()
@@ -64,7 +64,7 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes="5db30f398192ac000115f9a0")  # (블록) 02 치료 관리 재설정_복약횟수 확인
         else:
-            next_undefined_number = patient.next_undefined_noti_time_number()
+            next_undefined_number = patient.next_undefined_medication_noti_time_number()
             message = f'{next_undefined_number:d}회차 복약 알림을 설정할까요?'
             response.add_simple_text(text=message)
             response.set_quick_replies_yes_or_no(
@@ -73,9 +73,9 @@ class PatientMedicationNotiTimeStart(KakaoResponseAPI):
         return response.get_response_200()
 
 
-class PatientMedicationNotiTimeStartInRestart(KakaoResponseAPI):
+class PatientMedicationNotiTimeQuestionRestart(KakaoResponseAPI):
     """
-    Different response with PatientMedicationNotiTimeStart
+    Different response with PatientMedicationNotiTimeQuestion
     """
     serializer_class = PatientUpdateSerializer
     model_class = PatientUpdateSerializer.Meta.model
@@ -103,7 +103,7 @@ class PatientMedicationNotiTimeStartInRestart(KakaoResponseAPI):
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes="5db30f398192ac000115f9a0")  # (블록) 02 치료 관리 재설정_복약횟수 확인
         else:
-            next_undefined_number = patient.next_undefined_noti_time_number()
+            next_undefined_number = patient.next_undefined_medication_noti_time_number()
             message = f'{next_undefined_number:d}회차 복약 알림을 설정할까요?'
             response.add_simple_text(text=message)
             response.set_quick_replies_yes_or_no(
@@ -131,7 +131,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
         medication_noti_time = self.data.get('noti_time')
         if medication_noti_time:
             time = json.loads(medication_noti_time)['value']
-            next_undefined_number = patient.next_undefined_noti_time_number()
+            next_undefined_number = patient.next_undefined_medication_noti_time_number()
 
             if next_undefined_number:
                 field_name = 'medication_noti_time_%d' % next_undefined_number
@@ -185,7 +185,7 @@ class PatientMedicationNotiSetTimeInRestart(KakaoResponseAPI):
         medication_noti_time = self.data.get('noti_time')
         if medication_noti_time:
             time = json.loads(medication_noti_time)['value']
-            next_undefined_number = patient.next_undefined_noti_time_number()
+            next_undefined_number = patient.next_undefined_medication_noti_time_number()
 
             if next_undefined_number:
                 field_name = 'medication_noti_time_%d' % next_undefined_number

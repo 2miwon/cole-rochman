@@ -1,11 +1,12 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from core.api.views.health import HealthManangementEntrance
-from core.api.views.measurements import MeasurementResultCreate
-from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
-    PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, PatientMedicationNotiSetTimeInRestart, \
-    PatientMedicationNotiTimeStartInRestart
+from core.api.views.measurements import PatientMeasurementEntrance, MeasurementResultCreate, \
+    PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime
+from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, \
+    PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, \
+    PatientMedicationNotiSetTimeInRestart, \
+    PatientMedicationNotiTimeQuestionRestart
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_measurement_result import ValidateMeasurementResultOxygenSaturation
@@ -20,10 +21,10 @@ urlpatterns = [
     path('patients/create/', PatientCreate.as_view(), name='patient-create'),
     path('patients/update/', PatientUpdate.as_view(), name='patient-update'),
     path('patients/medication/start/', PatientMedicationEntrance.as_view(), name='patient-medication-start'),
-    path('patients/medication/noti/time/start/', PatientMedicationNotiTimeStart.as_view(),
-         name='patient-medication-noti-time-start'),
-    path('patients/medication/noti/time/start/restart/', PatientMedicationNotiTimeStartInRestart.as_view(),
-         name='patient-medication-noti-time-start-in-restart'),
+    path('patients/medication/noti/time/question/', PatientMedicationNotiTimeQuestion.as_view(),
+         name='patient-medication-noti-time-question'),
+    path('patients/medication/noti/time/question/restart/', PatientMedicationNotiTimeQuestionRestart.as_view(),
+         name='patient-medication-noti-time-question-restart'),
     path('patients/medication/noti/time/set/', PatientMedicationNotiSetTime.as_view(),
          name='patient-medication-noti-set-time'),
     path('patients/medication/noti/time/set/restart/', PatientMedicationNotiSetTimeInRestart.as_view(),
@@ -34,7 +35,11 @@ urlpatterns = [
     path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),
     path('patients/visit/noti/time/', PatientVisitNotiTimeBefore.as_view(), name='patient-visit-noti-time'),
     path('patients/visit/restart/', PatientVisitRestart.as_view(), name='patient-visit-restart'),
-    path('patients/health/entrance/', HealthManangementEntrance.as_view(), name='patient-health-entrance'),
+    path('patients/measurement/entrance/', PatientMeasurementEntrance.as_view(), name='patient-measurement-entrance'),
+    path('patients/measurement/noti/time/question/', PatientMeasurementNotiTimeQuestion.as_view(),
+         name='patient-measurement-noti-time-question-start'),
+    path('patients/measurement/noti/time/set/', PatientMeasurementNotiSetTime.as_view(),
+         name='patient-measurement-noti-set-time'),
     path('patients/measurement-result/create/', MeasurementResultCreate.as_view(), name='patient-measurement-create'),
     path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
