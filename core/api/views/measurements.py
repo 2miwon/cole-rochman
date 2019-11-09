@@ -55,6 +55,8 @@ class PatientMeasurementNotiTimeQuestion(KakaoResponseAPI):
         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
         patient.measurement_noti_flag = True
         patient.save()
+        if self.data.get('reset_measurement_noti_time') == 'true':
+            patient.reset_measurement_noti_time()
 
         if not patient.need_measurement_noti_time_set() and len(patient.measurement_noti_time_list()) != 0:
             time_list = ','.join([x.strftime('%H시 %M분') for x in patient.measurement_noti_time_list()])
