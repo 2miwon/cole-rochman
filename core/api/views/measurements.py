@@ -123,12 +123,12 @@ class PatientMeasurementNotiSetTime(KakaoResponseAPI):
             if self.request.query_params.get('restart') == 'true':
                 response.set_quick_replies_yes_or_no(
                     block_id_for_yes='5dc709d48192ac0001c5d9cd',  # (블록) 06 건강재설정_알림 설정 완료
-                    block_id_for_no='5dc6d5d3b617ea0001798e2b',  # (블록) 건강관리_정보 리셋
-                    message_text_for_no="아니요")
+                    block_id_for_no='5dc72e60ffa74800014107c6',  # (블록) 건강관리_정보 리셋
+                    message_text_for_no="아니요, 취소할게요")
             else:
                 response.set_quick_replies_yes_or_no(
                     block_id_for_yes='5dbfb1ee8192ac00016aa32b',  # (블록) 03 건강관리_알람 설정 완료
-                    block_id_for_no='5dc6d5d3b617ea0001798e2b',  # (블록) 건강관리_정보 리셋
+                    block_id_for_no='5dc72e60ffa74800014107c6',  # (블록) 건강관리_정보 리셋
                     message_text_for_no="아니요, 취소할게요")
 
             return response.get_response_200()
