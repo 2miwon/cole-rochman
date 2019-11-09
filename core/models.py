@@ -97,14 +97,14 @@ class Patient(models.Model):
         return self.save()
 
     def reset_measurement(self):
-        self.visit_manage_flag = None
-        self.visit_notification_flag = None
-        self.visit_notification_before = None
-        self.medication_noti_time_1 = None
-        self.medication_noti_time_2 = None
-        self.medication_noti_time_3 = None
-        self.medication_noti_time_4 = None
-        self.medication_noti_time_5 = None
+        self.measurement_manage_flag = None
+        self.measurement_notification_flag = None
+        self.measurement_notification_before = None
+        self.measurement_noti_time_1 = None
+        self.measurement_noti_time_2 = None
+        self.measurement_noti_time_3 = None
+        self.measurement_noti_time_4 = None
+        self.measurement_noti_time_5 = None
         return self.save()
 
     def set_default_end_date(self):
