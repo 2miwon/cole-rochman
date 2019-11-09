@@ -113,7 +113,7 @@ class PatientUpdateTest(APITestCase):
          date_time_request_example, datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone()),
         ('visit_notification_flag', 'visit_notification_flag', 'true', True),
         ('visit_notification_before', 'visit_notification_before', 3600, 3600),
-        ('health_manage_flag', 'health_manage_flag', 'true', True),
+        ('measurement_manage_flag', 'measurement_manage_flag', 'true', True),
         ('daily_measurement_count', 'daily_measurement_count', '1회', 1),
         ('measurement_noti_flag', 'measurement_noti_flag', 'true', True),
         ('measurement_noti_time_1', 'measurement_noti_time_1', time_request_example_1am, datetime.time(1, 0)),
