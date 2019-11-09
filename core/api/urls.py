@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from core.api.views.health import HealthManangementEntrance
 from core.api.views.measurements import MeasurementResultCreate
 from core.api.views.medications import PatientMedicationNotiTimeStart, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset, PatientMedicationStart, PatientMedicationRestart, PatientMedicationNotiSetTimeInRestart, \
@@ -18,7 +19,7 @@ urlpatterns = [
     path('patients/create/start/', PatientCreateStart.as_view(), name='patient-create-start'),
     path('patients/create/', PatientCreate.as_view(), name='patient-create'),
     path('patients/update/', PatientUpdate.as_view(), name='patient-update'),
-    path('patients/medication/start/', PatientMedicationStart.as_view(), name='patient-medication-start'),
+    path('patients/medication/start/', PatientMedicationEntrance.as_view(), name='patient-medication-start'),
     path('patients/medication/noti/time/start/', PatientMedicationNotiTimeStart.as_view(),
          name='patient-medication-noti-time-start'),
     path('patients/medication/noti/time/start/restart/', PatientMedicationNotiTimeStartInRestart.as_view(),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),
     path('patients/visit/noti/time/', PatientVisitNotiTimeBefore.as_view(), name='patient-visit-noti-time'),
     path('patients/visit/restart/', PatientVisitRestart.as_view(), name='patient-visit-restart'),
+    path('patients/health/entrance/', HealthManangementEntrance.as_view(), name='patient-health-entrance'),
     path('patients/measurement-result/create/', MeasurementResultCreate.as_view(), name='patient-measurement-create'),
     path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
