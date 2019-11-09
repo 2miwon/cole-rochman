@@ -106,10 +106,7 @@ class Hospital(models.Model):
         verbose_name_plural = '병원/기관'
 
     def __str__(self):
-        return f'{self.name}({self.code.zfill(3)})'
-
-    def proper_code(self):
-        return self.code.zfill(3)
+        return f'{self.name}({self.code})'
 
 
 class MedicationResult(models.Model):
