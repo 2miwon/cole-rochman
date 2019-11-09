@@ -54,7 +54,7 @@ class PatientMedicationNotiTimeQuestion(KakaoResponseAPI):
         patient.medication_noti_flag = True
         patient.save()
 
-        if patient.medication_noti_flag and not patient.need_medication_noti_time_set():
+        if not patient.need_medication_noti_time_set() and len(patient.medication_noti_time_list()) != 0:
             time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
 
             message = f"이미 모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n{time_list}"
@@ -65,10 +65,10 @@ class PatientMedicationNotiTimeQuestion(KakaoResponseAPI):
                 block_id_for_yes="5db30f398192ac000115f9a0")  # (블록) 02 치료 관리 재설정_복약횟수 확인
         else:
             next_undefined_number = patient.next_undefined_medication_noti_time_number()
-            message = f'{next_undefined_number:d}회차 복약 알림을 설정할까요?'
-            response.add_simple_text(text=message)
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='5da68fb1ffa7480001db0361')  # (블록) 04 치료 관리 설정_복약 알림 시간대
+        message = f'{next_undefined_number:d}회차 복약 알림을 설정할까요?'
+        response.add_simple_text(text=message)
+        response.set_quick_replies_yes_or_no(
+            block_id_for_yes='5da68fb1ffa7480001db0361')  # (블록) 04 치료 관리 설정_복약 알림 시간대
 
         return response.get_response_200()
 
@@ -93,7 +93,7 @@ class PatientMedicationNotiTimeQuestionRestart(KakaoResponseAPI):
         patient.medication_noti_flag = True
         patient.save()
 
-        if patient.medication_noti_flag and not patient.need_medication_noti_time_set():
+        if not patient.need_medication_noti_time_set() and len(patient.medication_noti_time_list()) != 0:
             time_list = ','.join([x.strftime('%H시 %M분') for x in patient.medication_noti_time_list()])
 
             message = f"이미 모든 회차 알림 설정을 마쳤습니다.\n[설정한 시간]\n{time_list}"
@@ -215,7 +215,7 @@ class PatientMedicationNotiSetTimeInRestart(KakaoResponseAPI):
             time = time.split(':')[0] + '시 ' + time.split(':')[1] + '분'
             response.add_simple_text(text=f"{time}을 입력하셨어요.\n다음 회차를 설정하시려면 '예'를 눌러주세요.")
             response.set_quick_replies_yes_or_no(
-                block_id_for_yes="5db312958192ac000115f9a5")  # (블록) 04 치료 관리 재설정_복약 알림 시작
+                block_id_for_yes="5db312958192ac000115f9a5")  # (블록) 04 치료 관리 재설정_복약 알림 질문
 
             return response.get_response_200()
 

@@ -120,6 +120,12 @@ class PatientUpdate(KakaoResponseAPI):
             patient.medication_noti_flag = True
             patient.save()
 
+        if self.data.get('reset_measurement_noti'):
+            patient.reset_measurement()
+            patient.measurement_manage_flag = True
+            patient.measurement_noti_flag = True
+            patient.save()
+
         for key, value in data.items():
             if 'flag' in key:
                 if value == '예' or 'true':

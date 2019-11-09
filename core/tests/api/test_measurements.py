@@ -54,7 +54,10 @@ class PatientMeasurementEntranceTest(APITestCase):
 
 
 class PatientMeasurementNotiTimeQuestionTest(APITestCase):
-    url = reverse('patient-measurement-noti-time-question-start')
+    url = reverse('patient-measurement-noti-time-question')
+    data = {
+        'userRequest': {'user': {'id': 'abc123'}},
+    }
 
     def test_success_for_question(self):
         """
@@ -62,13 +65,8 @@ class PatientMeasurementNotiTimeQuestionTest(APITestCase):
         """
         Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_manage_flag=True,
                                daily_measurement_count=3)
-        data = {
-            'userRequest': {'user': {'id': 'abc123'}},
-            'action': {
-                'params': {'noti_time': {'value': '10:00:00', 'userTimeZone': 'UTC+9'}}
-            }
-        }
-        response = self.client.post(self.url, data, format='json')
+
+        response = self.client.post(self.url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('1회차 산소포화도 확인 알림을 설정할까요', message_in_response(response))
 
@@ -79,26 +77,126 @@ class PatientMeasurementNotiTimeQuestionTest(APITestCase):
         Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_noti_flag=True,
                                daily_measurement_count=1,
                                measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
-        data = {
-            'userRequest': {'user': {'id': 'abc123'}},
-            'action': {
-                'params': {'noti_time': {'value': '10:00:00', 'userTimeZone': 'UTC+9'}}
-            }
-        }
-        response = self.client.post(self.url, data, format='json')
+        response = self.client.post(self.url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('이미 모든 회차 알림 설정을 마쳤습니다.', message_in_response(response))
 
     def test_fail_404(self):
         """
-                Exception for 404 not found
-                """
+        Exception for 404 not found
+        """
         data = {
             'userRequest': {'user': {'id': 'unknown-user-id'}},
         }
         response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?', message_in_response(response))
+
+    def test_restart_success(self):
+        """
+        url에 ?restart=true가 붙은 경우 다른 응답 내려주기
+        """
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_noti_flag=True,
+                                   daily_measurement_count=3,
+                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
+        p.reset_measurement()
+        p.daily_measurement_count = 3
+        p.save()
+        p.refresh_from_db()
+        response = self.client.post(self.url + '?restart=true', self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('5dc709c38192ac0001c5d9cb', message_in_response(response))
+
+
+class PatientMeasurementNotiSetTimeTest(APITestCase):
+    url = reverse('patient-measurement-noti-set-time')
+    data = {
+        'userRequest': {'user': {'id': 'abc123'}},
+        'action': {
+            'params': {'noti_time': '{"value": "10:00:00", "userTimeZone": "UTC+9"}'}
+        }
+    }
+
+    def test_success(self):
+        """
+        아직 회차 설정이 남은 경우
+        """
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_noti_flag=True,
+                                   daily_measurement_count=3,
+                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
+        response = self.client.post(self.url, self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('10시 00분', message_in_response(response))
+        self.assertIn('5dbfaeaf92690d0001e8805b', message_in_response(response))
+
+    def test_success_complete(self):
+        """
+        모든 회차 설정이 끝난 경우
+        """
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_noti_flag=True,
+                                   daily_measurement_count=1,
+                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
+        response = self.client.post(self.url, self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('모든 회차 알림 설정을 마쳤습니다', message_in_response(response))
+        self.assertIn('5dbfb1ee8192ac00016aa32b', message_in_response(response))
+
+    def test_success_restart(self):
+        """
+        아직 회차 설정이 남은 경우 + 재설정인 경우
+        """
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_noti_flag=True,
+                                   daily_measurement_count=3,
+                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
+        response = self.client.post(self.url + '?restart=true', self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('10시 00분', message_in_response(response))
+        self.assertIn('5dc7097affa74800014107ac', message_in_response(response))
+
+    def test_success_complete_restart(self):
+        """
+        모든 회차 설정이 끝난 경우 + 재설정인 경우
+        """
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', measurement_noti_flag=True,
+                                   daily_measurement_count=1,
+                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
+        response = self.client.post(self.url + '?restart=true', self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('모든 회차 알림 설정을 마쳤습니다', message_in_response(response))
+        self.assertIn('5dc709d48192ac0001c5d9cd', message_in_response(response))
+
+
+class PatientMeasurementRestartTest(APITestCase):
+    url = reverse('patient-measurement-restart')
+    data = {
+        'userRequest': {'user': {'id': 'abc123'}},
+    }
+
+    def test_success(self):
+        Patient.objects.create(code='A00112345678', kakao_user_id='abc123', daily_measurement_count=3)
+
+        response = self.client.post(self.url, self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('산소포화도 관리를 설정한 적이 있습니다', message_in_response(response))
+        self.assertIn('"context":{"values":[{"name":"건강관리재설정","lifeSpan":5,"params":{"daily_measurement_count":3',
+                      message_in_response(response))
+
+    def test_reset_measurement(self):
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', daily_measurement_count=3,
+                                   measurement_noti_time_1=datetime.datetime(2019, 11, 1, 15, 00, 00).astimezone())
+        url = reverse('patient-update')
+        data = self.data
+        data['action'] = {
+            'detailParams': {'reset_measurement_noti': {'value': 'true'}}
+        }
+        response = self.client.post(url, data, format='json')
+
+        p.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(p.daily_measurement_count, 0)
+        self.assertEqual(p.measurement_noti_time_1, None)
+        self.assertEqual(p.measurement_noti_time_list(), [])
+        self.assertEqual(p.need_measurement_noti_time_set(), False)
 
 
 class MeasurementResultCreateTest(APITestCase):

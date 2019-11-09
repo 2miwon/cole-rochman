@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.api.views.measurements import PatientMeasurementEntrance, MeasurementResultCreate, \
-    PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime
+    PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime, PatientMeasurementRestart
 from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, \
     PatientMedicationNotiSetTimeInRestart, \
@@ -15,7 +15,6 @@ from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUp
 from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart, \
     PatientVisitRestart
-
 urlpatterns = [
     path('patients/create/start/', PatientCreateStart.as_view(), name='patient-create-start'),
     path('patients/create/', PatientCreate.as_view(), name='patient-create'),
@@ -37,10 +36,11 @@ urlpatterns = [
     path('patients/visit/restart/', PatientVisitRestart.as_view(), name='patient-visit-restart'),
     path('patients/measurement/entrance/', PatientMeasurementEntrance.as_view(), name='patient-measurement-entrance'),
     path('patients/measurement/noti/time/question/', PatientMeasurementNotiTimeQuestion.as_view(),
-         name='patient-measurement-noti-time-question-start'),
+         name='patient-measurement-noti-time-question'),
     path('patients/measurement/noti/time/set/', PatientMeasurementNotiSetTime.as_view(),
          name='patient-measurement-noti-set-time'),
     path('patients/measurement-result/create/', MeasurementResultCreate.as_view(), name='patient-measurement-create'),
+    path('patients/measurement/restart/', PatientMeasurementRestart.as_view(), name='patient-measurement-restart'),
     path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
@@ -49,5 +49,6 @@ urlpatterns = [
     path('validate/measurement-result/oxygen-saturation/', ValidateMeasurementResultOxygenSaturation.as_view(),
          name='validate-measurement-result-oxygen-saturation'),
 ]
+
 
 urlpatterns = format_suffix_patterns(urlpatterns)
