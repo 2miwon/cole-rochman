@@ -117,7 +117,7 @@ def _update_database():
 
 
 def _run_django_test():
-    result = run('{} ./manage.py test -keepdb -v 2 --failfast'.format(virtualenv_folder), capture=False)
+    result = run('cd {} && {}/bin/python3 manage.py test --keepdb --failfast'.format(project_folder, virtualenv_folder))
     if result.failed:
         print(red("Some tests failed"))
         raise SystemExit
