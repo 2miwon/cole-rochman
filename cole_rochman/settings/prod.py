@@ -52,4 +52,4 @@ LOGGING = {
     },
 }
 
-
+BROKER_URL = secrets['REDIS_ADDRESS']
