@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from core.api.views.general import ResponseAlwaysOK
 from core.api.views.measurements import PatientMeasurementEntrance, MeasurementResultCreate, \
     PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime, PatientMeasurementRestart, \
     PatientMeasurementNotiReset
@@ -50,6 +51,8 @@ urlpatterns = [
     path('validate/time-before/', ValidateTimeBefore.as_view(), name='validate-time-before'),
     path('validate/measurement-result/oxygen-saturation/', ValidateMeasurementResultOxygenSaturation.as_view(),
          name='validate-measurement-result-oxygen-saturation'),
+    path('general/response-always-ok/', ResponseAlwaysOK.as_view(),
+         name='general-response-always-ok'),
 ]
 
 
