@@ -185,24 +185,21 @@ class MedicationResult(models.Model):
         FAILED = 'FAILED'
         SIDE_EFFECT = 'SIDE_EFFECT'
 
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_result', null=True)
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', null=True)
     date = models.DateField(verbose_name='날짜', auto_now_add=True)
-    medication_result_1 = models.CharField(max_length=15, verbose_name='1회차 복용 결과', choices=Result.choices(),
-                                           default=Result.PENDING)
-    medication_result_2 = models.CharField(max_length=15, verbose_name='2회차 복용 결과', choices=Result.choices(),
-                                           default=Result.PENDING)
-    medication_result_3 = models.CharField(max_length=15, verbose_name='3회차 복용 결과', choices=Result.choices(),
-                                           default=Result.PENDING)
-    medication_result_4 = models.CharField(max_length=15, verbose_name='4회차 복용 결과', choices=Result.choices(),
-                                           default=Result.PENDING)
-    medication_result_5 = models.CharField(max_length=15, verbose_name='5회차 복용 결과', choices=Result.choices(),
-                                           default=Result.PENDING)
+    medication_time = models.IntegerField(verbose_name='복약 회차', null=True)
+    status = models.CharField(max_length=15, choices=Result.choices(), default=Result.PENDING)
+    notified_at = models.DateTimeField(auto_now_add=True)
+    checked_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def medication_noti_time_field_str(self):
+        return 'medication_noti_time_%s' % self.medication_time
+
 
 class MeasurementResult(models.Model):
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_result', null=True)
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_results', null=True)
     measured_at = models.DateTimeField(verbose_name='날짜')
     oxygen_saturation = models.IntegerField(default=0, verbose_name='산소 포화도 측정 결과')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -230,7 +227,7 @@ class NotificationRecord(models.Model):
     delivered_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status_updated_at = models.DateTimeField(default=datetime.datetime.now())
+    status_updated_at = models.DateTimeField(null=True)
 
     def send(self):
         if self.is_sendable():
@@ -267,10 +264,4 @@ class NotificationRecord(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=10)
-    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profile', null=True)
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nickname = models.CharField(max_length=10)
-    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profile', null=True)
+    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profiles', null=True)
