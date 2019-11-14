@@ -1,6 +1,7 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from datetime import timedelta
+from django.contrib.auth.models import User
 
 
 class Patient(models.Model):
@@ -160,12 +161,12 @@ class MedicationResult(models.Model):
         (SIDE_EFFECT, 'side_effect')
     )
     patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_result', null=True)
-    date = models.DateField(verbose_name='날짜', auto_now_add=True)
-    medication_result_1 = models.CharField(max_length=2, verbose_name='1회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_2 = models.CharField(max_length=2, verbose_name='2회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_3 = models.CharField(max_length=2, verbose_name='3회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_4 = models.CharField(max_length=2, verbose_name='4회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_5 = models.CharField(max_length=2, verbose_name='5회차 복용 결과', choices=RESULTS, default=PENDING)
+    date = models.DateField(verbose_name='날짜')
+    medication_result_1 = models.CharField(max_length=15, verbose_name='1회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_2 = models.CharField(max_length=15, verbose_name='2회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_3 = models.CharField(max_length=15, verbose_name='3회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_4 = models.CharField(max_length=15, verbose_name='4회차 복용 결과', choices=RESULTS, default=PENDING)
+    medication_result_5 = models.CharField(max_length=15, verbose_name='5회차 복용 결과', choices=RESULTS, default=PENDING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -176,3 +177,10 @@ class MeasurementResult(models.Model):
     oxygen_saturation = models.IntegerField(default=0, verbose_name='산소 포화도 측정 결과')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=10)
+    hospital= models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profile', null=True)
+
