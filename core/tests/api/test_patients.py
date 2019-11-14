@@ -177,3 +177,25 @@ class PatientUpdateTest(APITestCase):
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(getattr(p, field), original_data)
+
+
+class PatientInfoTest(APITestCase):
+    url = reverse('patient-info')
+    data = {
+        'userRequest': {'user': {'id': 'abc123'}},
+    }
+
+    def test_success(self):
+        h = Hospital.objects.create(code='A001', name='seobuk')
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', hospital=h, nickname='testnickname')
+
+        response = self.client.post(self.url, self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['data']['nickname'], 'testnickname')
+        self.assertEqual(response.data['data']['patient_code'], 'A00112345678')
+
+    def test_fail_404(self):
+        response = self.client.post(self.url, self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['data']['nickname'], '')
+        self.assertEqual(response.data['data']['patient_code'], '')

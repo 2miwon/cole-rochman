@@ -196,3 +196,24 @@ class PatientUpdate(KakaoResponseAPI):
             }
         }
         return Response(response, status=status.HTTP_200_OK)
+
+
+class PatientInfo(KakaoResponseAPI):
+    """
+    환자의 정보를 응답합니다. 없으면 빈 문자열을 내려줍니다.
+    """
+
+    def post(self, request, *args, **kwargs):
+        self.preprocess(request)
+        response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
+
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            response.add_data('nickname', '')
+            response.add_data('patient_code', '')
+            return response.get_response_200()
+
+        response.add_data('nickname', patient.nickname or '')
+        response.add_data('patient_code', patient.code or '')
+        return response.get_response_200()
