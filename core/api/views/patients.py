@@ -84,7 +84,16 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
 
         serializer = self.get_serializer(data=self.data)
         if not serializer.is_valid():
+            if any([error_detail.code == 'unique' for error_detail in serializer.errors['code']]):
+                response.add_simple_text(text='이미 등록된 환자 코드입니다.\n다시 입력하시겠어요?')
+                response.set_quick_replies_yes_or_no(
+                    block_id_for_yes='5da3ed3392690d0001a475cb',  # (블록) 04 계정등록_환자 코드
+                    block_id_for_no='5dc38fa2b617ea0001320fbd',  # (블록) 계정등록_취소
+                )
+                return response.get_response_200()
+
             response.add_simple_text(text='알 수 없는 오류가 발생했습니다.')
+            response.set_quick_replies_yes_or_no()
             return response.get_response_200()
 
         if not request.query_params.get('test'):

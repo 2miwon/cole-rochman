@@ -45,10 +45,6 @@ class ValidatePatientCode(CreateAPIView):
             response.set_validation_fail(message='유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요.')
             return response.get_response_400()
 
-        if self.get_queryset().filter(code=patient_code).exists():
-            response.set_validation_fail(message='이미 등록된 계정입니다.')
-            return response.get_response_400()
-
         response.set_validation_success(value=patient_code)
         return response.get_response_200()
 
