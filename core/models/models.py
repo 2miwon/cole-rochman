@@ -187,15 +187,15 @@ class MedicationResult(models.Model):
 
     patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_result', null=True)
     date = models.DateField(verbose_name='날짜', auto_now_add=True)
-    medication_result_1 = models.CharField(max_length=2, verbose_name='1회차 복용 결과', choices=Result.choices(),
+    medication_result_1 = models.CharField(max_length=15, verbose_name='1회차 복용 결과', choices=Result.choices(),
                                            default=Result.PENDING)
-    medication_result_2 = models.CharField(max_length=2, verbose_name='2회차 복용 결과', choices=Result.choices(),
+    medication_result_2 = models.CharField(max_length=15, verbose_name='2회차 복용 결과', choices=Result.choices(),
                                            default=Result.PENDING)
-    medication_result_3 = models.CharField(max_length=2, verbose_name='3회차 복용 결과', choices=Result.choices(),
+    medication_result_3 = models.CharField(max_length=15, verbose_name='3회차 복용 결과', choices=Result.choices(),
                                            default=Result.PENDING)
-    medication_result_4 = models.CharField(max_length=2, verbose_name='4회차 복용 결과', choices=Result.choices(),
+    medication_result_4 = models.CharField(max_length=15, verbose_name='4회차 복용 결과', choices=Result.choices(),
                                            default=Result.PENDING)
-    medication_result_5 = models.CharField(max_length=2, verbose_name='5회차 복용 결과', choices=Result.choices(),
+    medication_result_5 = models.CharField(max_length=15, verbose_name='5회차 복용 결과', choices=Result.choices(),
                                            default=Result.PENDING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -262,6 +262,13 @@ class NotificationRecord(models.Model):
         return self.tries_left > 0 and \
                self.status in [self.Status.PENDING, self.Status.SUSPENDED] and \
                self.reserved_at > datetime.datetime.now()
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=10)
+    hospital= models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profile', null=True)
+
 
 
 class Profile(models.Model):
