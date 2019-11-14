@@ -107,6 +107,20 @@ class ValidateTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['status'], 'FAIL')
 
+    def test_fail_when_patient_code_exists(self):
+        """
+        test for ValidatePatientCode
+        A00112345678 - 12 characters code
+        """
+        Patient.objects.create(code='A00112345678', kakao_user_id='test')
+        url = reverse('validate-patient-code')
+        data = {
+            'value': {'origin': 'A00112345678'}
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['status'], 'FAIL')
+
     def test_invalid_patient_code_fail_invalid_hospital_code(self):
         """
         test for ValidatePatientCode
