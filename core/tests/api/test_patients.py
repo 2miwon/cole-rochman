@@ -7,7 +7,7 @@ from parameterized import parameterized
 from django.utils import timezone
 
 from core.models import Patient, Hospital
-from core.tests.helper.helper import get_first_simple_text
+from core.tests.helper.helper import get_first_simple_text, message_in_response
 
 time_request_example_1am = '{"timeHeadword": "am", "hour": "1", "second": null, "timeTag": "am", "time": "01:00:00", "date": "2019-10-16", "minute": null}'
 date_time_request_example = '{"dateTag": null, "timeHeadword": "pm", "hour": null, "dateHeadword": null, "time": "15:00:00",\
@@ -42,13 +42,13 @@ class PatientCreateStartTest(APITestCase):
 
 
 class PatientCreateTest(APITestCase):
+    url = reverse('patient-create')
 
     def test_create_success(self):
         """
         create patient
         """
         h = Hospital.objects.create(code='A001', name='seobuk')
-        url = reverse('patient-create')
         data = {
             'userRequest': {'user': {'id': 'asd123'}},
             'action': {
@@ -58,7 +58,7 @@ class PatientCreateTest(APITestCase):
                 }
             }
         }
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Patient.objects.count(), 1)
         self.assertEqual(Patient.objects.first().code, 'A00112345678')
@@ -77,16 +77,34 @@ class PatientCreateTest(APITestCase):
             'userRequest': {'user': {'id': 'asd123'}},
             'action': {
                 'detailParams': {
-                    'patient_code': {'value': 'T00112345678'},
-                    'hospital_code': {'value': 'A001'},
+                    'patient_code': {'value': 'A00112345678'},
                     'nickname': {'value': '별님'}
                 }
             }
         }
 
-        response = self.client.post(url + '?test=true', data, format='json')
+        response = self.client.post(self.url + '?test=true', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Patient.objects.count(), 0)
+
+    def test_create_fail_when_patient_code_exists(self):
+        h = Hospital.objects.create(code='A001', name='seobuk')
+        Patient.objects.create(code='A00112345678', kakao_user_id='another-user', hospital=h)
+
+        data = {
+            'userRequest': {'user': {'id': 'asd123'}},
+            'action': {
+                'detailParams': {
+                    'patient_code': {'value': 'A00112345678'},
+                    'nickname': {'value': '별님'}
+                }
+            }
+        }
+        response = self.client.post(self.url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Patient.objects.count(), 1)
+        self.assertIn('이미 등록된 환자 코드입니다', message_in_response(response))
 
 
 class PatientUpdateTest(APITestCase):
@@ -159,3 +177,25 @@ class PatientUpdateTest(APITestCase):
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(getattr(p, field), original_data)
+
+
+class PatientInfoTest(APITestCase):
+    url = reverse('patient-info')
+    data = {
+        'userRequest': {'user': {'id': 'abc123'}},
+    }
+
+    def test_success(self):
+        h = Hospital.objects.create(code='A001', name='seobuk')
+        p = Patient.objects.create(code='A00112345678', kakao_user_id='abc123', hospital=h, nickname='testnickname')
+
+        response = self.client.post(self.url, self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['data']['nickname'], 'testnickname')
+        self.assertEqual(response.data['data']['patient_code'], 'A00112345678')
+
+    def test_fail_404(self):
+        response = self.client.post(self.url, self.data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['data']['nickname'], '')
+        self.assertEqual(response.data['data']['patient_code'], '')

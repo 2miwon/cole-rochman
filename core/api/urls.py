@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from core.api.views.general import ResponseAlwaysOK
 from core.api.views.measurements import PatientMeasurementEntrance, MeasurementResultCreate, \
     PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime, PatientMeasurementRestart, \
     PatientMeasurementNotiReset
@@ -12,7 +13,7 @@ from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_measurement_result import ValidateMeasurementResultOxygenSaturation
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
-from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate
+from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate, PatientInfo
 from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart, \
     PatientVisitRestart
@@ -20,6 +21,7 @@ urlpatterns = [
     path('patients/create/start/', PatientCreateStart.as_view(), name='patient-create-start'),
     path('patients/create/', PatientCreate.as_view(), name='patient-create'),
     path('patients/update/', PatientUpdate.as_view(), name='patient-update'),
+    path('patients/info/', PatientInfo.as_view(), name='patient-info'),
     path('patients/medication/start/', PatientMedicationEntrance.as_view(), name='patient-medication-start'),
     path('patients/medication/noti/time/question/', PatientMedicationNotiTimeQuestion.as_view(),
          name='patient-medication-noti-time-question'),
@@ -50,6 +52,8 @@ urlpatterns = [
     path('validate/time-before/', ValidateTimeBefore.as_view(), name='validate-time-before'),
     path('validate/measurement-result/oxygen-saturation/', ValidateMeasurementResultOxygenSaturation.as_view(),
          name='validate-measurement-result-oxygen-saturation'),
+    path('general/response-always-ok/', ResponseAlwaysOK.as_view(),
+         name='general-response-always-ok'),
 ]
 
 

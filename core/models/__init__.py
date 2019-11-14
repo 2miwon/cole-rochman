@@ -1,1 +1,1 @@
-from .models import Patient, Hospital, MeasurementResult, MedicationResult, NotificationRecord
+from .models import Patient, Hospital, MeasurementResult, MedicationResult, NotificationRecord, Profile

@@ -4,6 +4,7 @@ from enum import Enum
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from datetime import timedelta
+from django.contrib.auth.models import User
 
 from core.models.helper import EnumField
 
@@ -261,3 +262,10 @@ class NotificationRecord(models.Model):
         return self.tries_left > 0 and \
                self.status in [self.Status.PENDING, self.Status.SUSPENDED] and \
                self.reserved_at > datetime.datetime.now()
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=10)
+    hospital= models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profile', null=True)
+
