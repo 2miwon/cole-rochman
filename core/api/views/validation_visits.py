@@ -47,8 +47,8 @@ class ValidateTimeBefore(KakaoResponseAPI):
             timedelta += int(hours_str) * SECONDS_FOR_HOUR
 
         else:
-            response.validation_fail()
+            response.set_validation_fail()
             return response.get_response_400()
 
-        response.validation_success(value=timedelta)
+        response.set_validation_success(value=timedelta)
         return response.get_response_200()

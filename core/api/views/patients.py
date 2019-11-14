@@ -84,9 +84,7 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
 
         serializer = self.get_serializer(data=self.data)
         if not serializer.is_valid():
-            response.add_simple_text(text='이미 등록된 계정입니다.')
-            response.add_quick_reply(action='block', label='다음으로 진행하기',
-                                     block_id='5dba635892690d000164f9b2')  # 06 계정등록_결핵 치료 시작일 알고 있는지
+            response.add_simple_text(text='알 수 없는 오류가 발생했습니다.')
             return response.get_response_200()
 
         if not request.query_params.get('test'):

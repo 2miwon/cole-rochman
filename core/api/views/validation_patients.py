@@ -17,10 +17,10 @@ class ValidatePatientNickname(APIView):
             regex = re.compile(r'[a-zA-Z0-9ㄱ-힣]{1,10}')
             matched = re.search(regex, nickname)
             if matched:
-                response.validation_success(value=matched.group())
+                response.set_validation_success(value=matched.group())
                 return response.get_response_200()
 
-        response.validation_fail()
+        response.set_validation_fail()
         return response.get_response_400()
 
 
@@ -36,15 +36,20 @@ class ValidatePatientCode(CreateAPIView):
         matched = re.search(regex, value)
 
         if not matched:
-            response.validation_fail(message="유효하지 않은 코드입니다.")
+            response.set_validation_fail(message='유효하지 않은 코드입니다.')
             return response.get_response_400()
 
-        hospital_code = matched.group().upper()[:4]
+        patient_code = matched.group().upper()
+        hospital_code = patient_code[:4]
         if not self.hospital_exists(hospital_code):
-            response.validation_fail(message="유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요")
+            response.set_validation_fail(message='유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요.')
             return response.get_response_400()
 
-        response.validation_success(value=matched.group().upper())
+        if self.get_queryset().filter(code=patient_code).exists():
+            response.set_validation_fail(message='이미 등록된 계정입니다.')
+            return response.get_response_400()
+
+        response.set_validation_success(value=patient_code)
         return response.get_response_200()
 
     @staticmethod
