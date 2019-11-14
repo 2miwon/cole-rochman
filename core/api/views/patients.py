@@ -99,6 +99,10 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         if not request.query_params.get('test'):
             serializer.save()
 
+        response.add_simple_text(text='계정이 성공적으로 등록되었습니다!👍\n결핵 치료 관리를 하시려면 아래 버튼을 눌러주십시오!')
+        response.add_quick_reply(action='block', label='결핵 치료 관리 시작하기',
+                                 block_id='5dba635892690d000164f9b2'  # (블록)  06 계정등록_결핵 치료 시작일 알고 있는지
+                                 )
         return response.get_response_200()
 
 
