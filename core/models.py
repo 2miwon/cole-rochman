@@ -181,6 +181,6 @@ class MeasurementResult(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nickname = models.TextField(max_length=10,default='default')
+    nickname = models.CharField(max_length=10)
     hospital= models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profile', null=True)
 
