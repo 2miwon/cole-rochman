@@ -1,3 +1,4 @@
+import munch as munch
 from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
@@ -23,10 +24,15 @@ class PastMedicationCheckChooseTime(KakaoResponseAPI):
             return self.build_response_fallback_404()
 
         if patient.medication_manage_flag and patient.daily_medication_count > 0:
-            date = request.data.get('action').get('params').get('medication_date').get('origin')
+            date = json.loads(self.data.get('medication_date')).get('value')
             response.add_simple_text(text='%s을 입력받았습니다. 몇 회차 복약을 변경하고 싶으신가요?' % date)
             for n in range(patient.daily_medication_count):
-                response.add_quick_reply(action='message', label='%s회' % (n + 1), message_text='%s회' % (n + 1))
+                response.add_quick_reply(
+                    action='block',
+                    label='%s회' % (n + 1),
+                    message_text='%s회를 변경할게요' % (n + 1),
+                    block_id='5dcdb23892690d000143800f'  # (블록) 04 지난복약체크_복약여부
+                )
             return response.get_response_200()
 
         else:
