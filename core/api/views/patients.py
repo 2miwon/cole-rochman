@@ -202,6 +202,9 @@ class PatientInfo(KakaoResponseAPI):
     """
     환자의 정보를 응답합니다. 없으면 빈 문자열을 내려줍니다.
     """
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
 
     def post(self, request, *args, **kwargs):
         self.preprocess(request)
