@@ -19,9 +19,9 @@ def user_dashboard(request):
 
 @login_required()
 def patient_status(request,pid):
-    print(pid)
+
     d = get_date(request.GET.get('week', None))
-    print(d)
+
     clickedpatient = Patient.objects.get(id=pid)
     diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
     diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
@@ -33,7 +33,6 @@ def patient_status(request,pid):
         percent = diff2.total_seconds() / diff1.total_seconds()
 
     p_str = "{0:.0%}".format(percent).rstrip('%')
-    print(p_str)
 
     context = dict(
         p_str=p_str,
@@ -50,7 +49,7 @@ def patient_status(request,pid):
 
     )
     for date in Patient.objects.filter(id__contains=pid,next_visiting_date_time__gte=cal_start_end_day(d,1),next_visiting_date_time__lte=cal_start_end_day(d,7)):
-        context['visiting_num']=(date.next_visiting_date_time.isocalendar()[2]-1)*140+15
+        context['visiting_num']=(int(date.next_visiting_date_time.isocalendar()[2])-1)*144+140
     daily_hour_list=list()
     if(clickedpatient.daily_medication_count>=1):
         daily_hour_list.append(str(clickedpatient.medication_noti_time_1.hour)+":"+str(clickedpatient.medication_noti_time_1.minute))
