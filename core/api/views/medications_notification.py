@@ -27,7 +27,7 @@ class PastMedicationCheckChooseTime(KakaoResponseAPI):
             try:
                 date = json.loads(self.data.get('medication_date').get('value')).get('value')
             except AttributeError:
-                date = self.data.get('medication_date').get('value')
+                date = self.data.get('medication_date')
 
             response.add_simple_text(text='%s을 입력받았습니다. 몇 회차 복약을 변경하고 싶으신가요?' % date)
             for n in range(patient.daily_medication_count):
