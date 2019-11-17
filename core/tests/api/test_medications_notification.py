@@ -14,10 +14,13 @@ class PastMedicationCheckChooseTimeTest(APITestCase):
     data = {
         'userRequest': {'user': {'id': 'asd123'}},
         'action': {
-            'params': {'medication_date': {
-                "value": "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}",
-                "origin": "2018년 10월 29일 (일)"}
-            }
+            "detailParams":
+                {"medication_date":
+                    {
+                        "origin": "2019-11-18",
+                        "value": '{"value":"2019-11-18","userTimeZone":"UTC+9"}'
+                    }
+                }
         }
     }
 
@@ -28,4 +31,3 @@ class PastMedicationCheckChooseTimeTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         for i, d in enumerate(response.data['template']['quickReplies']):
             self.assertEqual(d.get('label'), '%s회' % (i + 1))
-

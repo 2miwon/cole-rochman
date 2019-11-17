@@ -11,7 +11,7 @@ from core.tests.helper.helper import message_in_response
 class PatientMeasurementEntranceTest(APITestCase):
     url = reverse('patient-measurement-entrance')
 
-    def test_health_management_entrance_first(self):
+    def test_measurement_management_entrance_first(self):
         """
         산소포화도 관리 첫 시작 단계 진입
         """
@@ -22,9 +22,9 @@ class PatientMeasurementEntranceTest(APITestCase):
         }
         response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('산소포화도 관리를 시작하시겠습니까?', message_in_response(response))
+        self.assertIn('안녕하세요 콜로크만 박사입니다. 저와 함께 산소포화도 관리를 시작해보시겠습니까', message_in_response(response))
 
-    def test_health_management_entrance_reset(self):
+    def test_measurement_management_entrance_reset(self):
         """
         산소포화도 관리 재설정 단계 진입
         """
@@ -36,7 +36,7 @@ class PatientMeasurementEntranceTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('산소포화도 관리를 설정한 적이 있습니다. 다시 설정할까요?', message_in_response(response))
 
-    def test_health_management_entrance_fail_404(self):
+    def test_measurement_management_entrance_fail_404(self):
         """
         Exception for 404 not found
         """
@@ -47,7 +47,7 @@ class PatientMeasurementEntranceTest(APITestCase):
         response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # TODO mock.patch
-        # with patch('core.api.views.health.PatientMeasurementEntrance.build_response_fallback_404'
+        # with patch('core.api.views.measurement.PatientMeasurementEntrance.build_response_fallback_404'
         #            ) as build_response_fallback_404:
         #     build_response_fallback_404.assert_called()
         self.assertIn('계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?', message_in_response(response))
