@@ -1,21 +1,18 @@
 import datetime
 from enum import Enum
 
-from django.contrib.postgres.fields import JSONField
 from django.db import models
 from datetime import timedelta
-from django.contrib.auth.models import User
 
-from core.models.helper import EnumField
 
 
 class Patient(models.Model):
-    class NotiType(Enum):
+    class NOTI_TYPE(Enum):
         MEDICATION = 'Medication'
         VISIT = 'Visit'
         MEASUREMENT = 'Measurement'
 
-    class NotiTimeFields(Enum):
+    class NOTI_TIME_FIELDS(Enum):
         MEDICATION = [
             'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
             'medication_noti_time_5'
@@ -29,6 +26,7 @@ class Patient(models.Model):
     hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
     kakao_user_id = models.CharField(max_length=150, unique=True)
     nickname = models.CharField(max_length=20, default='')
+    phone_number = models.CharField(max_length=20, default='')
 
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', null=True)
@@ -66,6 +64,9 @@ class Patient(models.Model):
 
     def __str__(self):
         return '%s/%s' % (self.code, self.nickname)
+
+    def medication_noti_time_list_to_str(self):
+        return ','.join([x.strftime('%H시 %M분') for x in self.medication_noti_time_list()])
 
     def medication_noti_time_list(self):
         if not (self.measurement_manage_flag or self.medication_noti_flag):
@@ -110,7 +111,7 @@ class Patient(models.Model):
         self.medication_noti_time_3 = None
         self.medication_noti_time_4 = None
         self.medication_noti_time_5 = None
-        return self.save()
+        self.save()
 
     def reset_visit(self):
         self.visit_manage_flag = None
@@ -121,7 +122,7 @@ class Patient(models.Model):
         self.medication_noti_time_3 = None
         self.medication_noti_time_4 = None
         self.medication_noti_time_5 = None
-        return self.save()
+        self.save()
 
     def reset_measurement_noti_time(self):
         self.measurement_noti_time_1 = None
@@ -129,14 +130,14 @@ class Patient(models.Model):
         self.measurement_noti_time_3 = None
         self.measurement_noti_time_4 = None
         self.measurement_noti_time_5 = None
-        return self.save()
+        self.save()
 
     def reset_measurement(self):
         self.measurement_manage_flag = None
         self.measurement_noti_flag = None
         self.daily_measurement_count = 0
         self.reset_measurement_noti_time()
-        return self.save()
+        self.save()
 
     def set_default_end_date(self):
         if self.treatment_started_date:
@@ -159,111 +160,27 @@ class Patient(models.Model):
     def is_measurement_noti_sendable(self):
         return self.measurement_manage_flag and self.measurement_noti_flag
 
-    # def create_notification(self, type):
+    # def create_notification(self, date=datetime.datetime.today()):
+    #     MedicationResult()
+    #     NotificationRecord()
+    #     message = Message()
+    #     buttons = Button()
+    #     BizMessage(message, buttons)
 
+    def create_medication_result(self, noti_time_num: int, date=datetime.datetime.today()):
+        from core.models import MedicationResult
 
-class Hospital(models.Model):
-    code = models.CharField(max_length=4, unique=True)
-    name = models.CharField(max_length=100, unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+        if not self.medication_manage_flag():
+            return
 
-    class Meta:
-        verbose_name = '병원/기관'
-        verbose_name_plural = '병원/기관'
+        noti_time = self.medication_noti_time_list()[noti_time_num - 1]
 
-    def __str__(self):
-        return f'{self.name}({self.code})'
+        data = {
+            'patient': self,
+            'date': date,
+            'medication_time_num': noti_time_num,
+            'medication_time': noti_time,
+        }
 
+        return MedicationResult.objects.create(**data)
 
-class MedicationResult(models.Model):
-    class Result(EnumField):
-        PENDING = 'PENDING'
-        SUCCESS = 'SUCCESS'
-        DELAYED_SUCCESS = 'DELAYED_SUCCESS'
-        NO_RESPONSE = 'NO_RESPONSE'
-        FAILED = 'FAILED'
-        SIDE_EFFECT = 'SIDE_EFFECT'
-
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', null=True)
-    date = models.DateField(verbose_name='날짜', auto_now_add=True)
-    medication_time = models.IntegerField(verbose_name='복약 회차', null=True)
-    status = models.CharField(max_length=15, choices=Result.choices(), default=Result.PENDING)
-    status_info = models.TextField(verbose_name='이상 종류', default='')
-    severity = models.IntegerField(verbose_name='이상 정도', null=True)
-    notified_at = models.DateTimeField(null=True)
-    checked_at = models.DateTimeField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def medication_noti_time_field_str(self):
-        return 'medication_noti_time_%s' % self.medication_time
-
-
-class MeasurementResult(models.Model):
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_results', null=True)
-    measured_at = models.DateTimeField(verbose_name='날짜')
-    oxygen_saturation = models.IntegerField(default=0, verbose_name='산소 포화도 측정 결과')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-class NotificationRecord(models.Model):
-    MAX_TRY_COUNT = 3
-
-    class Status(EnumField):
-        PENDING = 'PENDING'
-        FAILED = 'FAILED'
-        SUSPENDED = 'SUSPENDED'
-        SENDING = 'SENDING'
-        DELIVERED = 'DELIVERED'
-        CANCELED = 'CANCELED'
-
-    patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='notification_records')
-    status = models.CharField(max_length=15, choices=Status.choices(), default=Status.PENDING)
-    recipient_number = models.CharField(max_length=50, verbose_name='수신인 번호')
-    payload = JSONField()
-    result = JSONField()
-    tries_left = models.IntegerField(default=MAX_TRY_COUNT)
-    reserved_at = models.DateTimeField()
-    delivered_at = models.DateTimeField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    status_updated_at = models.DateTimeField(null=True)
-
-    def send(self):
-        if self.is_sendable():
-            self.status = self.Status.SENDING
-            self.tries_left -= 1
-        #     TODO sending and receive result
-        else:
-            self.set_failed()
-
-    def set_delivered(self):
-        self.status = self.Status.DELIVERED
-        self.delivered_at = datetime.datetime.now()
-        self.status_updated_at = datetime.datetime.now()
-
-    def cancel(self):
-        self.status = self.Status.CANCELED
-        self.tries_left = 0
-        self.status_updated_at = datetime.datetime.now()
-
-    # def suspend(self):
-    # TODO not specified yet.
-
-    def set_failed(self):
-        self.status = self.Status.FAILED
-        self.tries_left = 0
-        self.status_updated_at = datetime.datetime.now()
-
-    def is_sendable(self):
-        return self.tries_left > 0 and \
-               self.status in [self.Status.PENDING, self.Status.SUSPENDED] and \
-               self.reserved_at > datetime.datetime.now()
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nickname = models.CharField(max_length=10)
-    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profiles', null=True)
