@@ -1,16 +1,18 @@
+import datetime
 from enum import Enum
 
 from django.db import models
 from datetime import timedelta
 
 
+
 class Patient(models.Model):
-    class NotiType(Enum):
+    class NOTI_TYPE(Enum):
         MEDICATION = 'Medication'
         VISIT = 'Visit'
         MEASUREMENT = 'Measurement'
 
-    class NotiTimeFields(Enum):
+    class NOTI_TIME_FIELDS(Enum):
         MEDICATION = [
             'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
             'medication_noti_time_5'
@@ -62,6 +64,9 @@ class Patient(models.Model):
 
     def __str__(self):
         return '%s/%s' % (self.code, self.nickname)
+
+    def medication_noti_time_list_to_str(self):
+        return ','.join([x.strftime('%H시 %M분') for x in self.medication_noti_time_list()])
 
     def medication_noti_time_list(self):
         if not (self.measurement_manage_flag or self.medication_noti_flag):
@@ -156,3 +161,26 @@ class Patient(models.Model):
         return self.measurement_manage_flag and self.measurement_noti_flag
 
     # def create_notification(self, date=datetime.datetime.today()):
+    #     MedicationResult()
+    #     NotificationRecord()
+    #     message = Message()
+    #     buttons = Button()
+    #     BizMessage(message, buttons)
+
+    def create_medication_result(self, noti_time_num: int, date=datetime.datetime.today()):
+        from core.models import MedicationResult
+
+        if not self.medication_manage_flag():
+            return
+
+        noti_time = self.medication_noti_time_list()[noti_time_num - 1]
+
+        data = {
+            'patient': self,
+            'date': date,
+            'medication_time_num': noti_time_num,
+            'medication_time': noti_time,
+        }
+
+        return MedicationResult.objects.create(**data)
+
