@@ -22,5 +22,6 @@ schema_view = get_swagger_view(title='Coleroch-man API')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('core.api.urls')),
-    path('api/v1/docs/', schema_view)
+    path('api/v1/docs/', schema_view),
+    path('', include('core.web.urls'))
 ]
