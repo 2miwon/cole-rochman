@@ -6,7 +6,7 @@ urlpatterns = [
     path('dashboard', views.user_dashboard, name='user_dashboard'),
     path('dashboard/<int:pid>', views.patient_status, name='patient_status'),
 
-    path('', views.sign_in, name='login_user'),
+    path('login', views.sign_in, name='login_user'),
     path('logout/', auth_views.LogoutView.as_view(), name="logout",),
 
 ]
