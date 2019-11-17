@@ -47,7 +47,7 @@ class RegisterNotifications:
             return queryset.filter(visit_manage_flag=True, visit_noti_flag=True)
         elif type == self.Type.MEASUREMENT:
             return queryset.filter(measurement_manage_flag=True, measurement_noti_flag=True)
-        else
+        else:
             raise ValueError('Type has to be one of these: %s' % str([n for n in self.Type]))
 
     # def register_daily_notification(self, queryset, type: Type):
