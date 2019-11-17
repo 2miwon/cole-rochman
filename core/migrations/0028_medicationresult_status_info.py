@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0027_add_severity_and_status_info_and_alter_notified_at_on_medication_result'),
+        ('core', '0027_alter_notified_at_on_medication_result'),
     ]
 
     operations = [
