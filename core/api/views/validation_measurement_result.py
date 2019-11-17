@@ -9,7 +9,7 @@ class ValidateMeasurementResultOxygenSaturation(APIView):
         oxygen_saturation = request.data.get('value').get('origin')
         oxygen_saturation = int(oxygen_saturation)
         if 0 <= oxygen_saturation <= 100:
-            response.validation_success(value=oxygen_saturation)
+            response.set_validation_success(value=oxygen_saturation)
         else:
-            response.validation_fail(message='0과 100 사이의 숫자를 입력하세요.')
+            response.set_validation_fail(message='0과 100 사이의 숫자를 입력하세요.')
         return response.get_response_200()

@@ -154,4 +154,3 @@ class ValidateTest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['value'], 12)
-

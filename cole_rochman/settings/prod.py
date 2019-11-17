@@ -45,11 +45,11 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['file', 'console', 'SysLog'],
+            'handlers': ['file', 'SysLog'],
             'level': 'DEBUG',
             'propagate': True,
         },
     },
 }
 
-
+BROKER_URL = secrets['REDIS_ADDRESS']

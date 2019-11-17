@@ -1,10 +1,30 @@
+import datetime
+from enum import Enum
+
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from datetime import timedelta
 from django.contrib.auth.models import User
 
+from core.models.helper import EnumField
+
 
 class Patient(models.Model):
+    class NotiType(Enum):
+        MEDICATION = 'Medication'
+        VISIT = 'Visit'
+        MEASUREMENT = 'Measurement'
+
+    class NotiTimeFields(Enum):
+        MEDICATION = [
+            'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
+            'medication_noti_time_5'
+        ]
+        MEASUREMENT = [
+            'measurement_noti_time_1', 'measurement_noti_time_2', 'measurement_noti_time_3', 'measurement_noti_time_4',
+            'measurement_noti_time_5'
+        ]
+
     code = models.CharField(max_length=12, unique=True)
     hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
     kakao_user_id = models.CharField(max_length=150, unique=True)
@@ -128,7 +148,18 @@ class Patient(models.Model):
 
     def hospital_code(self):
         if self.hospital:
-            return self.hospital.proper_code()
+            return self.hospital.code
+
+    def is_medication_noti_sendable(self):
+        return self.medication_manage_flag and self.medication_noti_flag
+
+    def is_visit_noti_sendable(self):
+        return self.visit_manage_flag and self.visit_notification_flag
+
+    def is_measurement_noti_sendable(self):
+        return self.measurement_manage_flag and self.measurement_noti_flag
+
+    # def create_notification(self, type):
 
 
 class Hospital(models.Model):
@@ -146,41 +177,93 @@ class Hospital(models.Model):
 
 
 class MedicationResult(models.Model):
-    PENDING = 'PENDING'
-    SUCCESS = 'SUCCESS'
-    DELAYED_SUCCESS = 'DELAYED_SUCCESS'
-    NO_RESPONSE = 'NO_RESPONSE'
-    FAILED = 'FAILED'
-    SIDE_EFFECT = 'SIDE_EFFECT'
-    RESULTS = (
-        (PENDING, 'pending'),
-        (SUCCESS, 'success'),
-        (DELAYED_SUCCESS, 'delay_success'),
-        (NO_RESPONSE, 'no_response'),
-        (FAILED, 'fail'),
-        (SIDE_EFFECT, 'side_effect')
-    )
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_result', null=True)
-    date = models.DateField(verbose_name='날짜')
-    medication_result_1 = models.CharField(max_length=15, verbose_name='1회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_2 = models.CharField(max_length=15, verbose_name='2회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_3 = models.CharField(max_length=15, verbose_name='3회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_4 = models.CharField(max_length=15, verbose_name='4회차 복용 결과', choices=RESULTS, default=PENDING)
-    medication_result_5 = models.CharField(max_length=15, verbose_name='5회차 복용 결과', choices=RESULTS, default=PENDING)
+    class Result(EnumField):
+        PENDING = 'PENDING'
+        SUCCESS = 'SUCCESS'
+        DELAYED_SUCCESS = 'DELAYED_SUCCESS'
+        NO_RESPONSE = 'NO_RESPONSE'
+        FAILED = 'FAILED'
+        SIDE_EFFECT = 'SIDE_EFFECT'
+
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', null=True)
+    date = models.DateField(verbose_name='날짜', auto_now_add=True)
+    medication_time = models.IntegerField(verbose_name='복약 회차', null=True)
+    status = models.CharField(max_length=15, choices=Result.choices(), default=Result.PENDING)
+    status_info = models.TextField(verbose_name='이상 종류', default='')
+    severity = models.IntegerField(verbose_name='이상 정도', null=True)
+    notified_at = models.DateTimeField(null=True)
+    checked_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def medication_noti_time_field_str(self):
+        return 'medication_noti_time_%s' % self.medication_time
+
 
 class MeasurementResult(models.Model):
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_result', null=True)
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='measurement_results', null=True)
     measured_at = models.DateTimeField(verbose_name='날짜')
     oxygen_saturation = models.IntegerField(default=0, verbose_name='산소 포화도 측정 결과')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
+class NotificationRecord(models.Model):
+    MAX_TRY_COUNT = 3
+
+    class Status(EnumField):
+        PENDING = 'PENDING'
+        FAILED = 'FAILED'
+        SUSPENDED = 'SUSPENDED'
+        SENDING = 'SENDING'
+        DELIVERED = 'DELIVERED'
+        CANCELED = 'CANCELED'
+
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='notification_records')
+    status = models.CharField(max_length=15, choices=Status.choices(), default=Status.PENDING)
+    recipient_number = models.CharField(max_length=50, verbose_name='수신인 번호')
+    payload = JSONField()
+    result = JSONField()
+    tries_left = models.IntegerField(default=MAX_TRY_COUNT)
+    reserved_at = models.DateTimeField()
+    delivered_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status_updated_at = models.DateTimeField(null=True)
+
+    def send(self):
+        if self.is_sendable():
+            self.status = self.Status.SENDING
+            self.tries_left -= 1
+        #     TODO sending and receive result
+        else:
+            self.set_failed()
+
+    def set_delivered(self):
+        self.status = self.Status.DELIVERED
+        self.delivered_at = datetime.datetime.now()
+        self.status_updated_at = datetime.datetime.now()
+
+    def cancel(self):
+        self.status = self.Status.CANCELED
+        self.tries_left = 0
+        self.status_updated_at = datetime.datetime.now()
+
+    # def suspend(self):
+    # TODO not specified yet.
+
+    def set_failed(self):
+        self.status = self.Status.FAILED
+        self.tries_left = 0
+        self.status_updated_at = datetime.datetime.now()
+
+    def is_sendable(self):
+        return self.tries_left > 0 and \
+               self.status in [self.Status.PENDING, self.Status.SUSPENDED] and \
+               self.reserved_at > datetime.datetime.now()
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=10)
-    hospital= models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profile', null=True)
-
+    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='profiles', null=True)

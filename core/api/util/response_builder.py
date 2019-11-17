@@ -98,7 +98,7 @@ class ResponseBuilder:
 
         self.response['message'] = message
 
-    def validation_success(self, value):
+    def set_validation_success(self, value):
         """
         Build response with value when validaion is successful.
         :param value: string or int
@@ -107,7 +107,7 @@ class ResponseBuilder:
         self.__set_status('SUCCESS')
         self.__add_value(value)
 
-    def validation_fail(self, value=None, message=None):
+    def set_validation_fail(self, value=None, message=None):
         """
         Build response with value when validaion is failed.
         :param value: string or int

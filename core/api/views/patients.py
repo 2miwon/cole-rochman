@@ -84,14 +84,25 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
 
         serializer = self.get_serializer(data=self.data)
         if not serializer.is_valid():
-            response.add_simple_text(text='이미 등록된 계정입니다.')
-            response.add_quick_reply(action='block', label='다음으로 진행하기',
-                                     block_id='5dba635892690d000164f9b2')  # 06 계정등록_결핵 치료 시작일 알고 있는지
+            if any([error_detail.code == 'unique' for error_detail in serializer.errors.get('code') or []]):
+                response.add_simple_text(text='이미 등록된 환자 코드입니다.\n다시 입력하시겠어요?')
+                response.set_quick_replies_yes_or_no(
+                    block_id_for_yes='5da3ed3392690d0001a475cb',  # (블록) 04 계정등록_환자 코드
+                    block_id_for_no='5dc38fa2b617ea0001320fbd',  # (블록) 계정등록_취소
+                )
+                return response.get_response_200()
+
+            response.add_simple_text(text='알 수 없는 오류가 발생했습니다.')
+            response.set_quick_replies_yes_or_no()
             return response.get_response_200()
 
         if not request.query_params.get('test'):
             serializer.save()
 
+        response.add_simple_text(text='계정이 성공적으로 등록되었습니다!👍\n결핵 치료 관리를 하시려면 아래 버튼을 눌러주십시오!')
+        response.add_quick_reply(action='block', label='결핵 치료 관리 시작하기',
+                                 block_id='5dba635892690d000164f9b2'  # (블록)  06 계정등록_결핵 치료 시작일 알고 있는지
+                                 )
         return response.get_response_200()
 
 
@@ -185,3 +196,27 @@ class PatientUpdate(KakaoResponseAPI):
             }
         }
         return Response(response, status=status.HTTP_200_OK)
+
+
+class PatientInfo(KakaoResponseAPI):
+    """
+    환자의 정보를 응답합니다. 없으면 빈 문자열을 내려줍니다.
+    """
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        self.preprocess(request)
+        response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
+
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            response.add_data('nickname', '')
+            response.add_data('patient_code', '')
+            return response.get_response_200()
+
+        response.add_data('nickname', patient.nickname or '')
+        response.add_data('patient_code', patient.code or '')
+        return response.get_response_200()
