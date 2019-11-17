@@ -40,7 +40,7 @@ def patient_status(request,pid):
         clickedpatient=Patient.objects.filter(id=pid),
         patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id),
         a=MeasurementResult.objects.filter(patient__id__contains=pid,measured_at__gte=cal_start_end_day(d,1),measured_at__lte=cal_start_end_day(d,7)),
-        b=MedicationResult.objects.filter(patient__id__contains=pid,date_at__gte=cal_start_end_day(d,1), date_at__lte=cal_start_end_day(d,7)),
+        b=MedicationResult.objects.filter(patient__id__contains=pid,date__gte=cal_start_end_day(d,1), date__lte=cal_start_end_day(d,7)),
         prev_week=prev_week(d),
         next_week=next_week(d),
         pid=pid,
