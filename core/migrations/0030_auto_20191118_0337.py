@@ -9,7 +9,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0029_add_severity_and_alter_status_info_medicationresult'),
+        ('core', '0029_add_severity_on_medication_result'),
     ]
 
     operations = [

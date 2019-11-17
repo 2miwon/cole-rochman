@@ -15,9 +15,4 @@ class Migration(migrations.Migration):
             name='severity',
             field=models.IntegerField(null=True, verbose_name='이상 정도'),
         ),
-        migrations.AlterField(
-            model_name='medicationresult',
-            name='status_info',
-            field=models.TextField(default='', verbose_name='이상 종류'),
-        ),
     ]
