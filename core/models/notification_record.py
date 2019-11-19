@@ -20,19 +20,19 @@ class NotificationRecord(models.Model):
         CANCELED = 'CANCELED'
 
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='notification_records')
-    medication_record = models.ForeignKey('MedicationResult', null=True, default=None, on_delete=models.SET_NULL,
+    medication_record = models.ForeignKey('MedicationResult', blank=True, null=True, default=None, on_delete=models.SET_NULL,
                                           related_name='notification_records')
-    measurement_record = models.ForeignKey('MeasurementResult', null=True, default=None, on_delete=models.SET_NULL,
+    measurement_record = models.ForeignKey('MeasurementResult', blank=True, null=True, default=None, on_delete=models.SET_NULL,
                                            related_name='notification_records')
-    biz_message_type = models.CharField(max_length=50, null=True, default=None)
+    biz_message_type = models.CharField(max_length=50, blank=True, null=True, default=None)
     status = models.CharField(max_length=15, choices=STATUS.choices(), default=STATUS.PENDING)
     recipient_number = models.CharField(max_length=50, verbose_name='수신인 번호')
     payload = JSONField()
     result = JSONField()
     tries_left = models.IntegerField(default=MAX_TRY_COUNT)
     send_at = models.DateTimeField()
-    delivered_at = models.DateTimeField(null=True)
-    status_updated_at = models.DateTimeField(null=True)
+    delivered_at = models.DateTimeField(blank=True, null=True)
+    status_updated_at = models.DateTimeField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

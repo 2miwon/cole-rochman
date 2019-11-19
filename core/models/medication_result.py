@@ -14,15 +14,15 @@ class MedicationResult(models.Model):
         FAILED = 'FAILED'
         SIDE_EFFECT = 'SIDE_EFFECT'
 
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', null=True)
+    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', blank=True, null=True)
     date = models.DateField(verbose_name='날짜', auto_now_add=True)
-    medication_time_num = models.IntegerField(verbose_name='복약 회차', null=True)
-    medication_time = models.TimeField(verbose_name='복약 회차(시간)', null=True)
+    medication_time_num = models.IntegerField(verbose_name='복약 회차', blank=True, null=True)
+    medication_time = models.TimeField(verbose_name='복약 회차(시간)', blank=True, null=True)
     status = models.CharField(max_length=15, choices=STATUS.choices(), default=STATUS.PENDING)
     status_info = models.TextField(verbose_name='이상 종류', default='')
-    severity = models.IntegerField(verbose_name='이상 정도', null=True)
-    notified_at = models.DateTimeField(null=True)
-    checked_at = models.DateTimeField(null=True)
+    severity = models.IntegerField(verbose_name='이상 정도', blank=True, null=True)
+    notified_at = models.DateTimeField(blank=True,null=True)
+    checked_at = models.DateTimeField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
