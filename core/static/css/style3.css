@@ -83,3 +83,17 @@
     margin-right:33px;
     height:15px;
 }
+
+th, td {
+    border: 1px solid #DFF3F9;
+    width:140px;
+    height:20%;
+    text-align: center;
+
+}
+table {
+    width:990px;
+    height:200px;
+    margin-top:13px;
+    margin-left:20px;
+}
