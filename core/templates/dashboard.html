@@ -3,97 +3,107 @@
 {% block content %}
 
 
-    <div class="col-md-12">
+  <div class="col-md-12">
     <div class="row ">
-    <div class="col-md-9">
+      <div class="col-md-9">
         <h2>결핵 박사 콜로크만 | 환자관리</h2>
         <br>
         <br>
 
-    </div>
-    <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 ">
 
-            {% if user.is_active %}
-                <p><b>{{user.profile.nickname}}({{user.profile.hospital.code}})</b>님 안녕하세요!<a href="{% url 'logout'%}">로그아웃</a></p>
-            {% endif %}
+        {% if user.is_active %}
+          <p>
+            <b>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</b>님 안녕하세요!<a href="{% url 'logout' %}">로그아웃</a>
+          </p>
+        {% endif %}
 
-    </div>
-    <div class="col-md-3" style="padding-right:2%;padding-left:2%;">
+      </div>
+      <div class="col-md-3" style="padding-right:2%;padding-left:2%;">
         <p><b>환자 찾기</b></p>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="환자 이름을 입력하세요">
 
         <ul id="myUL">
-            {% for patient in patientlist %}
+          {% for patient in patientlist %}
             <li>
-                <a href="{% url 'patient_status' patient.id%}">
-                    {{patient.nickname}} {{patient.code}}
-                </a>
+              <a href="{% url 'patient_status' patient.id %}">
+                {{ patient.nickname }} {{ patient.code }}
+              </a>
             </li>
-            {% endfor %}
+          {% endfor %}
         </ul>
-    </div>
-    <div class="col-md-9 ">
+      </div>
+      <div class="col-md-9 ">
         <p><b>결핵치료과정</b></p>
         <div class="col-md-12 proback">
 
 
-            <div style="float: left;">결핵치료시작</div>
-            <div style="float:right; ">결핵치료완료예정</div>
-            <br>
-            {% for p in clickedpatient %}
+          <div style="float: left;">결핵치료시작</div>
+          <div style="float:right; ">결핵치료완료예정</div>
+          <br>
+          {% for p in clickedpatient %}
             <div id="myProgress">
-            <div id="myBar">{{p_str}}%</div>
+              <div id="myBar">{{ p_str }}%</div>
             </div>
             <br>
-            <div style="float: left;">{{p.treatment_started_date}}</div>
-            <div style="float:right; ">{{p.treatment_end_date}}</div>
-            {% endfor %}
+            <div style="float: left;">{{ p.treatment_started_date }}</div>
+            <div style="float:right; ">{{ p.treatment_end_date }}</div>
+          {% endfor %}
         </div>
 
-    </div>
+      </div>
 
-    <div class="col-md-3" style="padding-left:2%;"><br><b>관리 현황</b></div>
-    <div class="col-md-9">
+      <div class="col-md-3" style="padding-left:2%;"><br><b>관리 현황</b></div>
+      <div class="col-md-9">
         <br>
         {% for p in clickedpatient %}
-        <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid%}?{{ prev_week }}'"><</div>
-        {% for day in day_list %}
-            <span class="day">{{day}}</span>
-        {% endfor %}
-        <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid%}?{{ next_week }}'">></div>
+          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
+            <
+          </div>
+          {% for day in day_list %}
+            <span class="day">{{ day }}</span>
+          {% endfor %}
+          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
+            >
+          </div>
 
         {% endfor %}
-    <br>
-    <br>
+        <br>
+        <br>
+      </div>
     </div>
-    </div>
 
-    </div>
-    <div class="col-md-12 staback">
-        <div class="row">
+  </div>
+  <div class="col-md-12 staback">
+    <div class="row">
 
-            {% for p in clickedpatient %}
-                <div class="col-md-2"><br>다음 내원 예정일은<br><b>{{p.next_visiting_date_time.month}}월 {{p.next_visiting_date_time.day}}일</b> 입니다.</div>
-
-            {%if visiting_num %}
-            <div class="col-md-10"><br><div id="visit">내원일</div></div>
-
-            {%endif%}
-
-            <div class="co-md-12 line"style="border-bottom: 1px solid black;"></div>
-            <div class="col-md-2"><br>총 <b>{{p.daily_medication_count}}회</b><br>복약해야 합니다.</div>
-            <div class="col-md-2">
-                <br>
-                {% for hour in daily_hour_list %}
-                    {{ forloop.counter }}회차({{hour}})<br><br>
-                {% endfor %}
-            </div>
-
-
-            {% endfor %}
+      {% for p in clickedpatient %}
+        <div class="col-md-2"><br>다음 내원
+          예정일은<br><b>{{ p.next_visiting_date_time.month }}월 {{ p.next_visiting_date_time.day }}일</b> 입니다.
         </div>
+
+        {% if visiting_num %}
+          <div class="col-md-10"><br>
+            <div id="visit">내원일</div>
+          </div>
+
+        {% endif %}
+
+        <div class="co-md-12 line" style="border-bottom: 1px solid black;"></div>
+        <div class="col-md-2"><br>총 <b>{{ p.daily_medication_count }}회</b><br>복약해야 합니다.</div>
+        <div class="col-md-2">
+          <br>
+          {% for hour in daily_hour_list %}
+            {{ forloop.counter }}회차({{ hour }})<br><br>
+          {% endfor %}
+        </div>
+
+
+      {% endfor %}
     </div>
+  </div>
 
 
-<script>document.getElementById("visit").style.marginLeft = "{{visiting_num}}px";</script>
+  <script>document.getElementById("visit").style.marginLeft = "{{visiting_num}}px";</script>
 {% endblock %}

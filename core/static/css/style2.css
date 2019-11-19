@@ -1,20 +1,25 @@
-html,body,.col-md-12,.row {
-  height:100%;
+html, body, .col-md-12, .row {
+    height: 100%;
 }
+
 .row > div {
-  height:100%;
+    height: 100%;
 }
 
 .row .blue {
-  background-color:#AFE0EF;
-  background-image : url('bgimg.jpg');
-  background-repeat : no-repeat;
-  background-size : 70%;
-  background-position: center; 
+    background-color: #AFE0EF;
+
 }
 
-.row .col-md-4 .menubar{
-    padding-top:14%;
+.row .bg-image {
+    background-image: url('bgimg.jpg');
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center;
+}
+
+.row .col-md-4 .menubar {
+    padding-top: 14%;
     background-color: #AFE0EF;
     border: 1px solid;
     border-color: #FFFFFF
