@@ -27,6 +27,7 @@ class Patient(models.Model):
     kakao_user_id = models.CharField(max_length=150, unique=True)
     nickname = models.CharField(max_length=20, default='')
     phone_number = models.CharField(max_length=20, default='')
+    name = models.CharField(max_length=10, default='')
 
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', null=True)
