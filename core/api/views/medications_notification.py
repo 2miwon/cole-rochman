@@ -118,6 +118,7 @@ class PastMedicationSuccess(KakaoResponseAPI):
 
         recent_medication_result = get_recent_medication_result(patient)
         recent_medication_result.set_success()  # or set_delayed_success
+        recent_medication_result.save()
         return response.get_response_200_without_data()
 
 
@@ -137,6 +138,7 @@ class PastMedicationFailed(KakaoResponseAPI):
 
         recent_medication_result = get_recent_medication_result(patient)
         recent_medication_result.set_failed()
+        recent_medication_result.save()
         response.add_simple_text(text='%s님, 다음 회차에는 꼭 복약하셔야합니다. 제가 늘 응원하고 있습니다!👍' % patient.nickname)
         response.add_quick_reply(
             action='block', label='처음으로 돌아가기',
@@ -164,6 +166,7 @@ class PastMedicationSideEffect(KakaoResponseAPI):
         status_info = self.data.get('status_info')
         severity = self.data.get('severity')
         recent_medication_result.set_side_effect(status_info=status_info, severity=severity)
+        recent_medication_result.save()
         response.add_simple_text(text='알려주셔서 감사합니다. 이상 반응에 대해서는 담당 의사 선생님께 꼭 말씀드리셔야합니다!☎️')
         response.add_quick_reply(
             action='block', label='처음으로 돌아가기',
