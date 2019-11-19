@@ -48,22 +48,22 @@ class MedicationResult(models.Model):
 
     def set_no_response(self):
         self.status = self.STATUS.NO_RESPONSE
-        self.notified_at = datetime.datetime.now()
+        self.notified_at = datetime.datetime.now().astimezone()
         self.save()
 
     def set_success(self):
         self.status = self.STATUS.SUCCESS
-        self.checked_at = datetime.datetime.now()
+        self.checked_at = datetime.datetime.now().astimezone()
         self.save()
 
     def set_failed(self):
         self.status = self.STATUS.FAILED
-        self.checked_at = datetime.datetime.now()
+        self.checked_at = datetime.datetime.now().astimezone()
         self.save()
 
     def set_delayed_success(self):
         self.status = self.STATUS.DELAYED_SUCCESS
-        self.checked_at = datetime.datetime.now()
+        self.checked_at = datetime.datetime.now().astimezone()
         self.save()
 
     def set_side_effect(self, status_info, severity):

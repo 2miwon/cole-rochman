@@ -46,7 +46,7 @@ class NotificationRecord(models.Model):
     def is_sendable(self):
         return self.tries_left > 0 and \
                self.status in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
-               self.send_at > datetime.datetime.now()
+               self.send_at > datetime.datetime.now().astimezone()
 
     def send(self):
         if self.is_sendable():
@@ -60,13 +60,13 @@ class NotificationRecord(models.Model):
     def cancel(self):
         self.status = self.STATUS.CANCELED
         self.tries_left = 0
-        self.status_updated_at = datetime.datetime.now()
+        self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
 
     def set_delivered(self):
         self.status = self.STATUS.DELIVERED
-        self.delivered_at = datetime.datetime.now()
-        self.status_updated_at = datetime.datetime.now()
+        self.delivered_at = datetime.datetime.now().astimezone()
+        self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
 
     # def suspend(self):
@@ -75,5 +75,5 @@ class NotificationRecord(models.Model):
     def set_failed(self):
         self.status = self.STATUS.FAILED
         self.tries_left = 0
-        self.status_updated_at = datetime.datetime.now()
+        self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
