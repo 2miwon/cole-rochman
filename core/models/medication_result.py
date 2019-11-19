@@ -44,7 +44,7 @@ class MedicationResult(models.Model):
         return self.notification_records.get()
 
     def get_status(self):
-        return self.status.value.split('.')[1]
+        return self.status.split('.')[1]
 
     def set_no_response(self):
         self.status = self.STATUS.NO_RESPONSE
