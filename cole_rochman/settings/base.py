@@ -129,3 +129,8 @@ STATICFILES_DIRS = [
 
 # Celery
 CELERY_RESULT_BACKEND = 'django-db'
+
+from django.urls import reverse_lazy
+LOGIN_URL = reverse_lazy('login_user')
+
+LOGOUT_REDIRECT_URL = '/login'

@@ -1,0 +1,23 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+    <div class="col-md-12" style="height:100%">
+    <div class="row ">
+    <div class="col-md-4" style="padding-right:0px;padding-left:0px;">
+        <div style="height :25%" class="menubar"><div class="offset-1"><h2>계정관리</h2></div></div>
+        <div style="height :25%" class="menubar"><div class="offset-1"><h2>환자추가</h2></div></div>
+        <div style="height :25%" class="menubar" onclick="location.href='{% url 'user_dashboard' %}'"><div class="offset-1"><h2>환자관리</h2></div></div>
+        <div style="height :25%" class="menubar"><div class="offset-1"><h2>게시판</h2></div></div>
+
+    </div>
+    <div class="col-md-8 blue">
+        <div class=" offset-8">
+            {% if user.is_active %}
+                <p><b>{{user.profile.nickname}}({{user.profile.hospital.code}})</b>님 안녕하세요!</p>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+    </div>
+{% endblock %}
