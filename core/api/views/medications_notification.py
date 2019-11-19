@@ -89,7 +89,9 @@ class PastMedicationSuccess(KakaoResponseAPI):
         except Http404:
             return self.build_response_fallback_404()
 
-        if not (patient.medication_manage_flag and patient.daily_medication_count > 0):
+        if (patient.medication_manage_flag is False or
+                patient.daily_medication_count == 0 or
+                all([True if x is None else False for x in patient.medication_noti_time_list()])):
             response.add_simple_text(text='설정된 복약 알림이 없습니다.')
             return response.get_response_200()
 
@@ -112,7 +114,9 @@ class PastMedicationFailed(KakaoResponseAPI):
         except Http404:
             return self.build_response_fallback_404()
 
-        if not (patient.medication_manage_flag and patient.daily_medication_count > 0):
+        if (patient.medication_manage_flag is False or
+                patient.daily_medication_count == 0 or
+                all([True if x is None else False for x in patient.medication_noti_time_list()])):
             response.add_simple_text(text='설정된 복약 알림이 없습니다.')
             return response.get_response_200()
 
@@ -140,7 +144,9 @@ class PastMedicationSideEffect(KakaoResponseAPI):
         except Http404:
             return self.build_response_fallback_404()
 
-        if not (patient.medication_manage_flag and patient.daily_medication_count > 0):
+        if (patient.medication_manage_flag is False or
+                patient.daily_medication_count == 0 or
+                all([True if x is None else False for x in patient.medication_noti_time_list()])):
             response.add_simple_text(text='설정된 복약 알림이 없습니다.')
             return response.get_response_200()
 

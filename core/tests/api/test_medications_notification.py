@@ -53,6 +53,17 @@ class PastMedicationSuccessTest(APITestCase):
         self.assertEqual(p.medication_results.last().medication_time_num, 1)
         self.assertEqual(p.medication_results.last().medication_time, datetime.time(hour=8))
 
+    @mock.patch('core.api.views.medications_notification.get_now', mock.MagicMock(return_value=datetime.time(hour=9)))
+    def test_fail_when_patient_didnt_set_noti_time(self):
+        p = Patient.objects.create(
+            code='P12312345678', kakao_user_id='asd123', medication_manage_flag=True, daily_medication_count=3,
+            medication_noti_flag=True
+        )
+        response = self.client.post(self.url, self.data, format='json')
+        p.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('설정된 복약 알림이 없습니다', message_in_response(response))
+
 
 class PastMedicationFailedTest(APITestCase):
     url = reverse('patients-medication-past-check-failed')
