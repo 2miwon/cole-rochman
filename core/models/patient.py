@@ -167,10 +167,10 @@ class Patient(models.Model):
     #     buttons = Button()
     #     BizMessage(message, buttons)
 
-    def create_medication_result(self, noti_time_num: int, date=datetime.datetime.today()):
+    def create_medication_result(self, noti_time_num: int, date=datetime.date.today()):
         from core.serializers import MedicationResultSerializer
 
-        if not self.medication_manage_flag:
+        if self.medication_manage_flag is False:
             return
 
         noti_time = self.medication_noti_time_list()[noti_time_num - 1]
