@@ -75,7 +75,7 @@ class PastMedicationCheckChooseTime(KakaoResponseAPI):
             return response.get_response_200()
 
 
-class PastMedicationSuccess(KakaoResponseAPI):
+class PastMedicationEntrance(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
@@ -93,7 +93,28 @@ class PastMedicationSuccess(KakaoResponseAPI):
                 patient.daily_medication_count == 0 or
                 all([True if x is None else False for x in patient.medication_noti_time_list()])):
             response.add_simple_text(text='설정된 복약 알림이 없습니다.')
-            return response.get_response_200()
+        else:
+            response.add_simple_text(text='지난 복약 상태를 변경하시겠어요?')
+            response.set_quick_replies_yes_or_no(
+                block_id_for_yes='5dcdb23892690d000143800f',  # (블록) 04 지난복약체크_복약여부
+                block_id_for_no='5dcdb40b92690d000143801a'  # (블록) 지난복약체크_탈출
+            )
+        return response.get_response_200()
+
+
+class PastMedicationSuccess(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
 
         recent_medication_result = get_recent_medication_result(patient)
         recent_medication_result.set_success()  # or set_delayed_success
@@ -113,12 +134,6 @@ class PastMedicationFailed(KakaoResponseAPI):
             patient = self.get_object_by_kakao_user_id()
         except Http404:
             return self.build_response_fallback_404()
-
-        if (patient.medication_manage_flag is False or
-                patient.daily_medication_count == 0 or
-                all([True if x is None else False for x in patient.medication_noti_time_list()])):
-            response.add_simple_text(text='설정된 복약 알림이 없습니다.')
-            return response.get_response_200()
 
         recent_medication_result = get_recent_medication_result(patient)
         recent_medication_result.set_failed()
@@ -143,12 +158,6 @@ class PastMedicationSideEffect(KakaoResponseAPI):
             patient = self.get_object_by_kakao_user_id()
         except Http404:
             return self.build_response_fallback_404()
-
-        if (patient.medication_manage_flag is False or
-                patient.daily_medication_count == 0 or
-                all([True if x is None else False for x in patient.medication_noti_time_list()])):
-            response.add_simple_text(text='설정된 복약 알림이 없습니다.')
-            return response.get_response_200()
 
         recent_medication_result = get_recent_medication_result(patient)
 
