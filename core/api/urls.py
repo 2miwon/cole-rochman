@@ -9,7 +9,8 @@ from core.api.views.medications import PatientMedicationNotiTimeQuestion, Patien
     PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, \
     PatientMedicationNotiSetTimeInRestart, \
     PatientMedicationNotiTimeQuestionRestart
-from core.api.views.medications_notification import PastMedicationCheckChooseTime
+from core.api.views.medications_notification import PastMedicationCheckChooseTime, PastMedicationSuccess, \
+    PastMedicationFailed, PastMedicationSideEffect
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_measurement_result import ValidateMeasurementResultOxygenSaturation
@@ -37,6 +38,12 @@ urlpatterns = [
     path('patients/medication/restart/', PatientMedicationRestart.as_view(), name='patient-medication-restart'),
     path('patients/medication/past-check/choose-time/', PastMedicationCheckChooseTime.as_view(),
          name='patients-medication-past-check-choose-time'),
+    path('patients/medication/past-check/success/', PastMedicationSuccess.as_view(),
+         name='patients-medication-past-check-success'),
+    path('patients/medication/past-check/failed/', PastMedicationFailed.as_view(),
+         name='patients-medication-past-check-failed'),
+    path('patients/medication/past-check/side-effect/', PastMedicationSideEffect.as_view(),
+         name='patients-medication-past-check-side-effect'),
     path('patients/visit/start/', PatientVisitStart.as_view(), name='patient-visit-start'),
     path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),
     path('patients/visit/noti/time/', PatientVisitNotiTimeBefore.as_view(), name='patient-visit-noti-time'),

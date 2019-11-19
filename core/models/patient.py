@@ -168,18 +168,21 @@ class Patient(models.Model):
     #     BizMessage(message, buttons)
 
     def create_medication_result(self, noti_time_num: int, date=datetime.datetime.today()):
-        from core.models import MedicationResult
+        from core.serializers import MedicationResultSerializer
 
-        if not self.medication_manage_flag():
+        if not self.medication_manage_flag:
             return
 
         noti_time = self.medication_noti_time_list()[noti_time_num - 1]
 
         data = {
-            'patient': self,
+            'patient': self.id,
             'date': date,
             'medication_time_num': noti_time_num,
             'medication_time': noti_time,
         }
+        se = MedicationResultSerializer(data=data)
+        se.is_valid(raise_exception=True)
+        return se.save()
 
-        return MedicationResult.objects.create(**data)
+        # return MedicationResult.objects.create(**data)

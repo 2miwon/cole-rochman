@@ -1,15 +1,49 @@
-import munch as munch
+import datetime
+
 from django.http import Http404
-from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.utils import json
 
 from core.api.serializers import PatientUpdateSerializer
-
 from core.api.util.helper import KakaoResponseAPI
 
 
+def get_now():
+    return datetime.datetime.now().time()
+
+
+def get_recent_noti_time(noti_time_list, now_time):
+    s = sorted(noti_time_list)
+    return next(s[i - 1] for i, x in enumerate(s) if x > now_time)
+
+
+def get_recent_noti_time_num(noti_time_list, recent_noti_time):
+    return [i + 1 for i, x in enumerate(noti_time_list) if x == recent_noti_time][0]
+
+
+def get_recent_medication_result(patient):
+    noti_time_list = patient.medication_noti_time_list()
+    now_time = get_now()
+    recent_noti_time = get_recent_noti_time(noti_time_list=noti_time_list, now_time=now_time)
+
+    if now_time > recent_noti_time:
+        date = datetime.date.today()
+    else:
+        date = datetime.date.today() - datetime.timedelta(days=1)
+
+    recent_medication_result = patient.medication_results.filter(medication_time=recent_noti_time, date=date)
+    if recent_medication_result.exists():
+        recent_medication_result = recent_medication_result.get()
+    else:
+        noti_time_num = get_recent_noti_time_num(noti_time_list, recent_noti_time)
+        recent_medication_result = patient.create_medication_result(noti_time_num=noti_time_num, date=date)
+
+    return recent_medication_result
+
+
 class PastMedicationCheckChooseTime(KakaoResponseAPI):
+    """
+    deprecated. It will be deleted.
+    """
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()
@@ -41,3 +75,83 @@ class PastMedicationCheckChooseTime(KakaoResponseAPI):
             return response.get_response_200()
 
 
+class PastMedicationSuccess(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
+        if not (patient.medication_manage_flag and patient.daily_medication_count > 0):
+            response.add_simple_text(text='설정된 복약 알림이 없습니다.')
+            return response.get_response_200()
+
+        recent_medication_result = get_recent_medication_result(patient)
+        recent_medication_result.set_success()  # or set_delayed_success
+        return response.get_response_200_without_data()
+
+
+class PastMedicationFailed(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
+        if not (patient.medication_manage_flag and patient.daily_medication_count > 0):
+            response.add_simple_text(text='설정된 복약 알림이 없습니다.')
+            return response.get_response_200()
+
+        recent_medication_result = get_recent_medication_result(patient)
+        recent_medication_result.set_failed()
+        response.add_simple_text(text='%s님, 다음 회차에는 꼭 복약하셔야합니다. 제가 늘 응원하고 있습니다!👍' % patient.nickname)
+        response.add_quick_reply(
+            action='block', label='처음으로 돌아가기',
+            block_id='5d732d1b92690d0001813d45'  # (블록) Generic_시작하기 처음으로
+        )
+        return response.get_response_200()
+
+
+class PastMedicationSideEffect(KakaoResponseAPI):
+    serializer_class = PatientUpdateSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+
+        if not (patient.medication_manage_flag and patient.daily_medication_count > 0):
+            response.add_simple_text(text='설정된 복약 알림이 없습니다.')
+            return response.get_response_200()
+
+        recent_medication_result = get_recent_medication_result(patient)
+
+        status_info = self.data.get('status_info')
+        severity = self.data.get('severity')
+        recent_medication_result.set_side_effect(status_info=status_info, severity=severity)
+        response.add_simple_text(text='알려주셔서 감사합니다. 이상 반응에 대해서는 담당 의사 선생님께 꼭 말씀드리셔야합니다!☎️')
+        response.add_quick_reply(
+            action='block', label='처음으로 돌아가기',
+            block_id='5d732d1b92690d0001813d45'  # (블록) Generic_시작하기 처음으로
+        )
+        return response.get_response_200()
