@@ -24,7 +24,8 @@ class PastMedicationCheckChooseTime(KakaoResponseAPI):
             return self.build_response_fallback_404()
 
         if patient.medication_manage_flag and patient.daily_medication_count > 0:
-            date = json.loads(self.data.get('medication_date').get('value')).get('value')
+            date = json.loads(self.data.get('medication_date')).get('value')
+
             response.add_simple_text(text='%s을 입력받았습니다. 몇 회차 복약을 변경하고 싶으신가요?' % date)
             for n in range(patient.daily_medication_count):
                 response.add_quick_reply(

@@ -31,7 +31,7 @@ class PatientMedicationEntrance(KakaoResponseAPI):
             response.add_simple_text(text='안녕하세요 콜로크만입니다.\n저와 함께 복약 관리를 시작하시겠습니까?')
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5da5e59ab617ea00012b43ee',  # (블록) 02 치료 관리 설정_복약횟수
-                block_id_for_no='5da549a6ffa7480001daf819',  # (블록) 01-1 치료 관리 설정_복약 관리 취소
+                block_id_for_no='5dd0ee9092690d000194b945',  # (블록) 임시 00 대화 종료 여부_복약관리
                 message_text_for_no='아니요'
             )
         return response.get_response_200()

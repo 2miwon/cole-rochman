@@ -108,6 +108,7 @@ class PatientVisitRestartTest(APITestCase):
     data = {
         'userRequest': {'user': {'id': 'abc123'}},
     }
+
     def test_success(self):
         """
         Test successful response when patient exists and visit_manage_flag is True.

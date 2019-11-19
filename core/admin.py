@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Patient, Hospital,MeasurementResult,MedicationResult
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -13,6 +14,7 @@ class PatientAdmin(admin.ModelAdmin):
 @admin.register(Hospital)
 class HospitalAdmin(admin.ModelAdmin):
     pass
+
 
 class ProfileInline(admin.StackedInline):
     model = Profile
