@@ -20,7 +20,7 @@ class MedicationResult(models.Model):
     medication_time_num = models.IntegerField(verbose_name='복약 회차', blank=True, null=True)
     medication_time = models.TimeField(verbose_name='복약 회차(시간)', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING)
-    status_info = models.TextField(max_length=100, verbose_name='이상 종류', default='')
+    status_info = models.TextField(max_length=100, verbose_name='이상 종류', default='', blank=True, null=True)
     severity = models.IntegerField(verbose_name='이상 정도', blank=True, null=True)
     notified_at = models.DateTimeField(blank=True, null=True)
     checked_at = models.DateTimeField(blank=True, null=True)
