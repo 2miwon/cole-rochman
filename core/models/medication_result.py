@@ -70,6 +70,7 @@ class MedicationResult(models.Model):
         self.status = self.STATUS.SIDE_EFFECT
         self.status_info = status_info
         self.severity = severity
+        self.checked_at = datetime.datetime.now().astimezone()
         self.save()
 
     def create_notification_record(self):
