@@ -14,6 +14,9 @@ class MedicationResult(models.Model):
         FAILED = 'FAILED'
         SIDE_EFFECT = 'SIDE_EFFECT'
 
+        def __str__(self):
+            return self.value
+
     patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', blank=True,
                                 null=True)
     date = models.DateField(verbose_name='날짜')
@@ -48,6 +51,9 @@ class MedicationResult(models.Model):
             return self.STATUS(self.status.split('.')[1])
 
         return self.status
+
+    def get_status_display(self):
+        return self.status.value
 
     def set_no_response(self):
         self.status = self.STATUS.NO_RESPONSE
