@@ -28,6 +28,10 @@ class MedicationResult(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = '복약 결과'
+        verbose_name_plural = '복약 결과'
+
     def medication_noti_time_field_str(self):
         return 'medication_noti_time_%s' % self.medication_time
 

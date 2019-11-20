@@ -10,3 +10,7 @@ class MeasurementResult(models.Model):
     measured_at = models.DateTimeField(verbose_name='확인 시간', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = '산소포화도 측정 결과'
+        verbose_name_plural = '산소포화도 측정 결과'
