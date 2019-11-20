@@ -43,6 +43,12 @@ class NotificationRecord(models.Model):
     #     # btn = Buttons
     #     BizMessage(phone_number=self.recipient_number, message=msg)
 
+    def get_status(self):
+        if type(self.status) is str:
+            return self.STATUS(self.status.split('.')[1])
+
+        return self.status
+
     def is_sendable(self):
         return self.tries_left > 0 and \
                self.status in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \

@@ -14,7 +14,10 @@ def get_now():
 
 def get_recent_noti_time(noti_time_list, now_time):
     s = sorted(noti_time_list)
-    return next(s[i - 1] for i, x in enumerate(s) if x > now_time)
+    try:
+        return next(s[i - 1] for i, x in enumerate(s) if x > now_time)
+    except StopIteration:
+        return s[-1]
 
 
 def get_recent_noti_time_num(noti_time_list, recent_noti_time):
