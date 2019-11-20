@@ -22,8 +22,15 @@ def patient_status(request, pid):
     d = get_date(request.GET.get('week', None))
 
     clickedpatient = Patient.objects.get(id=pid)
-    diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
-    diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
+    if clickedpatient.treatment_end_date and clickedpatient.treatment_started_date:
+        diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
+        diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
+    elif clickedpatient.treatment_started_date:
+        diff1= (clickedpatient.treatment_started_date + datetime.timedelta(days=180)) - clickedpatient.treatment_started_date
+        diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
+    else:
+        diff1=1
+        diff2=0
     if (diff2.total_seconds() < 0):
         diff2 = diff1
     if diff1.total_seconds() == 0:
@@ -39,8 +46,6 @@ def patient_status(request, pid):
         patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id),
         a=MeasurementResult.objects.filter(patient__id__contains=pid, measured_at__gte=cal_start_end_day(d, 1),
                                            measured_at__lte=cal_start_end_day(d, 7)),
-        b=MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
-                                          date__lte=cal_start_end_day(d, 7)),
         prev_week=prev_week(d),
         next_week=next_week(d),
         pid=pid,
@@ -51,22 +56,45 @@ def patient_status(request, pid):
                                        next_visiting_date_time__lte=cal_start_end_day(d, 7)):
         context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 140
     daily_hour_list = list()
-    if (clickedpatient.daily_medication_count >= 1):
-        daily_hour_list.append(
-            str(clickedpatient.medication_noti_time_1.hour) + ":" + str(clickedpatient.medication_noti_time_1.minute))
-    if (clickedpatient.daily_medication_count >= 2):
-        daily_hour_list.append(
-            str(clickedpatient.medication_noti_time_2.hour) + ":" + str(clickedpatient.medication_noti_time_2.minute))
-    if (clickedpatient.daily_medication_count >= 3):
-        daily_hour_list.append(
-            str(clickedpatient.medication_noti_time_3.hour) + ":" + str(clickedpatient.medication_noti_time_3.minute))
-    if (clickedpatient.daily_medication_count >= 4):
-        daily_hour_list.append(
-            str(clickedpatient.medication_noti_time_4.hour) + ":" + str(clickedpatient.medication_noti_time_4.minute))
-    if (clickedpatient.daily_medication_count >= 5):
-        daily_hour_list.append(
-            str(clickedpatient.medication_noti_time_5.hour) + ":" + str(clickedpatient.medication_noti_time_5.minute))
+    if (clickedpatient.daily_medication_count):
+        if (clickedpatient.daily_medication_count >= 1):
+            daily_hour_list.append(
+               str(clickedpatient.medication_noti_time_1.hour) + ":" + str(clickedpatient.medication_noti_time_1.minute))
+        if (clickedpatient.daily_medication_count >= 2):
+            daily_hour_list.append(
+                str(clickedpatient.medication_noti_time_2.hour) + ":" + str(clickedpatient.medication_noti_time_2.minute))
+        if (clickedpatient.daily_medication_count >= 3):
+            daily_hour_list.append(
+                str(clickedpatient.medication_noti_time_3.hour) + ":" + str(clickedpatient.medication_noti_time_3.minute))
+        if (clickedpatient.daily_medication_count >= 4):
+            daily_hour_list.append(
+                str(clickedpatient.medication_noti_time_4.hour) + ":" + str(clickedpatient.medication_noti_time_4.minute))
+        if (clickedpatient.daily_medication_count >= 5):
+            daily_hour_list.append(
+                str(clickedpatient.medication_noti_time_5.hour) + ":" + str(clickedpatient.medication_noti_time_5.minute))
     context["daily_hour_list"] = daily_hour_list
+    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
+    mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
+                                        date__lte=cal_start_end_day(d, 7)),
+    for i in range(1,8):
+        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
+        for r in dailyresult:
+            #medication_time_num == 1:
+            if r.status=="SUCCESS":
+                mdresult[r.medication_time_num-1][i-1]="복약 성공"
+            elif r.status=='DELAYED_SUCCESS':
+                mdresult[r.medication_time_num - 1][i - 1] = "성공(지연)"
+            elif r.status=='NO_RESPONSE':
+                mdresult[r.medication_time_num - 1][i - 1] = "응답 없음"
+            elif r.status=='FAILED':
+                mdresult[r.medication_time_num - 1][i - 1] = "복약 실패"
+            elif r.status=='SIDE_EFFECT':
+                mdresult[r.medication_time_num - 1][i - 1] = "부작용"
+
+    context['mdresult']=mdresult
+
+
+
 
     return render(request, 'dashboard.html', context)
 
