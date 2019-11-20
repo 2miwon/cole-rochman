@@ -5,6 +5,7 @@ from rest_framework.utils import json
 
 from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
+from core.models import MedicationResult
 
 
 def get_now():
@@ -20,7 +21,7 @@ def get_recent_noti_time_num(noti_time_list, recent_noti_time):
     return [i + 1 for i, x in enumerate(noti_time_list) if x == recent_noti_time][0]
 
 
-def get_recent_medication_result(patient):
+def get_recent_medication_result(patient) -> MedicationResult:
     noti_time_list = patient.medication_noti_time_list()
     now_time = get_now()
     recent_noti_time = get_recent_noti_time(noti_time_list=noti_time_list, now_time=now_time)

@@ -4,6 +4,8 @@ from enum import Enum
 from django.db import models
 from datetime import timedelta
 
+from core.models.medication_result import MedicationResult
+
 
 class Patient(models.Model):
     class NOTI_TYPE(Enum):
@@ -167,7 +169,7 @@ class Patient(models.Model):
     #     buttons = Button()
     #     BizMessage(message, buttons)
 
-    def create_medication_result(self, noti_time_num: int, date=datetime.date.today()):
+    def create_medication_result(self, noti_time_num: int, date=datetime.date.today()) -> MedicationResult:
         from core.serializers import MedicationResultSerializer
 
         if self.medication_manage_flag is False:
