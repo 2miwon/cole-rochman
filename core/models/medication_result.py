@@ -48,7 +48,7 @@ class MedicationResult(models.Model):
 
     def get_status(self):
         if type(self.status) is str:
-            return self.STATUS(self.status.split('.')[1])
+            return self.STATUS(self.status)
 
         return self.status
 
