@@ -14,19 +14,16 @@ class MedicationResult(models.Model):
         FAILED = 'FAILED'
         SIDE_EFFECT = 'SIDE_EFFECT'
 
-        def __str__(self):
-            return self.value
-
     patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', blank=True,
                                 null=True)
     date = models.DateField(verbose_name='날짜')
     medication_time_num = models.IntegerField(verbose_name='복약 회차', blank=True, null=True)
     medication_time = models.TimeField(verbose_name='복약 회차(시간)', blank=True, null=True)
-    status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING)
+    status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value)
     status_info = models.TextField(max_length=100, verbose_name='이상 종류', default='', blank=True, null=True)
     severity = models.IntegerField(verbose_name='이상 정도', blank=True, null=True)
-    notified_at = models.DateTimeField(blank=True, null=True)
-    checked_at = models.DateTimeField(blank=True, null=True)
+    notified_at = models.DateTimeField(verbose_name='알림 발송 시간', blank=True, null=True)
+    checked_at = models.DateTimeField(verbose_name='확인 시간', blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -35,10 +32,10 @@ class MedicationResult(models.Model):
         return 'medication_noti_time_%s' % self.medication_time
 
     def is_checked(self):
-        return self.status not in [self.STATUS.PENDING, self.STATUS.NO_RESPONSE]
+        return self.get_status() not in [self.STATUS.PENDING, self.STATUS.NO_RESPONSE]
 
     def is_sendable(self):
-        return self.status == self.STATUS.PENDING
+        return self.get_status() == self.STATUS.PENDING
 
     def is_notification_record_creatable(self):
         return self.is_sendable() and not self.notification_records.exists()
@@ -52,27 +49,24 @@ class MedicationResult(models.Model):
 
         return self.status
 
-    def get_status_display(self):
-        return self.status.value
-
     def set_no_response(self):
-        self.status = self.STATUS.NO_RESPONSE
+        self.status = self.STATUS.NO_RESPONSE.value
         self.notified_at = datetime.datetime.now().astimezone()
 
     def set_success(self):
-        self.status = self.STATUS.SUCCESS
+        self.status = self.STATUS.SUCCESS.value
         self.checked_at = datetime.datetime.now().astimezone()
 
     def set_failed(self):
-        self.status = self.STATUS.FAILED
+        self.status = self.STATUS.FAILED.value
         self.checked_at = datetime.datetime.now().astimezone()
 
     def set_delayed_success(self):
-        self.status = self.STATUS.DELAYED_SUCCESS
+        self.status = self.STATUS.DELAYED_SUCCESS.value
         self.checked_at = datetime.datetime.now().astimezone()
 
     def set_side_effect(self, status_info, severity):
-        self.status = self.STATUS.SIDE_EFFECT
+        self.status = self.STATUS.SIDE_EFFECT.value
         self.status_info = status_info
         self.severity = severity
         self.checked_at = datetime.datetime.now().astimezone()

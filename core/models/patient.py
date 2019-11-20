@@ -65,7 +65,7 @@ class Patient(models.Model):
         verbose_name_plural = '환자'
 
     def __str__(self):
-        return '%s/%s' % (self.code, self.nickname)
+        return '%s/%s' % (self.code, self.name or self.nickname)
 
     def medication_noti_time_list_to_str(self):
         return ','.join([x.strftime('%H시 %M분') for x in self.medication_noti_time_list()])

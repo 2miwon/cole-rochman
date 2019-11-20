@@ -25,7 +25,7 @@ class NotificationRecord(models.Model):
     measurement_record = models.ForeignKey('MeasurementResult', blank=True, null=True, default=None, on_delete=models.SET_NULL,
                                            related_name='notification_records')
     biz_message_type = models.CharField(max_length=50, blank=True, null=True, default=None)
-    status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING)
+    status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value)
     recipient_number = models.CharField(max_length=50, verbose_name='수신인 번호')
     payload = JSONField()
     result = JSONField()
@@ -45,7 +45,7 @@ class NotificationRecord(models.Model):
 
     def get_status(self):
         if type(self.status) is str:
-            return self.STATUS(self.status.split('.')[1])
+            return self.STATUS(self.status)
 
         return self.status
 
@@ -56,7 +56,7 @@ class NotificationRecord(models.Model):
 
     def send(self):
         if self.is_sendable():
-            self.status = self.STATUS.SENDING
+            self.status = self.STATUS.SENDING.value
             self.tries_left -= 1
             self.save()
             #     TODO sending and receive result
@@ -64,13 +64,13 @@ class NotificationRecord(models.Model):
             self.set_failed()
 
     def cancel(self):
-        self.status = self.STATUS.CANCELED
+        self.status = self.STATUS.CANCELED.value
         self.tries_left = 0
         self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
 
     def set_delivered(self):
-        self.status = self.STATUS.DELIVERED
+        self.status = self.STATUS.DELIVERED.value
         self.delivered_at = datetime.datetime.now().astimezone()
         self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
@@ -79,7 +79,7 @@ class NotificationRecord(models.Model):
     # TODO not specified yet.
 
     def set_failed(self):
-        self.status = self.STATUS.FAILED
+        self.status = self.STATUS.FAILED.value
         self.tries_left = 0
         self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()

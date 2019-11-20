@@ -2,9 +2,10 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.api.views.general import ResponseAlwaysOK
-from core.api.views.measurements import PatientMeasurementEntrance, MeasurementResultCreate, \
-    PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime, PatientMeasurementRestart, \
+from core.api.views.measurements import PatientMeasurementEntrance, PatientMeasurementNotiTimeQuestion, \
+    PatientMeasurementNotiSetTime, PatientMeasurementRestart, \
     PatientMeasurementNotiReset
+from core.api.views.measurements_notification import MeasurementResultCheck
 from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, \
     PatientMedicationNotiSetTimeInRestart, \
@@ -13,7 +14,7 @@ from core.api.views.medications_notification import PastMedicationCheckChooseTim
     PastMedicationFailed, PastMedicationSideEffect, PastMedicationEntrance
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
-from core.api.views.validation_measurement_result import ValidateMeasurementResultOxygenSaturation
+from core.api.views.validation_measurements_notification import ValidateMeasurementResultOxygenSaturation
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
 from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate, PatientInfo
 from core.api.views.validation_visits import ValidateTimeBefore
@@ -55,7 +56,7 @@ urlpatterns = [
          name='patient-measurement-noti-time-question'),
     path('patients/measurement/noti/time/set/', PatientMeasurementNotiSetTime.as_view(),
          name='patient-measurement-noti-set-time'),
-    path('patients/measurement-result/create/', MeasurementResultCreate.as_view(), name='patient-measurement-create'),
+    path('patients/measurement-result/create/', MeasurementResultCheck.as_view(), name='patient-measurement-create'),
     path('patients/measurement/restart/', PatientMeasurementRestart.as_view(), name='patient-measurement-restart'),
     path('patients/measurement/noti/reset/', PatientMeasurementNotiReset.as_view(),
          name='patient-measurement-noti-reset'),
