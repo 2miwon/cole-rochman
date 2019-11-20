@@ -28,7 +28,7 @@
           {% for patient in patientlist %}
             <li>
               <a href="{% url 'patient_status' patient.id %}">
-                {{ patient.nickname }} {{ patient.code }}
+                {{ patient.name }} {{ patient.code }}
               </a>
             </li>
           {% endfor %}
@@ -92,11 +92,42 @@
 
         <div class="co-md-12 line" style="border-bottom: 1px solid black;"></div>
         <div class="col-md-2"><br>총 <b>{{ p.daily_medication_count }}회</b><br>복약해야 합니다.</div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <br>
           {% for hour in daily_hour_list %}
             {{ forloop.counter }}회차({{ hour }})<br><br>
           {% endfor %}
+        </div>
+        <div class="col-md-9">
+
+          <table>
+            {% for line in mdresult %}
+              <tr>
+                {% for re in line %}
+                  {% ifequal re '복약 성공' %}
+                    <td style="background-color:#81FCC8;">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '성공(지연)' %}
+                    <td style="background-color:#D8D8D8">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '응답 없음' %}
+                    <td style="background-color:#E9FFF5">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '복약 실패' %}
+                    <td style="background-color:#FCAECE">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '부작용' %}
+                    <td style="background-color:#FCAECE">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '' %}
+                    <td>{{re}}     </td>
+                  {% endifequal %}
+                {% endfor %}
+
+              </tr>
+            {% endfor %}
+
+          </table>
         </div>
 
 
