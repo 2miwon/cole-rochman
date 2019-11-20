@@ -4,6 +4,8 @@ from enum import Enum
 from django.db import models
 from datetime import timedelta
 
+from core.models.medication_result import MedicationResult
+
 
 class Patient(models.Model):
     class NOTI_TYPE(Enum):
@@ -23,10 +25,10 @@ class Patient(models.Model):
 
     code = models.CharField(max_length=12, unique=True)
     hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
-    kakao_user_id = models.CharField(max_length=150, unique=True)
-    nickname = models.CharField(max_length=20, default='')
-    phone_number = models.CharField(max_length=20, default='')
-    name = models.CharField(max_length=10, default='')
+    kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
+    nickname = models.CharField(max_length=20, default='', blank=True, null=True)
+    phone_number = models.CharField(max_length=20, default='', blank=True, null=True)
+    name = models.CharField(max_length=10, default='', blank=True, null=True)
 
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', blank=True, null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', blank=True, null=True)
@@ -63,7 +65,7 @@ class Patient(models.Model):
         verbose_name_plural = '환자'
 
     def __str__(self):
-        return '%s/%s' % (self.code, self.nickname)
+        return '%s/%s' % (self.code, self.name or self.nickname)
 
     def medication_noti_time_list_to_str(self):
         return ','.join([x.strftime('%H시 %M분') for x in self.medication_noti_time_list()])
@@ -167,19 +169,22 @@ class Patient(models.Model):
     #     buttons = Button()
     #     BizMessage(message, buttons)
 
-    def create_medication_result(self, noti_time_num: int, date=datetime.datetime.today()):
-        from core.models import MedicationResult
+    def create_medication_result(self, noti_time_num: int, date=datetime.date.today()) -> MedicationResult:
+        from core.serializers import MedicationResultSerializer
 
-        if not self.medication_manage_flag():
+        if self.medication_manage_flag is False:
             return
 
         noti_time = self.medication_noti_time_list()[noti_time_num - 1]
 
         data = {
-            'patient': self,
+            'patient': self.id,
             'date': date,
             'medication_time_num': noti_time_num,
             'medication_time': noti_time,
         }
+        se = MedicationResultSerializer(data=data)
+        se.is_valid(raise_exception=True)
+        return se.save()
 
-        return MedicationResult.objects.create(**data)
+        # return MedicationResult.objects.create(**data)

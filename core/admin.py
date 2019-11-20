@@ -9,7 +9,7 @@ from .models import Profile
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
     list_display = (
-        'code', 'hospital', 'phone_number', 'kakao_user_id', 'nickname', 'daily_medication_count',
+        'code', 'hospital', 'name', 'phone_number', 'kakao_user_id', 'nickname', 'daily_medication_count',
         'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
         'medication_noti_time_5', 'next_visiting_date_time'
     )
@@ -43,10 +43,31 @@ admin.site.register(User, UserAdmin)
 
 
 @admin.register(MeasurementResult)
-class MeasurementResult(admin.ModelAdmin):
-    pass
+class MeasurementResultAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 'patient', 'date', 'measurement_time_num', 'oxygen_saturation', 'measured_at'
+    ]
+    search_fields = [
+        'patient__name'
+    ]
 
 
 @admin.register(MedicationResult)
-class MeadicationResult(admin.ModelAdmin):
-    pass
+class MedicationResultAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 'patient', 'date', 'medication_time_num', 'medication_time', 'get_status_display', 'status_info',
+        'severity',
+        'notified_at', 'checked_at'
+    ]
+    search_fields = [
+        'patient__name'
+    ]
+
+    def get_status_display(self, obj):
+        """STATUS"""
+        try:
+            return obj.status.split('.')[1]
+        except IndexError:
+            return obj.status
+
+    get_status_display.short_description = 'STATUS'

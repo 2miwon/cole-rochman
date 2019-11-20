@@ -238,7 +238,8 @@ class ResponseBuilder:
 
         self.response['data'][key] = value
 
-    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None, block_id_for_no: str = '5dc72a7492690d0001caebba',
+    def set_quick_replies_yes_or_no(self, block_id_for_yes: str = None,
+                                    block_id_for_no: str = '5dc72a7492690d0001caebba',
                                     message_text_for_yes: str = '예', message_text_for_no: str = '아니요, 종료할게요.'):
         """
         Automaticaly add quick_replies for 예/아니요.
@@ -327,3 +328,12 @@ class ResponseBuilder:
         :return: object. Response()
         """
         return Response(self.response, status=status.HTTP_404_NOT_FOUND)
+
+    @staticmethod
+    def get_response_200_without_data():
+        """
+        Return Response without data.
+        It will be used in non-using skill data response, and non-returning any of parameter.
+        :return: object. Response()
+        """
+        return Response(data={'version': '2.0'}, status=status.HTTP_200_OK)

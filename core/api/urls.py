@@ -2,17 +2,19 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from core.api.views.general import ResponseAlwaysOK
-from core.api.views.measurements import PatientMeasurementEntrance, MeasurementResultCreate, \
-    PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime, PatientMeasurementRestart, \
+from core.api.views.measurements import PatientMeasurementEntrance, PatientMeasurementNotiTimeQuestion, \
+    PatientMeasurementNotiSetTime, PatientMeasurementRestart, \
     PatientMeasurementNotiReset
+from core.api.views.measurements_notification import MeasurementResultCheck
 from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, \
     PatientMedicationNotiSetTimeInRestart, \
     PatientMedicationNotiTimeQuestionRestart
-from core.api.views.medications_notification import PastMedicationCheckChooseTime
+from core.api.views.medications_notification import PastMedicationCheckChooseTime, PastMedicationSuccess, \
+    PastMedicationFailed, PastMedicationSideEffect, PastMedicationEntrance
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
-from core.api.views.validation_measurement_result import ValidateMeasurementResultOxygenSaturation
+from core.api.views.validation_measurements_notification import ValidateMeasurementResultOxygenSaturation
 from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
 from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate, PatientInfo
 from core.api.views.validation_visits import ValidateTimeBefore
@@ -37,6 +39,14 @@ urlpatterns = [
     path('patients/medication/restart/', PatientMedicationRestart.as_view(), name='patient-medication-restart'),
     path('patients/medication/past-check/choose-time/', PastMedicationCheckChooseTime.as_view(),
          name='patients-medication-past-check-choose-time'),
+    path('patients/medication/past-check/entrance/', PastMedicationEntrance.as_view(),
+         name='patients-medication-past-entrance'),
+    path('patients/medication/past-check/success/', PastMedicationSuccess.as_view(),
+         name='patients-medication-past-check-success'),
+    path('patients/medication/past-check/failed/', PastMedicationFailed.as_view(),
+         name='patients-medication-past-check-failed'),
+    path('patients/medication/past-check/side-effect/', PastMedicationSideEffect.as_view(),
+         name='patients-medication-past-check-side-effect'),
     path('patients/visit/start/', PatientVisitStart.as_view(), name='patient-visit-start'),
     path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),
     path('patients/visit/noti/time/', PatientVisitNotiTimeBefore.as_view(), name='patient-visit-noti-time'),
@@ -46,7 +56,7 @@ urlpatterns = [
          name='patient-measurement-noti-time-question'),
     path('patients/measurement/noti/time/set/', PatientMeasurementNotiSetTime.as_view(),
          name='patient-measurement-noti-set-time'),
-    path('patients/measurement-result/create/', MeasurementResultCreate.as_view(), name='patient-measurement-create'),
+    path('patients/measurement-result/create/', MeasurementResultCheck.as_view(), name='patient-measurement-create'),
     path('patients/measurement/restart/', PatientMeasurementRestart.as_view(), name='patient-measurement-restart'),
     path('patients/measurement/noti/reset/', PatientMeasurementNotiReset.as_view(),
          name='patient-measurement-noti-reset'),
