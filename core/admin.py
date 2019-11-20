@@ -9,7 +9,7 @@ from .models import Profile
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
     list_display = (
-        'code', 'hospital', 'phone_number', 'kakao_user_id', 'nickname', 'daily_medication_count',
+        'code', 'hospital', 'name', 'phone_number', 'kakao_user_id', 'nickname', 'daily_medication_count',
         'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
         'medication_noti_time_5', 'next_visiting_date_time'
     )
