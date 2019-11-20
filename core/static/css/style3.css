@@ -97,3 +97,10 @@ table {
     margin-top:13px;
     margin-left:20px;
 }
+
+.oxygen {
+    background-image: url('oxygen_img.png');
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center;
+}

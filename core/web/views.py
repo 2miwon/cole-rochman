@@ -25,18 +25,25 @@ def patient_status(request, pid):
     if clickedpatient.treatment_end_date and clickedpatient.treatment_started_date:
         diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
         diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
+        if (diff2.total_seconds() < 0):
+            diff2 = diff1
+        if diff1.total_seconds() == 0:
+            percent = 1
+        else:
+            percent = diff2.total_seconds() / diff1.total_seconds()
     elif clickedpatient.treatment_started_date:
         diff1= (clickedpatient.treatment_started_date + datetime.timedelta(days=180)) - clickedpatient.treatment_started_date
         diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
+
+        if (diff2.total_seconds() < 0):
+            diff2 = diff1
+        if diff1.total_seconds() == 0:
+            percent = 1
+        else:
+            percent = diff2.total_seconds() / diff1.total_seconds()
     else:
-        diff1=1
-        diff2=0
-    if (diff2.total_seconds() < 0):
-        diff2 = diff1
-    if diff1.total_seconds() == 0:
-        percent = 1
-    else:
-        percent = diff2.total_seconds() / diff1.total_seconds()
+        percent=0
+
 
     p_str = "{0:.0%}".format(percent).rstrip('%')
 
@@ -44,8 +51,6 @@ def patient_status(request, pid):
         p_str=p_str,
         clickedpatient=Patient.objects.filter(id=pid),
         patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id),
-        a=MeasurementResult.objects.filter(patient__id__contains=pid, measured_at__gte=cal_start_end_day(d, 1),
-                                           measured_at__lte=cal_start_end_day(d, 7)),
         prev_week=prev_week(d),
         next_week=next_week(d),
         pid=pid,
@@ -92,6 +97,20 @@ def patient_status(request, pid):
                 mdresult[r.medication_time_num - 1][i - 1] = "부작용"
 
     context['mdresult']=mdresult
+    msresult=[0,0,0,0,0,0,0]
+    dailycount=0
+    for i in range(1, 8):
+        dailymearesult=MeasurementResult.objects.filter(patient__id__contains=pid, measured_at__gte=cal_start_end_day(d, i))
+        for r in dailymearesult:
+            msresult[i-1]+=r.oxygen_saturation
+            dailycount+=1
+        if msresult[i-1]==0 or dailycount==0 :
+            msresult[i-1]='None'
+        else:
+            msresult[i-1]=int(msresult[i-1]/dailycount)
+    context['msresult']=msresult
+
+
 
 
 

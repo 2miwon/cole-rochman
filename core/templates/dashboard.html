@@ -1,5 +1,5 @@
 {% extends 'base2.html' %}
-
+{% load static %}
 {% block content %}
 
 
@@ -128,6 +128,26 @@
             {% endfor %}
 
           </table>
+        </div>
+        <div class="co-md-12 line" style="border-bottom: 1px solid black;"></div>
+        <div class="col-md-3">산소포화도 수치<br><img src="{% static 'css/oxygen_img.png' %}" width="200" height="100"></div>
+        <div class="col-md-9">
+           <table style="height:50px;">
+
+              <tr>
+                {% for line in msresult %}
+                  {% ifequal line 'None' %}
+                    <td></td>
+                  {% else %}
+                    <td>{{line}}%</td>
+                  {% endifequal %}
+
+                {% endfor %}
+              </tr>
+
+
+          </table>
+
         </div>
 
 
