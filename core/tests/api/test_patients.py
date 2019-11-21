@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -65,6 +66,7 @@ class PatientCreateTest(APITestCase):
         self.assertEqual(Patient.objects.first().hospital, h)
         self.assertEqual(Patient.objects.first().nickname, '별님')
         self.assertEqual(Patient.objects.first().kakao_user_id, 'asd123')
+        self.assertEqual(Patient.objects.first().user.username, 'A001')
 
     def test_create_success_when_test_true(self):
         """
