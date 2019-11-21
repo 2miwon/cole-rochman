@@ -60,7 +60,7 @@
     position: relative;
     width:95%;
     margin-left:33px;
-    height:400px;
+    height:415px;
     background-color:#DFF3F9;
     border-radius:10px;
 }
@@ -103,4 +103,13 @@ table {
     background-repeat: no-repeat;
     background-size: 70%;
     background-position: center;
+}
+
+.circle1 {
+    display: inline-block;
+    background-color:#86efef;
+    width:14px;
+    height:14px;
+    margin-right:10px;
+    border-radius:7px;
 }
