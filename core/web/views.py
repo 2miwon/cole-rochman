@@ -26,7 +26,9 @@ def patient_status(request, pid):
         diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
         diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
     elif clickedpatient.treatment_started_date:
-        diff1= (clickedpatient.treatment_started_date + datetime.timedelta(days=180)) - clickedpatient.treatment_started_date
+        clickedpatient.treatment_end_date=clickedpatient.treatment_started_date + datetime.timedelta(days=180)
+        clickedpatient.save()
+        diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
         diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
     else:
         diff1=1
@@ -37,6 +39,9 @@ def patient_status(request, pid):
         percent = 1
     else:
         percent = diff2.total_seconds() / diff1.total_seconds()
+
+    if percent>1:
+        percent=1
 
     p_str = "{0:.0%}".format(percent).rstrip('%')
 
@@ -102,8 +107,19 @@ def patient_status(request, pid):
 
     context['mdresult']=mdresult
 
-
-
+    msresult = [0, 0, 0, 0, 0, 0, 0]
+    dailycount = 0
+    for i in range(1, 8):
+        dailymearesult = MeasurementResult.objects.filter(patient__id__contains=pid,
+                                                          measured_at__gte=cal_start_end_day(d, i))
+        for r in dailymearesult:
+            msresult[i - 1] += r.oxygen_saturation
+            dailycount += 1
+        if msresult[i - 1] == 0 or dailycount == 0:
+            msresult[i - 1] = 'None'
+        else:
+            msresult[i - 1] = int(msresult[i - 1] / dailycount)
+    context['msresult'] = msresult
 
     return render(request, 'dashboard.html', context)
 
