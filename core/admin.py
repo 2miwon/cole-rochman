@@ -1,4 +1,5 @@
 from django.contrib import admin
+from guardian.admin import GuardedModelAdmin
 
 from .models import Patient, Hospital, MeasurementResult, MedicationResult
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -7,7 +8,9 @@ from .models import Profile
 
 
 @admin.register(Patient)
-class PatientAdmin(admin.ModelAdmin):
+class PatientAdmin(GuardedModelAdmin):
+    user_can_access_owned_objects_only = True
+
     list_display = (
         'code', 'hospital', 'name', 'phone_number', 'kakao_user_id', 'nickname', 'daily_medication_count',
         'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',

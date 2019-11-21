@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'django_celery_results',
+    'guardian'
 ]
 
 MIDDLEWARE = [
@@ -130,7 +131,15 @@ STATICFILES_DIRS = [
 # Celery
 CELERY_RESULT_BACKEND = 'django-db'
 
+
+# Login
 from django.urls import reverse_lazy
 LOGIN_URL = reverse_lazy('login_user')
 
 LOGOUT_REDIRECT_URL = '/login'
+
+# Authentication
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # this is default
+    'guardian.backends.ObjectPermissionBackend',
+)

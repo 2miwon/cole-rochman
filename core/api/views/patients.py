@@ -1,6 +1,7 @@
 import json
 import re
 
+from django.contrib.auth.models import User
 from django.http import Http404
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
@@ -48,24 +49,24 @@ class PatientCreateStart(KakaoResponseAPI):
         return response.get_response_200()
 
 
-class NicknameSkill(APIView):
+class NicknameSkill(KakaoResponseAPI):
     def post(self, request, *args, **kwargs):
-        self.response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
+        response = self.build_response(response_type=self.RESPONSE_SKILL)
         nickname = request.data.get('actions').get('detailParams').get('nickname').get('value')
 
         if nickname:
             regex = re.compile(r'[a-zA-Z0-9ㄱ-힣]{1,10}')
             matched = re.search(regex, nickname)
-            self.response.add_simple_text(text='%s를 입력받았습니다.' % nickname)
+            response.add_simple_text(text='%s를 입력받았습니다.' % nickname)
             if matched:
-                self.response.add_simple_text(text='%s님 반갑습니다. 현재 결핵 치료를 위해서 병원에 다니시나요?' % nickname)
-                self.response.set_quick_replies_yes_or_no(block_id_for_yes='TEXT')
+                response.add_simple_text(text='%s님 반갑습니다. 현재 결핵 치료를 위해서 병원에 다니시나요?' % nickname)
+                response.set_quick_replies_yes_or_no(block_id_for_yes='TEXT')
             else:
-                self.build_fallback_response()
+                return self.build_response_fallback_404()
         else:
-            self.build_fallback_response()
+            return self.build_response_fallback_404()
 
-        return Response(self.response, status=status.HTTP_200_OK)
+        return response.get_response_200()
 
 
 class PatientCreate(KakaoResponseAPI, CreateAPIView):
@@ -80,7 +81,10 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         self.parse_kakao_user_id()
         self.parse_patient_code()
 
-        self.data['hospital'] = self.patient_code[:4]
+        hospital_code = self.patient_code[:4]
+        self.data['hospital'] = hospital_code
+        user, _ = User.objects.get_or_create(username=hospital_code)
+        self.data['user'] = user.pk
 
         serializer = self.get_serializer(data=self.data)
         if not serializer.is_valid():

@@ -1,6 +1,7 @@
 import datetime
 from enum import Enum
 
+from django.contrib.auth.models import User
 from django.db import models
 from datetime import timedelta
 
@@ -27,8 +28,9 @@ class Patient(models.Model):
     hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
     kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
     nickname = models.CharField(max_length=20, default='', blank=True, null=True)
-    phone_number = models.CharField(max_length=20, default='', blank=True, null=True)
-    name = models.CharField(max_length=10, default='', blank=True, null=True)
+    phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='', blank=True, null=True)
+    name = models.CharField(verbose_name='이름', max_length=10, default='', blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', blank=True, null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', blank=True, null=True)
