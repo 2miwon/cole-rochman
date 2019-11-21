@@ -25,3 +25,8 @@ urlpatterns = [
     path('api/v1/docs/', schema_view),
     path('', include('core.web.urls'))
 ]
+
+admin.site.site_header = "Cole-rochman Admin"
+admin.site.site_title = "UCole-rochman Admin"
+admin.site.index_title = "Welcome to Cole-rochman Admin"
+
