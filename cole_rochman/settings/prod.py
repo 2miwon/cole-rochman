@@ -54,4 +54,5 @@ LOGGING = {
 
 BROKER_URL = secrets['REDIS_ADDRESS']
 
+NCLOUD = secrets['NCLOUD']
 BIZ_MESSAGE = secrets['BIZ_MESSAGE']

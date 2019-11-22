@@ -1,32 +1,11 @@
 import datetime
+from enum import Enum
 
 import requests
-
-from enum import Enum
 from django.conf import settings
 
 from core.models import Patient
-
-'''
-EXAMPLE - https://www.apistore.co.kr/api/apiView.do?service_seq=558
-
-response = Unirest.POST ("http://api.apistore.co.kr/kko/{apiVersion}/msg/{client_id}",
-  headers={"x-waple-authorization": "고객 키"},
-  params={
-	phone:"01011112222" ,
-	callback:"01033334444" ,
-	reqdate:"20160517000000" ,
-	msg:"내용" ,
-	template_code:"01" ,
-	failed_type:"LMS" ,
-	failed_subject:"API스토어" ,
-	failed_msg:"내용" ,
-	btn_types:"배송조회,웹링크" ,
-	btn_txts:"배송조회,홈페이지" ,
-	btn_urls1:",http://www.apistore.co.kr" ,
-	btn_urls2:",http://www.apistore.co.kr"   }
-)
-'''
+from core.tasks.util.ncloud import NcloudRequest
 
 
 class TYPE(Enum):
@@ -42,9 +21,9 @@ class TYPE(Enum):
         self.patient = patient
 
     def __call__(self, *args, **kwargs):
-        return self.get_morning_notification()
+        return self.get_morning_noti_type()
 
-    def get_morning_notification(self):
+    def get_morning_noti_type(self):
         if self.patient.medication_manage_flag:
             if self.patient.next_visiting_date_time == datetime.datetime.today():
                 return self.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY
@@ -58,6 +37,8 @@ class TYPE(Enum):
 
 
 class Buttons:
+    button_type = 'BK'
+
     def __init__(self, type: str):
         if type not in list(TYPE.__members__.values()):
             raise ValueError('type is not in TYPE ENUM: %s' % list(TYPE.__members__.values()).__str__())
@@ -71,21 +52,29 @@ class Buttons:
                                  TYPE.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY,
                                  TYPE.MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY]
 
-    def to_dict(self):
-        data = {'btn_types': '봇키워드'}
-        txts = ''
+    @classmethod
+    def build_buttons_medicated_or_not(cls) -> list:
+        data = [
+            {
+                'type': cls.button_type,
+                'name': '복약했어요',
+            },
+            {
+                'type': cls.button_type,
+                'name': '복약 안할래요',
+            }
+        ]
+        return data
+
+    def to_dict(self) -> list:
+        buttons = []
         if not self.needs_button:
-            return {}
+            return []
 
         if self.type == TYPE.MEDICATION_NOTI:
-            txts = ['복약했어요', '복약 안할래요']
+            buttons = self.build_buttons_medicated_or_not()
 
-        if type(txts) == str:
-            data['btn_txts'] = txts
-        else:
-            data['btn_txts'] = ','.join(txts)
-
-        return data
+        return buttons
 
 
 class Message:
@@ -138,66 +127,62 @@ class Message:
         self.msg = msg
 
 
-class BizMessage:
-    api_version = ''  # TODO
-    url = 'http://api.apistore.co.kr/kko/{}/msg/{}'.format(api_version, settings.BIZ_MESSAGE['CLIENT_ID'])
-    headers = {'x-waple-authorization': settings.BIZ_MESSAGE['API_KEY']}
+class BizMessage(NcloudRequest):
+    """
+    https://apidocs.ncloud.com/ko/ai-application-service/sens/alimtalk_v2/
+    """
+    method = 'POST'
+    uri = 'https://sens.apigw.ntruss.com/alimtalk/v2/services/{}/messages'.format(settings.BIZ_MESSAGE['SERVICE_ID'])
     callback_number = settings.BIZ_MESSAGE['CALLBACK_NUMBER']
 
-    def __init__(self, phone_number, message, template_code, btn_types, btn_txts, btn_urls1, btn_urls2,
-                 send_at=None,
-                 failed_type='SMS',
-                 failed_subject='결핵박사 콜로크만', failed_msg=None):
+    plus_friend_id = settings.BIZ_MESSAGE['PLUS_FRIEND_ID']
+
+    def __init__(self, phone_number: str, content: str, template_code: str, buttons: list = None,
+                 reserve_time: str = None, schedule_code: str = None):
         """
-        :param phone_number: 수신할 핸드폰 번호 ex. 01011112222
-        :param message: 전송할 메세지
-        :param template_code: 카카오 알림톡 템플릿 코드 ex. 01
-        :param btn_types: 버튼이 여러개일때 버튼타입배열 ,(콤마)로 구분합니다  ex. 배송조회,웹링크
-        :param btn_txts: 버튼이 여러개일때 버튼명배열 ,(콤마)로 구분합니다  ex. 배송조회,홈페이지
-        :param btn_urls1: 버튼이 여러개일때 URL1배열 ,(콤마)로 구분합니다.  ex. ,http://www.apistore.co.kr
-        :param btn_urls2: 버튼이 여러개일때 URL2배열 ,(콤마)로 구분합니다.  ex. ,http://www.apistore.co.kr
-        :param send_at: 발송시간(없을 경우 즉시 발송) ex. 20160517000000
-        :param failed_type: 카카오 알림톡 전송 실패 시 전송할 메시지 타입 ex. LMS
-        :param failed_subject: 카카오 알림톡 전송 실패 시 전송할 제목
-        :param failed_msg: 카카오 알림톡 전송 실패 시 전송할 내용
-
-        :type phone_number: str
-        :type message: str
-        :type template_code: str
-        :type btn_types: str
-        :type btn_txts: str
-        :type btn_urls1: str
-        :type btn_urls2: str
-        :type send_at: str
-        :type failed_type: str
-        :type failed_subject: str
-        :type failed_msg: str
+        :param phone_number:
+        :param content:
+        :param template_code:
+        :param buttons:
+        :param reserve_time: yyyy-MM-dd HH:mm
+        :param schedule_code:
         """
+        self.headers = self.build_headers()
 
-        if failed_msg is None:
-            failed_msg = message
+        self.payload = {
+            'plusFriendId': self.plus_friend_id,
+            'templateCode': template_code,
+            'messages': [
+                {
+                    'to': phone_number,
+                    'content': content,
 
-        self.data = {
-            'phone': phone_number,
-            'callback': self.__class__.callback_number,  # 발신자 전화번호
-            'reqdate': send_at,
-            'msg': message,
-            'template_code': template_code,
-            'failed_type': failed_type,
-            'failed_subject': failed_subject,
-            'failed_msg': failed_msg,
-            'btn_types': btn_types,
-            'btn_txts': btn_txts,
-            'btn_urls1': btn_urls1,
-            'btn_urls2': btn_urls2
+                }
+            ],
         }
 
+        if buttons:
+            self.payload['messages'].update(
+                {
+                    'buttons': buttons
+                }
+            )
+
+        if reserve_time and schedule_code:
+            self.payload.update(
+                {
+                    'reserveTime': reserve_time,
+                    'reserveTimeZone': 'Asia/Seoul',
+                    'scheduleCode': schedule_code
+                }
+            )
+
     def to_dict(self):
-        return self.data
+        return self.payload
 
     def send_message(self):
         cls = self.__class__
-        response = requests.post(url=cls.url, headers=cls.headers, data=self.data)
+        response = requests.post(url=cls.uri, headers=self.headers, data=self.payload)
         if response.ok:
             return response
         else:
