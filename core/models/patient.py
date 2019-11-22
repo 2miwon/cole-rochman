@@ -144,7 +144,7 @@ class Patient(models.Model):
         self.save()
 
     def set_default_end_date(self):
-        if self.treatment_started_date:
+        if self.treatment_started_date and self.treatment_end_date is None or self.treatment_end_date == '':
             self.treatment_end_date = self.treatment_started_date + timedelta(days=180)
 
     def next_visiting_date_time_str(self):
