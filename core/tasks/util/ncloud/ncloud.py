@@ -28,6 +28,11 @@ class NcloudRequest:
 
         return timestamp
 
+    @staticmethod
+    def get_exception(code):
+        from core.tasks.util.ncloud.exceptions import get_exception
+        return get_exception(code)
+
     def _make_signature(self):
         if self.method not in ['GET', 'POST']:
             raise ValueError('method has to be one of [GET, POST]')
@@ -63,4 +68,8 @@ class NcloudRequestBizMessage(NcloudRequest):
 
     def send(self):
         response = requests.post(url=self.uri, headers=self.build_headers(), data=self.payload)
-        return response
+        if response.ok:
+            return response
+        else:
+            error_code = response.content.get('errors').get('errorCode')
+            raise self.get_exception(code=error_code)

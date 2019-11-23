@@ -108,7 +108,7 @@ exceptions = [
 exceptions = {x.code: x for x in exceptions}
 
 
-def raise_exception(code: int):
+def get_exception(code: int):
     if type(code) == str:
         code = int(code)
-    raise exceptions[code]
+    return exceptions[code]
