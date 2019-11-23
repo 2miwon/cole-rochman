@@ -13,6 +13,7 @@ def get_now():
 
 
 def get_recent_noti_time(noti_time_list, now_time):
+    noti_time_list = [x for x in noti_time_list if x is not None]
     s = sorted(noti_time_list)
     try:
         return next(s[i - 1] for i, x in enumerate(s) if x > now_time)
