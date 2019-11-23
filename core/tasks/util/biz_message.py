@@ -1,103 +1,119 @@
 import datetime
 from enum import Enum
 
-import requests
 from django.conf import settings
 
 from core.models import Patient
-from core.tasks.util.ncloud import NcloudRequest
 
 
 class TYPE(Enum):
-    MORNING_MEDI_MANAGEMENT_TRUE = 'morning_medi_managament_true'
-    MORNING_MEDI_MANAGEMENT_FALSE = 'morning_medi_management_false'
-    MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY = 'morning_medi_management_true_and_visit_today'
-    MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY = 'morning_medi_management_false_and_visit_today'
+    MORNING_MEDI_MANAGEMENT_TRUE = 'morning01'
+    MORNING_MEDI_MANAGEMENT_FALSE = 'morning02'
+    MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY = 'morning03'
+    MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY = 'morning04'
 
-    MEDICATION_NOTI = 'medication_noti'
-    VISIT_NOTI = 'visit_noti'
+    MEDICATION_NOTI = 'medi01'
+    VISIT_NOTI = 'visit01'
+    MEASUREMENT_NOTI = 'measure02'
 
-    def __init__(self, patient: Patient):
-        self.patient = patient
+    @classmethod
+    def get_morning_noti_type(cls, patient: Patient):
+        medi_management = patient.medication_manage_flag
+        visit_today = patient.next_visiting_date_time == datetime.datetime.today()
 
-    def __call__(self, *args, **kwargs):
-        return self.get_morning_noti_type()
+        if medi_management and visit_today:
+            return cls.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY
 
-    def get_morning_noti_type(self):
-        if self.patient.medication_manage_flag:
-            if self.patient.next_visiting_date_time == datetime.datetime.today():
-                return self.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY
-            else:
-                return self.MORNING_MEDI_MANAGEMENT_TRUE
-        else:
-            if self.patient.next_visiting_date_time == datetime.datetime.today():
-                return self.MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY
-            else:
-                return self.MORNING_MEDI_MANAGEMENT_FALSE
+        elif medi_management and not visit_today:
+            return cls.MORNING_MEDI_MANAGEMENT_TRUE
+
+        elif not medi_management and visit_today:
+            return cls.MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY
+
+        elif not medi_management and not visit_today:
+            return cls.MORNING_MEDI_MANAGEMENT_FALSE
 
 
 class Buttons:
-    button_type = 'BK'
-
-    def __init__(self, type: str):
-        if type not in list(TYPE.__members__.values()):
+    def __init__(self, type: TYPE):
+        if type not in TYPE:
             raise ValueError('type is not in TYPE ENUM: %s' % list(TYPE.__members__.values()).__str__())
 
         self.type = type
+        self.button_type = self._get_button_type()
 
     @property
     def needs_button(self):
-        return self.type not in [TYPE.MORNING_MEDI_MANAGEMENT_TRUE,
-                                 TYPE.MORNING_MEDI_MANAGEMENT_FALSE,
-                                 TYPE.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY,
-                                 TYPE.MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY]
+        return self.type in [TYPE.MEDICATION_NOTI,
+                             TYPE.MEASUREMENT_NOTI,
+                             ]
 
-    @classmethod
-    def build_buttons_medicated_or_not(cls) -> list:
+    def _get_button_type(self):
+        if not self.needs_button:
+            return ''
+
+        if self.type in [TYPE.MEDICATION_NOTI, TYPE.MEASUREMENT_NOTI]:
+            return 'MD'
+
+    def _build_buttons_medication(self) -> list:
         data = [
             {
-                'type': cls.button_type,
+                'type': self.button_type,
                 'name': '복약했어요',
             },
             {
-                'type': cls.button_type,
-                'name': '복약 안할래요',
+                'type': self.button_type,
+                'name': '복약 안 할래요',
             }
         ]
         return data
 
-    def to_dict(self) -> list:
-        buttons = []
+    def _build_buttons_measurement(self) -> list:
+        data = [
+            {
+                'type': self.button_type,
+                'name': '측정 시작'
+            }
+        ]
+        return data
+
+    def _build_buttons(self):
+        if self.type == TYPE.MEDICATION_NOTI:
+            return self._build_buttons_medication()
+        elif self.type == TYPE.MEASUREMENT_NOTI:
+            return self._build_buttons_measurement()
+
+    def to_list(self) -> list:
         if not self.needs_button:
             return []
 
-        if self.type == TYPE.MEDICATION_NOTI:
-            buttons = self.build_buttons_medicated_or_not()
-
-        return buttons
+        return self._build_buttons()
 
 
 class Message:
     msg = ''
     template_code = ''
 
-    def __init__(self, type: TYPE, patient: Patient, noti_time: int, template_code: str):
+    def __init__(self, type: TYPE, patient: Patient, date: datetime.date, noti_time_num: int):
         self.type = type
         self.patient = patient
-        self.noti_time = noti_time
-        self.template_code = template_code
+        self.date = date
+        self.noti_time_num = noti_time_num
+        self.template_code = type.value
         self.build_message()
 
     def __call__(self, *args, **kwargs):
         return self.msg
 
-    def build_message(self):
+    def build_message(self) -> str:
         days_after_treatment = datetime.datetime.today().day - self.patient.treatment_started_date.day
+        visitng_time = self.patient.next_visiting_date_time.strftime('%H시 %M분')
+
         msg = ''
         if self.type == TYPE.MORNING_MEDI_MANAGEMENT_TRUE:
             msg = f'{self.patient.nickname}님, 오늘은 좀 어떠신지요!\n' \
-                f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째입니다.\n\n' \
-                f'복약은 {self.patient.medication_noti_time_list_to_str()}에 하셔야 합니다.' \
+                f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째입니다.☀️\n\n' \
+                f'복약은 {self.patient.medication_noti_time_list_to_str()}에 하셔야 합니다. ' \
                 f'잊지 않으셨지요? 그럼 저와 함께 오늘도 화이팅입니다!👍'
 
         elif self.type == TYPE.MORNING_MEDI_MANAGEMENT_FALSE:
@@ -105,66 +121,81 @@ class Message:
                 f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째 입니다.\n저와 함께 힘찬 하루 시작해봅시다!☀️'
 
         elif self.type == TYPE.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY:
-            visitng_time = self.patient.next_visiting_date_time.strftime('%H시 %M분')
-
             msg = f'{self.patient.nickname}님, 안녕하십니까! 아침은 드셨나요?🍚' \
-                f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째 입니다.' \
-                f'복약은 {self.patient.medication_noti_time_list_to_str()}에 하셔야 합니다.💊' \
-                f'오늘은 {visitng_time}에 병원에 가셔야 하는군요.' \
+                f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째 입니다.\n\n' \
+                f'복약은 {self.patient.medication_noti_time_list_to_str()}에 하셔야 합니다.💊\n\n' \
+                f'오늘은 {visitng_time}에 병원에 가셔야 하는군요.\n\n' \
                 f'오늘 하루도 제가 응원하겠습니다!👍'
 
         elif self.type == TYPE.MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY:
-            visitng_time = self.patient.next_visiting_date_time.strftime('%H시 %M분')
             msg = f'{self.patient.nickname}님, 오늘은 좀 어떠신지요!\n' \
                 f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째입니다.\n\n' \
                 f'오늘 {visitng_time}에 병원에 가셔야 하는 것, 잊지않으셨죠?🎶'
 
         elif self.type == TYPE.MEDICATION_NOTI:
-            msg = f"{self.noti_time}회차 복약을 하실 시간입니다.💊\n" \
-                f"복약 후에 아래 '복약했어요' 버튼을 눌러주십시오.\n" \
-                f"제가 더욱 꼼꼼한 관리를 도와드리겠습니다!"
+            msg = f'{self.date} - {self.noti_time_num}회차 복약을 하실 시간입니다.💊\n' \
+                f'복약 후에 아래 \'복약했어요\' 버튼을 눌러주십시오.\n' \
+                f'제가 더욱 꼼꼼한 관리를 도와드리겠습니다!'
+
+        elif self.type == TYPE.VISIT_NOTI:
+            expecting_time = datetime.timedelta(seconds=self.patient.visit_notification_before)
+            days = expecting_time.days
+            time = (datetime.datetime.min + expecting_time).time()
+
+            if days == 1:
+                expecting_time = '내일'
+            elif days == 2:
+                expecting_time = '내일 모레'
+            elif days > 2:
+                expecting_time = f'{days}일 후'
+            elif time.minute:
+                expecting_time = f'{time.hour}시간 {time.minute}분 후'
+            else:
+                expecting_time = f'{time.hour}시간 후'
+
+            msg = f'{expecting_time} 병원에 가셔야 합니다.\n조심히 다녀오십시오!👍'
+
+        elif self.type == TYPE.MEASUREMENT_NOTI:
+            msg = f'안녕하십니까,\n' \
+                f'#{self.date} - #{self.noti_time_num}회차 산소포화도 확인 하실 시간입니다.☁️\n\n' \
+                f'착용하고 계신 건강밴드로 산소포화도를 측정해주십시오!'
 
         self.msg = msg
+        return msg
 
 
-class BizMessage(NcloudRequest):
-    """
-    https://apidocs.ncloud.com/ko/ai-application-service/sens/alimtalk_v2/
-    """
-    method = 'POST'
-    uri = 'https://sens.apigw.ntruss.com/alimtalk/v2/services/{}/messages'.format(settings.BIZ_MESSAGE['SERVICE_ID'])
-    callback_number = settings.BIZ_MESSAGE['CALLBACK_NUMBER']
-
+class BizMessageBuilder:
     plus_friend_id = settings.BIZ_MESSAGE['PLUS_FRIEND_ID']
 
-    def __init__(self, phone_number: str, content: str, template_code: str, buttons: list = None,
-                 reserve_time: str = None, schedule_code: str = None):
+    def __init__(self, type: TYPE, patient: Patient, date: datetime.date, noti_time_num: int, reserve_time: str = None,
+                 schedule_code: str = None):
         """
-        :param phone_number:
-        :param content:
-        :param template_code:
-        :param buttons:
         :param reserve_time: yyyy-MM-dd HH:mm
-        :param schedule_code:
         """
-        self.headers = self.build_headers()
 
+        self.type = type
+
+        template_code = type.value
+        self.template_code = template_code
+
+        self.message = Message(type=type, patient=patient, date=date, noti_time_num=noti_time_num)
         self.payload = {
             'plusFriendId': self.plus_friend_id,
             'templateCode': template_code,
             'messages': [
                 {
-                    'to': phone_number,
-                    'content': content,
-
+                    'to': patient.phone_number,
+                    'content': self.message.msg,
                 }
             ],
         }
 
-        if buttons:
+        self.buttons = Buttons(type=type)
+
+        if self.buttons.to_list():
             self.payload['messages'].update(
                 {
-                    'buttons': buttons
+                    'buttons': self.buttons.to_list()
                 }
             )
 
@@ -179,11 +210,3 @@ class BizMessage(NcloudRequest):
 
     def to_dict(self):
         return self.payload
-
-    def send_message(self):
-        cls = self.__class__
-        response = requests.post(url=cls.uri, headers=self.headers, data=self.payload)
-        if response.ok:
-            return response
-        else:
-            pass
