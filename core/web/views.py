@@ -22,26 +22,29 @@ def patient_status(request, pid):
     d = get_date(request.GET.get('week', None))
 
     clickedpatient = Patient.objects.get(id=pid)
-    if clickedpatient.treatment_end_date and clickedpatient.treatment_started_date:
-        diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
-        diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
-    elif clickedpatient.treatment_started_date:
-        clickedpatient.treatment_end_date=clickedpatient.treatment_started_date + datetime.timedelta(days=180)
-        clickedpatient.save()
-        diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
-        diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
-    else:
-        diff1=1
-        diff2=0
-    if (diff2.total_seconds() < 0):
-        diff2 = diff1
-    if diff1.total_seconds() == 0:
-        percent = 1
-    else:
-        percent = diff2.total_seconds() / diff1.total_seconds()
+    if clickedpatient.treatment_started_date:
+        if clickedpatient.treatment_end_date:
+            diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
+            diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
+        else:
+            clickedpatient.set_default_end_date()
+            clickedpatient.save()
+            diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
+            diff2 = datetime.datetime.now().date() - clickedpatient.treatment_started_date
 
-    if percent>1:
+        if diff1.total_seconds() == 0:
+            percent=1
+        else:
+            if diff2.total_seconds() < 0:
+                diff2 = diff1
+            percent = diff2.total_seconds() / diff1.total_seconds()
+            if percent > 1:
+                percent = 1
+
+    else:
         percent=1
+
+
 
     p_str = "{0:.0%}".format(percent).rstrip('%')
 
@@ -62,20 +65,28 @@ def patient_status(request, pid):
         context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 140
     daily_hour_list = list()
     try:
-        if clickedpatient.daily_medication_count == 1:
-            noti_time = clickedpatient.medication_noti_time_1
-        elif clickedpatient.daily_medication_count == 2:
-            noti_time = clickedpatient.medication_noti_time_2
-        elif clickedpatient.daily_medication_count == 3:
-            noti_time = clickedpatient.medication_noti_time_3
-        elif clickedpatient.daily_medication_count == 4:
-            noti_time = clickedpatient.medication_noti_time_4
-        elif clickedpatient.daily_medication_count == 5:
-            noti_time = clickedpatient.medication_noti_time_5
+        if (clickedpatient.daily_medication_count):
+            if (clickedpatient.daily_medication_count >= 1):
+                daily_hour_list.append(
+                    str(clickedpatient.medication_noti_time_1.hour) + ":" + str(
+                        clickedpatient.medication_noti_time_1.minute))
+            if (clickedpatient.daily_medication_count >= 2):
+                daily_hour_list.append(
+                    str(clickedpatient.medication_noti_time_2.hour) + ":" + str(
+                        clickedpatient.medication_noti_time_2.minute))
+            if (clickedpatient.daily_medication_count >= 3):
+                daily_hour_list.append(
+                    str(clickedpatient.medication_noti_time_3.hour) + ":" + str(
+                        clickedpatient.medication_noti_time_3.minute))
+            if (clickedpatient.daily_medication_count >= 4):
+                daily_hour_list.append(
+                    str(clickedpatient.medication_noti_time_4.hour) + ":" + str(
+                        clickedpatient.medication_noti_time_4.minute))
+            if (clickedpatient.daily_medication_count >= 5):
+                daily_hour_list.append(
+                    str(clickedpatient.medication_noti_time_5.hour) + ":" + str(
+                        clickedpatient.medication_noti_time_5.minute))
 
-        daily_hour_list.append(
-            '{}:{}'.format(noti_time.hour.zfill(2), noti_time.minute.zfill(2))
-        )
     except AttributeError:
         daily_hour_list=['재설정 필요']
 
