@@ -39,4 +39,5 @@ LOGGING = {
 
 BROKER_URL = 'redis://localhost:6380/0'
 
+NCLOUD = secrets['NCLOUD']
 BIZ_MESSAGE = {'CLIENT_ID': '', 'API_KEY': '', 'CALLBACK_NUMBER': ''}

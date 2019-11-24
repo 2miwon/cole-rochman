@@ -4,7 +4,6 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 from core.models.helper.helper import EnumField
-from core.tasks.util.biz_message import BizMessage, TYPE, Message, Buttons
 
 
 class NotificationRecord(models.Model):
