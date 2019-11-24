@@ -61,6 +61,9 @@ class RegisterNotifications:
         )
         NotificationRecord.objects.create(
             patient=patient,
+            # TODO
+            # medication_time_num=,
+            # medication_time=
             biz_message_type=type,
             recipient_number=patient.phone_number,
             payload=biz_message.to_dict(),
