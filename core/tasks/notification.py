@@ -1,4 +1,9 @@
-from core.models import Patient
+import datetime
+
+from core.models import Patient, NotificationRecord
+from core.tasks.util.biz_message import TYPE, BizMessageBuilder
+
+MORNING_NOTI_TIME = datetime.time(hour=8)  # originally 7, but temporarily 8 due to limitation by Kakao's policy
 
 
 class RegisterNotifications:
@@ -45,4 +50,22 @@ class RegisterNotifications:
         else:
             raise ValueError('TYPE has to be one of these: %s' % str([n for n in self.TYPE]))
 
+    def create_morning_notification(self, patient: Patient):
+        type = TYPE.get_morning_noti_type(patient)
+        reserve_time = datetime.datetime.combine(datetime.date.today(), MORNING_NOTI_TIME).strftime('%Y-%m-%d %H:%M')
+        biz_message = BizMessageBuilder(
+            type=type,
+            patient=patient,
+            date=datetime.date.today(),
+            reserve_time=reserve_time
+        )
+        NotificationRecord.objects.create(
+            patient=patient,
+            biz_message_type=type,
+            recipient_number=patient.phone_number,
+            payload=biz_message.to_dict(),
+            send_at=reserve_time
+        )
+
     # def register_daily_notification(self, queryset, type: TYPE):
+#     TODO

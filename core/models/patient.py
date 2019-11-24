@@ -164,13 +164,6 @@ class Patient(models.Model):
     def is_measurement_noti_sendable(self):
         return self.measurement_manage_flag and self.measurement_noti_flag
 
-    # def create_notification(self, date=datetime.datetime.today()):
-    #     MedicationResult()
-    #     NotificationRecord()
-    #     message = Message()
-    #     buttons = Button()
-    #     BizMessage(message, buttons)
-
     def create_medication_result(self, noti_time_num: int, date=datetime.date.today()) -> MedicationResult:
         from core.serializers import MedicationResultSerializer
 
@@ -189,4 +182,3 @@ class Patient(models.Model):
         se.is_valid(raise_exception=True)
         return se.save()
 
-        # return MedicationResult.objects.create(**data)

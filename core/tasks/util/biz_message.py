@@ -94,11 +94,12 @@ class Message:
     msg = ''
     template_code = ''
 
-    def __init__(self, type: TYPE, patient: Patient, date: datetime.date, noti_time_num: int):
+    def __init__(self, type: TYPE, patient: Patient, date: datetime.date, noti_time_num: int = None):
         self.type = type
         self.patient = patient
         self.date = date
-        self.noti_time_num = noti_time_num
+        if noti_time_num:
+            self.noti_time_num = noti_time_num
         self.template_code = type.value
         self.build_message()
 
@@ -167,18 +168,18 @@ class Message:
 class BizMessageBuilder:
     plus_friend_id = settings.BIZ_MESSAGE['PLUS_FRIEND_ID']
 
-    def __init__(self, type: TYPE, patient: Patient, date: datetime.date, noti_time_num: int, reserve_time: str = None,
-                 schedule_code: str = None):
+    def __init__(self, type: TYPE, patient: Patient, date: datetime.date, noti_time_num: int = None,
+                 reserve_time: str = None, schedule_code: str = None):
         """
         :param reserve_time: yyyy-MM-dd HH:mm
         """
+        template_code = type.value
 
         self.type = type
-
-        template_code = type.value
         self.template_code = template_code
-
         self.message = Message(type=type, patient=patient, date=date, noti_time_num=noti_time_num)
+        self.buttons = Buttons(type=type)
+
         self.payload = {
             'plusFriendId': self.plus_friend_id,
             'templateCode': template_code,
@@ -190,8 +191,6 @@ class BizMessageBuilder:
             ],
         }
 
-        self.buttons = Buttons(type=type)
-
         if self.buttons.to_list():
             self.payload['messages'].update(
                 {
@@ -199,11 +198,17 @@ class BizMessageBuilder:
                 }
             )
 
-        if reserve_time and schedule_code:
+        if reserve_time:
             self.payload.update(
                 {
                     'reserveTime': reserve_time,
                     'reserveTimeZone': 'Asia/Seoul',
+                }
+            )
+
+        if schedule_code:
+            self.payload.update(
+                {
                     'scheduleCode': schedule_code
                 }
             )
