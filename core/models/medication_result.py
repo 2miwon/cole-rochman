@@ -79,16 +79,22 @@ class MedicationResult(models.Model):
         """
         :return: bool. success of failed
         """
-        from core.models import NotificationRecord
+        from core.serializers import NotificationRecordSerializer
+        from core.tasks.util.biz_message import TYPE
 
         if not self.is_notification_record_creatable():
             return None
 
         data = {
-            'patient': self.patient,
-            'medication_record': self,
+            'patient': self.patient.pk,
+            'biz_message_type': TYPE.MEDICATION_NOTI.value,
+            'medication_result': self.pk,
             'recipient_number': self.patient.phone_number,
             'send_at': datetime.datetime.combine(self.date, self.medication_time)
         }
 
-        return NotificationRecord.objects.create(**data)
+        serializer = NotificationRecordSerializer(data=data)
+        if serializer.is_valid():
+            return serializer.save()
+        else:
+            return serializer.errors

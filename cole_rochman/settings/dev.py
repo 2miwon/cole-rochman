@@ -1,4 +1,3 @@
-import os
 from .base import *
 
 DATABASES = {
@@ -40,4 +39,10 @@ LOGGING = {
 BROKER_URL = 'redis://localhost:6380/0'
 
 NCLOUD = secrets['NCLOUD']
-BIZ_MESSAGE = {'CLIENT_ID': '', 'API_KEY': '', 'CALLBACK_NUMBER': ''}
+BIZ_MESSAGE = {
+    'CLIENT_ID': '',
+    'API_KEY': '',
+    'CALLBACK_NUMBER': '',
+    'PLUS_FRIEND_ID': '',
+    'SERVICE_ID': ''
+}

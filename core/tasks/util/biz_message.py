@@ -19,7 +19,7 @@ class TYPE(Enum):
     @classmethod
     def get_morning_noti_type(cls, patient: Patient):
         medi_management = patient.medication_manage_flag
-        visit_today = patient.next_visiting_date_time == datetime.datetime.today()
+        visit_today = patient.next_visiting_date_time.date() == datetime.datetime.today().astimezone().date()
 
         if medi_management and visit_today:
             return cls.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY
@@ -168,17 +168,20 @@ class Message:
 class BizMessageBuilder:
     plus_friend_id = settings.BIZ_MESSAGE['PLUS_FRIEND_ID']
 
-    def __init__(self, type: TYPE, patient: Patient, date: datetime.date, noti_time_num: int = None,
+    def __init__(self, message_type: TYPE or str, patient: Patient, date: datetime.date, noti_time_num: int = None,
                  reserve_time: str = None, schedule_code: str = None):
         """
         :param reserve_time: yyyy-MM-dd HH:mm
         """
-        template_code = type.value
 
-        self.type = type
+        if type(message_type) is str:
+            message_type = TYPE(message_type)
+
+        self.message_type = message_type
+        template_code = message_type.value
         self.template_code = template_code
-        self.message = Message(type=type, patient=patient, date=date, noti_time_num=noti_time_num)
-        self.buttons = Buttons(type=type)
+        self.message = Message(type=message_type, patient=patient, date=date, noti_time_num=noti_time_num)
+        self.buttons = Buttons(type=message_type)
 
         self.payload = {
             'plusFriendId': self.plus_friend_id,

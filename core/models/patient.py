@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import timedelta
 
+from core.models.measurement_result import MeasurementResult
 from core.models.medication_result import MedicationResult
 
 
@@ -167,7 +168,7 @@ class Patient(models.Model):
     def create_medication_result(self, noti_time_num: int, date=datetime.date.today()) -> MedicationResult:
         from core.serializers import MedicationResultSerializer
 
-        if self.medication_manage_flag is False:
+        if self.medication_manage_flag is False or self.medication_noti_flag is False:
             return
 
         noti_time = self.medication_noti_time_list()[noti_time_num - 1]
@@ -178,7 +179,25 @@ class Patient(models.Model):
             'medication_time_num': noti_time_num,
             'medication_time': noti_time,
         }
-        se = MedicationResultSerializer(data=data)
-        se.is_valid(raise_exception=True)
-        return se.save()
+        serializer = MedicationResultSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        return serializer.save()
+
+    def create_measurement_result(self, noti_time_num: int, date=datetime.date.today()) -> MeasurementResult:
+        from core.serializers import MeasurementResultSerializer
+
+        if self.measurement_manage_flag is False or self.measurement_noti_flag is False or self.measurement_noti_time_list() == []:
+            return
+
+        noti_time = self.measurement_noti_time_list()[noti_time_num - 1]
+
+        data = {
+            'patient': self.id,
+            'date': date,
+            'measurement_time_num': noti_time_num,
+            'measurement_time': noti_time,
+        }
+        serializer = MeasurementResultSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        return serializer.save()
 

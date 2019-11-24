@@ -4,6 +4,8 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 from core.models.helper.helper import EnumField
+from core.tasks.util.biz_message import BizMessageBuilder
+from core.tasks.util.ncloud.ncloud import NcloudRequestBizMessage
 
 
 class NotificationRecord(models.Model):
@@ -19,15 +21,15 @@ class NotificationRecord(models.Model):
         CANCELED = 'CANCELED'
 
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='notification_records')
-    medication_record = models.ForeignKey('MedicationResult', blank=True, null=True, default=None, on_delete=models.SET_NULL,
-                                          related_name='notification_records')
-    measurement_record = models.ForeignKey('MeasurementResult', blank=True, null=True, default=None, on_delete=models.SET_NULL,
-                                           related_name='notification_records')
+    medication_result = models.ForeignKey('MedicationResult', blank=True, null=True, default=None,
+                                          on_delete=models.SET_NULL, related_name='notification_records')
+    measurement_result = models.ForeignKey('MeasurementResult', blank=True, null=True, default=None,
+                                           on_delete=models.SET_NULL, related_name='notification_records')
     biz_message_type = models.CharField(max_length=50, blank=True, null=True, default=None)
     status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value)
     recipient_number = models.CharField(max_length=50, verbose_name='수신인 번호')
-    payload = JSONField()
-    result = JSONField()
+    payload = JSONField(blank=True, null=True)
+    result = JSONField(blank=True, null=True)
     tries_left = models.IntegerField(default=MAX_TRY_COUNT)
     send_at = models.DateTimeField()
     delivered_at = models.DateTimeField(blank=True, null=True)
@@ -35,12 +37,6 @@ class NotificationRecord(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    # TODO
-    # def build_biz_message_request(self):
-    #     msg = Message(type=self.biz_message_type, patient=self.patient, noti_time=self.send_at)
-    #     # btn = Buttons
-    #     BizMessage(phone_number=self.recipient_number, message=msg)
 
     def get_status(self):
         if type(self.status) is str:
@@ -50,17 +46,19 @@ class NotificationRecord(models.Model):
 
     def is_sendable(self):
         return self.tries_left > 0 and \
-               self.status in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
+               self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
                self.send_at > datetime.datetime.now().astimezone()
 
     def send(self):
         if self.is_sendable():
             self.status = self.STATUS.SENDING.value
             self.tries_left -= 1
+            self.result = NcloudRequestBizMessage(payload=self.payload).send()
+            self.set_delivered()
             self.save()
-            #     TODO sending and receive result
+            return self.result
         else:
-            self.set_failed()
+            return 'NOT SENDABLE'
 
     def cancel(self):
         self.status = self.STATUS.CANCELED.value
@@ -82,3 +80,12 @@ class NotificationRecord(models.Model):
         self.tries_left = 0
         self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
+
+    def build_biz_message_request(self):
+        biz_message = BizMessageBuilder(
+            message_type=self.biz_message_type,
+            patient=self.patient,
+            date=datetime.date.today(),
+            reserve_time=self.send_at.strftime('%Y-%m-%d %H:%M')
+        )
+        self.payload = biz_message.to_dict()

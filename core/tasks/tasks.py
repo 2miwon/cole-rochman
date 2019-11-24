@@ -27,8 +27,8 @@ def register_today_morning_notifications(self):
     for patient in patients:
         type = sending_type(patient)
         data = {
-            'patient': self.patient,
-            'biz_message_type': type,
+            'patient': self.patient.pk,
+            'biz_message_type': type.value,
             'recipient_number': self.patient.phone_number,
             'send_at': datetime.datetime.combine(datetime.date.today(), MORNING_NOTI_TIME),
         }
