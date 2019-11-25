@@ -27,6 +27,5 @@ urlpatterns = [
 ]
 
 admin.site.site_header = "Cole-rochman Admin"
-admin.site.site_title = "UCole-rochman Admin"
+admin.site.site_title = "Cole-rochman Admin"
 admin.site.index_title = "Welcome to Cole-rochman Admin"
-

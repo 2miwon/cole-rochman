@@ -1,48 +1,89 @@
-from core.models import Patient
+import datetime
+
+from cole_rochman.celery import app
+from core.models import Patient, NotificationRecord
+from core.serializers import NotificationRecordSerializer
+from core.tasks.util.biz_message import TYPE
+
+MORNING_NOTI_TIME = datetime.time(hour=8)  # originally 7, but temporarily 8 due to limitation by Kakao's policy
 
 
-class RegisterNotifications:
-    queryset = Patient.objects.all()
+# @app.tasks(bind=True)
+def create_morning_notification():
+    patients = Patient.objects.all()
+    for patient in patients:
+        if not patient.phone_number:
+            continue
+        type = TYPE.get_morning_noti_type(patient)
+        reserve_time = datetime.datetime.combine(datetime.date.today(), MORNING_NOTI_TIME).strftime('%Y-%m-%d %H:%M')
 
-    class TYPE(Patient.NOTI_TYPE):
-        pass
+        data = {
+            'patient': patient.pk,
+            'biz_message_type': type.value,
+            'recipient_number': patient.phone_number,
+            'send_at': reserve_time
+        }
+        serializer = NotificationRecordSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
+            notification_record = serializer.save()
+            notification_record.build_biz_message_request()
+            notification_record.save()
 
-    class TIME_FIELDS(Patient.NOTI_TIME_FIELDS):
-        pass
 
-    def check_noti_flag(self, obj: Patient, type: TYPE) -> bool:
-        """
-        chack noti_flag of matching type is True or False
+# @app.tasks(bind=True)
+def create_medication_notification():
+    patients = Patient.objects.all()
+    for patient in patients:
+        if not patient.is_medication_noti_sendable():
+            continue
 
-        :param obj: Patient
-        :param type: TYPE Enum. MEDICATION, VISIT, MEASUREMENT
-        :return: bool.
-        """
-        if type == self.TYPE.MEDICATION:
-            return obj.is_medication_noti_sendable()
-        elif type == self.TYPE.VISIT:
-            return obj.is_visit_noti_sendable()
-        elif type == self.TYPE.MEASUREMENT:
-            return obj.is_measurement_noti_sendable()
-        else:
-            raise ValueError('TYPE has to be one of these: %s' % str([n for n in self.TYPE]))
+        for noti_time_num, noti_time in enumerate(patient.medication_noti_time_list()):
+            if noti_time is None:
+                continue
+            medication_result = patient.create_medication_result(noti_time_num=noti_time_num)
+            if medication_result:
+                medication_result.create_notification_record()
 
-    def filter_noti_target(self, type: TYPE):
-        """
-        find queryset that have True value in notification_flag of matching type.
 
-        :param type: TYPE Enum. MEDICATION, VISIT, MEASUREMENT
-        :return queryset
-        """
+# @app.tasks(bind=True)
+def create_visit_notification():
+    patients = Patient.objects.all()
+    for patient in patients:
+        if not patient.is_visit_noti_sendable() or patient.visit_notification_before == 0:
+            continue
 
-        queryset = self.queryset
-        if type == self.TYPE.MEDICATION:
-            return queryset.filter(medication_manage_flag=True, medication_noti_flag=True)
-        elif type == self.TYPE.VISIT:
-            return queryset.filter(visit_manage_flag=True, visit_noti_flag=True)
-        elif type == self.TYPE.MEASUREMENT:
-            return queryset.filter(measurement_manage_flag=True, measurement_noti_flag=True)
-        else:
-            raise ValueError('TYPE has to be one of these: %s' % str([n for n in self.TYPE]))
+        noti_date_time = patient.next_visiting_date_time - datetime.timedelta(seconds=patient.visit_notification_before)
+        if noti_date_time.date() == datetime.datetime.today():
+            data = {
+                'patient': patient.pk,
+                'biz_message_type': TYPE.VISIT_NOTI.value,
+                'recipient_number': patient.phone_number,
+                'send_at': noti_date_time
+            }
+            serializer = NotificationRecordSerializer(data=data)
+            if serializer.is_valid():
+                notification_record = serializer.save()
+                notification_record.build_biz_message_request()
+                notification_record.save()
 
-    # def register_daily_notification(self, queryset, type: TYPE):
+
+# @app.tasks(bind=True)
+def create_measurement_notification():
+    patients = Patient.objects.all()
+    for patient in patients:
+        if not patient.is_measurement_noti_sendable():
+            continue
+
+        for noti_time_num, noti_time in enumerate(patient.medication_noti_time_list()):
+            if noti_time is None:
+                continue
+            measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num)
+            if measurement_result:
+                measurement_result.create_notification_record()
+
+
+# @app.tasks(bind=True)
+def send_notifications():
+    notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING).all()
+    for noti in notifications:
+        noti.send()

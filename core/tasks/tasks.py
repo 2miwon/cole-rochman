@@ -6,9 +6,8 @@ from django.db.models import Q
 from cole_rochman.celery import app
 from core.models import Patient
 from core.serializers import NotificationRecordSerializer
+from core.tasks.notification import MORNING_NOTI_TIME
 from core.tasks.util.biz_message import TYPE
-
-MORNING_NOTI_TIME = datetime.time(hour=8)  # originally 7, but temporarily 8 due to limitation by Kakao's policy
 
 
 @app.task(bind=True)
@@ -28,8 +27,8 @@ def register_today_morning_notifications(self):
     for patient in patients:
         type = sending_type(patient)
         data = {
-            'patient': self.patient,
-            'biz_message_type': type,
+            'patient': self.patient.pk,
+            'biz_message_type': type.value,
             'recipient_number': self.patient.phone_number,
             'send_at': datetime.datetime.combine(datetime.date.today(), MORNING_NOTI_TIME),
         }
@@ -37,5 +36,3 @@ def register_today_morning_notifications(self):
         serializer.is_valid(raise_exception=True)
         notification_record = serializer.save()
         notification_record.build_biz_message_request()
-
-
