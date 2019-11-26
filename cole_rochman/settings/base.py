@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'django_celery_results',
-    'guardian'
+    'guardian',
+    'import_export',
+
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,5 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', # this is default
     'guardian.backends.ObjectPermissionBackend',
 )
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
