@@ -33,11 +33,10 @@ class NcloudRequest:
         from core.tasks.util.ncloud.exceptions import get_exception
         return get_exception(code)
 
-    def _make_signature(self):
+    def _make_signature(self, timestamp):
         if self.method not in ['GET', 'POST']:
             raise ValueError('method has to be one of [GET, POST]')
 
-        timestamp = self._make_timestamp()
         secret_key = bytes(self.secret_key, 'UTF-8')
 
         message = self.method + " " + self.uri + "\n" + timestamp + "\n" + self.access_key
@@ -47,11 +46,12 @@ class NcloudRequest:
         return signing_key
 
     def build_headers(self) -> dict:
+        timestamp = self._make_timestamp()
         headers = {
-            'content-type': 'application/json; charset=utf-8',
-            'x-ncp-apigw-timestamp': self._make_timestamp(),
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-ncp-apigw-timestamp': timestamp,
             'x-ncp-iam-access-key': self.access_key,
-            'x-ncp-apigw-signature-v2': self._make_signature()
+            'x-ncp-apigw-signature-v2': self._make_signature(timestamp)
         }
         return headers
 
@@ -61,15 +61,13 @@ class NcloudRequestBizMessage(NcloudRequest):
     POST https://sens.apigw.ntruss.com/alimtalk/v2/services/{serviceId}/messages
     """
     method = 'POST'
-    uri = 'https://sens.apigw.ntruss.com/alimtalk/v2/services/{}/messages'.format(settings.BIZ_MESSAGE['SERVICE_ID'])
+    uri = '/alimtalk/v2/services/{}/messages'.format(settings.BIZ_MESSAGE['SERVICE_ID'])
+    url = 'https://sens.apigw.ntruss.com{}'.format(uri)
 
     def __init__(self, payload: dict):
         self.payload = payload
 
     def send(self):
-        response = requests.post(url=self.uri, headers=self.build_headers(), data=self.payload)
-        if response.ok:
-            return response
-        else:
-            error_code = response.content.get('errors').get('errorCode')
-            raise self.get_exception(code=error_code)
+        import json
+        response = requests.post(url=self.url, headers=self.build_headers(), data=json.dumps(self.payload))
+        return response.ok, json.loads(response.content)

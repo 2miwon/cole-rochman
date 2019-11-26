@@ -26,6 +26,7 @@ class NotificationRecord(models.Model):
     measurement_result = models.ForeignKey('MeasurementResult', blank=True, null=True, default=None,
                                            on_delete=models.SET_NULL, related_name='notification_records')
     biz_message_type = models.CharField(max_length=50, blank=True, null=True, default=None)
+    noti_time_num = models.IntegerField(null=True, blank=True, default=None)
     status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value)
     recipient_number = models.CharField(max_length=50, verbose_name='수신인 번호')
     payload = JSONField(blank=True, null=True)
@@ -47,22 +48,36 @@ class NotificationRecord(models.Model):
     def is_sendable(self):
         return self.tries_left > 0 and \
                self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
-               self.send_at > datetime.datetime.now().astimezone()
+               self.send_at > datetime.datetime.now().astimezone() and \
+               self.payload != {}
 
     def send(self):
-        if self.is_sendable():
-            self.status = self.STATUS.SENDING.value
-            self.tries_left -= 1
-            self.result = NcloudRequestBizMessage(payload=self.payload).send()
+        self.build_biz_message_request()
+        if not self.is_sendable():
+            return 'NOT SENDABLE'
+
+        self.status = self.STATUS.SENDING.value
+        self.tries_left -= 1
+        success, self.result = NcloudRequestBizMessage(payload=self.payload).send()
+
+        if success:
             self.set_delivered()
             self.save()
-            return self.result
+        elif self.tries_left > 0:
+            self.set_pending()
         else:
-            return 'NOT SENDABLE'
+            self.set_failed()
+
+        return self.result
 
     def cancel(self):
         self.status = self.STATUS.CANCELED.value
         self.tries_left = 0
+        self.status_updated_at = datetime.datetime.now().astimezone()
+        self.save()
+
+    def set_pending(self):
+        self.status = self.STATUS.PENDING.value
         self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
 
@@ -86,6 +101,7 @@ class NotificationRecord(models.Model):
             message_type=self.biz_message_type,
             patient=self.patient,
             date=datetime.date.today(),
-            reserve_time=self.send_at.strftime('%Y-%m-%d %H:%M')
+            reserve_time=self.send_at.astimezone().strftime('%Y-%m-%d %H:%M'),
+            noti_time_num=self.noti_time_num
         )
         self.payload = biz_message.to_dict()

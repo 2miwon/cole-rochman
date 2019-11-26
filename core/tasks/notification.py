@@ -8,7 +8,7 @@ from core.tasks.util.biz_message import TYPE
 MORNING_NOTI_TIME = datetime.time(hour=8)  # originally 7, but temporarily 8 due to limitation by Kakao's policy
 
 
-# @app.tasks(bind=True)
+@app.tasks(bind=True)
 def create_morning_notification():
     patients = Patient.objects.all()
     for patient in patients:
@@ -30,7 +30,7 @@ def create_morning_notification():
             notification_record.save()
 
 
-# @app.tasks(bind=True)
+@app.tasks(bind=True)
 def create_medication_notification():
     patients = Patient.objects.all()
     for patient in patients:
@@ -42,10 +42,10 @@ def create_medication_notification():
                 continue
             medication_result = patient.create_medication_result(noti_time_num=noti_time_num)
             if medication_result:
-                medication_result.create_notification_record()
+                medication_result.create_notification_record(noti_time_num=noti_time_num)
 
 
-# @app.tasks(bind=True)
+@app.tasks(bind=True)
 def create_visit_notification():
     patients = Patient.objects.all()
     for patient in patients:
@@ -67,7 +67,7 @@ def create_visit_notification():
                 notification_record.save()
 
 
-# @app.tasks(bind=True)
+@app.tasks(bind=True)
 def create_measurement_notification():
     patients = Patient.objects.all()
     for patient in patients:
@@ -82,7 +82,7 @@ def create_measurement_notification():
                 measurement_result.create_notification_record()
 
 
-# @app.tasks(bind=True)
+@app.tasks(bind=True)
 def send_notifications():
     notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING).all()
     for noti in notifications:

@@ -75,7 +75,7 @@ class MedicationResult(models.Model):
         self.severity = severity
         self.checked_at = datetime.datetime.now().astimezone()
 
-    def create_notification_record(self):
+    def create_notification_record(self, noti_time_num: int = None):
         """
         :return: bool. success of failed
         """
@@ -92,6 +92,8 @@ class MedicationResult(models.Model):
             'recipient_number': self.patient.phone_number,
             'send_at': datetime.datetime.combine(self.date, self.medication_time)
         }
+        if noti_time_num:
+            data['noti_time_num'] = noti_time_num
 
         serializer = NotificationRecordSerializer(data=data)
         if serializer.is_valid():
