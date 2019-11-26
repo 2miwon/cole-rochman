@@ -133,22 +133,40 @@
       <div class="col-md-12" >산소포화도 수치</div>
 
       <div class="col-md-2"><br><div class="circle1" style="background-color:#81FCC8"></div><span>90%-100% 정상범위</span><br><div class="circle1" style="background-color:#F7E99A"></div><span>90% 이하 주의 필요</span><br><div class="circle1" style="background-color:#FCAECE"></div><span>80% 이하 심각한 저산소</span></div>
-      <div class="col-md-1" style="padding-left:105px;"><br><br></div>
+      <div class="col-md-1" style="padding-left:105px;">100%<br><br>80%</div>
         <div class="col-md-9">
-          <div class="line" style="width:94%;height:2px; border-bottom: 1px solid black;"></div>
-           <table style="height:55px;margin-top:0px;">
+           <table style="height:84px;margin-top:0px;">
 
-              <tr>
+              <tr >
                 {% for line in msresult %}
                   {% ifequal line 'None' %}
-                    <td></td>
+                    <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px;"></td>
                   {% else %}
                     {% if line >= 90 %}
-                      <td><div class="circle1" style="background-color:#81FCC8"></div>{{line}}%</td>
+                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px; padding-bottom:{{line|add:-75}}px;"><div class="circle1" style="background-color:#81FCC8"></div>{{line}}%</td>
                     {% elif line >= 80 %}
-                      <td><div class="circle1" style="background-color:#F7E99A"></div>{{line}}%</td>
+                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px; padding-top:20px; "><div class="circle1" style="background-color:#F7E99A"></div>{{line}}%</td>
                     {% else %}
-                      <td><div class="circle1" style="background-color:#FCAECE"></div>{{line}}%</td>
+                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px;"><div class="circle1" style="background-color:#FCAECE"></div>{{line}}%</td>
+                    {% endif %}
+                  {% endifequal %}
+
+                {% endfor %}
+
+              </tr>
+
+              <tr>
+
+                {% for line in msresult2 %}
+                  {% ifequal line 'None' %}
+                    <td style="height:39px;"></td>
+                  {% else %}
+                    {% if line >= 90 %}
+                      <td style="height:40px;"><div class="circle1" style="background-color:#81FCC8"></div>{{line}}%</td>
+                    {% elif line >= 80 %}
+                      <td style=" height:40px;"><div class="circle1" style="background-color:#F7E99A"></div>{{line}}%</td>
+                    {% else %}
+                      <td style=" height:40px;"><div class="circle1" style="background-color:#FCAECE"></div>{{line}}%</td>
                     {% endif %}
                   {% endifequal %}
 
@@ -157,7 +175,7 @@
 
 
           </table>
-          <div class="line" style="width:94%;height:2px; border-bottom: 1px solid black;"></div>
+
 
         </div>
 

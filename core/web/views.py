@@ -64,28 +64,31 @@ def patient_status(request, pid):
                                        next_visiting_date_time__lte=cal_start_end_day(d, 7)):
         context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 140
     daily_hour_list = list()
+
     try:
         if (clickedpatient.daily_medication_count):
             if (clickedpatient.daily_medication_count >= 1):
-                daily_hour_list.append(
-                    str(clickedpatient.medication_noti_time_1.hour) + ":" + str(
-                        clickedpatient.medication_noti_time_1.minute))
+
+                daily_hour_list.append('{}:{}'.format(str(clickedpatient.medication_noti_time_1.hour).zfill(2), str(clickedpatient.medication_noti_time_1.minute).zfill(2)))
+
+
             if (clickedpatient.daily_medication_count >= 2):
-                daily_hour_list.append(
-                    str(clickedpatient.medication_noti_time_2.hour) + ":" + str(
-                        clickedpatient.medication_noti_time_2.minute))
+                daily_hour_list.append('{}:{}'.format(str(clickedpatient.medication_noti_time_2.hour).zfill(2),
+                                                      str(clickedpatient.medication_noti_time_2.minute).zfill(2)))
+
             if (clickedpatient.daily_medication_count >= 3):
-                daily_hour_list.append(
-                    str(clickedpatient.medication_noti_time_3.hour) + ":" + str(
-                        clickedpatient.medication_noti_time_3.minute))
+                daily_hour_list.append('{}:{}'.format(str(clickedpatient.medication_noti_time_3.hour).zfill(2),
+                                                      str(clickedpatient.medication_noti_time_3.minute).zfill(2)))
+
             if (clickedpatient.daily_medication_count >= 4):
-                daily_hour_list.append(
-                    str(clickedpatient.medication_noti_time_4.hour) + ":" + str(
-                        clickedpatient.medication_noti_time_4.minute))
+                daily_hour_list.append('{}:{}'.format(str(clickedpatient.medication_noti_time_4.hour).zfill(2),
+                                                      str(clickedpatient.medication_noti_time_4.minute).zfill(2)))
+
+
             if (clickedpatient.daily_medication_count >= 5):
-                daily_hour_list.append(
-                    str(clickedpatient.medication_noti_time_5.hour) + ":" + str(
-                        clickedpatient.medication_noti_time_5.minute))
+                daily_hour_list.append('{}:{}'.format(str(clickedpatient.medication_noti_time_5.hour).zfill(2),
+                                                      str(clickedpatient.medication_noti_time_5.minute).zfill(2)))
+
 
     except AttributeError:
         daily_hour_list=['재설정 필요']
@@ -112,19 +115,28 @@ def patient_status(request, pid):
     context['mdresult']=mdresult
 
     msresult = [0, 0, 0, 0, 0, 0, 0]
+    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
     dailycount = 0
     for i in range(1, 8):
         dailymearesult = MeasurementResult.objects.filter(patient__id__contains=pid,
-                                                          measured_at__gte=cal_start_end_day(d, i))
+                                                          measured_at__gte=cal_start_end_day(d, i),date__lte=cal_start_end_day(d, 7))
         for r in dailymearesult:
             msresult[i - 1] += r.oxygen_saturation
+            print(r.oxygen_saturation)
             dailycount += 1
         if msresult[i - 1] == 0 or dailycount == 0:
             msresult[i - 1] = 'None'
         else:
             msresult[i - 1] = int(msresult[i - 1] / dailycount)
-    context['msresult'] = msresult
+            if msresult[i-1]<=80 and msresult[i-1]>0:
+                msresult2[i - 1] = msresult[i - 1]
+                msresult[i-1]='None'
 
+        dailycount=0
+    context['msresult'] = msresult
+    context['msresult2'] =msresult2
+    msresult = [0, 0, 0, 0, 0, 0, 0]
+    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
     return render(request, 'dashboard.html', context)
 
 
