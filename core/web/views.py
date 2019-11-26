@@ -112,19 +112,28 @@ def patient_status(request, pid):
     context['mdresult']=mdresult
 
     msresult = [0, 0, 0, 0, 0, 0, 0]
+    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
     dailycount = 0
     for i in range(1, 8):
         dailymearesult = MeasurementResult.objects.filter(patient__id__contains=pid,
-                                                          measured_at__gte=cal_start_end_day(d, i))
+                                                          measured_at__gte=cal_start_end_day(d, i),date__lte=cal_start_end_day(d, 7))
         for r in dailymearesult:
             msresult[i - 1] += r.oxygen_saturation
+            print(r.oxygen_saturation)
             dailycount += 1
         if msresult[i - 1] == 0 or dailycount == 0:
             msresult[i - 1] = 'None'
         else:
             msresult[i - 1] = int(msresult[i - 1] / dailycount)
-    context['msresult'] = msresult
+            if msresult[i-1]<=80 and msresult[i-1]>0:
+                msresult2[i - 1] = msresult[i - 1]
+                msresult[i-1]='None'
 
+        dailycount=0
+    context['msresult'] = msresult
+    context['msresult2'] =msresult2
+    msresult = [0, 0, 0, 0, 0, 0, 0]
+    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
     return render(request, 'dashboard.html', context)
 
 
