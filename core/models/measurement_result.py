@@ -59,7 +59,7 @@ class MeasurementResult(models.Model):
         self.status = self.STATUS.DELAYED_SUCCESS.value
         self.checked_at = datetime.datetime.now().astimezone()
 
-    def create_notification_record(self):
+    def create_notification_record(self, noti_time_num: int = None):
         from core.serializers import NotificationRecordSerializer
         from core.tasks.util.biz_message import TYPE
 
@@ -73,6 +73,8 @@ class MeasurementResult(models.Model):
             'recipient_number': self.patient.phone_number,
             'send_at': datetime.datetime.combine(self.date, self.measurement_time)
         }
+        if noti_time_num:
+            data['noti_time_num'] = noti_time_num
 
         serializer = NotificationRecordSerializer(data=data)
         if serializer.is_valid():

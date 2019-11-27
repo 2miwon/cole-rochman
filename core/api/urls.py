@@ -5,7 +5,7 @@ from core.api.views.general import ResponseAlwaysOK
 from core.api.views.measurements import PatientMeasurementEntrance, PatientMeasurementNotiTimeQuestion, \
     PatientMeasurementNotiSetTime, PatientMeasurementRestart, \
     PatientMeasurementNotiReset
-from core.api.views.measurements_notification import MeasurementResultCheck
+from core.api.views.measurements_notification import MeasurementResultCheck, MeasurementResultCheckFromNotification
 from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, \
     PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, \
     PatientMedicationNotiSetTimeInRestart, \
@@ -57,6 +57,7 @@ urlpatterns = [
     path('patients/measurement/noti/time/set/', PatientMeasurementNotiSetTime.as_view(),
          name='patient-measurement-noti-set-time'),
     path('patients/measurement-result/create/', MeasurementResultCheck.as_view(), name='patient-measurement-create'),
+    path('patients/measurement/check/', MeasurementResultCheckFromNotification.as_view(), name='patient-measurement-check'),
     path('patients/measurement/restart/', PatientMeasurementRestart.as_view(), name='patient-measurement-restart'),
     path('patients/measurement/noti/reset/', PatientMeasurementNotiReset.as_view(),
          name='patient-measurement-noti-reset'),
