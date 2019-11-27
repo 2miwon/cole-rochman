@@ -40,6 +40,6 @@ BROKER_URL = 'redis://localhost:6380/0'
 
 NCLOUD = secrets.get('NCLOUD')
 BIZ_MESSAGE = {
-    'PLUS_FRIEND_ID': '@doctor_chatbot',
-    'SERVICE_ID': 'ncp:kkobizmsg:kr:2573077:cole-rochman'
+    'PLUS_FRIEND_ID': '',
+    'SERVICE_ID': ''
 }
