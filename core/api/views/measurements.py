@@ -159,7 +159,7 @@ class PatientMeasurementRestart(KakaoResponseAPI):
         response.add_simple_text('산소포화도 관리를 설정한 적이 있습니다.\n다시 설정할까요?')
         response.set_quick_replies_yes_or_no(
             block_id_for_yes='5dc708cdffa74800014107a8',  # (블록) 02 건강재설정_알림횟수 확인
-            block_id_for_no='5dc6d5d3b617ea0001798e2b'  # (블록) 01-2 건강재설정_취소
+            block_id_for_no='5dd10b3392690d000194ba29',  # (블록) 00 대화 종료 여부_산소포화도관리
         )
 
         return response.get_response_200()
