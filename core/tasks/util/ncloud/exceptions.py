@@ -3,7 +3,7 @@ https://apidocs.ncloud.com/ko/common/ncpapi/#%EC%98%A4%EB%A5%98-%EC%B2%98%EB%A6%
 """
 
 
-class NcloudBadRequestException:
+class NcloudBadRequestException(BaseException):
     """
     protocol(https), endocing(UTF-8) 등 Request 에러
     """
@@ -11,7 +11,7 @@ class NcloudBadRequestException:
     error_code = 100
 
 
-class NcloudAuthenticationFailed:
+class NcloudAuthenticationFailed(BaseException):
     """
     인증 실패
     """
@@ -19,7 +19,7 @@ class NcloudAuthenticationFailed:
     error_code = 200
 
 
-class NcloudPermissionDenied:
+class NcloudPermissionDenied(BaseException):
     """
     권한 없음
     """
@@ -27,7 +27,7 @@ class NcloudPermissionDenied:
     error_code = 210
 
 
-class NcloudNotFoundException:
+class NcloudNotFoundException(BaseException):
     """
     권한 없음
     """
@@ -35,7 +35,7 @@ class NcloudNotFoundException:
     error_code = 300
 
 
-class NcloudQuotaExceeded:
+class NcloudQuotaExceeded(BaseException):
     """
     Quota 초과
     """
@@ -43,7 +43,7 @@ class NcloudQuotaExceeded:
     error_code = 400
 
 
-class NcloudThrottleLimited:
+class NcloudThrottleLimited(BaseException):
     """
     Rate 초과
     """
@@ -51,7 +51,7 @@ class NcloudThrottleLimited:
     error_code = 410
 
 
-class NcloudRateLimited:
+class NcloudRateLimited(BaseException):
     """
     Rate 초과
     """
@@ -59,7 +59,7 @@ class NcloudRateLimited:
     error_code = 420
 
 
-class NcloudRequestEntityTooLarge:
+class NcloudRequestEntityTooLarge(BaseException):
     """
     요청 엔티티 크기 초과
     """
@@ -67,7 +67,7 @@ class NcloudRequestEntityTooLarge:
     error_code = 430
 
 
-class NcloudEndpointError:
+class NcloudEndpointError(BaseException):
     """
     엔드포인트 연결 에러
     """
@@ -75,7 +75,7 @@ class NcloudEndpointError:
     error_code = 500
 
 
-class NcloudEndpointTimeout:
+class NcloudEndpointTimeout(BaseException):
     """
     엔드포인트 연결 시간 초과
     """
@@ -83,7 +83,7 @@ class NcloudEndpointTimeout:
     error_code = 510
 
 
-class NcloudUnexpectedError:
+class NcloudUnexpectedError(BaseException):
     """
     예외 처리가 안된 에러
     """
@@ -105,7 +105,7 @@ exceptions = [
     NcloudUnexpectedError
 ]
 
-exceptions = {x.code: x for x in exceptions}
+exceptions = {x.error_code: x for x in exceptions}
 
 
 def get_exception(code: int):

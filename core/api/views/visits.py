@@ -26,7 +26,7 @@ class PatientVisitStart(KakaoResponseAPI):
                 '이미 내원일을 설정하신 적이 있어요.\n현재 설정된 내원 예정일: %s\n\n내원 일정을 수정하시겠습니까?' % patient.next_visiting_date_time_str())
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5db314e38192ac000115f9af',  # (블록) 02 치료 관리 재설정_내원 예정일 설정
-                block_id_for_no='5d9df7dfb617ea00012b17f3'  # (블록) 치료 관리 설정_내원 관리 종료
+                block_id_for_no='5dd102f0b617ea0001b5a294'  # (블록) 00 대화 종료 여부_내원관리
             )
             return response.get_response_200()
 
@@ -34,17 +34,11 @@ class PatientVisitStart(KakaoResponseAPI):
             response.add_simple_text(text='내원 관리를 시작하시겠습니까?')
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='5d9df31692690d0001a458e6',  # (블록) 02 치료 관리 설정_내원 예정일 확인
-                block_id_for_no='5dd10bbe92690d000194ba2e'  # (블록) 00 임시 대화 종료 여부_내원관리
+                block_id_for_no='5dd102f0b617ea0001b5a294'  # (블록) 00 대화 종료 여부_내원관리
             )
             return response.get_response_200()
         else:
             response.add_simple_text(text='아직 퇴원을 하지 않으셔서 내원 관리를 하실 필요가 없어요.')
-            response.add_simple_text(text='치료 관리 모드로 이동할까요?')
-            response.add_simple_text(text='(아직 이동할 블록이 설정되지 않았습니다.)')
-            # TODO 치료관리 모드 의 블록이 확실해지면 block_id 넣기
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='5dbc2eac92690d0001e876d6'
-            )
             return response.get_response_200()
 
 
@@ -84,7 +78,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
         response.add_simple_text(text="%s이 내원일이군요." % patient.next_visiting_date_time_str())
         response.add_simple_text(text="내원 알림을 설정할까요?☀️")
         response.set_quick_replies_yes_or_no(block_id_for_yes="5d9df34e92690d0001a458ed",  # (블록) 03 치료 관리 설정_내원 알람 설정
-                                             block_id_for_no="5dd10bd2ffa7480001550866",  # (블록) 00 임시 대화 종료 여부_내원알림
+                                             block_id_for_no="5dd1036492690d000194b9fb",  # (블록) 00 대화 종료 여부_내원알림
                                              message_text_for_no="아니요")
 
         return response.get_response_200()
@@ -132,11 +126,11 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
 
         response.add_simple_text(text="내원 시간 %s 전에 알림을 드리겠습니다." % time_before_verbose.strip())
         response.add_simple_text(text="이대로 알림을 설정할까요?")
-        response.set_quick_replies_yes_or_no(block_id_for_yes="5d9df7978192ac0001156891",
-                                             # (블록) 05 치료 관리 설정_내원 관리 완료
-                                             block_id_for_no="5d9df9368192ac00011568a9",
-                                             # (블록) 치료 관리 설정_내원 알림 종료
-                                             message_text_for_no="아니요, 지금은 안 할래요.")
+        response.set_quick_replies_yes_or_no(
+            block_id_for_yes="5d9df7978192ac0001156891",  # (블록) 05 치료 관리 설정_내원 관리 완료
+            block_id_for_no="5dd1036492690d000194b9fb",  # (블록) 00 대화 종료 여부_내원알림
+            message_text_for_no="아니요, 지금은 안 할래요."
+        )
 
         return response.get_response_200()
 

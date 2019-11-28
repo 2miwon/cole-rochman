@@ -108,7 +108,6 @@ class Message:
 
     def build_message(self) -> str:
         days_after_treatment = datetime.datetime.today().day - self.patient.treatment_started_date.day
-        visitng_time = self.patient.next_visiting_date_time.strftime('%H시 %M분')
 
         msg = ''
         if self.type == TYPE.MORNING_MEDI_MANAGEMENT_TRUE:
@@ -122,6 +121,7 @@ class Message:
                 f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째 입니다.\n저와 함께 힘찬 하루 시작해봅시다!☀️'
 
         elif self.type == TYPE.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY:
+            visitng_time = self.patient.next_visiting_date_time.strftime('%H시 %M분')
             msg = f'{self.patient.nickname}님, 안녕하십니까! 아침은 드셨나요?🍚' \
                 f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째 입니다.\n\n' \
                 f'복약은 {self.patient.medication_noti_time_list_to_str()}에 하셔야 합니다.💊\n\n' \
@@ -129,6 +129,7 @@ class Message:
                 f'오늘 하루도 제가 응원하겠습니다!👍'
 
         elif self.type == TYPE.MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY:
+            visitng_time = self.patient.next_visiting_date_time.strftime('%H시 %M분')
             msg = f'{self.patient.nickname}님, 오늘은 좀 어떠신지요!\n' \
                 f'오늘은 결핵 치료를 시작한지 {days_after_treatment}일째입니다.\n\n' \
                 f'오늘 {visitng_time}에 병원에 가셔야 하는 것, 잊지않으셨죠?🎶'
@@ -179,6 +180,7 @@ class BizMessageBuilder:
 
         self.message_type = message_type
         template_code = message_type.value
+
         self.template_code = template_code
         self.message = Message(type=message_type, patient=patient, date=date, noti_time_num=noti_time_num)
         self.buttons = Buttons(type=message_type)
@@ -195,7 +197,7 @@ class BizMessageBuilder:
         }
 
         if self.buttons.to_list():
-            self.payload['messages'].update(
+            self.payload['messages'][0].update(
                 {
                     'buttons': self.buttons.to_list()
                 }

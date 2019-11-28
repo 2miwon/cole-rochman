@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.http import Http404
 
@@ -71,10 +72,42 @@ class MeasurementResultCheck(KakaoResponseAPI):
 
         if not (
                 patient.measurement_manage_flag and patient.measurement_noti_flag and patient.daily_measurement_count > 0):
-            response.add_simple_text(text='설정된 산소포화도 측정 알림 등록이 없습니다.')
+            response.add_simple_text(text='산소포화도 측정 알림을 먼저 등록하셔야 해요.')
             return response.get_response_200()
 
         recent_measurement_result = get_recent_measurement_result(patient)
+
+        if recent_measurement_result:
+            recent_measurement_result.oxygen_saturation = self.data.get('oxygen_saturation')
+            recent_measurement_result.save()
+            return response.get_response_200()
+
+        response.add_simple_text(text='알 수 없는 오류가 발생하였습니다')
+        return response.get_response_200()
+
+
+class MeasurementResultCheckFromNotification(KakaoResponseAPI):
+    serializer_class = MeasurementResultSerializer
+    model_class = serializer_class.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        self.preprocess(request)
+        try:
+            patient = self.get_object_by_kakao_user_id()
+        except Http404:
+            return self.build_response_fallback_404()
+        response = self.build_response(response_type=self.RESPONSE_SKILL)
+
+        if not (
+                patient.measurement_manage_flag and patient.measurement_noti_flag and patient.daily_measurement_count > 0):
+            response.add_simple_text(text='산소포화도 측정 알림을 먼저 등록하셔야 해요.')
+            return response.get_response_200()
+
+        date = json.loads(self.data.get('date'))['value']
+        noti_time_num = self.data.get('noti_time_num')
+
+        recent_measurement_result = MeasurementResult.objects.filter(date=date, measurement_time_num=noti_time_num).get_or_create()
 
         if recent_measurement_result:
             recent_measurement_result.oxygen_saturation = self.data.get('oxygen_saturation')
