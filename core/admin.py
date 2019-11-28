@@ -1,14 +1,35 @@
 from django.contrib import admin
 from guardian.admin import GuardedModelAdmin
-
+from import_export.admin import ImportExportModelAdmin
 from .models import Patient, Hospital, MeasurementResult, MedicationResult
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Profile
+from import_export.widgets import ForeignKeyWidget
+from import_export import resources,fields
+
+
+class PatientResource(resources.ModelResource):
+    hospital = fields.Field(
+        column_name='hospital',
+        attribute='hospital',
+        widget=ForeignKeyWidget(Hospital, 'code'))
+    user = fields.Field(
+        column_name='user',
+        attribute='user',
+        widget=ForeignKeyWidget(User, 'username'))
+
+
+    class Meta:
+        model = Patient
+
+        fields = ('id','code','hospital','phone_number','name','user')
 
 
 @admin.register(Patient)
-class PatientAdmin(GuardedModelAdmin):
+class PatientAdmin(GuardedModelAdmin,ImportExportModelAdmin):
+    resource_class =PatientResource
+
     user_can_access_owned_objects_only = True
 
     list_display = (
