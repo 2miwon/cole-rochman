@@ -10,6 +10,7 @@ DATABASES = {
     'default': secrets.get('DB_SETTINGS').get('PRODUCTION')
 }
 
+# noinspection PyUnresolvedReferences
 STATIC_ROOT = '/var/www/cole-rochman/static/'
 
 sentry_sdk.init(
@@ -55,3 +56,4 @@ LOGGING = {
 BROKER_URL = secrets.get('REDIS_ADDRESS')
 
 LG_CNS = secrets.get('LG_CNS')
+AUTO_SEND_NOTIFICAITON = False

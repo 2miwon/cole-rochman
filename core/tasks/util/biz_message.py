@@ -17,7 +17,11 @@ class TYPE(Enum):
     @classmethod
     def get_morning_noti_type(cls, patient: Patient):
         medi_management = patient.medication_manage_flag
-        visit_today = patient.next_visiting_date_time.date() == datetime.datetime.today().astimezone().date()
+
+        if patient.next_visiting_date_time:
+            visit_today = patient.next_visiting_date_time.date() == datetime.datetime.today().astimezone().date()
+        else:
+            visit_today = None
 
         if medi_management and visit_today:
             return cls.MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY
@@ -166,10 +170,6 @@ class Message:
 
 class BizMessageBuilder:
     def __init__(self, message_type: TYPE or str, patient: Patient, date: datetime.date, noti_time_num: int = None):
-        """
-        :param reserve_time: yyyy-MM-dd HH:mm
-        """
-
         if type(message_type) is str:
             message_type = TYPE(message_type)
 

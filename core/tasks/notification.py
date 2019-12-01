@@ -8,8 +8,10 @@ from core.tasks.util.biz_message import TYPE
 MORNING_NOTI_TIME = datetime.time(hour=8)  # originally 7, but temporarily 8 due to limitation by Kakao's policy
 
 
-@app.tasks(bind=True)
-def create_morning_notification():
+def _create_morning_notification():
+    success = []
+    failed = []
+
     patients = Patient.objects.all()
     for patient in patients:
         if not patient.phone_number:
@@ -24,13 +26,34 @@ def create_morning_notification():
             'send_at': reserve_time
         }
         serializer = NotificationRecordSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
+        if serializer.is_valid():
             notification_record = serializer.save()
             notification_record.build_biz_message_request()
             notification_record.save()
+            success.append({
+                'patient_id': patient.pk,
+                'notification_record_id': notification_record.id,
+            })
+        else:
+            failed.append({
+                'patient_id': patient.pk,
+                'description': serializer.errors
+            })
+    result = {
+        'success_count': len(success),
+        'success': success,
+        'failed_count': len(failed),
+        'failed': failed
+    }
+    return result
 
 
-@app.tasks(bind=True)
+@app.task
+def create_morning_notification():
+    _create_morning_notification()
+
+
+@app.task
 def create_medication_notification():
     patients = Patient.objects.all()
     for patient in patients:
@@ -45,7 +68,7 @@ def create_medication_notification():
                 medication_result.create_notification_record(noti_time_num=noti_time_num)
 
 
-@app.tasks(bind=True)
+@app.task
 def create_visit_notification():
     patients = Patient.objects.all()
     for patient in patients:
@@ -67,7 +90,7 @@ def create_visit_notification():
                 notification_record.save()
 
 
-@app.tasks(bind=True)
+@app.task
 def create_measurement_notification():
     patients = Patient.objects.all()
     for patient in patients:
@@ -82,7 +105,7 @@ def create_measurement_notification():
                 measurement_result.create_notification_record()
 
 
-@app.tasks(bind=True)
+@app.task
 def send_notifications():
     notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
                                                       send_at__lte=datetime.datetime.now().astimezone()).all()

@@ -43,3 +43,4 @@ LG_CNS = {
     "CHANNEL_ID": "",
     "SERVICE_NO": 0
 }
+AUTO_SEND_NOTIFICAITON = False

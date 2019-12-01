@@ -1,4 +1,5 @@
 from celery.schedules import crontab
+from django.conf import settings
 
 MINUTES = 60
 HOURS = 60 * MINUTES
@@ -18,24 +19,33 @@ QUEUE_NOTIFICATION = {
 }
 
 SCHEDULE = {
-    'create_morning_notification-every-12-30': {
+    'create-morning-notification-every-12-30': {
         'task': 'core.tasks.notification.create_morning_notification',
         'schedule': crontab(minute=30, hour=12),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
-    'create_medication_notification-every-12-40': {
+    'create-medication-notification-every-12-40': {
         'task': 'core.tasks.notification.create_medication_notification',
         'schedule': crontab(minute=40, hour=12),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
-    'create_visit_notification-every-12-40': {
+    'create-visit-notification-every-12-40': {
         'task': 'core.tasks.notification.create_visit_notification',
         'schedule': crontab(minute=40, hour=12),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
-    'create_measurement_notification-every-12-40': {
+    'create-measurement-notification-every-12-40': {
         'task': 'core.tasks.notification.create_measurement_notification',
         'schedule': crontab(minute=40, hour=12),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
 }
+
+if settings.AUTO_SEND_NOTIFICAITON:
+    SCHEDULE.update({
+        'send-notification-every-10-minutes': {
+            'task': 'core.tasks.notification.send_notifications',
+            'schedule': crontab(minute=10),
+            'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
+        }
+    })
