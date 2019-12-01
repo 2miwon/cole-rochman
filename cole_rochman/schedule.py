@@ -19,33 +19,33 @@ QUEUE_NOTIFICATION = {
 }
 
 SCHEDULE = {
-    'create-morning-notification-every-12-30': {
+    'create-morning-notification-every-12-30-am': {
         'task': 'core.tasks.notification.create_morning_notification',
-        'schedule': crontab(minute=30, hour=12),
+        'schedule': crontab(minute=30, hour=0),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
-    'create-medication-notification-every-12-40': {
+    'create-medication-notification-every-12-40-am': {
         'task': 'core.tasks.notification.create_medication_notification',
-        'schedule': crontab(minute=40, hour=12),
+        'schedule': crontab(minute=40, hour=0),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
-    'create-visit-notification-every-12-40': {
+    'create-visit-notification-every-12-40-am': {
         'task': 'core.tasks.notification.create_visit_notification',
-        'schedule': crontab(minute=40, hour=12),
+        'schedule': crontab(minute=40, hour=0),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
-    'create-measurement-notification-every-12-40': {
+    'create-measurement-notification-every-12-40-am': {
         'task': 'core.tasks.notification.create_measurement_notification',
-        'schedule': crontab(minute=40, hour=12),
+        'schedule': crontab(minute=40, hour=0),
         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
     },
 }
 
 if settings.AUTO_SEND_NOTIFICAITON:
     SCHEDULE.update({
-        'send-notification-every-10-minutes': {
+        'send-notification-every-5-minutes': {
             'task': 'core.tasks.notification.send_notifications',
-            'schedule': crontab(minute=10),
+            'schedule': crontab(minute='*/5', hour='7-20'),
             'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
         }
     })
