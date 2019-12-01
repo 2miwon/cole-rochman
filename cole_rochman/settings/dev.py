@@ -38,7 +38,7 @@ LOGGING = {
 
 BROKER_URL = 'redis://localhost:6380/0'
 
-LGCNS = {
+LG_CNS = {
     "API_KEY": "",
     "CHANNEL_ID": "",
     "SERVICE_NO": 0

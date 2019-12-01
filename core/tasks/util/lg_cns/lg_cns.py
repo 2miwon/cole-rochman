@@ -8,11 +8,11 @@ class Lgcns:
     method = 'POST'
     url = 'https://talkapi.lgcns.com/request/kakao.json'
 
-    auth_token = settings.LGCNS.get('API_KEY')
-    server_name = settings.LGCNS.get('CHANNEL_ID')
+    auth_token = settings.LG_CNS.get('API_KEY')
+    server_name = settings.LG_CNS.get('CHANNEL_ID')
     payment_type = 'P'
 
-    service_no = settings.LGCNS.get('SERVICE_NO')
+    service_no = settings.LG_CNS.get('SERVICE_NO')
 
     def build_headers(self):
         headers = {
