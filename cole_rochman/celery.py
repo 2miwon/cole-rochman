@@ -8,7 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cole_rochman.settings')
 app = Celery('cole_rochman',
              broker=settings.BROKER_URL,
              backend=settings.CELERY_RESULT_BACKEND,
-             # include=['core.tasks']
+             include=['core.tasks']
              )
 
 # Using a string here means the worker doesn't have to serialize

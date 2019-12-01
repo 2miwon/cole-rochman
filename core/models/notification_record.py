@@ -4,8 +4,6 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 from core.models.helper.helper import EnumField
-from core.tasks.util.biz_message import BizMessageBuilder
-from core.tasks.util.lg_cns.lg_cns import LgcnsRequest
 
 
 class NotificationRecord(models.Model):
@@ -52,6 +50,7 @@ class NotificationRecord(models.Model):
                self.payload != {}
 
     def send(self):
+        from core.tasks.util.lg_cns.lg_cns import LgcnsRequest
         self.build_biz_message_request()
         if not self.is_sendable():
             return 'NOT SENDABLE'
@@ -97,6 +96,7 @@ class NotificationRecord(models.Model):
         self.save()
 
     def build_biz_message_request(self):
+        from core.tasks.util.biz_message import BizMessageBuilder
         biz_message = BizMessageBuilder(
             message_type=self.biz_message_type,
             patient=self.patient,
