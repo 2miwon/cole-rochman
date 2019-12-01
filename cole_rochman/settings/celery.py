@@ -1,5 +1,7 @@
 from kombu import Queue, Exchange
 
+from cole_rochman.schedule import SCHEDULE
+
 enable_utc = True
 
 timezone = 'Asia/Seoul'
@@ -20,3 +22,5 @@ default_exchange = Exchange('default', type='direct')
 task_queues = (
     Queue('default'),
 )
+
+beat_schedule = SCHEDULE
