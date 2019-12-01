@@ -84,6 +84,7 @@ def create_measurement_notification():
 
 @app.tasks(bind=True)
 def send_notifications():
-    notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING).all()
+    notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
+                                                      send_at__lte=datetime.datetime.now().astimezone()).all()
     for noti in notifications:
         noti.send()

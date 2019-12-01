@@ -54,5 +54,4 @@ LOGGING = {
 
 BROKER_URL = secrets.get('REDIS_ADDRESS')
 
-NCLOUD = secrets.get('NCLOUD')
-BIZ_MESSAGE = secrets.get('BIZ_MESSAGE')
+LGCNS = secrets.get('LGCNS')

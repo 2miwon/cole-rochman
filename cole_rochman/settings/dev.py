@@ -38,8 +38,8 @@ LOGGING = {
 
 BROKER_URL = 'redis://localhost:6380/0'
 
-NCLOUD = secrets.get('NCLOUD')
-BIZ_MESSAGE = {
-    'PLUS_FRIEND_ID': '',
-    'SERVICE_ID': ''
+LGCNS = {
+    "API_KEY": "",
+    "CHANNEL_ID": "",
+    "SERVICE_NO": 0
 }

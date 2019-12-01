@@ -1,8 +1,6 @@
 import datetime
 from enum import Enum
 
-from django.conf import settings
-
 from core.models import Patient
 
 
@@ -58,11 +56,11 @@ class Buttons:
     def _build_buttons_medication(self) -> list:
         data = [
             {
-                'type': self.button_type,
+                # 'type': self.button_type,
                 'name': '복약했어요',
             },
             {
-                'type': self.button_type,
+                # 'type': self.button_type,
                 'name': '복약 안 할래요',
             }
         ]
@@ -71,7 +69,7 @@ class Buttons:
     def _build_buttons_measurement(self) -> list:
         data = [
             {
-                'type': self.button_type,
+                # 'type': self.button_type,
                 'name': '측정 시작'
             }
         ]
@@ -167,10 +165,7 @@ class Message:
 
 
 class BizMessageBuilder:
-    plus_friend_id = settings.BIZ_MESSAGE['PLUS_FRIEND_ID']
-
-    def __init__(self, message_type: TYPE or str, patient: Patient, date: datetime.date, noti_time_num: int = None,
-                 reserve_time: str = None, schedule_code: str = None):
+    def __init__(self, message_type: TYPE or str, patient: Patient, date: datetime.date, noti_time_num: int = None):
         """
         :param reserve_time: yyyy-MM-dd HH:mm
         """
@@ -186,35 +181,15 @@ class BizMessageBuilder:
         self.buttons = Buttons(type=message_type)
 
         self.payload = {
-            'plusFriendId': self.plus_friend_id,
-            'templateCode': template_code,
-            'messages': [
-                {
-                    'to': patient.phone_number,
-                    'content': self.message.msg,
-                }
-            ],
+            'template': template_code,
+            'message': self.message.msg,
+            'mobile': patient.phone_number,
         }
 
         if self.buttons.to_list():
-            self.payload['messages'][0].update(
+            self.payload.update(
                 {
                     'buttons': self.buttons.to_list()
-                }
-            )
-
-        if reserve_time:
-            self.payload.update(
-                {
-                    'reserveTime': reserve_time,
-                    'reserveTimeZone': 'Asia/Seoul',
-                }
-            )
-
-        if schedule_code:
-            self.payload.update(
-                {
-                    'scheduleCode': schedule_code
                 }
             )
 

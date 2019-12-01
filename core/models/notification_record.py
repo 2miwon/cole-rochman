@@ -5,7 +5,7 @@ from django.db import models
 
 from core.models.helper.helper import EnumField
 from core.tasks.util.biz_message import BizMessageBuilder
-from core.tasks.util.ncloud.ncloud import NcloudRequestBizMessage
+from core.tasks.util.lg_cns.lg_cns import LgcnsRequest
 
 
 class NotificationRecord(models.Model):
@@ -48,7 +48,7 @@ class NotificationRecord(models.Model):
     def is_sendable(self):
         return self.tries_left > 0 and \
                self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
-               self.send_at > datetime.datetime.now().astimezone() and \
+               self.send_at == datetime.datetime.today().astimezone() and \
                self.payload != {}
 
     def send(self):
@@ -58,7 +58,7 @@ class NotificationRecord(models.Model):
 
         self.status = self.STATUS.SENDING.value
         self.tries_left -= 1
-        success, self.result = NcloudRequestBizMessage(payload=self.payload).send()
+        success, self.result = LgcnsRequest(payload=self.payload).send()
 
         if success:
             self.set_delivered()
@@ -101,7 +101,6 @@ class NotificationRecord(models.Model):
             message_type=self.biz_message_type,
             patient=self.patient,
             date=datetime.date.today(),
-            reserve_time=self.send_at.astimezone().strftime('%Y-%m-%d %H:%M'),
             noti_time_num=self.noti_time_num
         )
         self.payload = biz_message.to_dict()
