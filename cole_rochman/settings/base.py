@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'django_celery_results',
+    'django_celery_beat',
     'guardian',
     'import_export',
 
