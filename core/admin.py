@@ -107,3 +107,14 @@ class NotificationRecordAdmin(admin.ModelAdmin):
     search_fields = [
         'patient__name', 'patient__code'
     ]
+    actions = ['make_status_pending']
+
+    def make_status_pending(self, request, queryset):
+        queryset.update(status=NotificationRecord.STATUS.PENDING.value)
+
+    def make_status_canceled(self, request, queryset):
+        queryset.update(status=NotificationRecord.STATUS.CANCELED.value)
+
+    make_status_pending.short_description = "Mark selected as PENDING"
+    make_status_canceled.short_description = "Mark selected as CANCELED"
+
