@@ -76,6 +76,17 @@ class MeasurementResultAdmin(admin.ModelAdmin):
         'patient__name'
     ]
 
+    actions = ['make_status_pending', 'make_status_canceled']
+
+    def make_status_pending(self, request, queryset):
+        queryset.update(status=NotificationRecord.STATUS.PENDING.value)
+
+    def make_status_canceled(self, request, queryset):
+        queryset.update(status=NotificationRecord.STATUS.CANCELED.value)
+
+    make_status_pending.short_description = "Mark selected as PENDING"
+    make_status_canceled.short_description = "Mark selected as CANCELED"
+
 
 @admin.register(MedicationResult)
 class MedicationResultAdmin(admin.ModelAdmin):
@@ -88,6 +99,8 @@ class MedicationResultAdmin(admin.ModelAdmin):
         'patient__name'
     ]
 
+    actions = ['make_status_pending', 'make_status_canceled']
+
     def get_status_display(self, obj):
         """STATUS"""
         try:
@@ -95,7 +108,15 @@ class MedicationResultAdmin(admin.ModelAdmin):
         except IndexError:
             return obj.status
 
+    def make_status_pending(self, request, queryset):
+        queryset.update(status=NotificationRecord.STATUS.PENDING.value)
+
+    def make_status_canceled(self, request, queryset):
+        queryset.update(status=NotificationRecord.STATUS.CANCELED.value)
+
     get_status_display.short_description = 'STATUS'
+    make_status_pending.short_description = "Mark selected as PENDING"
+    make_status_canceled.short_description = "Mark selected as CANCELED"
 
 
 @admin.register(NotificationRecord)
@@ -107,7 +128,7 @@ class NotificationRecordAdmin(admin.ModelAdmin):
     search_fields = [
         'patient__name', 'patient__code'
     ]
-    actions = ['make_status_pending']
+    actions = ['make_status_pending', 'make_status_canceled']
 
     def make_status_pending(self, request, queryset):
         queryset.update(status=NotificationRecord.STATUS.PENDING.value)
@@ -117,4 +138,3 @@ class NotificationRecordAdmin(admin.ModelAdmin):
 
     make_status_pending.short_description = "Mark selected as PENDING"
     make_status_canceled.short_description = "Mark selected as CANCELED"
-

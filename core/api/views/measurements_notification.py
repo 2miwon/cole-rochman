@@ -104,10 +104,7 @@ class MeasurementResultCheckFromNotification(KakaoResponseAPI):
             response.add_simple_text(text='산소포화도 측정 알림을 먼저 등록하셔야 해요.')
             return response.get_response_200()
 
-        date = json.loads(self.data.get('date'))['value']
-        noti_time_num = self.data.get('noti_time_num')
-
-        recent_measurement_result = MeasurementResult.objects.filter(date=date, measurement_time_num=noti_time_num).get_or_create()
+        recent_measurement_result = get_recent_measurement_result(patient)
 
         if recent_measurement_result:
             recent_measurement_result.oxygen_saturation = self.data.get('oxygen_saturation')

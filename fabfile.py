@@ -149,8 +149,7 @@ def _restart_celery():
     print(green('_restart_celery'))
     with cd(project_folder):
         if exists('celeryd.pid'):
-            result = run('tail celeryd.pid', warn_only=True)
-            run(f'kill {result}')
+            run('kill `cat celeryd.pid`', warn_only=True)
         run('{}/bin/celery -A cole_rochman worker -l info -B --detach'.format(virtualenv_folder))
 
 
