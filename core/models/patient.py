@@ -71,7 +71,8 @@ class Patient(models.Model):
         return '%s/%s' % (self.code, self.name or self.nickname)
 
     def medication_noti_time_list_to_str(self):
-        return ','.join([x.strftime('%H시 %M분') for x in self.medication_noti_time_list()])
+        noti_list = [x for x in self.medication_noti_time_list() if x is not None]
+        return ','.join([x.strftime('%H시 %M분') for x in noti_list])
 
     def medication_noti_time_list(self):
         if not (self.measurement_manage_flag or self.medication_noti_flag):
