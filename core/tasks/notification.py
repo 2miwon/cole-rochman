@@ -72,7 +72,8 @@ def create_medication_notification():
 def create_visit_notification():
     patients = Patient.objects.all()
     for patient in patients:
-        if not patient.is_visit_noti_sendable() or patient.visit_notification_before == 0:
+        if not patient.is_visit_noti_sendable() or not patient.visit_notification_before \
+                or patient.next_visiting_date_time is None:
             continue
 
         noti_date_time = patient.next_visiting_date_time - datetime.timedelta(seconds=patient.visit_notification_before)
