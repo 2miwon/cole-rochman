@@ -1,3 +1,4 @@
+from fabric.context_managers import cd
 from fabric.contrib.console import confirm
 from fabric.contrib.files import append, exists, sed, put
 from fabric.api import env, local, run, sudo
@@ -144,6 +145,15 @@ def _restart_nginx():
     sudo('sudo systemctl restart nginx')
 
 
+def _restart_celery():
+    print(green('_restart_celery'))
+    with cd(project_folder):
+        result = run('cat celeryd.pid', warn_only=True)
+        if result:
+            run(f'kill {result}')
+        run('{}/bin/celery -A cole_rochman worker -l info -B --detach'.format(virtualenv_folder))
+
+
 def deploy(skip_migrations=False):
     _check_if_migration_needed(skip_migrations)
     _local_test()
@@ -159,6 +169,7 @@ def deploy(skip_migrations=False):
         _grant_uwsgi()
         _restart_uwsgi()
         _restart_nginx()
+        _restart_celery()
         _send_deploy_message(message='*Deploy succeed.*')
     except SystemExit as e:
         _send_slack_message(message='*Deploy failed.*\n<@한규주>')
@@ -168,3 +179,11 @@ def refresh():
     _grant_uwsgi()
     _restart_uwsgi()
     _restart_nginx()
+
+
+def upload_secrets_file():
+    _upload_secrets_file()
+
+
+def celery_restart():
+    _restart_celery()
