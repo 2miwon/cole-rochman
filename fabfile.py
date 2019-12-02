@@ -1,11 +1,11 @@
-from fabric.context_managers import cd
-from fabric.contrib.console import confirm
-from fabric.contrib.files import append, exists, sed, put
+import json
+import os
+
 from fabric.api import env, local, run, sudo
 from fabric.colors import green, red
-import os
-import json
-
+from fabric.context_managers import cd
+from fabric.contrib.console import confirm
+from fabric.contrib.files import exists, sed
 from fabric.utils import abort
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -148,8 +148,8 @@ def _restart_nginx():
 def _restart_celery():
     print(green('_restart_celery'))
     with cd(project_folder):
-        result = run('cat celeryd.pid', warn_only=True)
-        if result:
+        if exists('celeryd.pid'):
+            result = run('tail celeryd.pid', warn_only=True)
             run(f'kill {result}')
         run('{}/bin/celery -A cole_rochman worker -l info -B --detach'.format(virtualenv_folder))
 
