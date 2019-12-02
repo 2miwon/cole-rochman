@@ -166,7 +166,7 @@ class Patient(models.Model):
     def is_measurement_noti_sendable(self):
         return self.measurement_manage_flag and self.measurement_noti_flag
 
-    def create_medication_result(self, noti_time_num: int, date=datetime.date.today()) -> MedicationResult:
+    def create_medication_result(self, noti_time_num: int, date=datetime.datetime.today().astimezone()) -> MedicationResult:
         from core.serializers import MedicationResultSerializer
 
         if self.medication_manage_flag is False or self.medication_noti_flag is False:
@@ -184,7 +184,7 @@ class Patient(models.Model):
         serializer.is_valid(raise_exception=True)
         return serializer.save()
 
-    def create_measurement_result(self, noti_time_num: int, date=datetime.date.today()) -> MeasurementResult:
+    def create_measurement_result(self, noti_time_num: int, date=datetime.datetime.today().astimezone()) -> MeasurementResult:
         from core.serializers import MeasurementResultSerializer
 
         if self.measurement_manage_flag is False or self.measurement_noti_flag is False or self.measurement_noti_time_list() == []:

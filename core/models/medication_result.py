@@ -42,7 +42,8 @@ class MedicationResult(models.Model):
         return self.get_status() == self.STATUS.PENDING
 
     def is_notification_record_creatable(self):
-        return self.is_sendable() and not self.notification_records.exists()
+        return self.is_sendable() and not self.notification_records.exists() and \
+               self.medication_time and self.date
 
     def get_notification_record(self):
         return self.notification_records.get()
