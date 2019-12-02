@@ -16,7 +16,7 @@ class TYPE(Enum):
 
     @classmethod
     def get_morning_noti_type(cls, patient: Patient):
-        medi_management = patient.medication_manage_flag
+        medi_management = patient.medication_manage_flag and patient.medication_noti_time_list_to_str()
 
         if patient.next_visiting_date_time:
             visit_today = patient.next_visiting_date_time.date() == datetime.datetime.today().astimezone().date()
