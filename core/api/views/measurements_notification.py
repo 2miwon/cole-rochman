@@ -100,8 +100,8 @@ class MeasurementResultCheckFromNotification(KakaoResponseAPI):
             return self.build_response_fallback_404()
         response = self.build_response(response_type=self.RESPONSE_SKILL)
 
-        if not (
-                patient.measurement_manage_flag and patient.measurement_noti_flag and patient.daily_measurement_count > 0):
+        if not (patient.measurement_manage_flag and patient.measurement_noti_flag
+                and patient.daily_measurement_count > 0):
             response.add_simple_text(text='산소포화도 측정 알림을 먼저 등록하셔야 해요.')
             return response.get_response_200()
 
