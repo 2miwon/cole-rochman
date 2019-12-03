@@ -67,7 +67,7 @@ def create_medication_notification():
         for noti_time_num, noti_time in enumerate(patient.medication_noti_time_list()):
             if noti_time is None:
                 continue
-            medication_result = patient.create_medication_result(noti_time_num=noti_time_num)
+            medication_result = patient.create_medication_result(noti_time_num=noti_time_num + 1)
             if medication_result:
                 medication_result.create_notification_record(noti_time_num=noti_time_num)
                 result['created_count'] = (result.get('created_count') or 0) + 1
@@ -115,7 +115,7 @@ def create_measurement_notification():
         for noti_time_num, noti_time in enumerate(patient.medication_noti_time_list()):
             if noti_time is None:
                 continue
-            measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num)
+            measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num + 1)
             if measurement_result:
                 measurement_result.create_notification_record()
                 result['created_count'] = (result.get('created_count') or 0) + 1
