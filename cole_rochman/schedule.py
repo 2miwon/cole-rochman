@@ -15,7 +15,7 @@ RETRY_OPTIONS = {
 }
 
 QUEUE_NOTIFICATION = {
-    'queue': 'notification'
+    'queue': 'default'
 }
 
 SCHEDULE = {
@@ -45,7 +45,14 @@ if settings.AUTO_SEND_NOTIFICAITON:
     SCHEDULE.update({
         'send-notification-every-5-minutes': {
             'task': 'core.tasks.notification.send_notifications',
-            'schedule': crontab(minute='*/5', hour='7-20'),
+            'schedule': crontab(minute='*/5', hour='7-19'),
             'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
         }
     })
+    # SCHEDULE.update({
+    #     'debug-tasks': {
+    #         'task': 'cole_rochman.celery.debug_tasks',
+    #         'schedule': crontab(minute='*/1', hour='21-22'),
+    #         'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
+    #     }
+    # })
