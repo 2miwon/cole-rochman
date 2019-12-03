@@ -60,6 +60,8 @@ class MedicationResult(models.Model):
 
     def set_success(self):
         self.status = self.STATUS.SUCCESS.value
+        self.status_info = ''
+        self.severity = None
         self.checked_at = datetime.datetime.now().astimezone()
 
     def set_failed(self):

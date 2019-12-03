@@ -10,9 +10,9 @@ class TYPE(Enum):
     MORNING_MEDI_MANAGEMENT_TRUE_AND_VISIT_TODAY = 'morning03'
     MORNING_MEDI_MANAGEMENT_FALSE_AND_VISIT_TODAY = 'morning04'
 
-    MEDICATION_NOTI = 'medi01'
+    MEDICATION_NOTI = 'medi05'
     VISIT_NOTI = 'visit01'
-    MEASUREMENT_NOTI = 'measure02'
+    MEASUREMENT_NOTI = 'measure04'
 
     @classmethod
     def get_morning_noti_type(cls, patient: Patient):
@@ -60,11 +60,9 @@ class Buttons:
     def _build_buttons_medication(self) -> list:
         data = [
             {
-                # 'type': self.button_type,
                 'name': '복약했어요',
             },
             {
-                # 'type': self.button_type,
                 'name': '복약 안 할래요',
             }
         ]
@@ -73,7 +71,6 @@ class Buttons:
     def _build_buttons_measurement(self) -> list:
         data = [
             {
-                # 'type': self.button_type,
                 'name': '측정 시작'
             }
         ]
@@ -103,13 +100,17 @@ class Message:
         if noti_time_num:
             self.noti_time_num = noti_time_num
         self.template_code = type.value
+
         self.build_message()
 
     def __call__(self, *args, **kwargs):
         return self.msg
 
     def build_message(self) -> str:
-        days_after_treatment = datetime.datetime.today().day - self.patient.treatment_started_date.day
+        try:
+            days_after_treatment = (datetime.datetime.today().date() - self.patient.treatment_started_date).days
+        except TypeError:
+            days_after_treatment = 0
 
         msg = ''
         if self.type == TYPE.MORNING_MEDI_MANAGEMENT_TRUE:
@@ -137,7 +138,7 @@ class Message:
                 f'오늘 {visitng_time}에 병원에 가셔야 하는 것, 잊지않으셨죠?🎶'
 
         elif self.type == TYPE.MEDICATION_NOTI:
-            msg = f'{self.date} - {self.noti_time_num}회차 복약을 하실 시간입니다.💊\n' \
+            msg = f'{self.noti_time_num}회차 복약을 하실 시간입니다.💊\n' \
                 f'복약 후에 아래 \'복약했어요\' 버튼을 눌러주십시오.\n' \
                 f'제가 더욱 꼼꼼한 관리를 도와드리겠습니다!'
 
@@ -161,7 +162,7 @@ class Message:
 
         elif self.type == TYPE.MEASUREMENT_NOTI:
             msg = f'안녕하십니까,\n' \
-                f'#{self.date} - #{self.noti_time_num}회차 산소포화도 확인 하실 시간입니다.☁️\n\n' \
+                f'{self.noti_time_num}회차 산소포화도 확인 하실 시간입니다.☁️\n\n' \
                 f'착용하고 계신 건강밴드로 산소포화도를 측정해주십시오!'
 
         self.msg = msg
@@ -194,4 +195,6 @@ class BizMessageBuilder:
             )
 
     def to_dict(self):
+        if self.message.msg == '':
+            return {}
         return self.payload

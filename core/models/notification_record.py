@@ -46,12 +46,20 @@ class NotificationRecord(models.Model):
     def is_sendable(self):
         return self.tries_left > 0 and \
                self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
-               self.send_at == datetime.datetime.today().astimezone() and \
+               self.send_at.date() == datetime.date.today() and \
                self.payload != {}
 
     def send(self):
+        import traceback
         from core.tasks.util.lg_cns.lg_cns import LgcnsRequest
-        self.build_biz_message_request()
+
+        try:
+            self.build_biz_message_request()
+        except:
+            self.result = traceback.format_exc()
+            self.set_failed()
+            return self.result
+
         if not self.is_sendable():
             return 'NOT SENDABLE'
 
