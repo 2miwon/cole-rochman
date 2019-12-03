@@ -49,7 +49,7 @@ class PastMedicationEntranceTest(APITestCase):
         response = self.client.post(self.url, self.data, format='json')
         p.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('지난 복약 상태를 변경하시겠어요', message_in_response(response))
+        self.assertIn('오늘 복약 후에 몸에 이상 반응은 없었나요?', message_in_response(response))
 
     @mock.patch('core.api.views.medications_notification.get_now', mock.MagicMock(return_value=datetime.time(hour=9)))
     def test_fail_when_patient_didnt_set_noti_time(self):
