@@ -69,7 +69,7 @@ def create_medication_notification():
                 continue
             medication_result = patient.create_medication_result(noti_time_num=noti_time_num + 1)
             if medication_result:
-                medication_result.create_notification_record(noti_time_num=noti_time_num)
+                medication_result.create_notification_record(noti_time_num=noti_time_num + 1)
                 result['created_count'] = (result.get('created_count') or 0) + 1
     return result
 
@@ -118,7 +118,7 @@ def create_measurement_notification():
                 continue
             measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num + 1)
             if measurement_result:
-                measurement_result.create_notification_record()
+                measurement_result.create_notification_record(noti_time_num + 1)
                 result['created_count'] = (result.get('created_count') or 0) + 1
     return result
 
