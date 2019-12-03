@@ -42,7 +42,7 @@ class MeasurementResult(models.Model):
 
     def is_notification_record_creatable(self):
         return self.is_sendable() and not self.notification_records.exists() \
-               and self.medication_time and self.date
+               and self.measurement_time and self.date
 
     def set_no_response(self):
         self.status = self.STATUS.NO_RESPONSE.value
