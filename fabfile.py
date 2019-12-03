@@ -150,7 +150,10 @@ def _restart_celery():
     with cd(project_folder):
         if exists('celeryd.pid'):
             run('kill `cat celeryd.pid`', warn_only=True)
-        run('{}/bin/celery -A cole_rochman worker -l info -B --detach'.format(virtualenv_folder))
+        if exists('celerybeat.pid'):
+            run('kill `cat celerybeat.pid`', warn_only=True)
+        run('{}/bin/celery -A cole_rochman worker -l info --detach'.format(project_folder, virtualenv_folder))
+        run('{}/bin/celery -A cole_rochman beat -l info --detach'.format(project_folder, virtualenv_folder))
 
 
 def deploy(skip_migrations=False):
