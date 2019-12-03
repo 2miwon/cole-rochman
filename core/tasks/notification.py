@@ -50,12 +50,16 @@ def _create_morning_notification():
 
 @app.task
 def create_morning_notification():
-    _create_morning_notification()
+    return _create_morning_notification()
 
 
 @app.task
 def create_medication_notification():
     patients = Patient.objects.all()
+    result = {
+        'patient_counts': len(patients)
+    }
+
     for patient in patients:
         if not patient.is_medication_noti_sendable():
             continue
@@ -66,11 +70,16 @@ def create_medication_notification():
             medication_result = patient.create_medication_result(noti_time_num=noti_time_num)
             if medication_result:
                 medication_result.create_notification_record(noti_time_num=noti_time_num)
-
+                result['created_count'] = (result.get('created_count') or 0) + 1
+    return result
 
 @app.task
 def create_visit_notification():
     patients = Patient.objects.all()
+    result = {
+        'patient_counts': len(patients)
+    }
+
     for patient in patients:
         if not patient.is_visit_noti_sendable() or not patient.visit_notification_before \
                 or patient.next_visiting_date_time is None:
@@ -89,11 +98,16 @@ def create_visit_notification():
                 notification_record = serializer.save()
                 notification_record.build_biz_message_request()
                 notification_record.save()
+                result['created_count'] = (result.get('created_count') or 0) + 1
+    return result
 
 
 @app.task
 def create_measurement_notification():
     patients = Patient.objects.all()
+    result = {
+        'patient_counts': len(patients)
+    }
     for patient in patients:
         if not patient.is_measurement_noti_sendable():
             continue
@@ -104,11 +118,18 @@ def create_measurement_notification():
             measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num)
             if measurement_result:
                 measurement_result.create_notification_record()
+                result['created_count'] = (result.get('created_count') or 0) + 1
+    return result
 
 
 @app.task
 def send_notifications():
     notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
                                                       send_at__lte=datetime.datetime.now().astimezone()).all()
+    result = {
+        'notifications_counts': len(notifications)
+    }
     for noti in notifications:
         noti.send()
+        result['sent_count'] = (result.get('sent_count') or 0) + 1
+    return result
