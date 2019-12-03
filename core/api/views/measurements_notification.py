@@ -1,6 +1,8 @@
 import datetime
+import json
 
 from django.http import Http404
+from django.utils import timezone
 
 from core.api.serializers import MeasurementResultSerializer
 from core.api.util.helper import KakaoResponseAPI
@@ -8,7 +10,7 @@ from core.models import MeasurementResult
 
 
 def get_now():
-    return datetime.datetime.now().time()
+    return timezone.now().time()
 
 
 def get_recent_noti_time(noti_time_list, now_time):
@@ -34,9 +36,9 @@ def get_recent_measurement_result(patient) -> MeasurementResult:
         return None
 
     if now_time > recent_noti_time:
-        date = datetime.date.today()
+        date = timezone.datetime.today().date()
     else:
-        date = datetime.date.today() - datetime.timedelta(days=1)
+        date = timezone.datetime.today().date() - timezone.timedelta(days=1)
     noti_time_num = get_recent_noti_time_num(noti_time_list, recent_noti_time)
     recent_measurement_result = patient.measurement_results.filter(measurement_time_num=noti_time_num, date=date)
 
@@ -106,7 +108,13 @@ class MeasurementResultCheckFromNotification(KakaoResponseAPI):
         recent_measurement_result = get_recent_measurement_result(patient)
 
         if recent_measurement_result:
-            recent_measurement_result.oxygen_saturation = self.data.get('oxygen_saturation')
+            try:
+                param = json.loads(self.data.get('oxygen_saturation'))
+            except json.JSONDecodeError:
+                param = json.loads(self.data.get('oxygen_saturation').replace('\\', ''))
+
+            oxygen_saturation = param['amount']
+            recent_measurement_result.oxygen_saturation = oxygen_saturation
             recent_measurement_result.save()
             return response.get_response_200()
 
