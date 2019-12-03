@@ -73,6 +73,7 @@ def create_medication_notification():
                 result['created_count'] = (result.get('created_count') or 0) + 1
     return result
 
+
 @app.task
 def create_visit_notification():
     patients = Patient.objects.all()
@@ -112,7 +113,7 @@ def create_measurement_notification():
         if not patient.is_measurement_noti_sendable():
             continue
 
-        for noti_time_num, noti_time in enumerate(patient.medication_noti_time_list()):
+        for noti_time_num, noti_time in enumerate(patient.measurement_noti_time_list()):
             if noti_time is None:
                 continue
             measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num + 1)
