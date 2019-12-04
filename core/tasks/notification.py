@@ -1,5 +1,6 @@
 import datetime
 
+from celery import states
 from django.utils import timezone
 
 from cole_rochman.celery import app
@@ -125,8 +126,8 @@ def create_measurement_notification():
     return result
 
 
-@app.task
-def send_notifications():
+@app.task(bind=True)
+def send_notifications(self):
     now = timezone.now()
     time_range = (now - datetime.timedelta(minutes=10), now)
     notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
@@ -138,4 +139,6 @@ def send_notifications():
         noti.send()
         if noti.get_status() == noti.STATUS.DELIVERED:
             result['sent_count'] = (result.get('sent_count') or 0) + 1
+    if result['sent_count'] == 0:
+        self.update_state(states.IGNORED)
     return result
