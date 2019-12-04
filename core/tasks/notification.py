@@ -130,7 +130,7 @@ def send_notifications():
     now = timezone.now()
     time_range = (now - datetime.timedelta(minutes=10), now)
     notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
-                                                      send_at__lte=time_range).all()
+                                                      send_at__range=time_range).all()
     result = {
         'notifications_counts': len(notifications)
     }
