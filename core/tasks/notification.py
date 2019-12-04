@@ -1,6 +1,6 @@
 import datetime
 
-from celery.exceptions import Ignore
+from celery.exceptions import Reject
 from django.utils import timezone
 
 from cole_rochman.celery import app
@@ -142,5 +142,5 @@ def send_notifications(self):
             result['sent_count'] += 1
     if result.get('sent_count') == 0:
         self.update_state(state='NOT SENT', meta=result)
-        raise Ignore()
+        raise Reject('NOT SENT', requeue=False)
     return result
