@@ -139,6 +139,6 @@ def send_notifications(self):
         noti.send()
         if noti.get_status() == noti.STATUS.DELIVERED:
             result['sent_count'] = (result.get('sent_count') or 0) + 1
-    if result['sent_count'] == 0:
+    if not result.get('sent_count'):
         self.update_state(state=states.IGNORED)
     return result
