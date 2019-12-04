@@ -1,6 +1,6 @@
 import datetime
 
-from celery import states
+from celery.exceptions import Ignore
 from django.utils import timezone
 
 from cole_rochman.celery import app
@@ -133,12 +133,14 @@ def send_notifications(self):
     notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
                                                       send_at__range=time_range).all()
     result = {
-        'notifications_counts': len(notifications)
+        'notifications_counts': len(notifications),
+        'sent_count': 0
     }
     for noti in notifications:
         noti.send()
         if noti.get_status() == noti.STATUS.DELIVERED:
-            result['sent_count'] = (result.get('sent_count') or 0) + 1
-    if not result.get('sent_count'):
-        self.update_state(state=states.REVOKED)
+            result['sent_count'] += 1
+    if result.get('sent_count') == 0:
+        self.update_state(state='NOT SENT', meta=result)
+        raise Ignore()
     return result
