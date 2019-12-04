@@ -136,6 +136,6 @@ def send_notifications():
     }
     for noti in notifications:
         noti.send()
-        if noti.get_status() == noti.STATUS.SUCCESS:
+        if noti.get_status() == noti.STATUS.DELIVERED:
             result['sent_count'] = (result.get('sent_count') or 0) + 1
     return result
