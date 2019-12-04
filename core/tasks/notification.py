@@ -140,5 +140,5 @@ def send_notifications(self):
         if noti.get_status() == noti.STATUS.DELIVERED:
             result['sent_count'] = (result.get('sent_count') or 0) + 1
     if not result.get('sent_count'):
-        self.update_state(state=states.IGNORED)
+        self.update_state(state=states.REVOKED)
     return result
