@@ -1,5 +1,7 @@
 import datetime
 
+from django.utils import timezone
+
 from cole_rochman.celery import app
 from core.models import Patient, NotificationRecord
 from core.serializers import NotificationRecordSerializer
@@ -125,12 +127,15 @@ def create_measurement_notification():
 
 @app.task
 def send_notifications():
+    now = timezone.now()
+    time_range = (now - datetime.timedelta(minutes=10), now)
     notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
-                                                      send_at__lte=datetime.datetime.now().astimezone()).all()
+                                                      send_at__lte=time_range).all()
     result = {
         'notifications_counts': len(notifications)
     }
     for noti in notifications:
         noti.send()
-        result['sent_count'] = (result.get('sent_count') or 0) + 1
+        if noti.get_status() == noti.STATUS.SUCCESS:
+            result['sent_count'] = (result.get('sent_count') or 0) + 1
     return result

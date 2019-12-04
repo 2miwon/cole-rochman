@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.utils import timezone
 
 from core.models.helper.helper import EnumField
 
@@ -46,7 +47,7 @@ class NotificationRecord(models.Model):
     def is_sendable(self):
         return self.tries_left > 0 and \
                self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
-               self.send_at.date() == datetime.date.today() and \
+               self.send_at.astimezone().date() == timezone.now().date() and \
                self.payload != {}
 
     def send(self):
