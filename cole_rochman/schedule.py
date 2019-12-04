@@ -43,9 +43,9 @@ SCHEDULE = {
 
 if settings.AUTO_SEND_NOTIFICAITON:
     SCHEDULE.update({
-        'send-notification-every-5-minutes': {
+        'send-notification-every-1-minutes': {
             'task': 'core.tasks.notification.send_notifications',
-            'schedule': crontab(minute='*/5', hour='7-19'),
+            'schedule': crontab(minute='*/1', hour='7-19'),
             'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
         }
     })
