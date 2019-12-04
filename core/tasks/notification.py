@@ -142,5 +142,5 @@ def send_notifications(self):
             result['sent_count'] += 1
     if result.get('sent_count') == 0:
         self.update_state(state='NOT SENT', meta=result)
-        raise Reject('NOT SENT', requeue=False)
+        raise
     return result
