@@ -59,7 +59,7 @@ class NotificationRecord(models.Model):
         except:
             self.result = traceback.format_exc()
             self.set_failed()
-            return self.result
+            return False
 
         if not self.is_sendable():
             return 'NOT SENDABLE'
@@ -76,7 +76,7 @@ class NotificationRecord(models.Model):
         else:
             self.set_failed()
 
-        return self.result
+        return success
 
     def cancel(self):
         self.status = self.STATUS.CANCELED.value
