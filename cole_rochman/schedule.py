@@ -49,6 +49,13 @@ if settings.AUTO_SEND_NOTIFICAITON:
             'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
         }
     })
+    SCHEDULE.update({
+        'send-notification-at=8-pm': {
+            'task': 'core.tasks.notification.send_notifications',
+            'schedule': crontab(minute=0, hour=20),
+            'options': {**RETRY_OPTIONS, **QUEUE_NOTIFICATION}
+        }
+    })
     # SCHEDULE.update({
     #     'debug-tasks': {
     #         'task': 'cole_rochman.celery.debug_tasks',
