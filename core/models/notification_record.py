@@ -13,7 +13,8 @@ class NotificationRecord(models.Model):
     class STATUS(EnumField):
         PENDING = 'PENDING'
         SENDING = 'SENDING'
-        RESERVERD = 'RESERVED'
+        RETRY = 'RETRY'
+        RESERVED = 'RESERVED'
         DELIVERED = 'DELIVERED'
         SUSPENDED = 'SUSPENDED'
         FAILED = 'FAILED'
@@ -46,11 +47,11 @@ class NotificationRecord(models.Model):
 
     def is_sendable(self):
         return self.tries_left > 0 and \
-               self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED] and \
+               self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED, self.STATUS.RETRY] and \
                self.send_at.astimezone().date() == timezone.now().date() and \
                self.payload != {}
 
-    def send(self):
+    def send(self) -> bool:
         import traceback
         from core.tasks.util.lg_cns.lg_cns import LgcnsRequest
 
@@ -62,7 +63,7 @@ class NotificationRecord(models.Model):
             return False
 
         if not self.is_sendable():
-            return 'NOT SENDABLE'
+            return False
 
         self.status = self.STATUS.SENDING.value
         self.tries_left -= 1
@@ -72,7 +73,7 @@ class NotificationRecord(models.Model):
             self.set_delivered()
             self.save()
         elif self.tries_left > 0:
-            self.set_pending()
+            self.set_retry()
         else:
             self.set_failed()
 
@@ -86,6 +87,11 @@ class NotificationRecord(models.Model):
 
     def set_pending(self):
         self.status = self.STATUS.PENDING.value
+        self.status_updated_at = datetime.datetime.now().astimezone()
+        self.save()
+
+    def set_retry(self):
+        self.status = self.STATUS.RETRY.value
         self.status_updated_at = datetime.datetime.now().astimezone()
         self.save()
 

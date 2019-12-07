@@ -1,5 +1,8 @@
+import json
+
 import requests
 from django.conf import settings
+from requests import Response
 
 from core.tasks.util.lg_cns.error_codes import get_error_desc
 
@@ -35,15 +38,23 @@ class LgcnsRequest(Lgcns):
         body.update(payload)
         return body
 
+    @staticmethod
+    def is_success(response: Response) -> bool:
+        return response.ok and json.loads(response.content).get('status') == 'OK'
+
     def send(self):
         import json
         response = requests.post(url=self.url, headers=self.headers, data=json.dumps(self.body))
 
         response_content = json.loads(response.content)
-        description = get_error_desc(response_content.get('status'))
-        response_content.update(description)
 
-        return response.ok, response_content
+        if self.is_success(response):
+            return True, response_content
+        else:
+            description = get_error_desc(response_content.get('status'))
+            response_content.update(description)
+
+            return False, response_content
 
 # TODO (나중에)
 # class LgcnsLookup(Lgcns):

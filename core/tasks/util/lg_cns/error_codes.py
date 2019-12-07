@@ -69,6 +69,5 @@ errors = {
 
 def get_error_desc(error_code) -> dict:
     return {
-        'description': errors.get(error_code) or 'SUCCESS'
+        'description': errors.get(error_code)
     }
-
