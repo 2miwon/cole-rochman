@@ -63,6 +63,8 @@ class NotificationRecord(models.Model):
             return False
 
         if not self.is_sendable():
+            if self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED, self.STATUS.RETRY]:
+                self.set_failed()
             return False
 
         self.status = self.STATUS.SENDING.value
