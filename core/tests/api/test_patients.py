@@ -113,11 +113,11 @@ class PatientUpdateTest(APITestCase):
     @parameterized.expand([
         # ('patient_code', 'code', 'A00187654321', 'A00187654321'),  TODO serializer에서 unique한 code를 거르는것같음
         ('nickname', 'nickname', 'test', 'test'),
-        ('treatment_started_date', 'treatment_started_date', timezone.now().today().strftime('%Y-%m-%d'),
-         timezone.now().today().date()),
+        ('treatment_started_date', 'treatment_started_date', datetime.datetime.now().astimezone().strftime('%Y-%m-%d'),
+         datetime.datetime.now().astimezone().date()),
         ('additionally_detected_flag', 'additionally_detected_flag', 'true', True),
-        ('additionally_detected_date', 'additionally_detected_date', timezone.now().today().strftime('%Y-%m-%d'),
-         timezone.now().today().date()),
+        ('additionally_detected_date', 'additionally_detected_date', datetime.datetime.now().astimezone().strftime('%Y-%m-%d'),
+         datetime.datetime.now().astimezone().date()),
         ('discharged_flag', 'discharged_flag', 'true', True),
         ('register_completed_flag', 'register_completed_flag', 'true', True),
         ('medication_manage_flag', 'medication_manage_flag', 'true', True),

@@ -97,8 +97,7 @@ class Message:
         self.type = type
         self.patient = patient
         self.date = date
-        if noti_time_num:
-            self.noti_time_num = noti_time_num
+        self.noti_time_num = noti_time_num
         self.template_code = type.value
 
         self.build_message()

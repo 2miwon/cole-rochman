@@ -2,9 +2,10 @@ import datetime
 
 from django.contrib.postgres.fields import JSONField
 from django.db import models
-from django.utils import timezone
 
 from core.models.helper.helper import EnumField
+
+TODAY = datetime.datetime.now().astimezone().date()
 
 
 class NotificationRecord(models.Model):
@@ -48,37 +49,41 @@ class NotificationRecord(models.Model):
     def is_sendable(self):
         return self.tries_left > 0 and \
                self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED, self.STATUS.RETRY] and \
-               self.send_at.astimezone().date() == timezone.now().date() and \
+               self.send_at.astimezone().date() == TODAY and \
                self.payload != {}
 
     def send(self) -> bool:
         import traceback
         from core.tasks.util.lg_cns.lg_cns import LgcnsRequest
 
+        self.tries_left -= 1
+
         try:
             self.build_biz_message_request()
         except:
             self.result = traceback.format_exc()
             self.set_failed()
+            self.save()
             return False
 
         if not self.is_sendable():
             if self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED, self.STATUS.RETRY]:
+                self.result = self.result or 'NOT SENDABLE'
                 self.set_failed()
+                self.save()
             return False
 
-        self.status = self.STATUS.SENDING.value
-        self.tries_left -= 1
-        success, self.result = LgcnsRequest(payload=self.payload).send()
+        success, result = LgcnsRequest(payload=self.payload).send()
 
         if success:
             self.set_delivered()
-            self.save()
         elif self.tries_left > 0:
             self.set_retry()
         else:
             self.set_failed()
 
+        self.result = result
+        self.save()
         return success
 
     def cancel(self):
@@ -117,7 +122,7 @@ class NotificationRecord(models.Model):
         biz_message = BizMessageBuilder(
             message_type=self.biz_message_type,
             patient=self.patient,
-            date=datetime.date.today(),
+            date=TODAY,
             noti_time_num=self.noti_time_num
         )
         self.payload = biz_message.to_dict()

@@ -10,7 +10,7 @@ from core.models import MeasurementResult
 
 
 def get_now():
-    return timezone.now().time()
+    return datetime.datetime.now().astimezone().time()
 
 
 def get_recent_noti_time(noti_time_list, now_time):

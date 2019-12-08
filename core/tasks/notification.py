@@ -127,9 +127,9 @@ def create_measurement_notification():
 
 @app.task(bind=True)
 def send_notifications(self):
-    now = timezone.now()
+    now = datetime.datetime.now().astimezone()
     time_range = (now - datetime.timedelta(minutes=10), now)
-    notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING,
+    notifications = NotificationRecord.objects.filter(status=NotificationRecord.STATUS.PENDING, tries_left__gt=0,
                                                       send_at__range=time_range).all()
     result = {
         'notifications_counts': len(notifications),
