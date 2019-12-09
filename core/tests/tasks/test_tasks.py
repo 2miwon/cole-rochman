@@ -1,4 +1,5 @@
 import datetime
+from unittest import mock
 
 from rest_framework.test import APITestCase
 
@@ -21,3 +22,8 @@ class NotificationTest(APITestCase):
         self.assertEqual(nr.recipient_number, p.phone_number)
         self.assertEqual(nr.send_at.astimezone(),
                          datetime.datetime.combine(datetime.datetime.today(), MORNING_NOTI_TIME).astimezone())
+
+    # @mock.patch('core.api.tasks.notification_record.TODAY', mock.MagicMock(return_value=datetime.time(hour=9)))
+    # def check_sendable(self):
+    #     p = CompletePatientFactory()
+    #     _create_morning_notification()

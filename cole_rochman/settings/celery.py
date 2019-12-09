@@ -2,7 +2,7 @@ from kombu import Queue, Exchange
 
 from cole_rochman.schedule import SCHEDULE
 
-enable_utc = True
+enable_utc = False
 
 timezone = 'Asia/Seoul'
 
