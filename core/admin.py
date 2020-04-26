@@ -32,7 +32,7 @@ class PatientAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     resource_class = PatientResource
 
     user_can_access_owned_objects_only = True
-
+  
     list_display = (
         'code', 'hospital', 'name', 'phone_number', 'kakao_user_id', 'nickname', 'daily_medication_count',
         'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
@@ -89,7 +89,7 @@ class MeasurementResultAdmin(admin.ModelAdmin):
 
 
 @admin.register(MedicationResult)
-class MedicationResultAdmin(admin.ModelAdmin):
+class MedicationResultAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     list_display = [
         'id', 'patient', 'date', 'medication_time_num', 'medication_time', 'get_status_display', 'status_info',
         'severity',
