@@ -72,6 +72,14 @@ fab deploy
 fab refresh
 ```
 
+### Celery 관련 배포 
+- 자동화가 되어 있지 않으므로 직접 접속하여 진행합니다.
+```
+$ cd srv/cole-rochman
+$ celery -A cole_rochman control shutdown   # celery 종료
+$ celery -A cole_rochman worker --scheduler django_celery_beat.schedulers:DatabaseScheduler --detach -B  # celery 시작
+```
+
 ### Code
 - API는 boilerplate를 줄이기 위해 아래 두 모듈을 사용합니다.
     - [helper](https://github.com/hanqyu/cole-rochman/blob/master/core/api/util/helper.py)
