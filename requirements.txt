@@ -23,7 +23,7 @@ django-import-export==1.2.0
 django-request-logging==0.7.0
 django-rest-swagger==2.2.0
 django-timezone-field==3.1
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 et-xmlfile==1.0.1
 Fabric3==1.14.post1
 factory-boy==2.12.0
