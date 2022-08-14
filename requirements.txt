@@ -16,7 +16,7 @@ click-repl==0.2.0
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==4.5.4
-cryptography==2.7
+cryptography==3.3.2
 defusedxml==0.6.0
 Deprecated==1.2.13
 diff-match-patch==20181111
