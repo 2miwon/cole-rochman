@@ -11,6 +11,7 @@ class PatientCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Patient
+#        fields = ['code','hospital','kakao_user_id','nickname','phone_number','name','user','created_at','updated_at']
         exclude = ('created_at', 'updated_at')
         lookup_field = 'kakao_user_id'
 

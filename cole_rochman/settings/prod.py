@@ -4,11 +4,28 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 DEBUG = False
 
-ALLOWED_HOSTS = secrets.get('ALLOWED_HOST')
+#ALLOWED_HOSTS = secrets.get('ALLOWED_HOST')
+ALLOWED_HOSTS = ['43.200.26.183']
 
 DATABASES = {
-    'default': secrets.get('DB_SETTINGS').get('PRODUCTION')
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db2',
+        'USER': 'postgres',
+        'PASSWORD': 'cjstmdqja',
+        'HOST': 'csbdb2.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '5432',
+        'TEST': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'db2test',
+            'USER': 'postgres',
+            'PASSWORD': 'cjstmdqja',
+            'HOST': 'csbdb2test.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com',
+            'PORT': '5432',
+        }
+    },
 }
+#    'default': secrets.get('DB_SETTINGS').get('PRODUCTION')
 
 # noinspection PyUnresolvedReferences
 STATIC_ROOT = '/var/www/cole-rochman/static/'

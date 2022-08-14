@@ -133,6 +133,7 @@ STATICFILES_DIRS = [
 
 # Celery
 CELERY_RESULT_BACKEND = 'django-db'
+#CELERY_RESULT_BACKEND = 'redis://csb-redis.dxfo66.ng.0001.apn2.cache.amazonaws.com:6379'
 
 
 # Login

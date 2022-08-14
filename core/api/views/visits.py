@@ -77,7 +77,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
 
         response.add_simple_text(text="%s이 내원일이군요." % patient.next_visiting_date_time_str())
         response.add_simple_text(text="내원 알림을 설정할까요?☀️")
-        response.set_quick_replies_yes_or_no(block_id_for_yes="5d9df34e92690d0001a458ed",  # (블록) 03 치료 관리 설정_내원 알람 설정
+        response.set_quick_replies_yes_or_no(block_id_for_yes="62df84160326e262b80b0b78",  # (블록) N03 치료 관리 설정_내원 알람 설정
                                              block_id_for_no="5dd1036492690d000194b9fb",  # (블록) 00 대화 종료 여부_내원알림
                                              message_text_for_no="아니요")
 

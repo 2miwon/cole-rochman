@@ -26,12 +26,19 @@ class Patient(models.Model):
         ]
 
     code = models.CharField(max_length=12, unique=True)
+#    code = models.CharField(max_length=12)
     hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
+#    hospital = models.ForeignKey('Hospital', on_delete=models.CASCADE)
     kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
+#    kakao_user_id = models.CharField(max_length=150)
     nickname = models.CharField(max_length=20, default='', blank=True, null=True)
+#    nickname = models.CharField(max_length=20, default='')
     phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='', blank=True, null=True)
+#    phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='')
     name = models.CharField(verbose_name='이름', max_length=10, default='', blank=True, null=True)
+#    name = models.CharField(verbose_name='이름', max_length=10, default='')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+#    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', blank=True, null=True, default=None)
     additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', blank=True, null=True)
@@ -68,7 +75,8 @@ class Patient(models.Model):
         verbose_name_plural = '환자'
 
     def __str__(self):
-        return '%s/%s' % (self.code, self.name or self.nickname)
+        return '%s' % (self.nickname)
+        #return '%s/%s' % (self.code, self.name or self.nickname)
 
     def medication_noti_time_list_to_str(self):
         noti_list = [x for x in self.medication_noti_time_list() if x is not None]
@@ -108,15 +116,19 @@ class Patient(models.Model):
         else:
             return None
 
-    def reset_medication(self):
-        self.medication_manage_flag = None
-        self.daily_medication_count = 0
-        self.medication_noti_flag = None
+    def reset_medication_noti_time(self):
         self.medication_noti_time_1 = None
         self.medication_noti_time_2 = None
         self.medication_noti_time_3 = None
         self.medication_noti_time_4 = None
         self.medication_noti_time_5 = None
+        self.save()
+
+    def reset_medication(self):
+        self.medication_manage_flag = None
+        self.medication_noti_flag = None
+        self.daily_medication_count = 0
+        self.reset_medication_noti_time()
         self.save()
 
     def reset_visit(self):

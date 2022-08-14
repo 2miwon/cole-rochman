@@ -137,6 +137,7 @@ class Message:
                 f'오늘 {visitng_time}에 병원에 가셔야 하는 것, 잊지않으셨죠?🎶'
 
         elif self.type == TYPE.MEDICATION_NOTI:
+#            print('medication noti')
             msg = f'{self.noti_time_num}회차 복약을 하실 시간입니다.💊\n' \
                 f'복약 후에 아래 \'복약했어요\' 버튼을 눌러주십시오.\n' \
                 f'제가 더욱 꼼꼼한 관리를 도와드리겠습니다!'
@@ -160,6 +161,7 @@ class Message:
             msg = f'{expecting_time} 병원에 가셔야 합니다.\n조심히 다녀오십시오!👍'
 
         elif self.type == TYPE.MEASUREMENT_NOTI:
+#            print('measurement noti')
             msg = f'안녕하십니까,\n' \
                 f'{self.noti_time_num}회차 산소포화도 확인 하실 시간입니다.☁️\n\n' \
                 f'착용하고 계신 건강밴드로 산소포화도를 측정해주십시오!'

@@ -7,34 +7,35 @@ from core.api.views.measurements import PatientMeasurementEntrance, PatientMeasu
     PatientMeasurementNotiReset
 from core.api.views.measurements_notification import MeasurementResultCheck, MeasurementResultCheckFromNotification
 from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, \
-    PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart, \
-    PatientMedicationNotiSetTimeInRestart, \
-    PatientMedicationNotiTimeQuestionRestart
+    PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart
 from core.api.views.medications_notification import PastMedicationCheckChooseTime, PastMedicationSuccess, \
     PastMedicationFailed, PastMedicationSideEffect, PastMedicationEntrance
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_measurements_notification import ValidateMeasurementResultOxygenSaturation
-from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode
-from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate, PatientInfo
+from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientCode, ValidatePatientNickname_N02, ValidatePatientCode_N03
+from core.api.views.patients import PatientCreateStart, PatientCreateStart_N01, PatientCreate,PatientCreate_N04, PatientUpdate, PatientUpdate_N05, PatientInfo
 from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart, \
     PatientVisitRestart
 
 urlpatterns = [
     path('patients/create/start/', PatientCreateStart.as_view(), name='patient-create-start'),
+	path('patients/create/start_n01/', PatientCreateStart_N01.as_view(), name='patient-create-start_n01'),
     path('patients/create/', PatientCreate.as_view(), name='patient-create'),
+    path('patients/create_n04/', PatientCreate_N04.as_view(), name='patient-create_n04'),
     path('patients/update/', PatientUpdate.as_view(), name='patient-update'),
+    path('patients/update_n05/', PatientUpdate_N05.as_view(), name='patient-update_n05'),
     path('patients/info/', PatientInfo.as_view(), name='patient-info'),
     path('patients/medication/start/', PatientMedicationEntrance.as_view(), name='patient-medication-start'),
     path('patients/medication/noti/time/question/', PatientMedicationNotiTimeQuestion.as_view(),
          name='patient-medication-noti-time-question'),
-    path('patients/medication/noti/time/question/restart/', PatientMedicationNotiTimeQuestionRestart.as_view(),
-         name='patient-medication-noti-time-question-restart'),
+#    path('patients/medication/noti/time/question/restart/', PatientMedicationNotiTimeQuestionRestart.as_view(),
+#         name='patient-medication-noti-time-question-restart'),
     path('patients/medication/noti/time/set/', PatientMedicationNotiSetTime.as_view(),
          name='patient-medication-noti-set-time'),
-    path('patients/medication/noti/time/set/restart/', PatientMedicationNotiSetTimeInRestart.as_view(),
-         name='patient-medication-noti-set-time-in-restart'),
+#    path('patients/medication/noti/time/set/restart/', PatientMedicationNotiSetTimeInRestart.as_view(),
+#         name='patient-medication-noti-set-time-in-restart'),
     path('patients/medication/noti/reset/', PatientMedicationNotiReset.as_view(), name='patient-medication-noti-reset'),
     path('patients/medication/restart/', PatientMedicationRestart.as_view(), name='patient-medication-restart'),
     path('patients/medication/past-check/choose-time/', PastMedicationCheckChooseTime.as_view(),
@@ -63,7 +64,10 @@ urlpatterns = [
          name='patient-measurement-noti-reset'),
     path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
+    path('validate/patient/code_n03/', ValidatePatientCode_N03.as_view(), name='validate-patient-code_n03'),
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
+    path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
+	path('validate/patient/nickname_n02/', ValidatePatientNickname_N02.as_view(), name='validate-patient-nickname_n02'),
     path('validate/hospital/code/', ValidateHospitalCode.as_view(), name='validate-hospital-code'),
     path('validate/time-before/', ValidateTimeBefore.as_view(), name='validate-time-before'),
     path('validate/measurement-result/oxygen-saturation/', ValidateMeasurementResultOxygenSaturation.as_view(),
