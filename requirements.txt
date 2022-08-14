@@ -5,7 +5,7 @@ async-timeout==4.0.2
 Babel==2.7.0
 bcrypt==3.1.7
 billiard==3.6.4.0
-celery==4.3.0
+celery==5.2.2
 certifi==2019.9.11
 cffi==1.15.0
 chardet==3.0.4
