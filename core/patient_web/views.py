@@ -11,20 +11,30 @@ from django.contrib import auth
 import datetime
 
 def sign_up(request):
+    msg = []
     if request.method == "POST":
         username = request.POST['username']
         patient = Patient.objects.all().filter(code = username)
+        user = User.objects.all().filter(username=username)
+        if user:
+            msg.append('이미 존재하는 회원입니다!')
+            return render(request,'signup.html',{'errors': msg})
         if patient:
             if request.POST['password1']==request.POST['password2']:
                 user=User.objects.create_user(request.POST['username'], password=request.POST['password1'])
                 auth.login(request,user,backend='django.contrib.auth.backends.ModelBackend')
                 patient.user = request.user
                 return redirect('login_patient')
-        
-        return redirect('login_patient')
+            else:
+                msg.append('비밀번호와 비밀번호 재입력 칸이 서로 다릅니다!')
+        else:
+            msg.append('해당 환자코드가 존재하지 않습니다!')
+
+    else:
+        msg.append('')
             
             #아이디 값을 환자코드로 입력하세요 라는 오류 메시지
-    return render(request,'signup.html')
+    return render(request,'signup.html',{'errors': msg})
 
 def sign_in(request):
     msg = []
