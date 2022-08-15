@@ -1,0 +1,80 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+  <div class="row mb-0">
+  <div class="col-md-12" style="height:100%">
+    <div class="row ">
+      <div class="col-md-4">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+        <div class="col-md-8 offset-2">
+          <h3 class="text-center">
+            안녕하세요!
+          </h3>
+
+          <h6 class="md-5 text-center"><br>
+            결핵 환자 관리 챗봇<b> 결핵 박사 콜로크만</b><br>관리자 사이트입니다.
+          </h6>
+          <br><br>
+          {% if errors %}
+            <ul>
+              {% for msg in errors %}
+                <strong>{{ msg }}<br></strong>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No errors</p>
+          {% endif %}
+          <br>
+
+
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group row">
+              <label for="exampleInputEmail1" class="col-sm-4 col-form-label font-weight-bold">
+                환자 코드
+              </label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="username" aria-describedby="emailHelp"
+                       style="background-color:#F0F0F0;" required>
+              </div>
+            </div>
+            <div class="form-group row mt-4">
+              <label for="exampleInputPassword1" class="col-sm-4 col-form-label font-weight-bold">
+                비밀 번호
+              </label>
+              <div class="col-sm-8">
+                <input type="password" class="form-control" name="password" id="exampleInputPassword1"
+                       style="background-color:#F0F0F0;-ms-ime-mode:inactive;" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-8 blue bg-image">
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+  </div>
+  <div class="row-md-12 footer fixed-bottom text-center bg-white" style="height:13%">
+      <footer><br>
+        <b>데시스랩 (DESIS Lab)</b> 서울특별시 강북구 오패산로30길 30, 1층 101호(미아동, 경남아너스빌)<br> 대표자 : 백준상 | 사업자등록번호 :
+          307-24-65346 <br>업태 : 정보통신업 | 종목: 포탈 및 기타 인터넷 정보 매개 서비스업
+      </footer>
+    </div>
+{% endblock %}
