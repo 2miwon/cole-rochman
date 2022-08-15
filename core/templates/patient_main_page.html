@@ -7,14 +7,10 @@
         <div style="height :25%" class="menubar">
           <div class="offset-1"><h2></h2></div>
         </div>
-        <a href="{% url 'admin:index'%}" class="text-decoration-none">
-        <div style="height :25%" class="menubar hover-near-white">
-          <div class="offset-1"><h2>관리자</h2></div>
-        </div>
-        </a>
-        <a href="{% url 'user_dashboard' %}" class="text-decoration-none">
+
+        <a href="{% url 'patient_dashboard'  %}" class="text-decoration-none">
           <div style="height :25%" class="menubar hover-near-white">
-            <div class="offset-1"><h2>환자관리</h2></div>
+            <div class="offset-1"><h2>환자 정보 조회</h2></div>
           </div>
         </a>
         <div style="height :25%" class="menubar">
@@ -25,7 +21,7 @@
       <div class="col-md-8 blue bg-image">
         <div class="offset-8">
           {% if user.is_active %}
-            <p><b>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</b>님 안녕하세요!</p>
+            <p><b>{{ user.patient.nickname }}({{ user.username }})</b>님 안녕하세요!</p>
           {% endif %}
         </div>
       </div>

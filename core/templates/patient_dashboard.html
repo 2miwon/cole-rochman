@@ -1,0 +1,176 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+
+
+  <div class="col-md-12">
+    <div class="row ">
+      <div class="col-md-9">
+        <h2>결핵 박사 콜로크만 | 환자관리</h2>
+        <br>
+        <br>
+
+      </div>
+      <div class="col-md-3 ">
+
+        {% if user.is_active %}
+          <p>
+            <b>{{ user.username }}</b>님 안녕하세요!<a href="{% url 'logout' %}">로그아웃</a>
+          </p>
+        {% endif %}
+
+      </div>
+      
+      <div class="col-md-12">
+        <p><b>결핵치료과정</b></p>
+        <div class="col-md-12 proback" style="margin-left: 2%; ">
+
+
+          <div style="float: left;">결핵치료시작</div>
+          <div style="float:right; ">결핵치료완료예정</div>
+          <br>
+        <div id="myProgress">
+              <div id="myBar">{{ cure_progress }}%</div>
+            </div>
+            <br>
+            <div style="float: left;">{{ patient.treatment_started_date }}</div>
+            <div style="float:right; ">{{ patient.treatment_end_date }}</div>
+      
+        </div>
+          <div class="col-md-12 proback" style="margin-left: 2%;">
+            <div style="float: left; margin-top: 30px;">
+              <h2>
+              {{ patient.name }}</h2>
+            </div>
+        </div>
+
+      </div>
+
+      
+      <div class="col-md-3" style="padding-left:2%;"><br><b>관리 현황</b></div>
+      <div class="col-md-9">
+        <br>
+          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_dashboard' %}?{{ prev_week }}'">
+            <
+          </div>
+          {% for day in day_list %}
+            <span class="day">{{ day }}</span>
+          {% endfor %}
+          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_dashboard'  %}?{{ next_week }}'">
+            >
+          </div>
+
+        <br>
+        <br>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-12 staback">
+    <div class="row">
+        <div class="col-md-2"><br>다음 내원
+          예정일은<br><b>{{ patient.next_visiting_date_time.month }}월 {{ patient.next_visiting_date_time.day }}일</b> 입니다.
+        </div>
+        {% if visiting_num %}
+          <div class="col-md-10"><br>
+            <div id="visit">내원일</div>
+          </div>
+
+        {% endif %}
+
+        <div class="co-md-12 line" style="border-bottom: 1px solid black;"></div>
+        <div class="col-md-2"><br>총 <b>{{ patient.daily_medication_count }}회</b><br>복약해야 합니다.</div>
+        <div class="col-md-1">
+          <br>
+          {% for hour in daily_hour_list %}
+            {{ forloop.counter }}회차({{ hour }})<br><br>
+          {% endfor %}
+        </div>
+        <div class="col-md-9">
+
+          <table>
+            {% for line in mdresult %}
+              <tr>
+                {% for re in line %}
+                  {% ifequal re '복약 성공' %}
+                    <td style="background-color:#81FCC8;">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '성공(지연)' %}
+                    <td style="background-color:#D8D8D8">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '응답 없음' %}
+                    <td style="background-color:#E9FFF5">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '복약 실패' %}
+                    <td style="background-color:#FCAECE">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '부작용' %}
+                    <td style="background-color:#FCAECE">{{re}}     </td>
+                  {% endifequal %}
+                  {% ifequal re '' %}
+                    <td>{{re}}     </td>
+                  {% endifequal %}
+                {% endfor %}
+
+              </tr>
+            {% endfor %}
+
+          </table>
+        </div>
+        <div class="co-md-12 line" style="border-bottom: 1px solid black;"></div>
+      <div class="col-md-12" >산소포화도 수치2</div>
+
+      <div class="col-md-2"><br><div class="circle1" style="background-color:#81FCC8"></div><span>90%-100% 정상범위</span><br><div class="circle1" style="background-color:#F7E99A"></div><span>90% 이하 주의 필요</span><br><div class="circle1" style="background-color:#FCAECE"></div><span>80% 이하 심각한 저산소</span></div>
+      <div class="col-md-1" style="padding-left:105px;">100%<br><br>80%</div>
+        <div class="col-md-9">
+           <table style="height:84px;margin-top:0px;">
+
+              <tr >
+                {% for line in msresult %}
+                  {% ifequal line 'None' %}
+                    <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px;"></td>
+                  {% else %}
+                    {% if line >= 90 %}
+                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px; padding-bottom:{{line|add:-75}}px;"><div class="circle1" style="background-color:#81FCC8"></div>{{line}}%</td>
+                    {% elif line >= 80 %}
+                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px; padding-top:20px; "><div class="circle1" style="background-color:#F7E99A"></div>{{line}}%</td>
+                    {% else %}
+                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px;"><div class="circle1" style="background-color:#FCAECE"></div>{{line}}%</td>
+                    {% endif %}
+                  {% endifequal %}
+
+                {% endfor %}
+
+              </tr>
+
+              <tr>
+
+                {% for line in msresult2 %}
+                  {% ifequal line 'None' %}
+                    <td style="height:39px;"></td>
+                  {% else %}
+                    {% if line >= 90 %}
+                      <td style="height:40px;"><div class="circle1" style="background-color:#81FCC8"></div>{{line}}%</td>
+                    {% elif line >= 80 %}
+                      <td style=" height:40px;"><div class="circle1" style="background-color:#F7E99A"></div>{{line}}%</td>
+                    {% else %}
+                      <td style=" height:40px;"><div class="circle1" style="background-color:#FCAECE"></div>{{line}}%</td>
+                    {% endif %}
+                  {% endifequal %}
+
+                {% endfor %}
+              </tr>
+
+
+          </table>
+
+
+        </div>
+
+
+    </div>
+  </div>
+
+
+  <script>document.getElementById("visit").style.marginLeft = "{{visiting_num}}px";</script>
+{% endblock %}

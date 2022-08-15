@@ -96,7 +96,7 @@ def patient_status(request, pid):
     context["daily_hour_list"] = daily_hour_list
     mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
     mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
-                                        date__lte=cal_start_end_day(d, 7)),
+                                        date__lte=cal_start_end_day(d, 7))
     for i in range(1,8):
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
         for r in dailyresult:

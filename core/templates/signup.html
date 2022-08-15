@@ -1,0 +1,12 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username">
+    <input type="password" name="password1">
+    <input type="password" name="password2">
+    <button type="submit" class="btn btn-primary">제출</button>
+</form>
+
+{% endblock %}
