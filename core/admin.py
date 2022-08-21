@@ -3,7 +3,7 @@ from guardian.admin import GuardedModelAdmin
 from import_export.admin import ImportExportModelAdmin
 
 from core.models import NotificationRecord
-from .models import Patient, Hospital, MeasurementResult, MedicationResult
+from .models import Patient, Hospital, MeasurementResult, MedicationResult, Certificaion
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Profile
@@ -138,3 +138,8 @@ class NotificationRecordAdmin(admin.ModelAdmin):
 
     make_status_pending.short_description = "Mark selected as PENDING"
     make_status_canceled.short_description = "Mark selected as CANCELED"
+
+
+@admin.register(Certificaion)
+class Certificationadmin(admin.ModelAdmin):
+    pass

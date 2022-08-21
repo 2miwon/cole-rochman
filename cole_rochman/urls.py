@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls ,name='admin'),
     path('api/v1/', include('core.api.urls')),
     path('api/v1/docs/', schema_view),
-    path('', include('core.web.urls'))
+    path('manager/', include('core.manager_web.urls')),
+    path('patient/', include('core.patient_web.urls')),
 ]
 
 admin.site.site_header = "Cole-rochman Admin"

@@ -1,14 +1,28 @@
 import code
+from contextlib import nullcontext
+import email
+import imp
 from multiprocessing import context
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from core.models.certification import Certificaion
 from core.models.measurement_result import MeasurementResult
 from core.models.medication_result import MedicationResult
 from core.models.patient import Patient
 from django.contrib.auth.models import User
 from django.contrib import auth
 import datetime
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+import random
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 def sign_up(request):
     msg = []
@@ -21,7 +35,7 @@ def sign_up(request):
             return render(request,'signup.html',{'errors': msg})
         if patient:
             if request.POST['password1']==request.POST['password2']:
-                user=User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+                user=User.objects.create_user(request.POST['username'], password=request.POST['password1'], email=request.POST['email'])
                 auth.login(request,user,backend='django.contrib.auth.backends.ModelBackend')
                 patient.user = request.user
                 return redirect('login_patient')
@@ -52,6 +66,23 @@ def sign_in(request):
 
     return render(request, 'patient_login.html', {'errors': msg})
 
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            
+        else:
+            messages.error(request, 'Please correct the error below.')
+        return redirect('login_patient')
+    else:
+        form = PasswordChangeForm(request.user)
+        return render(request, 'patient_change_password.html', {
+        'form': form
+        })
 
 @login_required
 def main(request):
@@ -240,3 +271,89 @@ def prev_week(d):
 def next_week(d):
     pre_day = d + datetime.timedelta(days=7)
     return 'week=' + str(pre_day.year) + ',' + str(pre_day.month) + ',' + str(pre_day.day)
+
+def certification_number():
+    number = ''
+    for i in range(4):
+        a = random.randint(1,9)
+        number+= str(a)
+    return int(number)
+
+def temporary_password():
+    random_password_char = [[0,1,2,3,4,5,6,7,8,9], ['a','b','k','d','e','f','z','y','x','e']]
+    temporary_password = ''
+    for i in range(12):
+        a = random.randint(0,1)
+        b = random.randint(0,9)
+        temporary_password += str(random_password_char[a][b])
+    return temporary_password
+
+def password_reset(request):
+    msg = []
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        certificate_number = str(certification_number())
+        if 'certification' in request.POST:
+            for i in User.objects.filter(username = username):
+                if i.email == email:
+                    sender = settings.EMAIL_SENDER
+                    reciever = i.email
+                    message = Mail( from_email=sender,
+                                    to_emails=reciever,
+                                    subject='cole-rochman 인증번호입니다',
+                                    html_content='<strong>' +certificate_number + '</strong>')
+                    try:
+                        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                        response = sg.send(message)
+                        print(response.status_code)
+                        print(response.body)
+                        print(response.headers)
+                        certification = Certificaion.objects.get(user__username = username)
+                        print(certification)
+                        if certification:
+                            certification.number = int(certificate_number)
+                            certification.save()
+                        else:
+                            certification = Certificaion(user = i, number = int(certificate_number))
+                            certification.save()
+                        msg.append('인증번호가 발송되었습니다!')
+                    except Exception as e:
+                        print(e.message)
+                    print("success")
+            context = {'username':username, 'email':email, 'msg':msg}
+            return render(request,'password_reset.html',context)
+        elif 'submit' in request.POST:
+            certification = Certificaion.objects.get(user__username=username)
+            print("인증번호: ",certification.number)
+            print(request.POST['user_certificate_number'])
+            if certification.number == int(request.POST['user_certificate_number']):
+                certification.number = int(certification_number())
+                certification.save()
+                user = User.objects.get(username = username)
+                password = temporary_password()
+                user.set_password(password)
+                user.save()
+                sender = settings.EMAIL_SENDER
+                reciever = user.email
+                message = Mail( from_email=sender,
+                                to_emails=reciever,
+                                subject='cole-rochman 임시 비밀번호입니다',
+                                html_content='<strong>' +password + '</strong>')
+                try:
+                    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    response = sg.send(message)
+                    print(response.status_code)
+                    print(response.body)
+                    print(response.headers)
+                except Exception as e:
+                    print(e.message)
+                print("success")
+                return render(request, "password_reset_success.html")
+            else:
+                msg.append('인증번호가 다릅니다!')
+                return render(request, 'password_reset.html', {'errors':msg})
+    else:
+        msg.append('')
+        return render(request, 'password_reset.html')
+

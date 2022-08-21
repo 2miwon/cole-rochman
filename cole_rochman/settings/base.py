@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'guardian',
     'import_export',
+    'sendgrid',
 
 ]
 
@@ -140,7 +141,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 from django.urls import reverse_lazy
 LOGIN_URL = reverse_lazy('login_user')
 
-LOGOUT_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = ''
 
 # Authentication
 AUTHENTICATION_BACKENDS = (
@@ -149,3 +150,13 @@ AUTHENTICATION_BACKENDS = (
 )
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+#email with sendgrid
+SENDGRID_API_KEY = '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'
+EMAIL_HOST =  'smtp.sendgrid.net' #'http://127.0.0.1'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_SENDER = "seok626898@gmail.com"
+
