@@ -127,20 +127,21 @@ def create_measurement_notification():
 def send_notifications(self):
     now = datetime.datetime.now().astimezone()
     time_range = (now - datetime.timedelta(minutes=10), now)
-
-    notifications = NotificationRecord.objects.filter(
-        status__in=[NotificationRecord.STATUS.PENDING, NotificationRecord.STATUS.RETRY], tries_left__gt=0,
-        send_at__range=time_range).all()
-
-    result = {
-        'notifications_counts': len(notifications),
-        'sent_count': 0
-    }
-    for noti in notifications:
-        success = noti.send()
-        if success:
-            result['sent_count'] += 1
-    if result.get('sent_count') == 0:
-        self.update_state(state='NOT SENT', meta=result)
-        raise
-    return result
+    
+#    print('noti send')
+#    notifications = NotificationRecord.objects.filter(
+#        status__in=[NotificationRecord.STATUS.PENDING, NotificationRecord.STATUS.RETRY], tries_left__gt=0,
+#        send_at__range=time_range).all()
+#
+#    result = {
+#        'notifications_counts': len(notifications),
+#        'sent_count': 0
+#    }
+#    for noti in notifications:
+#        success = noti.send()
+#        if success:
+#            result['sent_count'] += 1
+#    if result.get('sent_count') == 0:
+#        self.update_state(state='NOT SENT', meta=result)
+#        raise
+#    return result

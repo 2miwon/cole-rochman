@@ -16,7 +16,6 @@ def require_kakao_user_id(method):
 
     return wrapper
 
-
 def require_patient_code(method):
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
@@ -101,6 +100,8 @@ class Kakao:
 
     def parse_kakao_user_id(self):
         parsed = self.__parse_request(keys='userRequest.user.id')  # TODO parse 할수없는 경우 400 response -> 모든 폴백에 적용 고려
+#        parsed = self.request_data.get('userRequest').get('user').get('id')  
+#        print('UserRequest user id: ', parsed)
         setattr(self, 'kakao_user_id', parsed)
         self.kakao_user_id_parsed = True
         self.data.update({'kakao_user_id': parsed})
@@ -127,13 +128,31 @@ class KakaoResponseAPI(Kakao, GenericAPIView):
     @require_kakao_user_id
     def get_object_by_kakao_user_id(self) -> Patient:
         queryset = Patient.objects.all()
-        filter_kwargs = {self.lookup_field: self.kakao_user_id}
+#        Patient.objects.all()
+#        for key in queryset:
+#            print(key)
+#        print('kakao user id: ', self.kakao_user_id)
+        #filter_kwargs = {self.lookup_field: self.kakao_user_id}
+        filter_kwargs = {'kakao_user_id': self.kakao_user_id}
+        #obj = queryset.filter(**filter_kwargs)
         obj = get_object_or_404(queryset, **filter_kwargs)
-
+#        print('get_object: ', obj)
         # May raise a permission denied
-        self.check_object_permissions(self.request, obj)
+        #self.check_object_permissions(self.request, obj)
 
         return obj
+
+    def get_object_by_kakao_id(self) -> Patient:
+        queryset = Patient.objects.all()
+#        for key in queryset:
+#            print('Queryset: ', key)
+        obj = Patient.objects.filter(lookup_field = self.kakao_user_id)
+        
+        # May raise a permission denied
+        #self.check_object_permissions(self.request, obj)
+
+        return obj
+
 
     @staticmethod
     def build_response_fallback_404():

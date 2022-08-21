@@ -134,6 +134,7 @@ STATICFILES_DIRS = [
 
 # Celery
 CELERY_RESULT_BACKEND = 'django-db'
+#CELERY_RESULT_BACKEND = 'redis://csb-redis.dxfo66.ng.0001.apn2.cache.amazonaws.com:6379'
 
 
 # Login
@@ -157,5 +158,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-
 EMAIL_SENDER = "seok626898@gmail.com"
+
