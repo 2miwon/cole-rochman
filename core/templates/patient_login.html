@@ -22,7 +22,7 @@
           </h3>
 
           <h6 class="md-5 text-center"><br>
-            결핵 환자 관리 챗봇<b> 결핵 박사 콜로크만</b><br>관리자 사이트입니다.
+            결핵 환자 관리 챗봇<b> 결핵 박사 콜로크만</b><br>환자 정보 조회 사이트입니다.
           </h6>
           <br><br>
           {% if errors %}
@@ -62,6 +62,12 @@
           <div class="col-ml-11">
             <a href="{%url 'sign_up_page' %}">회원가입</a>
           </div>
+
+          <div class="col-ml-11">
+            <a href="{%url 'password_reset' %}">비밀번호 찾기</a>
+          </div>
+
+          
         </div>
         
       </div>

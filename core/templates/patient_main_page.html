@@ -13,15 +13,17 @@
             <div class="offset-1"><h2>환자 정보 조회</h2></div>
           </div>
         </a>
+        <a href="{%url 'patient_change_password'%}" class="text-decoration-none">
         <div style="height :25%" class="menubar">
-          <div class="offset-1"><h2></h2></div>
+          <div class="offset-1"><h2> 비밀번호 변경 </h2></div>
         </div>
-
+        </a>
       </div>
       <div class="col-md-8 blue bg-image">
         <div class="offset-8">
           {% if user.is_active %}
-            <p><b>{{ user.patient.nickname }}({{ user.username }})</b>님 안녕하세요!</p>
+            <p><b>({{ user.username }})</b>님 안녕하세요! <a href="{% url 'logout_patient' %}?next={%url 'login_patient'%}">로그아웃</a></p>
+           
           {% endif %}
         </div>
       </div>
