@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 작성</title>
+</head>
+<body>
+    
+    <form action="{% url 'post_community' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <input type="radio" value="question" name="category" checked> <label for="huey">질문글</label>
+            <input type="radio" value="general" name="category"> <label for="huey">일반글</label>
+        </div>
+        
+        <div>
+            <input type="checkbox" name="anonymous" value="True"> <label for="huey">익명글</label>
+        </div>
+        <div>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <input type="image" name="image" id="">
+        </div>
+        <div>
+            <textarea name="content" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+    </form>
+    
+</body>
+</html>

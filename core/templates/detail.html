@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>post detail page</title>
+</head>
+<body>
+    <header>
+        <h4> <a href="{% url 'community_main' %}" style="text-decoration:none; color:black ">&#10094;목록으로 돌아가기</a> </h4>
+        <hr>
+    </header>
+
+    <div>
+        <div style="border-radius: 20px; background-color: aqua; width: 50px; text-align: center; margin-right: 5px;">
+            질문
+        </div>
+        <h2 style="margin-left:4% ; margin-bottom: 2%;">{{post.title}}</h2>
+        <div style="display: flex; color: gray; margin-left: 3%;">
+            {{post.writer.profile.nickname}}
+            {{post.created_at}}
+
+        </div>
+        <hr>
+    </div>
+    {% if post.image %}
+    <div style="display:flex; justify-content: center; ">
+        <img src="{{post.images.url }}" width="250px" style="border:1px solid black;">
+    </div>
+    <hr>
+    {% endif %}
+
+    <div style="margin-top: 6px;">
+        <textarea cols="36" rows="17" style="margin-left: 3px; border: none; text-align:start;font-size:larger; font-weight:900; text-indent: 0%; font-style:normal; "readonly>{{post.content}}</textarea>    
+    </div>
+    <hr>
+    <footer><a href=""><img src="{% static 'images/comment_icon.png'%}" alt="" width="70px"></a></footer>
+</body>
+</html>

@@ -1,15 +1,22 @@
+import calendar
 import code
 from contextlib import nullcontext
 import email
+from http.client import REQUEST_ENTITY_TOO_LARGE
 import imp
 from multiprocessing import context
+import datetime
+from unicodedata import category
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from core.models import profile
 from core.models.certification import Certificaion
 from core.models.measurement_result import MeasurementResult
 from core.models.medication_result import MedicationResult
 from core.models.patient import Patient
+from core.models.community import Post,Comment
+from core.models.profile import Profile
 from django.contrib.auth.models import User
 from django.contrib import auth
 import datetime
@@ -23,6 +30,7 @@ import random
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from .forms import PostForm
 
 def sign_up(request):
     msg = []
@@ -36,6 +44,10 @@ def sign_up(request):
         if patient:
             if request.POST['password1']==request.POST['password2']:
                 user=User.objects.create_user(request.POST['username'], password=request.POST['password1'], email=request.POST['email'])
+                profile = Profile()
+                profile.user = user
+                profile.nickname = request.POST['nickname']
+                profile.save()
                 auth.login(request,user,backend='django.contrib.auth.backends.ModelBackend')
                 patient.user = request.user
                 return redirect('login_patient')
@@ -153,47 +165,108 @@ def patient_dahboard(request):
     except AttributeError:
         daily_hour_list=['재설정 필요']
 
-    #복약 성공 여부
-    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
-    for i in range(1,8):
-        dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date=cal_start_end_day(d, i))
-        for r in dailyresult:
-            #medication_time_num == 1:
-            if r.status=="SUCCESS":
-                mdresult[r.medication_time_num-1][i-1]="복약 성공"
-            elif r.status=='DELAYED_SUCCESS':
-                mdresult[r.medication_time_num - 1][i - 1] = "성공(지연)"
-            elif r.status=='NO_RESPONSE':
-                mdresult[r.medication_time_num - 1][i - 1] = "응답 없음"
-            elif r.status=='FAILED':
-                mdresult[r.medication_time_num - 1][i - 1] = "복약 실패"
-            elif r.status=='SIDE_EFFECT':
-                mdresult[r.medication_time_num - 1][i - 1] = "부작용"
+    # 복약 성공 여부
+    md_success_list = []
+    md_delayed_success_list = []
+    md_no_response_list = []
+    md_failed_list = []
+    md_side_effect_list = []
+
+
+    # mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
+    # for i in range(1,8):
+    #     dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date=cal_start_end_day(d, i))
+    #     for r in dailyresult:
+    #         #medication_time_num == 1:
+    #         if r.status=="SUCCESS":
+    #             mdresult[r.medication_time_num-1][i-1]="복약 성공"
+    #         elif r.status=='DELAYED_SUCCESS':
+    #             mdresult[r.medication_time_num - 1][i - 1] = "성공(지연)"
+    #         elif r.status=='NO_RESPONSE':
+    #             mdresult[r.medication_time_num - 1][i - 1] = "응답 없음"
+    #         elif r.status=='FAILED':
+    #             mdresult[r.medication_time_num - 1][i - 1] = "복약 실패"
+    #         elif r.status=='SIDE_EFFECT':
+    #             mdresult[r.medication_time_num - 1][i - 1] = "부작용"
     
     #산소 포화도
-    msresult = [0, 0, 0, 0, 0, 0, 0]
-    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
-    dailycount = 0
-    for i in range(1, 8):
-        dailymearesult = MeasurementResult.objects.filter(patient__code__contains=request.user.username,
-                                                          measured_at__gte=cal_start_end_day(d, i),date__lte=cal_start_end_day(d, 7))
-        for r in dailymearesult:
-            msresult[i - 1] += r.oxygen_saturation
-            print(r.oxygen_saturation)
-            dailycount += 1
-        if msresult[i - 1] == 0 or dailycount == 0:
-            msresult[i - 1] = 'None'
-        else:
-            msresult[i - 1] = int(msresult[i - 1] / dailycount)
-            if msresult[i-1]<=80 and msresult[i-1]>0:
-                msresult2[i - 1] = msresult[i - 1]
-                msresult[i-1]='None'
+    # msresult = [0, 0, 0, 0, 0, 0, 0]
+    # msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
+    # dailycount = 0
+    # for i in range(1, 8):
+    #     dailymearesult = MeasurementResult.objects.filter(patient__code__contains=request.user.username,
+    #                                                       measured_at__gte=cal_start_end_day(d, i),date__lte=cal_start_end_day(d, 7))
+    #     for r in dailymearesult:
+    #         msresult[i - 1] += r.oxygen_saturation
+    #         print(r.oxygen_saturation)
+    #         dailycount += 1
+    #     if msresult[i - 1] == 0 or dailycount == 0:
+    #         msresult[i - 1] = 'None'
+    #     else:
+    #         msresult[i - 1] = int(msresult[i - 1] / dailycount)
+    #         if msresult[i-1]<=80 and msresult[i-1]>0:
+    #             msresult2[i - 1] = msresult[i - 1]
+    #             msresult[i-1]='None'
 
-        dailycount=0
-    res_msresult= msresult
-    res_msresult2=msresult2
-    msresult = [0, 0, 0, 0, 0, 0, 0]
-    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
+    #     dailycount=0
+    # res_msresult= msresult
+    # res_msresult2=msresult2
+    # msresult = [0, 0, 0, 0, 0, 0, 0]
+    # msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
+    
+    #달력
+    datetime_list = get_year_month_days()
+    year = int(datetime_list[0])
+    month =int(datetime_list[1])
+    day = [int(datetime_list[2])]
+
+    date = datetime.datetime(year=int(datetime_list[0]), month=int(datetime_list[1]), day=1).date()
+    day_of_month = calendar.monthrange(date.year, date.month)[1]
+    day_list = []
+    for i in range(1, day_of_month+1):
+        day_list.append(i)
+    day_of_the_week = datetime.date(year, month, 1).weekday()
+    day_of_the_week_list = []
+    for j in range(day_of_the_week):
+        day_of_the_week_list.append(' ')
+
+    # 복약 성공 여부
+    md_success_list = []
+    md_delayed_success_list = []
+    md_no_response_list = []
+    md_failed_list = []
+    md_side_effect_list = []
+    
+    for i in day_list:
+        date_str = ''
+        date_str+=str(year)
+        date_str+=','
+        date_str+=str(month)
+        date_str+=','
+        i = str(i)
+        date_str+=i
+        dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date=get_date(date_str))
+        for r in dailyresult:
+            #복약 상태별 날짜의 일수들을 각각 상태 리스트에 분류하여 넣는다
+            if r.status == "SUCCESS":
+                md_success_list.append(int(i))
+            elif r.status=='DELAYED_SUCCESS':
+                md_delayed_success_list.append(int(i))
+            elif r.status=='NO_RESPONSE':
+                md_no_response_list.append(int(i))
+            elif r.status=='FAILED':
+                md_failed_list.append(int(i))
+            elif r.status=='SIDE_EFFECT':
+                md_side_effect_list.append(int(i))
+    #오늘의 복약 정리
+    dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date = str(datetime.date.today()))
+    for i in dailyresult:
+        if i.status == "SUCCESS":
+            today_md_success_time = i.medication_time
+
+
+        
+    
     
 
     context = {
@@ -206,12 +279,24 @@ def patient_dahboard(request):
         'visiting_num': visiting_num,
         'prev_week':prev_week(d),
         'next_week':next_week(d),
-        'mdresult': mdresult,
-        'msresult':res_msresult,
-        'msresult2':res_msresult2
+        # 'mdresult': mdresult,
+        # 'msresult':res_msresult,
+        # 'msresult2':res_msresult2,
+        'year': year,
+        'month': month,
+        'day':day[0],
+        'today' : day,
+        'day_list':day_list,
+        'day_of_the_week_list':day_of_the_week_list,
+        'md_success_list':md_success_list,
+        'md_delayed_success_list':md_delayed_success_list,
+        'md_no_response_list':md_no_response_list,
+        'md_failed_list':md_failed_list,
+        'md_side_effect_list':md_side_effect_list,
+        'today_md_success_time':today_md_success_time
 
     }
-    return render(request, 'patient_dashboard.html', context=context)
+    return render(request, 'patient_dashboard2.html', context=context)
 
 
 def iso_year_start(iso_year):
@@ -233,6 +318,7 @@ def cal_start_end_day(dt, i):
     iso = tuple(iso)
     return iso_to_gregorian(*iso)
 def get_date(req_day):
+    #'2002,2,22' 입력시 2002-02-22 의 형식으로 출력해주는 함수
     if req_day:
         req_tuple = req_day.split(',')
         return datetime.date(int(req_tuple[0]), int(req_tuple[1]), int(req_tuple[2]))
@@ -357,3 +443,36 @@ def password_reset(request):
         msg.append('')
         return render(request, 'password_reset.html')
 
+def post_list(request):
+    posts = Post.objects.all()
+    context = {
+        'posts':posts
+    }
+    return render(request, 'community.html', context)
+
+def post(request):
+    if request.method == 'POST':
+        post=Post()
+        post.category = request.POST['category']
+        post.anonymous = request.POST.get('anonymous',False)
+        post.writer = request.user
+        post.title = request.POST['title']
+        post.content = request.POST['content']
+        try:
+            post.images= request.FILES['image']
+        except:
+            pass
+    
+        post.save()
+        return redirect('community_main')
+    else:
+        return render(request, 'create.html')
+
+def post_detail(request, post_id):
+    post = Post.objects.get(id = post_id)
+    context = {'post':post}
+    return render(request, 'detail.html', context)
+
+def get_year_month_days():
+    day_list = str(datetime.datetime.now())[0:10].split('-')
+    return day_list

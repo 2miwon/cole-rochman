@@ -15,7 +15,7 @@
 
         {% if user.is_active %}
           <p>
-            <b>{{ user.username }}</b>님 안녕하세요!
+            <b>{{ user.profile.nickname }}</b>님 안녕하세요!
             <a href="{% url 'logout_patient' %}?next={% url 'login_patient'%}">로그아웃</a>
           </p>
         {% endif %}
@@ -48,7 +48,8 @@
       </div>
 
       
-      <div class="col-md-3" style="padding-left:2%;"><br><b>관리 현황</b></div>
+      <div class="col-md-3" style="padding-left:2%; @media(max-width:600px){color: red;}">
+        <br><b>관리 현황</b></div>
       <div class="col-md-9">
         <br>
           <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_dashboard' %}?{{ prev_week }}'">
