@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>환자 치료 정보</title>
+
+    <style>
+        body {
+            color: rgb(95, 92, 92);
+        }
+
+        #nav-component {
+            background-color: #00A6E4;
+            color: white;
+            border-radius: 10px;
+        }
+
+        #nav-component:hover {
+            background-color: white;
+            color: #00A6E4;
+        }
+
+        #hello_user {
+            margin-top: 5%;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        #myProgress {
+            margin-left: 10%;
+            margin-top: 15%;
+            height: 60px;
+            width: 120%;
+            background-color: #cac4c4;
+            border-radius: 10px;
+            flex: end;
+        }
+
+        #myBar {
+            padding: 5%;
+            height: 60px;
+            background-color: #00A6E4;
+            text-align: center;
+            /* To center it horizontally (if you want) */
+            line-height: 30px;
+            /* To center it vertically */
+            border-radius: 10px;
+            width: 2%;
+            font-size: 30px;
+            font-weight: 900;
+
+        }
+
+        #cure_progress {
+            display: gird;
+            margin-top: 2%;
+        }
+
+        #curepercent {
+            margin-left: 1%;
+            margin-top: 2%;
+            height: 20%;
+            width: 50%;
+        }
+
+        #cure {
+            display: flex;
+            width: 400px;
+        }
+
+        #cure_day {
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+/* Month header */
+.month {
+  padding: 40px 25px;
+  width: 100%;
+  /* background: #1abc9c; */
+  text-align: center;
+}
+
+/* Month list */
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color:  #00A6E4;
+  font-size: 20px;
+  /* text-transform: uppercase; */
+  letter-spacing: 3px;
+}
+
+/* Previous button inside month header */
+.month .prev {
+  float: left;
+  padding-top: 3px;
+}
+
+/* Next button */
+.month .next {
+  float: right;
+  padding-top: 3px;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color:#b1dded;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 12.6%;
+  color: #666;
+  text-align: center;
+}
+
+/* Days (1-31) */
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 12.6%;
+  height: 40px;
+  text-align: center;
+  justify-items: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+/* Highlight the "current" day */
+.days li .active {
+  padding: 5px;
+  background: #1abc9c;
+  color: white !important
+}
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link" id="nav-component" aria-current="page" href="{%url 'patient_dashboard'%}">치료정보</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-component" href="#">검사결과</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-component" href="{% url 'community_main'%}">커뮤니티</a>
+        </li>
+    </ul>
+    {% if user.is_active %}
+        <div id="hello_user">안녕하세요 {{user.profile.nickname}}님</div>
+    {% endif %}
+
+        <div id="cure">
+            <div id="cure_progress">
+                <div id="cure_day">치료 시작일
+                  <br>{{ patient.treatment_started_date }}</div> <hr>
+                <div id="cure_day">치료 종료 예정일
+                  <br>{{ patient.treatment_end_date }}</div>
+            </div>
+            <div id="curepercent">
+                <div id="myProgress">
+                    <div id="myBar">{{ cure_progress }}%</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div id="cure_day">
+            *치료 경과에 따라 종료 예정일이 변경될 수 있습니다.
+        </div>
+        </header>
+
+           
+<div class="month" style="height: 20px;">
+    <ul>
+      <li class="prev">&#10094;</li>
+      <li class="next">&#10095;</li>
+      <li><h2 style="font-weight:900 ;">{{year}}년           {{month}}월</h2></li>
+    </ul>
+  </div>
+  
+  <ul class="weekdays">
+    <li>월</li>
+    <li>화</li>
+    <li>수</li>
+    <li>목</li>
+    <li>금</li>
+    <li>토</li>
+    <li>일</li>
+  </ul>
+  
+  <ul class="days">
+    {% for i in day_of_the_week_list%}
+    <li></li>
+    {% endfor %}
+    {% for day in day_list%}
+      <li>
+        {% if day in today%}
+        <span style="background-color: #4cc1ec;">{{day}}</span> 
+        {%else%}
+        {{day}}
+        {% endif %}
+        <br>
+        {% if day in md_success_list %}
+        
+        <div style="background-color: rgb(100, 136, 243); border-radius: 20px; width: 30%; height: 7px; margin-left: 35%;  margin-top: 0; margin-bottom: 0;"></div>
+        {% endif %}
+
+        {% if day in md_side_effect_list %}
+        <div style="background-color: red; border-radius: 20px; width: 30%; height: 7px; margin-left: 35%; margin-top: 0; margin-bottom: 0;"></div>
+        {% endif %}
+
+            
+      </li>
+    {% endfor %}
+
+    <div style="background-color:rgb(178, 173, 173) ;  width: 70%; height: 50px; margin-top: 5%; margin-left: 15%;  border-radius: 20px; display: flex; padding: 5%; ">
+      <div style="background-color: rgb(100, 136, 243); border-radius: 20px; width: 10%; height: 7px; margin-top: 2%;"></div> 
+      <div style="font-size: 10px; margin-right: 2%;">복약 완료</div> 
+      <div style="background-color: red; border-radius: 20px; width: 10%; height: 7px; margin-top: 2%;"></div> 
+      <div style="font-size: 10px; margin-right: 2%;">부작용 있었음</div>
+      <div style="background-color: greenyellow; border-radius: 20px; width: 10%; height: 7px; margin-top: 2%;"></div> 
+      <div style="font-size: 10px;">내원일</div>
+    </div>
+    
+  </ul>
+  <div style="display:flex ;">
+    <h2 style="font-weight: 900; margin-right: 2%; margin-left: 4%;">오늘</h2>  
+    <div style="font-style:normal ; margin-top:1%">{{year}}. {{month}}. {{day}}</div>
+  </div>
+    {% if day in md_success_list%}
+    <div style="background-color:#b1dded;;  width: 98%; height: 65px; margin-top: 2%; margin-left: 5%;  border-radius: 20px; padding: 2.8%; ">
+      <div style=" display: flex;">
+        <div style="background-color: rgb(100, 136, 243); border-radius: 20px; width: 5%; height: 7px; margin-top: 4%;"></div> 
+        <div style="font-size: 20px; margin-right: 2%; font-weight: 900;">복약 완료</div> 
+      </div>
+      <div>
+      일시: {{today_md_success_time}}
+    </div>
+    </div>
+    {% endif %}
+
+    {% if day in md_side_effect_list%}
+    <div style="background-color:rgb(236, 192, 110);  width: 98%; height: 65px; margin-top: 2%; margin-left: 5%;  border-radius: 20px; padding: 2.8%; ">
+      <div style=" display: flex;">
+        <div style="background-color: red; border-radius: 20px; width: 5%; height: 7px; margin-top: 4%;"></div> 
+        <div style="font-size: 20px; margin-right: 2%; font-weight: 900;">부작용</div> 
+      </div>
+      <div>
+      일시: {{today_md_success_time}}
+    </div>
+    </div>
+    {% endif %}
+
+  <script>
+    document.getElementById("myBar").style.width = '{{cure_progress}}%';
+  </script>
+</body>
+
+</html>

@@ -3,6 +3,8 @@ from guardian.admin import GuardedModelAdmin
 from import_export.admin import ImportExportModelAdmin
 
 from core.models import NotificationRecord
+from core.models.patient import Guardian
+from core.models.community import Post,Comment
 from .models import Patient, Hospital, MeasurementResult, MedicationResult, Certificaion
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -91,8 +93,8 @@ class MeasurementResultAdmin(admin.ModelAdmin):
 @admin.register(MedicationResult)
 class MedicationResultAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     list_display = [
-        'id', 'patient', 'date', 'medication_time_num', 'medication_time', 'get_status_display', 'status_info',
-        'severity',
+        'id', 'patient', 'date', 'medication_time_num', 'medication_time', 'get_status_display', 'symptom_name',
+        'symptom_severity1','symptom_severity2','symptom_severity3',
         'notified_at', 'checked_at'
     ]
     search_fields = [
@@ -142,4 +144,16 @@ class NotificationRecordAdmin(admin.ModelAdmin):
 
 @admin.register(Certificaion)
 class Certificationadmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Guardian)
+class GuardianAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
     pass

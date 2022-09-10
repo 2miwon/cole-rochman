@@ -1,5 +1,7 @@
 import datetime
 from enum import Enum
+from operator import mod
+from statistics import mode
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -214,3 +216,11 @@ class Patient(models.Model):
         serializer.is_valid(raise_exception=True)
         return serializer.save()
 
+class Guardian(models.Model):
+    code = models.CharField(max_length=12, unique=False)
+    patient_set = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name = '보호자'
+        verbose_name_plural = '보호자'
