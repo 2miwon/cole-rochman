@@ -1,0 +1,1056 @@
+10/04 01:49:12.058 [colochman-Report-0] [217002] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/04 01:49:12.060 [colochman-Report-0] [217002] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/04 01:49:12.061 [colochman-Report-0] [217002] : Worker [colochman-Report-0] End.
+10/04 01:49:12.061 [Thread-1] [217002] : Worker [colochman-Report-0] End.
+10/04 01:49:12.065 [Thread-1] [217002] : Worker [colochman-Report-0] ShutDown.
+10/04 04:45:09.076 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:46:09.080 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:46:10.106 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:47:10.107 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:47:11.072 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:48:11.072 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:48:12.079 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:49:12.080 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:49:13.097 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:50:13.098 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:50:14.103 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:51:14.103 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:51:15.131 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:52:15.131 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:52:16.128 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:53:16.128 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:53:17.135 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:54:17.135 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:54:18.164 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:55:18.166 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:55:19.155 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:56:19.155 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:56:20.188 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:57:20.188 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:57:21.182 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:58:21.183 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:58:22.205 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 04:59:22.205 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 04:59:23.197 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:00:23.197 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:00:24.217 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:01:24.218 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:01:25.220 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:02:25.220 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:02:26.241 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:03:26.241 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:03:27.238 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:04:27.238 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:04:28.249 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:05:28.250 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:05:29.260 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:06:29.261 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:06:30.274 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:07:30.274 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:07:31.285 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:08:31.285 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:08:32.304 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:09:32.304 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:09:33.307 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:10:33.307 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:10:34.316 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:11:34.316 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:11:35.325 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:12:35.325 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:12:36.337 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:13:36.337 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:13:37.344 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:14:37.344 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:14:38.360 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:15:38.361 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:15:39.378 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:16:39.378 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:16:40.386 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:17:40.386 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:17:41.388 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:18:41.388 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:18:42.401 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:19:42.401 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:19:43.416 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:20:43.416 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:20:44.422 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:21:44.422 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:21:45.429 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:22:45.429 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:22:46.441 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:23:46.441 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:23:47.453 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:24:47.453 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:24:48.460 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:25:48.460 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:25:49.481 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:26:49.481 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:26:50.474 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:27:50.474 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:27:51.501 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:28:51.501 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:28:52.497 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:29:52.499 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:29:53.508 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:30:53.509 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:30:54.521 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:31:54.521 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:31:55.523 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:32:55.523 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:32:56.541 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:33:56.541 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:33:57.549 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:34:57.549 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:34:58.557 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:35:58.557 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:35:59.572 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:36:59.573 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:37:00.581 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:38:00.581 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:38:01.594 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:39:01.594 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:39:02.596 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:40:02.597 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:40:03.612 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:41:03.612 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:41:04.619 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:42:04.619 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:42:05.638 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:43:05.638 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:43:06.640 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:44:06.640 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:44:07.648 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:45:07.648 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:45:08.674 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:46:08.674 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:46:09.671 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:47:09.671 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:47:10.680 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:48:10.680 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:48:11.692 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:49:11.692 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:49:12.703 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:50:12.703 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:50:13.712 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:51:13.712 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:51:14.728 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:52:14.728 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:52:15.740 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:53:15.740 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:53:16.739 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:54:16.740 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:54:17.754 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:55:17.754 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:55:18.765 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:56:18.765 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:56:19.781 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:57:19.781 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:57:20.784 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:58:20.784 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:58:21.792 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 05:59:21.792 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 05:59:22.800 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:00:22.800 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:00:23.809 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:01:23.809 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:01:24.837 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:02:24.837 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:02:25.836 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:03:25.836 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:03:26.850 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:04:26.850 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:04:27.853 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:05:27.853 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:05:28.910 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:06:28.910 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:06:29.871 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:07:29.871 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:07:30.885 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:08:30.885 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:08:31.896 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:09:31.896 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:09:32.903 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:10:32.903 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:10:33.915 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:11:33.915 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:11:34.941 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:12:34.941 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:12:35.941 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:13:35.941 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:13:36.959 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:14:36.959 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:14:37.951 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:15:37.951 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:15:38.966 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:16:38.966 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:16:39.975 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:17:39.975 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:17:41.015 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:18:41.015 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:18:41.991 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:19:41.991 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:19:43.011 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:20:43.011 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:20:44.021 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:21:44.022 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:21:45.101 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:22:45.101 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:22:46.039 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:23:46.039 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:23:47.042 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:24:47.042 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:24:48.089 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:25:48.090 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:25:49.063 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:26:49.063 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:26:50.084 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:27:50.085 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:27:51.088 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:28:51.088 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:28:52.098 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:29:52.098 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:29:53.109 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:30:53.109 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:30:54.110 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:31:54.111 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:31:55.136 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:32:55.137 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:32:56.138 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:33:56.138 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:33:57.153 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:34:57.153 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:34:58.149 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:35:58.149 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:35:59.155 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:36:59.156 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:37:00.202 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:38:00.202 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:38:01.183 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:39:01.183 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:39:02.200 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:40:02.200 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:40:03.198 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:41:03.198 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:41:04.208 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:42:04.208 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:42:05.220 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:43:05.220 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:43:06.236 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:44:06.236 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:44:07.245 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:45:07.245 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:45:08.252 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:46:08.252 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:46:09.263 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:47:09.263 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:47:10.275 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:48:10.275 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:48:11.278 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:49:11.278 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:49:12.286 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:50:12.286 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:50:13.300 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:51:13.301 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:51:14.306 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:52:14.307 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:52:15.314 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:53:15.315 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:53:16.323 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:54:16.323 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:54:17.333 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:55:17.333 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:55:18.349 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:56:18.349 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:56:19.363 [colochman-Report-0] [219495] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/04 06:56:32.134 [colochman-Report-0] [219495] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:48)
+10/04 06:56:32.134 [colochman-Report-0] [219495] : Worker [colochman-Report-0] End.
+10/04 06:56:32.134 [Thread-1] [219495] : Worker [colochman-Report-0] End.
+10/04 06:56:32.134 [Thread-1] [219495] : Worker [colochman-Report-0] ShutDown.

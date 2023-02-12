@@ -63,7 +63,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
         if next_visiting_date_time:
             # "value": "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}",
             value = json.loads(next_visiting_date_time)['value']
-            value = datetime.datetime.strptime(value, self.DATETIME_STRPTIME_FORMAT)
+            value = datetime.datetime.strptime(value, self.DATETIME_STRPTIME_FORMAT) + datetime.timedelta(hours=9)
             data['next_visiting_date_time'] = value.astimezone()
 
         serializer = self.get_serializer(patient, data=data, partial=True)
@@ -99,7 +99,11 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
         response = self.build_response(response_type=self.RESPONSE_SKILL)
 
         seconds = self.data['visit_notification_before']  # 초 단위의 integer
-        seconds = int(seconds)
+        seconds = seconds.split(' 전')[0]
+        if seconds == '하루':
+            seconds = '24시간'
+        seconds = seconds.split('시간')[0]
+        seconds = int(seconds)*60*60
         data = dict()
         data['visit_notification_before'] = seconds
         data['visit_notification_flag'] = True
@@ -117,8 +121,8 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
         timedelta_hours = seconds // (60 * 60)
         timedelta_minutes = (seconds // 60) - (timedelta_hours * 60)
 
-        if timedelta.days:
-            time_before_verbose += '%d일 ' % timedelta.days
+#        if timedelta.days:
+#            time_before_verbose += '%d일 ' % timedelta.days
         if not timedelta_hours == 0:
             time_before_verbose += '%d시간 ' % timedelta_hours
         if not timedelta_minutes == 0:

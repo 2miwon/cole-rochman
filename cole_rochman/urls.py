@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_swagger.views import get_swagger_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 schema_view = get_swagger_view(title='Coleroch-man API')
 
@@ -24,8 +26,8 @@ urlpatterns = [
     path('api/v1/', include('core.api.urls')),
     path('api/v1/docs/', schema_view),
     path('manager/', include('core.manager_web.urls')),
-    path('patient/', include('core.patient_web.urls')),
-]
+    path('', include('core.patient_web.urls')),
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 admin.site.site_header = "Cole-rochman Admin"
 admin.site.site_title = "Cole-rochman Admin"

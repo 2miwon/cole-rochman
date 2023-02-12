@@ -59,43 +59,40 @@
 .staback {
     position: relative;
     width:95%;
-    margin-left:33px;
+    margin-left:0px;
     height:415px;
     background-color:#DFF3F9;
     border-radius:10px;
 }
 .day {
     display: inline-block;
-    width:140px;
+    width: 13%;
     text-align:center;
 }
 #visit {
     background-color: #898989;
-    width:140px;
+    width:13%;
     padding-top:7px;
     padding-bottom:7px;
     text-align:center;
 }
 
 .line {
-    width:100%;
-    margin-left:33px;
+    width:100vw;
+    margin-left: 0px;
     margin-right:33px;
     height:15px;
 }
 
 th, td {
     border: 1px solid #DFF3F9;
-    width:140px;
-    height:20%;
     text-align: center;
-
 }
+
 table {
-    width:990px;
-    height:200px;
-    margin-top:13px;
-    margin-left:20px;
+    width: 67vw;
+    height: 100%;
+    margin: 0 2vw;
 }
 
 .oxygen {

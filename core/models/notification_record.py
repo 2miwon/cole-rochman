@@ -53,7 +53,7 @@ class NotificationRecord(models.Model):
 
     def send(self) -> bool:
         import traceback
-        from core.tasks.util.lg_cns.lg_cns import LgcnsRequest
+        from core.tasks.util.bizppurio.bizppurio import BizppurioRequest
 
         try:
             self.build_biz_message_request()
@@ -71,7 +71,7 @@ class NotificationRecord(models.Model):
             return False
 
         self.tries_left -= 1
-        success, result = LgcnsRequest(payload=self.payload).send()
+        success, result = BizppurioRequest(payload=self.payload).send()
 
         if success:
             self.set_delivered()
@@ -118,10 +118,10 @@ class NotificationRecord(models.Model):
     def build_biz_message_request(self):
         from core.tasks.util.biz_message import BizMessageBuilder
 #        print('alarm printed')
-#        biz_message = BizMessageBuilder(
-#            message_type=self.biz_message_type,
-#            patient=self.patient,
-#            date=TODAY,
-#            noti_time_num=self.noti_time_num
-#        )
-#        self.payload = biz_message.to_dict()
+        biz_message = BizMessageBuilder(
+            message_type=self.biz_message_type,
+            patient=self.patient,
+            date=TODAY,
+            noti_time_num=self.noti_time_num
+        )
+        self.payload = biz_message.to_dict()

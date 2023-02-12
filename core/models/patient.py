@@ -1,11 +1,12 @@
 import datetime
+from django.utils import timezone
 from enum import Enum
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import timedelta
 
-from core.models.measurement_result import MeasurementResult
 from core.models.medication_result import MedicationResult
 
 
@@ -13,38 +14,26 @@ class Patient(models.Model):
     class NOTI_TYPE(Enum):
         MEDICATION = 'Medication'
         VISIT = 'Visit'
-        MEASUREMENT = 'Measurement'
 
     class NOTI_TIME_FIELDS(Enum):
         MEDICATION = [
             'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
             'medication_noti_time_5'
         ]
-        MEASUREMENT = [
-            'measurement_noti_time_1', 'measurement_noti_time_2', 'measurement_noti_time_3', 'measurement_noti_time_4',
-            'measurement_noti_time_5'
-        ]
 
-    code = models.CharField(max_length=12, unique=True)
-#    code = models.CharField(max_length=12)
-    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
-#    hospital = models.ForeignKey('Hospital', on_delete=models.CASCADE)
-    kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
-#    kakao_user_id = models.CharField(max_length=150)
-    nickname = models.CharField(max_length=20, default='', blank=True, null=True)
-#    nickname = models.CharField(max_length=20, default='')
-    phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='', blank=True, null=True)
-#    phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='')
     name = models.CharField(verbose_name='이름', max_length=10, default='', blank=True, null=True)
-#    name = models.CharField(verbose_name='이름', max_length=10, default='')
+    phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='', blank=True, null=True)
+    kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
+    code = models.CharField(max_length=12, unique=True)
+    hospital = models.ForeignKey('Hospital', on_delete=models.SET_NULL, related_name='patients', null=True)
+    nickname = models.CharField(max_length=20, default='', blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
-#    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    additionally_detected_flag = models.NullBooleanField(verbose_name='추가 균 검출 여부', blank=True, null=True, default=None)
-    additionally_detected_date = models.DateField(verbose_name='추가 균 검출일', blank=True, null=True)
+    safeout = models.NullBooleanField(verbose_name='외출 가능 여부', default=False)
+    weight = models.DecimalField(verbose_name='몸무게', blank=True, null=True, max_digits=5, decimal_places=2)
+    vision_left = models.DecimalField(verbose_name='왼쪽 시력', blank=True, null=True, max_digits=2, decimal_places=1)
+    vision_right = models.DecimalField(verbose_name=' 오른쪽 시력', blank=True, null=True, max_digits=2, decimal_places=1)
     treatment_started_date = models.DateField(verbose_name='치료 시작일', blank=True, null=True)
     treatment_end_date = models.DateField(verbose_name='치료 종료일', blank=True, null=True)
-    discharged_flag = models.NullBooleanField(verbose_name='퇴원 여부', blank=True, null=True, default=None)
     register_completed_flag = models.BooleanField(verbose_name='계정 등록 완료 여부', default=False)
     medication_manage_flag = models.NullBooleanField(verbose_name='복약관리 여부', blank=True, null=True, default=None)
     daily_medication_count = models.IntegerField(verbose_name='하루 복약 횟수', default=0)
@@ -58,14 +47,8 @@ class Patient(models.Model):
     next_visiting_date_time = models.DateTimeField(verbose_name='다음 내원일', blank=True, null=True, default=None)
     visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', blank=True, null=True, default=None)
     visit_notification_before = models.IntegerField(verbose_name='내원알림 시간', blank=True, null=True, default=None)
-    measurement_manage_flag = models.NullBooleanField(verbose_name='건강관리 여부', blank=True, null=True, default=None)
-    daily_measurement_count = models.IntegerField(verbose_name='하루 측정 횟수', default=0)
-    measurement_noti_flag = models.NullBooleanField(verbose_name='측정 알림 여부', blank=True, null=True, default=None)
-    measurement_noti_time_1 = models.TimeField(verbose_name='측정 알림 시간 1', blank=True, null=True, default=None)
-    measurement_noti_time_2 = models.TimeField(verbose_name='측정 알림 시간 2', blank=True, null=True, default=None)
-    measurement_noti_time_3 = models.TimeField(verbose_name='측정 알림 시간 3', blank=True, null=True, default=None)
-    measurement_noti_time_4 = models.TimeField(verbose_name='측정 알림 시간 4', blank=True, null=True, default=None)
-    measurement_noti_time_5 = models.TimeField(verbose_name='측정 알림 시간 5', blank=True, null=True, default=None)
+
+    
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -75,7 +58,7 @@ class Patient(models.Model):
         verbose_name_plural = '환자'
 
     def __str__(self):
-        return '%s' % (self.nickname)
+        return '%s/%s' % (self.code, self.name)
         #return '%s/%s' % (self.code, self.name or self.nickname)
 
     def medication_noti_time_list_to_str(self):
@@ -83,20 +66,13 @@ class Patient(models.Model):
         return ','.join([x.strftime('%H시 %M분') for x in noti_list])
 
     def medication_noti_time_list(self):
-        if not (self.measurement_manage_flag or self.medication_noti_flag):
+#        if not (self.measurement_manage_flag or self.medication_noti_flag):
+        if not (self.medication_noti_flag):
             return list()
 
         time_list = [self.medication_noti_time_1, self.medication_noti_time_2, self.medication_noti_time_3,
                      self.medication_noti_time_4, self.medication_noti_time_5]
         return time_list[:self.daily_medication_count]
-
-    def measurement_noti_time_list(self):
-        if not (self.measurement_manage_flag or self.measurement_noti_flag):
-            return list()
-
-        time_list = [self.measurement_noti_time_1, self.measurement_noti_time_2, self.measurement_noti_time_3,
-                     self.measurement_noti_time_4, self.measurement_noti_time_5]
-        return time_list[:self.daily_measurement_count]
 
     def need_medication_noti_time_set(self):
         return None in self.medication_noti_time_list() and self.medication_noti_time_list() != []
@@ -106,10 +82,7 @@ class Patient(models.Model):
             return self.medication_noti_time_list().index(None) + 1
         else:
             return None
-
-    def need_measurement_noti_time_set(self):
-        return None in self.measurement_noti_time_list() and self.measurement_noti_time_list() != []
-
+  
     def next_undefined_measurement_noti_time_number(self):
         if None in self.measurement_noti_time_list():
             return self.measurement_noti_time_list().index(None) + 1
@@ -142,21 +115,6 @@ class Patient(models.Model):
         self.medication_noti_time_5 = None
         self.save()
 
-    def reset_measurement_noti_time(self):
-        self.measurement_noti_time_1 = None
-        self.measurement_noti_time_2 = None
-        self.measurement_noti_time_3 = None
-        self.measurement_noti_time_4 = None
-        self.measurement_noti_time_5 = None
-        self.save()
-
-    def reset_measurement(self):
-        self.measurement_manage_flag = None
-        self.measurement_noti_flag = None
-        self.daily_measurement_count = 0
-        self.reset_measurement_noti_time()
-        self.save()
-
     def set_default_end_date(self):
         if self.treatment_started_date and self.treatment_end_date is None or self.treatment_end_date == '':
             self.treatment_end_date = self.treatment_started_date + timedelta(days=900)
@@ -174,9 +132,6 @@ class Patient(models.Model):
 
     def is_visit_noti_sendable(self):
         return self.visit_manage_flag and self.visit_notification_flag
-
-    def is_measurement_noti_sendable(self):
-        return self.measurement_manage_flag and self.measurement_noti_flag
 
     def create_medication_result(self, noti_time_num: int, date=datetime.datetime.today().astimezone().date()) -> MedicationResult:
         from core.serializers import MedicationResultSerializer
@@ -196,21 +151,36 @@ class Patient(models.Model):
         serializer.is_valid(raise_exception=True)
         return serializer.save()
 
-    def create_measurement_result(self, noti_time_num: int, date=datetime.datetime.today().astimezone().date()) -> MeasurementResult:
-        from core.serializers import MeasurementResultSerializer
 
-        if self.measurement_manage_flag is False or self.measurement_noti_flag is False or self.measurement_noti_time_list() == []:
-            return
+class Pcr_Inspection(models.Model):
+    patient_set = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    CHOICE_RES = (('양성','양성'),('음성','음성'))
+    inspection_res = models.CharField(verbose_name='양성/음성', max_length = 20, choices = CHOICE_RES)
+    CHOICE_METHOD = ('Sputum','Sputum'),('기관지내시경 검체','기관지내시경 검체'),('기타','기타')
+    method = models.CharField(verbose_name='검사 방법', max_length = 20, default='', choices = CHOICE_METHOD)
+    date = models.DateField(verbose_name='검사 날짜', null=True)
+    pcr_date = models.CharField(verbose_name='검사 날짜_출력용(입력 x)', max_length=20, default='', null=True, blank=True)
 
-        noti_time = self.measurement_noti_time_list()[noti_time_num - 1]
+    class Meta:
+        verbose_name = 'PCR 검사'
+        verbose_name_plural = 'PCR 검사'
 
-        data = {
-            'patient': self.id,
-            'date': date,
-            'measurement_time_num': noti_time_num,
-            'measurement_time': noti_time,
-        }
-        serializer = MeasurementResultSerializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        return serializer.save()
+
+
+class Sputum_Inspection(models.Model):
+    patient_set = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    CHOICE_RES = (('-','-'),('+/-','+/-'),('+1','+1'),('+2','+2'),('+3','+3'),('+4','+4'))
+    inspection_res = models.CharField(verbose_name='정도', max_length = 20, choices = CHOICE_RES)
+    CHOICE_POSITIVE = (('결핵균 양성','결핵균 양성'),('결핵균 음성','결핵균 음성'),('검사중','검사중'))
+    positive_negative =  models.CharField(verbose_name='양성/음성', max_length = 40, choices = CHOICE_POSITIVE)
+    CHOICE_METHOD = ('객담 검체','객담 검체'),('기관지경 검체','기관지경 검체'),('기타','기타')
+    method = models.CharField(verbose_name='검사 방법', max_length = 20, default='', choices = CHOICE_METHOD)
+    date = models.DateField(verbose_name='검사 날짜', null=True)
+    th = models.IntegerField(verbose_name='번째 검사', default=1)
+    sputum_date = models.CharField(verbose_name='검사 날짜_출력용(입력 x)', max_length=20, default='', null=True, blank=True)
+
+    class Meta:
+        verbose_name = '객담 도말 검사'
+        verbose_name_plural = '객담 도말 검사'
+
 

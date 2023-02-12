@@ -26,9 +26,10 @@ with open(os.path.join(PROJECT_DIR, 'secrets.json'), 'rb') as f:
 SECRET_KEY = secrets['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# dev로 옮김
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'guardian',
     'import_export',
-    'sendgrid',
 
 ]
 
@@ -122,15 +122,19 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'core/static'),
+ #   '/var/www/cole-rochman/static/',
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'core/static/media')
+MEDIA_URL = '/media/'
 
 # Celery
 CELERY_RESULT_BACKEND = 'django-db'
@@ -141,7 +145,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 from django.urls import reverse_lazy
 LOGIN_URL = reverse_lazy('login_user')
 
-LOGOUT_REDIRECT_URL = ''
+LOGOUT_REDIRECT_URL = '/login'
 
 # Authentication
 AUTHENTICATION_BACKENDS = (
@@ -152,7 +156,7 @@ AUTHENTICATION_BACKENDS = (
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 #email with sendgrid
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = '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'
 EMAIL_HOST =  'smtp.sendgrid.net' #'http://127.0.0.1'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

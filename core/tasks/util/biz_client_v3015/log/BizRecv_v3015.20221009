@@ -1,0 +1,968 @@
+10/09 10:07:33.780 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:07:33.928 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:08:33.929 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:08:33.929 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:08:33.929 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:08:34.542 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:08:34.612 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:09:34.613 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:09:34.614 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:09:34.614 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:09:35.553 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:09:35.619 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:10:35.620 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:10:35.620 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:10:35.621 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:10:36.567 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:10:36.629 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:11:36.630 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:11:36.630 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:11:36.630 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:11:37.579 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:11:37.641 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:12:37.642 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:12:37.642 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:12:37.642 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:12:38.593 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:12:38.654 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:13:38.655 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:13:38.655 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:13:38.655 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:13:39.600 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:13:39.661 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:14:39.661 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:14:39.662 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:14:39.662 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:14:40.611 [colochman-Recv] [248253] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:14:40.668 [colochman-Recv] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:15:24.256 [colochman-Recv] [248253] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 10:15:24.257 [colochman-Recv] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:15:24.257 [colochman-Recv] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:15:24.257 [colochman-Recv] [248253] : Worker [colochman-Recv] End.
+10/09 10:15:24.260 [Thread-1] [248253] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:15:24.260 [Thread-1] [248253] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:15:24.260 [Thread-1] [248253] : Worker [colochman-Recv] End.
+10/09 10:15:24.260 [Thread-1] [248253] : Worker [colochman-Recv] ShutDown.
+10/09 10:16:03.261 [colochman-Recv] [248496] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:16:03.435 [colochman-Recv] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:17:03.436 [colochman-Recv] [248496] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:17:03.437 [colochman-Recv] [248496] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:17:03.437 [colochman-Recv] [248496] : Worker [colochman-Recv] End.
+10/09 10:17:04.098 [colochman-Recv] [248496] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:17:04.177 [colochman-Recv] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:18:04.179 [colochman-Recv] [248496] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:18:04.179 [colochman-Recv] [248496] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:18:04.179 [colochman-Recv] [248496] : Worker [colochman-Recv] End.
+10/09 10:18:05.113 [colochman-Recv] [248496] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:18:05.179 [colochman-Recv] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:19:05.179 [colochman-Recv] [248496] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:19:05.180 [colochman-Recv] [248496] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:19:05.180 [colochman-Recv] [248496] : Worker [colochman-Recv] End.
+10/09 10:19:06.122 [colochman-Recv] [248496] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:19:06.184 [colochman-Recv] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:20:03.008 [colochman-Recv] [248496] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 10:20:03.008 [colochman-Recv] [248496] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:20:03.008 [colochman-Recv] [248496] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:20:03.008 [colochman-Recv] [248496] : Worker [colochman-Recv] End.
+10/09 10:20:03.012 [Thread-1] [248496] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:20:03.014 [Thread-1] [248496] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:20:03.014 [Thread-1] [248496] : Worker [colochman-Recv] End.
+10/09 10:20:03.014 [Thread-1] [248496] : Worker [colochman-Recv] ShutDown.
+10/09 10:24:52.625 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:24:52.789 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:25:52.789 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:25:52.790 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:25:52.790 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:25:53.415 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:25:53.487 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:26:53.488 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:26:53.488 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:26:53.488 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:26:54.432 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:26:54.508 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:27:54.509 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:27:54.509 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:27:54.509 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:27:55.443 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:27:55.512 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:28:55.513 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:28:55.513 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:28:55.513 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:28:56.456 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:28:56.519 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:29:56.520 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:29:56.520 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:29:56.521 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:29:57.505 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:29:57.565 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:30:57.566 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:30:57.566 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:30:57.568 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:30:58.483 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:30:58.549 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:31:58.550 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:31:58.550 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:31:58.550 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:31:59.499 [colochman-Recv] [248711] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:31:59.569 [colochman-Recv] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:32:09.270 [colochman-Recv] [248711] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 10:32:09.270 [colochman-Recv] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:32:09.270 [colochman-Recv] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:32:09.270 [colochman-Recv] [248711] : Worker [colochman-Recv] End.
+10/09 10:32:09.273 [Thread-1] [248711] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:32:09.273 [Thread-1] [248711] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:32:09.273 [Thread-1] [248711] : Worker [colochman-Recv] End.
+10/09 10:32:09.273 [Thread-1] [248711] : Worker [colochman-Recv] ShutDown.
+10/09 10:32:35.849 [colochman-Recv] [249241] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:32:36.015 [colochman-Recv] [249241] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:33:36.015 [colochman-Recv] [249241] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:33:36.016 [colochman-Recv] [249241] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:33:36.016 [colochman-Recv] [249241] : Worker [colochman-Recv] End.
+10/09 10:33:36.659 [colochman-Recv] [249241] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:33:36.728 [colochman-Recv] [249241] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:33:57.174 [colochman-Recv] [249241] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 10:33:57.175 [colochman-Recv] [249241] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:33:57.175 [colochman-Recv] [249241] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:33:57.175 [colochman-Recv] [249241] : Worker [colochman-Recv] End.
+10/09 10:33:57.176 [Thread-1] [249241] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:33:57.177 [Thread-1] [249241] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:33:57.177 [Thread-1] [249241] : Worker [colochman-Recv] End.
+10/09 10:33:57.177 [Thread-1] [249241] : Worker [colochman-Recv] ShutDown.
+10/09 10:40:15.853 [colochman-Recv] [249473] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:40:16.048 [colochman-Recv] [249473] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:41:16.051 [colochman-Recv] [249473] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:41:16.051 [colochman-Recv] [249473] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:41:16.051 [colochman-Recv] [249473] : Worker [colochman-Recv] End.
+10/09 10:41:16.705 [colochman-Recv] [249473] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:41:16.773 [colochman-Recv] [249473] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:42:06.529 [colochman-Recv] [249473] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 10:42:06.531 [colochman-Recv] [249473] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:42:06.531 [colochman-Recv] [249473] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:42:06.531 [colochman-Recv] [249473] : Worker [colochman-Recv] End.
+10/09 10:42:06.533 [Thread-1] [249473] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:42:06.533 [Thread-1] [249473] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:42:06.533 [Thread-1] [249473] : Worker [colochman-Recv] End.
+10/09 10:42:06.533 [Thread-1] [249473] : Worker [colochman-Recv] ShutDown.
+10/09 10:42:25.063 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:42:25.255 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:43:25.257 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:43:25.257 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:43:25.257 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:43:25.843 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:43:25.921 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:44:25.922 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:44:25.923 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:44:25.923 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:44:26.853 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:44:26.931 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:45:26.932 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:45:26.932 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:45:26.932 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:45:27.899 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:45:27.962 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:46:27.963 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:46:27.963 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:46:27.963 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:46:28.873 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:46:28.940 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:47:28.940 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:47:28.941 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:47:28.941 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:47:29.883 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:47:29.943 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:48:29.944 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:48:29.944 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:48:29.944 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:48:30.890 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:48:30.949 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:49:30.950 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:49:30.950 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:49:30.950 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:49:31.899 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:49:31.957 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:50:31.958 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:50:31.958 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:50:31.958 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:50:32.917 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:50:32.979 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:51:32.980 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:51:32.980 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:51:32.980 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:51:33.925 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:51:33.988 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:52:33.989 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:52:33.989 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:52:33.989 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:52:34.932 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:52:34.997 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:53:34.998 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:53:34.998 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:53:34.999 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:53:35.942 [colochman-Recv] [249714] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:53:36.008 [colochman-Recv] [249714] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:54:28.836 [colochman-Recv] [249714] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 10:54:28.837 [colochman-Recv] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:54:28.837 [colochman-Recv] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:54:28.837 [colochman-Recv] [249714] : Worker [colochman-Recv] End.
+10/09 10:54:28.838 [Thread-1] [249714] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:54:28.838 [Thread-1] [249714] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:54:28.838 [Thread-1] [249714] : Worker [colochman-Recv] End.
+10/09 10:54:28.838 [Thread-1] [249714] : Worker [colochman-Recv] ShutDown.
+10/09 10:54:52.024 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:54:52.230 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:55:52.232 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:55:52.233 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:55:52.233 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 10:55:52.852 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:55:52.930 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:56:52.931 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:56:52.931 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:56:52.931 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 10:56:53.858 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:56:53.933 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:57:53.934 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:57:53.934 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:57:53.934 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 10:57:54.864 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:57:54.930 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:58:54.931 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:58:54.931 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:58:54.931 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 10:58:55.875 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:58:55.934 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 10:59:55.935 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 10:59:55.936 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 10:59:55.936 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 10:59:56.884 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 10:59:56.943 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 11:00:56.944 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 11:00:56.944 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 11:00:56.944 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 11:00:57.931 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 11:00:57.989 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 11:01:57.990 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 11:01:57.990 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 11:01:57.990 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 11:01:58.901 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 11:01:58.962 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 11:02:58.963 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 11:02:58.963 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 11:02:58.963 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 11:02:59.913 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 11:02:59.977 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 11:03:59.977 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 11:03:59.978 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 11:03:59.978 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 11:04:00.917 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 11:04:00.977 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 11:05:00.978 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 11:05:00.978 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 11:05:00.979 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 11:05:01.929 [colochman-Recv] [250115] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/09 11:05:01.990 [colochman-Recv] [250115] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To IP Blocking. RESULTCODE [R083]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:72)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 11:05:56.639 [colochman-Recv] [250115] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 11:05:56.640 [colochman-Recv] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 11:05:56.640 [colochman-Recv] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/09 11:05:56.640 [colochman-Recv] [250115] : Worker [colochman-Recv] End.
+10/09 11:05:56.645 [Thread-1] [250115] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/09 11:05:56.645 [Thread-1] [250115] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 11:05:56.645 [Thread-1] [250115] : Worker [colochman-Recv] End.
+10/09 11:05:56.645 [Thread-1] [250115] : Worker [colochman-Recv] ShutDown.
+10/09 11:06:42.645 [colochman-Recv] [250272] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:31)
+10/09 11:07:22.380 [colochman-Recv] [250272] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:53)
+10/09 11:07:22.380 [colochman-Recv] [250272] : Disconnect To Socket. IP [bizppurio.com] PORT [18400]
+10/09 11:07:22.380 [colochman-Recv] [250272] : Worker [colochman-Recv] End.
+10/09 11:07:22.381 [Thread-1] [250272] : Disconnect To Socket. IP [bizppurio.com] PORT [18400]
+10/09 11:07:22.382 [Thread-1] [250272] : Worker [colochman-Recv] End.
+10/09 11:07:22.382 [Thread-1] [250272] : Worker [colochman-Recv] ShutDown.

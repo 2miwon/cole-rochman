@@ -1,0 +1,64 @@
+10/09 10:15:24.261 [colochman-Batch] [248253] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 10:15:24.262 [colochman-Batch] [248253] : Worker [colochman-Batch] End.
+10/09 10:15:24.262 [Thread-1] [248253] : Worker [colochman-Batch] End.
+10/09 10:15:24.263 [Thread-1] [248253] : Worker [colochman-Batch] ShutDown.
+10/09 10:20:03.016 [colochman-Batch] [248496] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 10:20:03.016 [colochman-Batch] [248496] : Worker [colochman-Batch] End.
+10/09 10:20:03.016 [Thread-1] [248496] : Worker [colochman-Batch] End.
+10/09 10:20:03.017 [Thread-1] [248496] : Worker [colochman-Batch] ShutDown.
+10/09 10:32:09.275 [colochman-Batch] [248711] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 10:32:09.276 [colochman-Batch] [248711] : Worker [colochman-Batch] End.
+10/09 10:32:09.276 [Thread-1] [248711] : Worker [colochman-Batch] End.
+10/09 10:32:09.277 [Thread-1] [248711] : Worker [colochman-Batch] ShutDown.
+10/09 10:33:57.186 [colochman-Batch] [249241] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 10:33:57.186 [colochman-Batch] [249241] : Worker [colochman-Batch] End.
+10/09 10:33:57.186 [Thread-1] [249241] : Worker [colochman-Batch] End.
+10/09 10:33:57.190 [Thread-1] [249241] : Worker [colochman-Batch] ShutDown.
+10/09 10:42:06.535 [colochman-Batch] [249473] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 10:42:06.535 [colochman-Batch] [249473] : Worker [colochman-Batch] End.
+10/09 10:42:06.537 [Thread-1] [249473] : Worker [colochman-Batch] End.
+10/09 10:42:06.538 [Thread-1] [249473] : Worker [colochman-Batch] ShutDown.
+10/09 10:54:28.841 [colochman-Batch] [249714] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 10:54:28.841 [colochman-Batch] [249714] : Worker [colochman-Batch] End.
+10/09 10:54:28.842 [Thread-1] [249714] : Worker [colochman-Batch] End.
+10/09 10:54:28.842 [Thread-1] [249714] : Worker [colochman-Batch] ShutDown.
+10/09 11:05:56.649 [colochman-Batch] [250115] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 11:05:56.650 [colochman-Batch] [250115] : Worker [colochman-Batch] End.
+10/09 11:05:56.650 [Thread-1] [250115] : Worker [colochman-Batch] End.
+10/09 11:05:56.651 [Thread-1] [250115] : Worker [colochman-Batch] ShutDown.
+10/09 11:07:22.385 [colochman-Batch] [250272] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/09 11:07:22.385 [colochman-Batch] [250272] : Worker [colochman-Batch] End.
+10/09 11:07:22.385 [Thread-1] [250272] : Worker [colochman-Batch] End.
+10/09 11:07:22.386 [Thread-1] [250272] : Worker [colochman-Batch] ShutDown.

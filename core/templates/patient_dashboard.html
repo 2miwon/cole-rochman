@@ -1,5 +1,4 @@
 {% extends 'base2.html' %}
-{% load static %}
 {% block content %}
 
 
@@ -15,8 +14,7 @@
 
         {% if user.is_active %}
           <p>
-            <b>{{ user.username }}</b>님 안녕하세요!
-            <a href="{% url 'logout_patient' %}?next={% url 'login_patient'%}">로그아웃</a>
+            <b>{{ user.username }}</b>님 안녕하세요!<a href="{% url 'logout' %}">로그아웃</a>
           </p>
         {% endif %}
 

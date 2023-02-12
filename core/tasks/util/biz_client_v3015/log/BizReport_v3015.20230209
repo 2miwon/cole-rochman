@@ -1,0 +1,19 @@
+02/09 22:51:42.825 [colochman-Report-0] [360107] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+02/09 22:51:42.829 [colochman-Report-0] [360107] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+02/09 22:51:42.829 [colochman-Report-0] [360107] : Worker [colochman-Report-0] End.
+02/09 22:51:42.829 [Thread-1] [360107] : Worker [colochman-Report-0] End.
+02/09 22:51:42.833 [Thread-1] [360107] : Worker [colochman-Report-0] ShutDown.
+02/09 22:52:09.913 [colochman-Report-0] [883256] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+02/09 23:01:35.199 [colochman-Report-0] [883256] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+02/09 23:01:35.200 [colochman-Report-0] [883256] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+02/09 23:01:35.200 [colochman-Report-0] [883256] : Worker [colochman-Report-0] End.
+02/09 23:01:35.200 [Thread-1] [883256] : Worker [colochman-Report-0] End.
+02/09 23:01:35.204 [Thread-1] [883256] : Worker [colochman-Report-0] ShutDown.

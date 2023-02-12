@@ -1,0 +1,7 @@
+11/30 02:02:53.660 [colochman-Batch] [360107] : Enable Create Backup Table. DayOfMonth [30] LastDayOfMonth [30]
+11/30 02:02:53.690 [colochman-Batch] [360107] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+11/30 02:02:53.708 [colochman-Batch] [360107] : Create a Table. TABLE [BIZ_LOG_202212]
+11/30 02:02:53.709 [colochman-Batch] [360107] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+11/30 03:02:53.710 [colochman-Batch] [360107] : Disable Create Backup Table.
+11/30 03:02:53.710 [colochman-Batch] [360107] : Enable Delete Attachments.
+11/30 04:02:53.714 [colochman-Batch] [360107] : Disable Delete Attachments.

@@ -1,0 +1,21 @@
+10/16 11:54:11.111 [colerochman-Backup] [264217] : Backup a Message. CMSGID [201420180001]
+10/16 12:02:21.645 [colerochman-Backup] [264217] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:61)
+10/16 12:02:21.645 [colerochman-Backup] [264217] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/16 12:02:21.645 [colerochman-Backup] [264217] : Worker [colerochman-Backup] End.
+10/16 12:02:21.646 [Thread-1] [264217] : Worker [colerochman-Backup] End.
+10/16 12:02:21.646 [Thread-1] [264217] : Worker [colerochman-Backup] ShutDown.
+10/16 12:02:42.620 [colerochman-Backup] [280816] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/16 12:08:22.700 [colerochman-Backup] [280816] : Backup a Message. CMSGID [201420180004]
+10/16 14:15:22.535 [colerochman-Backup] [280816] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:61)
+10/16 14:15:22.535 [colerochman-Backup] [280816] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/16 14:15:22.535 [colerochman-Backup] [280816] : Worker [colerochman-Backup] End.
+10/16 14:15:22.535 [Thread-1] [280816] : Worker [colerochman-Backup] End.
+10/16 14:15:22.536 [Thread-1] [280816] : Worker [colerochman-Backup] ShutDown.

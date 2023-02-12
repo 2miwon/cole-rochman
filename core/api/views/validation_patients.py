@@ -6,38 +6,70 @@ from rest_framework.views import APIView
 from core.api.serializers import PatientCreateSerializer
 from core.api.util.response_builder import ResponseBuilder
 from core.models import Hospital
+from core.models import Patient
 
 
-class ValidatePatientNickname_N02(APIView):
-    def post(self, request, *args, **kwargs):
+class ValidatePatientName(CreateAPIView):
+    serializeR_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, forrmat='json', *args, **kwargs):
         response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
-        nickname = request.data.get('value').get('origin')
+        value = request.data['value']['origin']
+        
+        if value=='처음으로':
+            response.set_validation_fail(message='처음으로 돌아가기 위해서는 "처음으로 돌아가기"라고 입력해주세요\n계정등록을 중간에 중지한 경우 계정이 등록되지 않습니다.\n\n')
+            return response.get_response_200()
+        
+        response.set_validation_success(value=value)
+        return response.get_response_200()
+        
 
-        if nickname:
-            regex = re.compile(r'[a-zA-Z0-9ㄱ-힣]{1,10}')
-            matched = re.search(regex, nickname)
-            if matched:
-                response.set_validation_success(value=matched.group())
-                return response.get_response_200()
+class ValidatePatientPhone(CreateAPIView):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
 
-        response.set_validation_fail()
-        return response.get_response_400()
+    def post(self, request, format='json', *args, **kwargs):
+        response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
+        value = request.data['value']['origin']
+        
+        if value=='처음으로':
+            response.set_validation_fail(message='처음으로 돌아가기 위해서는 "처음으로 돌아가기"라고 입력해주세요\n계정등록을 중간에 중지한 경우 계정이 등록되지 않습니다.\n\n')
+            return response.get_response_200()
+        
+        isInt = True
+        try:
+            int(value)
+        except ValueError:
+            isInt = False
+        if not isInt:
+            response.set_validation_fail(message='전화번호는 01012345678과 같은 형태로 입력해주세요.')
+            return response.get_response_400()
+        
+        response.set_validation_success(value=value)
+        return response.get_response_200()
+
 
 class ValidatePatientNickname(APIView):
     def post(self, request, *args, **kwargs):
         response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
         nickname = request.data.get('value').get('origin')
+        
+        if nickname=='처음으로':
+            response.set_validation_fail(message='처음으로 돌아가기 위해서는 "처음으로 돌아가기"라고 입력해주세요\n계정등록을 중간에 중지한 경우 계정이 등록되지 않습니다.\n\n')
+            return response.get_response_200()
 
         if nickname:
             reg = "^[a-zA-Z0-9가-힣]{1,10}$"
             if bool(re.match(reg,nickname)):
-#                print("Validation Success")
                 response.set_validation_success(value=nickname)
                 return response.get_response_200()
 
-#        print("Validation Fail")
         response.set_validation_fail()
         return response.get_response_400()
+
 
 class ValidatePatientCode(CreateAPIView):
     serializer_class = PatientCreateSerializer
@@ -49,16 +81,25 @@ class ValidatePatientCode(CreateAPIView):
         value = request.data['value']['origin']
         regex = re.compile(r'[a-zA-Z]\d{11}')
         matched = re.search(regex, value)
+        
+        if value=='처음으로':
+            response.set_validation_fail(message='처음으로 돌아가기 위해서는 "처음으로 돌아가기"라고 입력해주세요\n계정등록을 중간에 중지한 경우 계정이 등록되지 않습니다.\n\n')
+            return response.get_response_200()
 
         if not matched:
-            response.set_validation_fail(message='유효하지 않은 코드입니다.')
-            return response.get_response_400()
+            response.set_validation_fail(message='유효하지 않은 코드입니다.\n\n')
+            return response.get_response_200()
 
         patient_code = matched.group().upper()
         hospital_code = patient_code[:4]
         if not self.hospital_exists(hospital_code):
-            response.set_validation_fail(message='유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요.')
-            return response.get_response_400()
+            response.set_validation_fail(message='유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요.\n\n')
+            return response.get_response_200()
+        
+        patients = Patient.objects.all()
+        if any(patient_code == patient.code for patient in patients):
+            response.set_validation_fail(message='이미 존재하는 코드입니다. 다른 코드를 입력해주세요.\n\n')
+            return response.get_response_200()
 
         response.set_validation_success(value=patient_code)
         return response.get_response_200()
@@ -68,8 +109,7 @@ class ValidatePatientCode(CreateAPIView):
         return Hospital.objects.filter(code=code).exists()
 
 
-
-class ValidatePatientCode_N03(CreateAPIView):
+class ValidatePatientPassword(CreateAPIView):
     serializer_class = PatientCreateSerializer
     model_class = PatientCreateSerializer.Meta.model
     queryset = model_class.objects.all()
@@ -77,28 +117,70 @@ class ValidatePatientCode_N03(CreateAPIView):
     def post(self, request, format='json', *args, **kwargs):
         response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
         value = request.data['value']['origin']
-        reg = "^[a-zA-Z][0-9]{11}$"
-        matched = re.search(regex, value)
+        
+        if value=='처음으로':
+            response.set_validation_fail(message='처음으로 돌아가기 위해서는 "처음으로 돌아가기"라고 입력해주세요\n계정등록을 중간에 중지한 경우 계정이 등록되지 않습니다.\n\n')
+            return response.get_response_200()
 
-#        print("stage1")
-        if not bool(re.match(reg, value)):
-            response.set_validation_fail(message='유효하지 않은 코드입니다.')
-#            print("Error1")
-            return response.get_response_400()
+        if len(value) < 8:
+            response.set_validation_fail(message='첫번째 조건을 다시 한 번 확인해주세요.\n\n')
+            return response.get_response_200()
 
-        patient_code = value().upper()
-        hospital_code = patient_code[:4]
-#        print("stage2")
-        if not self.hospital_exists(hospital_code):
-            response.set_validation_fail(message='유효하지 않은 코드입니다. 앞 3자리(병원코드)를 확인해주세요.')
-#            print("Error2")
-            return response.get_response_400()
+        if not value.isdigit():
+            response.set_validation_fail(message='두번째 조건을 다시 한 번 확인해주세요.\n\n')
+            return response.get_response_200()
 
-#        print("Success1")
-        response.set_validation_success(value=patient_code)
+        response.set_validation_success(value=value)
         return response.get_response_200()
 
-    @staticmethod
-    def hospital_exists(code):
-#        print("stage3")
-        return Hospital.objects.filter(code=code).exists()
+
+class ValidatePatientWeight(CreateAPIView):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
+        value = request.data['value']['origin']
+        
+        if value=='처음으로':
+            response.set_validation_fail(message='처음으로 돌아가기 위해서는 "처음으로 돌아가기"라고 입력해주세요\n계정등록을 중간에 중지한 경우 계정이 등록되지 않습니다.\n\n')
+            return response.get_response_200()
+
+        isFloat = True
+        try:
+            float(value)
+        except ValueError:
+            isFloat = False
+        if not isFloat:
+            response.set_validation_fail(message='몸무게는 숫자로 입력해주세요.')
+            return response.get_response_400()
+
+        response.set_validation_success(value=value)
+        return response.get_response_200()
+
+
+class ValidatePatientVision(CreateAPIView):
+    serializer_class = PatientCreateSerializer
+    model_class = PatientCreateSerializer.Meta.model
+    queryset = model_class.objects.all()
+
+    def post(self, request, format='json', *args, **kwargs):
+        response = ResponseBuilder(response_type=ResponseBuilder.VALIDATION)
+        value = request.data['value']['origin']
+        
+        if value=='처음으로':
+            response.set_validation_fail(message='처음으로 돌아가기 위해서는 "처음으로 돌아가기"라고 입력해주세요\n계정등록을 중간에 중지한 경우 계정이 등록되지 않습니다.\n\n')
+            return response.get_response_200()
+        
+        isFloat = True
+        try:
+            float(value)
+        except ValueError:
+            isFloat = False
+        if not isFloat:
+            response.set_validation_fail(message='전화번호는 01012345678과 같은 형태로 입력해주세요.')
+            return response.get_response_400()
+        
+        response.set_validation_success(value=value)
+        return response.get_response_200()

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd ../config
+cp -f uds.conf.sample uds.conf
+
+cd ../
+rm -rf blk log/* spool

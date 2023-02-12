@@ -1,0 +1,34 @@
+10/19 05:58:40.469 [colerochman-Recv] [290960] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/19 05:58:40.637 [colerochman-Recv] [290960] : User Authentication. USER [colerochman]
+10/19 05:58:40.639 [colerochman-Recv] [290960] : Start Sending And Receiving Data With The Server.
+10/19 06:02:07.957 [colerochman-Recv] [290960] : Receive And Add a Report To Queue. CMSGID [201420180001]
+10/19 08:11:28.662 [colerochman-Recv] [290960] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:49)
+10/19 08:11:33.304 [colerochman-Recv] [290960] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/19 08:11:33.304 [colerochman-Recv] [290960] : Failed To [colerochman-Recv] Protocol End. 
+com.daou.common.exception.BizException: Failed To End. RESULT [PI]
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:120)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/19 08:11:33.304 [colerochman-Recv] [290960] : Worker [colerochman-Recv] End.
+10/19 08:11:33.305 [Thread-1] [290960] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/19 08:11:33.305 [Thread-1] [290960] : Failed To [colerochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/19 08:11:33.305 [Thread-1] [290960] : Worker [colerochman-Recv] End.
+10/19 08:11:33.305 [Thread-1] [290960] : Worker [colerochman-Recv] ShutDown.

@@ -55,6 +55,7 @@ class ResponseBuilder:
             raise ValueError('You cannot use this when response_type is ResponseBuilder.VALIDATION')
 
         self.response.get('template').get('outputs').append(data)
+        print("response: ", self.response)
 
     def __add_quick_reply(self, data: dict):
         """
@@ -121,6 +122,7 @@ class ResponseBuilder:
             self.__add_message(message)
 
     def add_simple_text(self, text: str):
+    
         """
         append simpleText(dict) with text to self.response['template']['outputs']
 
@@ -143,7 +145,6 @@ class ResponseBuilder:
                 'text': text
             }
         }
-
         self.__add_outputs(data=data)
 
     def add_image(self, image_url: str, alt_text: str):

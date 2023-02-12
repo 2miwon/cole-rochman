@@ -20,8 +20,10 @@ class MedicationResult(models.Model):
     medication_time_num = models.IntegerField(verbose_name='복약 회차', blank=True, null=True)
     medication_time = models.TimeField(verbose_name='복약 회차(시간)', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value)
-    status_info = models.TextField(max_length=100, verbose_name='이상 종류', default='', blank=True, null=True)
-    severity = models.IntegerField(verbose_name='이상 정도', blank=True, null=True)
+    symptom_name = models.TextField(max_length=100, verbose_name='이상 종류', default='', blank=True, null=True)
+    symptom_severity1 = models.TextField(max_length=100, verbose_name='이상 정도1', blank=True, null=True)
+    symptom_severity2 = models.TextField(max_length=100, verbose_name='이상 정도2', blank=True, null=True)
+    symptom_severity3 = models.TextField(max_length=100, verbose_name='이상 정도3', blank=True, null=True)
     notified_at = models.DateTimeField(verbose_name='알림 발송 시간', blank=True, null=True)
     checked_at = models.DateTimeField(verbose_name='확인 시간', blank=True, null=True)
 
@@ -59,9 +61,18 @@ class MedicationResult(models.Model):
         self.notified_at = datetime.datetime.now().astimezone()
 
     def set_success(self):
-        self.status = self.STATUS.SUCCESS.value
-        self.status_info = ''
-        self.severity = None
+        print(self.status)
+        if self.status != 'SIDE_EFFECT':
+            print("1")
+            self.status = self.STATUS.SUCCESS.value
+        else:
+            print("2")
+#        self.status_info = ''
+#        self.severity = None
+#        self.symptom_name = ''
+#        self.symptom_severity1 = ''
+#        self.symptom_severity2 = ''
+#        self.symptom_severity3 = ''
         self.checked_at = datetime.datetime.now().astimezone()
 
     def set_failed(self):
@@ -72,11 +83,40 @@ class MedicationResult(models.Model):
         self.status = self.STATUS.DELAYED_SUCCESS.value
         self.checked_at = datetime.datetime.now().astimezone()
 
-    def set_side_effect(self, status_info, severity):
+    def set_side_effect(self, name, severity1, severity2, severity3):
         self.status = self.STATUS.SIDE_EFFECT.value
-        self.status_info = status_info
-        self.severity = severity
+        self.symptom_name = name
+        if severity1:
+            self.symptom_severity1 = severity1
+        if severity2:
+            self.symptom_severity2 = severity2
+        if severity3:
+            self.symptom_severity3 = severity3
         self.checked_at = datetime.datetime.now().astimezone()
+
+    def add_side_effect(self, name, severity1, severity2, severity3):
+        self.status = self.STATUS.SIDE_EFFECT.value
+        self.symptom_name += str("," + name)
+        if severity1:
+            self.symptom_severity1 += str("," + severity1)
+        else:
+            self.symptom_severity1 += str(",")
+        if severity2:
+            self.symptom_severity2 += str("," + severity2)
+        else:
+            self.symptom_severity2 += str(",")
+        if severity3:
+            self.symptom_severity3 += str("," + severity3)
+        else:
+            self.symptom_severity3 += str(",")
+        self.checked_at = datetime.datetime.now().astimezone()
+
+
+#    def set_side_effect(self, status_info, severity):
+#        self.status = self.STATUS.SIDE_EFFECT.value
+#        self.status_info = status_info
+#        self.severity = severity
+#        self.checked_at = datetime.datetime.now().astimezone()
 
     def create_notification_record(self, noti_time_num: int = None):
         """

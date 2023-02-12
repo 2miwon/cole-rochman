@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>post detail page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" />
+<style>
+body {
+	font-family:'Apple SD Gothic Neo';
+	font-feature-settings:"ss01";
+	
+}
+textarea {
+	font-family:"Apple SD Gothic Neo";
+	font-size:18px;
+}
+</style>
+</head>
+<body>
+    <div style="width: 100%; height: 5vh; margin: 2vh 0;">
+	<a href="{% url 'community_main' %}" style="display: flex; flex-direction: row; text-decoration: none;">
+            <span class="material-symbols-outlined" style="margin-left: 5vw; color: black;">arrow_back_ios</span>
+	    <div style="font-size: 1.2rem; color: black;">
+ 		목록으로 돌아가기
+	    </div>
+        </a>
+	<hr style="margin-top: 2vh;">
+    </div>
+
+    <div style="width: 85vw; height: 20vh; margin: auto;">
+	<div style="border-radius: 20px; background-color: #B3F4AD; width: 50px; text-align: center; padding-top: 3px; padding-bottom: 3px; margin-top: 3vh; margin-right: 5px; font-family: Apple SD Gothic Neo;">
+            질문
+        </div>
+        <div style="margin-top: 3vh; margin-bottom: 1.5vh; font-size: 1.25rem;">{{post.title}}</div>
+        <div style="display: flex; font-fmily: Apple SD Gothic Neo; font-size: 1rem; color: #949494; margin-bottom: 3vh;">
+            <div>
+                {% if not post.anonymous %}
+                {{post.writer.profile.nickname}}
+                {% else %}
+                익명
+                {% endif %}
+            </div>
+
+            <div style="margin-left: 5vw;">
+                {{post.print_created_at}}
+            </div>
+
+        </div>
+        <hr>
+    </div>
+    
+    <div style="margin: 0 9vw 12vh 6vw; height: 50vh; line-height: 32.4px; font-size: 1.1rem; font-weight: 400;">
+	{{post.content}}
+    </div>
+    <hr>
+
+    <footer style="display: flex; margin-top: 2vh;">
+        <a href="{% url 'comments' post.id%}">
+	    <span class="material-symbols-outlined" style = "color: black; font-size: 2rem; margin-left: 5vw;">
+		comment
+	    </span>
+	</a>
+        {% if post.writer == request.user %}
+            <a href="{% url 'post_delete' post.id %}">
+                <span class="material-symbols-outlined" style="color: black; font-size: 2rem; margin-left: 5vw;">
+                    delete
+                </span>
+            </a>
+        {% endif %}
+    </footer>
+</body>
+</html>

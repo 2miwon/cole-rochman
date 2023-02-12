@@ -1,0 +1,19 @@
+11/11 17:15:06.174 [colochman-Recv] [360107] : Exception.
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Read timed out
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.recvReport(Protocol.java:250)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:43)
+11/11 17:15:33.492 [colochman-Recv] [360107] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+11/11 17:15:33.492 [colochman-Recv] [360107] : Failed To [colochman-Recv] Protocol End. 
+com.daou.common.exception.BizException: Failed To End. RESULT [PI]
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:120)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+11/11 17:15:33.492 [colochman-Recv] [360107] : Worker [colochman-Recv] End.
+11/11 17:15:33.926 [colochman-Recv] [360107] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+11/11 17:15:34.000 [colochman-Recv] [360107] : User Authentication. USER [colochman]
+11/11 17:15:34.003 [colochman-Recv] [360107] : Start Sending And Receiving Data With The Server.

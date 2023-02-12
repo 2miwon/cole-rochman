@@ -1,0 +1,4 @@
+10/14 02:03:30.803 [colerochman-Batch] [264217] : Enable Create Backup Table. DayOfMonth [14] LastDayOfMonth [31]
+10/14 03:03:30.805 [colerochman-Batch] [264217] : Disable Create Backup Table.
+10/14 03:03:30.806 [colerochman-Batch] [264217] : Enable Delete Attachments.
+10/14 04:03:30.809 [colerochman-Batch] [264217] : Disable Delete Attachments.
