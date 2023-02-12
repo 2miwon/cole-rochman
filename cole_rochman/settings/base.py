@@ -26,10 +26,6 @@ with open(os.path.join(PROJECT_DIR, 'secrets.json'), 'rb') as f:
 SECRET_KEY = secrets['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# dev로 옮김
-# DEBUG = True
-
-# ALLOWED_HOSTS = []
 
 # Application definition
 
