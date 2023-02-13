@@ -35,7 +35,7 @@ et-xmlfile==1.0.1
 Fabric3==1.14.post1
 factory-boy==2.12.0
 Faker==2.0.4
-flower==0.9.3
+flower==1.2.0
 idna==2.8
 importlib-metadata==0.23
 itypes==1.1.0
