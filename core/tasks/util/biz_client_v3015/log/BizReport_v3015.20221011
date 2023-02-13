@@ -1,0 +1,97 @@
+10/11 07:52:16.087 [colochman-Report-0] [262891] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:53:36.588 [colochman-Report-0] [262891] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/11 07:53:36.588 [colochman-Report-0] [262891] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:53:36.588 [colochman-Report-0] [262891] : Worker [colochman-Report-0] End.
+10/11 07:53:36.589 [Thread-1] [262891] : Worker [colochman-Report-0] End.
+10/11 07:53:36.589 [Thread-1] [262891] : Worker [colochman-Report-0] ShutDown.
+10/11 07:54:06.275 [colerochman-Report-0] [263126] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: password authentication failed for user "sean0921"
+ SQLSTATE : 28P01
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/11 07:55:06.276 [colerochman-Report-0] [263126] : Worker [colerochman-Report-0] End.
+10/11 07:55:07.168 [colerochman-Report-0] [263126] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: password authentication failed for user "sean0921"
+ SQLSTATE : 28P01
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/11 07:55:20.903 [colerochman-Report-0] [263126] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:48)
+10/11 07:55:20.903 [colerochman-Report-0] [263126] : Worker [colerochman-Report-0] End.
+10/11 07:55:20.904 [Thread-1] [263126] : Worker [colerochman-Report-0] End.
+10/11 07:55:20.909 [Thread-1] [263126] : Worker [colerochman-Report-0] ShutDown.
+10/11 07:57:30.513 [colerochman-Report-0] [263214] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:58:15.062 [colerochman-Report-0] [263214] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/11 07:58:15.063 [colerochman-Report-0] [263214] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:58:15.063 [colerochman-Report-0] [263214] : Worker [colerochman-Report-0] End.
+10/11 07:58:15.063 [Thread-1] [263214] : Worker [colerochman-Report-0] End.
+10/11 07:58:15.063 [Thread-1] [263214] : Worker [colerochman-Report-0] ShutDown.
+10/11 08:00:18.297 [colerochman-Report-0] [263385] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:05:19.351 [colerochman-Report-0] [263385] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/11 08:05:19.351 [colerochman-Report-0] [263385] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:05:19.351 [colerochman-Report-0] [263385] : Worker [colerochman-Report-0] End.
+10/11 08:05:19.352 [Thread-1] [263385] : Worker [colerochman-Report-0] End.
+10/11 08:05:19.353 [Thread-1] [263385] : Worker [colerochman-Report-0] ShutDown.
+10/11 08:18:37.938 [colerochman-Report-0] [263792] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/11 08:19:37.938 [colerochman-Report-0] [263792] : Worker [colerochman-Report-0] End.
+10/11 08:19:38.658 [colerochman-Report-0] [263792] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/11 08:20:38.661 [colerochman-Report-0] [263792] : Worker [colerochman-Report-0] End.
+10/11 08:20:39.683 [colerochman-Report-0] [263792] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/11 08:21:04.549 [colerochman-Report-0] [263792] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:48)
+10/11 08:21:04.549 [colerochman-Report-0] [263792] : Worker [colerochman-Report-0] End.
+10/11 08:21:04.550 [Thread-1] [263792] : Worker [colerochman-Report-0] End.
+10/11 08:21:04.551 [Thread-1] [263792] : Worker [colerochman-Report-0] ShutDown.
+10/11 08:27:16.468 [colerochman-Report-0] [263993] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:43:19.128 [colerochman-Report-0] [263993] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/11 08:43:19.130 [colerochman-Report-0] [263993] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:43:19.131 [colerochman-Report-0] [263993] : Worker [colerochman-Report-0] End.
+10/11 08:43:19.131 [Thread-1] [263993] : Worker [colerochman-Report-0] End.
+10/11 08:43:19.133 [Thread-1] [263993] : Worker [colerochman-Report-0] ShutDown.
+10/11 08:43:31.969 [colerochman-Report-0] [264217] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:49:33.187 [colerochman-Report-0] [264217] : Update a Report. DEVICE [AT] CMSGID [201420180002] MSGID [1011co_FK1354867813445369857] RESULT [7000] REPART [S] REDEVICE [N]
+10/11 08:56:09.299 [colerochman-Report-0] [264217] : Update a Report. DEVICE [AT] CMSGID [201420180002] MSGID [1011co_FK9605457856345383943] RESULT [7000] REPART [S] REDEVICE [N]

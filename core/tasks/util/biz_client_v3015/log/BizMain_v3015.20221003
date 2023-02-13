@@ -1,0 +1,202 @@
+10/03 23:37:15.122 [main] [217002] : [INFO] BizClient Start   [SYSTEM TIME]:10/03 23:37:14
+10/03 23:37:15.124 [main] [217002] : [INFO] args.length=1  [SYSTEM TIME]:10/03 23:37:14
+10/03 23:37:15.124 [main] [217002] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/03 23:37:14
+10/03 23:37:15.124 [main] [217002] : [OK] confx file make  [SYSTEM TIME]:10/03 23:37:15
+10/03 23:37:15.124 [main] [217002] : [OK] conf file delete [SYSTEM TIME]:10/03 23:37:15
+10/03 23:37:15.124 [main] [217002] : #### BizClient Start ####
+10/03 23:37:15.135 [colochman-Main] [217002] : CONFIGURATION [config/uds.confx_v3015]
+10/03 23:37:15.136 [colochman-Main] [217002] : # BIZ PPURIO 접속정보
+10/03 23:37:15.136 [colochman-Main] [217002] : UDS_IP [biz.ppurio.com]
+10/03 23:37:15.136 [colochman-Main] [217002] : UDS_SEND_PORT [18300]
+10/03 23:37:15.136 [colochman-Main] [217002] : UDS_RECV_PORT [18400]
+10/03 23:37:15.136 [colochman-Main] [217002] : UDS_ID [colochman]
+10/03 23:37:15.136 [colochman-Main] [217002] : USE_SSL [Y]
+10/03 23:37:15.136 [colochman-Main] [217002] : # DBMS 접속정보
+10/03 23:37:15.136 [colochman-Main] [217002] : DBNAME [POSTGRES]
+10/03 23:37:15.136 [colochman-Main] [217002] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+10/03 23:37:15.136 [colochman-Main] [217002] : DBUSER [sean0921]
+10/03 23:37:15.136 [colochman-Main] [217002] : MSG_TABLE [BIZ_MSG]
+10/03 23:37:15.136 [colochman-Main] [217002] : BACKUP_TABLE [BIZ_LOG]
+10/03 23:37:15.136 [colochman-Main] [217002] : # 디렉토리 정보
+10/03 23:37:15.136 [colochman-Main] [217002] : LOG_PATH [./log]
+10/03 23:37:15.136 [colochman-Main] [217002] : FILE_PATH [./spool]
+10/03 23:37:15.136 [colochman-Main] [217002] : BLK_PATH [./blk]
+10/03 23:37:15.136 [colochman-Main] [217002] : REP_PATH [./rep]
+10/03 23:37:15.136 [colochman-Main] [217002] : # WORKER 실행 정보
+10/03 23:37:15.137 [colochman-Main] [217002] : DO_FETCH_PROCESS [Y]
+10/03 23:37:15.137 [colochman-Main] [217002] : DO_SEND_PROCESS [Y]
+10/03 23:37:15.137 [colochman-Main] [217002] : DO_RECV_PROCESS [Y]
+10/03 23:37:15.137 [colochman-Main] [217002] : DO_BACKUP_PROCESS [Y]
+10/03 23:37:15.137 [colochman-Main] [217002] : DO_REORDER_PROCESS [N]
+10/03 23:37:15.137 [colochman-Main] [217002] : DO_BATCH_PROCESS [Y]
+10/03 23:37:15.137 [colochman-Main] [217002] : FETCH_SLEEP_SECONDS [1]
+10/03 23:37:15.137 [colochman-Main] [217002] : SEND_SLEEP_SECONDS [1]
+10/03 23:37:15.137 [colochman-Main] [217002] : RECV_SLEEP_SECONDS [1]
+10/03 23:37:15.137 [colochman-Main] [217002] : REPORT_SLEEP_SECONDS [1]
+10/03 23:37:15.137 [colochman-Main] [217002] : BACKUP_SLEEP_SECONDS [10]
+10/03 23:37:15.137 [colochman-Main] [217002] : REORDER_SLEEP_SECONDS [1]
+10/03 23:37:15.137 [colochman-Main] [217002] : BATCH_SLEEP_SECONDS [300]
+10/03 23:37:15.137 [colochman-Main] [217002] : FETCH_COUNT [100]
+10/03 23:37:15.137 [colochman-Main] [217002] : SEND_THREAD_COUNT [1]
+10/03 23:37:15.137 [colochman-Main] [217002] : REPORT_THREAD_COUNT [1]
+10/03 23:37:15.137 [colochman-Main] [217002] : REPORT_QUEUE_SIZE [300]
+10/03 23:37:15.137 [colochman-Main] [217002] : BACKUP_OPTION [Y]
+10/03 23:37:15.137 [colochman-Main] [217002] : BACKUP_COUNT [1000]
+10/03 23:37:15.137 [colochman-Main] [217002] : BACKUP_WAIT_DAY [0]
+10/03 23:37:15.137 [colochman-Main] [217002] : # 부가기능
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_OPTION [N]
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_OF_SEND_TIME []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_MONTH []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_DATE []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_TIME_SUNDAY []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_TIME_MONDAY []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_TIME_TUESDAY []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_TIME_WEDNESDAY []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_TIME_THURSDAY []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_TIME_FRIDAY []
+10/03 23:37:15.138 [colochman-Main] [217002] : BLOCK_TIME_SATURDAY []
+10/03 23:37:15.138 [colochman-Main] [217002] : APPOINTMENT_ON_CLIENT [Y]
+10/03 23:37:15.138 [colochman-Main] [217002] : FILE_DELETE_OPTION [Y]
+10/03 23:37:15.138 [colochman-Main] [217002] : REPORT_RECONFIRM_OPTION [N]
+10/03 23:37:15.138 [colochman-Main] [217002] : DIST_PROC_OPTION [N]
+10/03 23:37:15.138 [colochman-Main] [217002] : DIST_VALUE [0]
+10/03 23:37:15.138 [colochman-Main] [217002] : LOG_DELETE_OPTION [N]
+10/03 23:37:15.138 [colochman-Main] [217002] : LOG_DELETE_DAY [30]
+10/03 23:37:15.138 [colochman-Main] [217002] : USE_DUMMY_MON [N]
+10/03 23:37:15.138 [colochman-Main] [217002] : USE_DUMMY_MON_DEVICE [0]
+10/03 23:37:15.139 [colochman-Main] [217002] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/03 23:37:15.139 [colochman-Main] [217002] : DUMMY_MON_SUBJECT [D_MON]
+10/03 23:37:15.139 [colochman-Main] [217002] : DUMMY_MON_MSG_APPEND []
+10/03 23:37:15.139 [colochman-Main] [217002] : DUMMY_MON_TARGET_NUM [0700000000]
+10/03 23:37:15.139 [colochman-Main] [217002] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/03 23:37:15.139 [colochman-Main] [217002] : DUMMY_MON_INTERVAL [240]
+10/03 23:37:15.139 [colochman-Main] [217002] : MONITOR_SLEEP_SECONDS [1]
+10/03 23:37:15.139 [colochman-Main] [217002] : BLACKLIST_USE [N]
+10/03 23:37:15.139 [colochman-Main] [217002] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/03 23:37:15.139 [colochman-Main] [217002] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/03 23:37:15.139 [colochman-Main] [217002] : USE_DATEFORMAT_STRING [N]
+10/03 23:37:15.139 [colochman-Main] [217002] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/03 23:37:15.139 [colochman-Main] [217002] : CURRENT_TIME_FUNCTION [NOW()]
+10/03 23:37:15.139 [colochman-Main] [217002] : # DBMS 복호화기능 관련
+10/03 23:37:15.139 [colochman-Main] [217002] : DB_DATA_DECRYPTION [N]
+10/03 23:37:15.139 [colochman-Main] [217002] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/03 23:37:15.139 [colochman-Main] [217002] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/03 23:37:15.139 [colochman-Main] [217002] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/03 23:37:15.139 [colochman-Main] [217002] : DB_DATA_DECRYPTION_FUNCTION []
+10/03 23:37:15.139 [colochman-Main] [217002] : USE_RESULT_CODE_MAPPING [N]
+10/03 23:37:15.139 [colochman-Main] [217002] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/03 23:37:15.139 [colochman-Main] [217002] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/03 23:37:15.139 [colochman-Main] [217002] : FILE_HANDLING_MODE [0]
+10/03 23:37:15.139 [colochman-Main] [217002] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/03 23:37:15.139 [colochman-Main] [217002] : BIZCLIENT UUID [ 13f1ae777b4c41fbb09b23047bbf5f18 ]
+10/03 23:37:15.140 [colochman-Main] [217002] : SERVICE_NAME []
+10/03 23:37:15.140 [colochman-Main] [217002] : Access To The File Path. PATH [./spool]
+10/03 23:37:15.140 [colochman-Main] [217002] : Access To The Using File Path. PATH [./spool/using/colochman/ip-172-31-50-221]
+10/03 23:37:15.140 [colochman-Main] [217002] : Access To The Blacklist Path. PATH [./blk]
+10/03 23:37:15.141 [colochman-Main] [217002] : Access To The Report File Path. PATH [./rep]
+10/03 23:37:15.142 [colochman-Main] [217002] : Supported Message Type : SMS, 0
+10/03 23:37:15.143 [colochman-Main] [217002] : Supported Message Type : MMS, 5
+10/03 23:37:15.143 [colochman-Main] [217002] : Supported Message Type : FAX, 2
+10/03 23:37:15.143 [colochman-Main] [217002] : Supported Message Type : PHONE, 3
+10/03 23:37:15.143 [colochman-Main] [217002] : Supported Message Type : AT, 6
+10/03 23:37:15.143 [colochman-Main] [217002] : Supported Message Type : FT, 7
+10/03 23:37:15.143 [colochman-Main] [217002] : Supported Message Type : BI, 11
+10/03 23:37:15.143 [colochman-Main] [217002] : Supported Message Type : BW, 12
+10/03 23:37:15.269 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:37:15.273 [colochman-Main] [217002] : BizFetch (colochman-Fetch) Starting ...
+10/03 23:37:15.279 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:37:15.280 [colochman-Main] [217002] : BizReport[0] (colochman-Report-0) Starting ...
+10/03 23:37:15.285 [colochman-Main] [217002] : BizBackup (colochman-Backup) Starting ...
+10/03 23:37:15.290 [colochman-Main] [217002] : BizBatch (colochman-Batch) Starting ...
+10/03 23:37:21.291 [colochman-Main] [217002] : BizBackup (colochman-Backup) Is Not Alive.
+10/03 23:37:21.292 [colochman-Main] [217002] : BizBackup (colochman-Backup) Starting ...
+10/03 23:37:22.292 [colochman-Main] [217002] : BizFetch (colochman-Fetch) Is Not Alive.
+10/03 23:37:22.292 [colochman-Main] [217002] : BizFetch (colochman-Fetch) Starting ...
+10/03 23:38:16.303 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:38:16.303 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:38:16.303 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:38:16.303 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:39:17.312 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:39:17.313 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:39:17.313 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:39:17.313 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:40:18.322 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:40:18.322 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:40:18.322 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:40:18.323 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:41:19.337 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:41:19.338 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:41:19.338 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:41:19.338 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:42:20.347 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:42:20.348 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:42:20.348 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:42:20.348 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:43:21.357 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:43:21.358 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:43:21.358 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:43:21.358 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:44:22.367 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:44:22.367 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:44:22.367 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:44:22.368 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:45:23.377 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:45:23.377 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:45:23.377 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:45:23.377 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:46:24.387 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:46:24.387 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:46:24.387 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:46:24.387 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:47:25.397 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:47:25.397 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:47:25.397 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:47:25.397 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:48:26.407 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:48:26.408 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:48:26.408 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:48:26.408 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:49:27.417 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:49:27.417 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:49:27.417 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:49:27.418 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:50:28.427 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:50:28.427 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:50:28.427 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:50:28.428 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:51:29.437 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:51:29.437 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:51:29.437 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:51:29.438 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:52:30.445 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:52:30.446 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:52:30.446 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:52:30.446 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:53:31.455 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:53:31.455 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:53:31.455 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:53:31.455 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:54:32.465 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:54:32.465 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:54:32.465 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:54:32.466 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:55:33.474 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:55:33.475 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:55:33.475 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:55:33.475 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:56:34.484 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:56:34.485 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:56:34.485 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:56:34.486 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:57:35.495 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:57:35.496 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:57:35.496 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:57:35.496 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:58:36.505 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:58:36.505 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:58:36.505 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:58:36.505 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...
+10/03 23:59:37.514 [colochman-Main] [217002] : BizSend (colochman-Send-0) Is Not Alive.
+10/03 23:59:37.514 [colochman-Main] [217002] : BizSend[0] (colochman-Send-0) Starting ...
+10/03 23:59:37.514 [colochman-Main] [217002] : BizRecv (colochman-Recv) Is Not Alive.
+10/03 23:59:37.514 [colochman-Main] [217002] : BizRecv (colochman-Recv) Starting ...

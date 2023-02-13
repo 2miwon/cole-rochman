@@ -1,0 +1,200 @@
+{
+	"master": [
+		{
+			"description": "BROADCAST_CLIENT_MSG_ID",
+			"name": "BCMID",
+			"datatype": "VARCHAR(32)",
+			"constraints": "PRIMARY KEY",
+			"usage": "ALL"
+		},
+		{
+			"description": "MSG_TYPE",
+			"name": "MSG_TYPE",
+			"datatype": "INT",
+			"constraints": "DEFAULT 0",
+			"usage": "ALL"
+		},
+		{
+			"description": "STATUS",
+			"name": "STATUS",
+			"datatype": "INT",
+			"constraints": "DEFAULT 0",
+			"usage": "ALL"
+		},
+		{
+			"description": "REG_TIME",
+			"name": "REQUEST_TIME",
+			"datatype": "DATETIME",
+			"constraints": "NOT NULL DEFAULT GETDATE()",
+			"usage": "ALL"
+		},
+		{
+			"description": "REQ_TIME",
+			"name": "SEND_TIME",
+			"datatype": "DATETIME",
+			"constraints": "NOT NULL",
+			"usage": "ALL"
+		},
+		{
+			"description": "SEND_NUMBER",
+			"name": "SEND_PHONE",
+			"datatype": "VARCHAR(16)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "SUBJECT",
+			"name": "SUBJECT",
+			"datatype": "VARCHAR(64)",
+			"constraints": "",
+			"usage": "MMS/FAX"
+		},
+		{
+			"description": "MESSAGE",
+			"name": "MSG_BODY",
+			"datatype": "VARCHAR(2000)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "ATTACHMENTS",
+			"name": "ATTACHED_FILE",
+			"datatype": "VARCHAR(1000)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "CLIENT_INDEX_INFO",
+			"name": "CINFO",
+			"datatype": "VARCHAR(32)",
+			"constraints": "",
+			"usage": "ALL"
+		}
+	],
+	"data": [
+		{
+			"description": "PRIMARY_KEY",
+			"name": "BCMID, CMID"
+		},
+		
+		{
+			"description": "BROADCAST_CLIENT_MSG_ID",
+			"name": "BCMID",
+			"datatype": "VARCHAR(32)",
+			"constraints": "",
+			"usage": "ALL"
+		},		
+		{
+			"description": "CLIENT_MSG_ID",
+			"name": "CMID",
+			"datatype": "VARCHAR(32)",
+			"constraints": "INDEX BIZ_DATA_IX00 NONCLUSTERED",
+			"usage": "ALL"
+		},
+		{
+			"description": "SERVER_MSG_ID",
+			"name": "UMID",
+			"datatype": "VARCHAR(32)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "RECV_NUMBER",
+			"name": "DEST_PHONE",
+			"datatype": "VARCHAR(16)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "STATUS",
+			"name": "STATUS",
+			"datatype": "INT",
+			"constraints": "DEFAULT 0",
+			"usage": "ALL"
+		},
+		{
+			"description": "REG_TIME",
+			"name": "REQUEST_TIME",
+			"datatype": "DATETIME",
+			"constraints": "NOT NULL DEFAULT GETDATE()",
+			"usage": "ALL"
+		},
+		{
+			"description": "REQ_TIME",
+			"name": "SEND_TIME",
+			"datatype": "DATETIME",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "SENT_TIME",
+			"name": "SENT_TIME",
+			"datatype": "DATETIME",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "RECV_RESULT_TIME",
+			"name": "REPORT_TIME",
+			"datatype": "DATETIME",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "RECVD_TIME",
+			"name": "RECVD_TIME",
+			"datatype": "DATETIME",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "RESULT_CODE",
+			"name": "CALL_STATUS",
+			"datatype": "VARCHAR(4)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "TELCO",
+			"name": "TEL_INFO",
+			"datatype": "VARCHAR(10)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "CHANGEWORD1",
+			"name": "CHANGEWORD1",
+			"datatype": "VARCHAR(20)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "CHANGEWORD2",
+			"name": "CHANGEWORD2",
+			"datatype": "VARCHAR(20)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "CHANGEWORD3",
+			"name": "CHANGEWORD3",
+			"datatype": "VARCHAR(20)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "CHANGEWORD4",
+			"name": "CHANGEWORD4",
+			"datatype": "VARCHAR(20)",
+			"constraints": "",
+			"usage": "ALL"
+		},
+		{
+			"description": "CHANGEWORD5",
+			"name": "CHANGEWORD5",
+			"datatype": "VARCHAR(20)",
+			"constraints": "",
+			"usage": "ALL"
+		}
+	]
+}

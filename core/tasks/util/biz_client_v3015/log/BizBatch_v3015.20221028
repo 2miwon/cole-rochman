@@ -1,0 +1,28 @@
+10/28 02:03:00.191 [colochman-Batch] [327659] : Enable Create Backup Table. DayOfMonth [28] LastDayOfMonth [31]
+10/28 03:03:00.193 [colochman-Batch] [327659] : Disable Create Backup Table.
+10/28 03:03:00.193 [colochman-Batch] [327659] : Enable Delete Attachments.
+10/28 04:03:00.198 [colochman-Batch] [327659] : Disable Delete Attachments.
+10/28 07:50:07.616 [colochman-Batch] [327659] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/28 07:50:07.616 [colochman-Batch] [327659] : Worker [colochman-Batch] End.
+10/28 07:50:07.617 [Thread-1] [327659] : Worker [colochman-Batch] End.
+10/28 07:50:07.618 [Thread-1] [327659] : Worker [colochman-Batch] ShutDown.
+10/28 07:51:49.409 [colochman-Batch] [340130] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/28 07:51:49.409 [colochman-Batch] [340130] : Worker [colochman-Batch] End.
+10/28 07:51:49.410 [Thread-1] [340130] : Worker [colochman-Batch] End.
+10/28 07:51:49.410 [Thread-1] [340130] : Worker [colochman-Batch] ShutDown.
+10/28 08:33:52.886 [colochman-Batch] [340253] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/28 08:33:52.886 [colochman-Batch] [340253] : Worker [colochman-Batch] End.
+10/28 08:33:52.887 [Thread-1] [340253] : Worker [colochman-Batch] End.
+10/28 08:33:52.889 [Thread-1] [340253] : Worker [colochman-Batch] ShutDown.

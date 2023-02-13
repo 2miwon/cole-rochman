@@ -1,0 +1,907 @@
+10/11 07:52:14.707 [main] [262891] : [INFO] BizClient Start   [SYSTEM TIME]:10/11 07:52:14
+10/11 07:52:14.712 [main] [262891] : [INFO] args.length=1  [SYSTEM TIME]:10/11 07:52:14
+10/11 07:52:14.712 [main] [262891] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/11 07:52:14
+10/11 07:52:14.712 [main] [262891] : #### BizClient Start ####
+10/11 07:52:14.740 [colochman-Main] [262891] : CONFIGURATION [config/uds.confx_v3015]
+10/11 07:52:14.742 [colochman-Main] [262891] : # BIZ PPURIO 접속정보
+10/11 07:52:14.742 [colochman-Main] [262891] : UDS_IP [bizppurio.com]
+10/11 07:52:14.742 [colochman-Main] [262891] : UDS_SEND_PORT [18300]
+10/11 07:52:14.742 [colochman-Main] [262891] : UDS_RECV_PORT [18400]
+10/11 07:52:14.742 [colochman-Main] [262891] : UDS_ID [colochman]
+10/11 07:52:14.742 [colochman-Main] [262891] : USE_SSL [Y]
+10/11 07:52:14.742 [colochman-Main] [262891] : # DBMS 접속정보
+10/11 07:52:14.742 [colochman-Main] [262891] : DBNAME [POSTGRES]
+10/11 07:52:14.742 [colochman-Main] [262891] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+10/11 07:52:14.742 [colochman-Main] [262891] : DBUSER [sean0921]
+10/11 07:52:14.742 [colochman-Main] [262891] : MSG_TABLE [BIZ_MSG]
+10/11 07:52:14.742 [colochman-Main] [262891] : BACKUP_TABLE [BIZ_LOG]
+10/11 07:52:14.742 [colochman-Main] [262891] : # 디렉토리 정보
+10/11 07:52:14.743 [colochman-Main] [262891] : LOG_PATH [./log]
+10/11 07:52:14.743 [colochman-Main] [262891] : FILE_PATH [./spool]
+10/11 07:52:14.743 [colochman-Main] [262891] : BLK_PATH [./blk]
+10/11 07:52:14.743 [colochman-Main] [262891] : REP_PATH [./rep]
+10/11 07:52:14.743 [colochman-Main] [262891] : # WORKER 실행 정보
+10/11 07:52:14.743 [colochman-Main] [262891] : DO_FETCH_PROCESS [Y]
+10/11 07:52:14.743 [colochman-Main] [262891] : DO_SEND_PROCESS [Y]
+10/11 07:52:14.743 [colochman-Main] [262891] : DO_RECV_PROCESS [Y]
+10/11 07:52:14.743 [colochman-Main] [262891] : DO_BACKUP_PROCESS [Y]
+10/11 07:52:14.743 [colochman-Main] [262891] : DO_REORDER_PROCESS [N]
+10/11 07:52:14.743 [colochman-Main] [262891] : DO_BATCH_PROCESS [Y]
+10/11 07:52:14.743 [colochman-Main] [262891] : FETCH_SLEEP_SECONDS [1]
+10/11 07:52:14.743 [colochman-Main] [262891] : SEND_SLEEP_SECONDS [1]
+10/11 07:52:14.743 [colochman-Main] [262891] : RECV_SLEEP_SECONDS [1]
+10/11 07:52:14.743 [colochman-Main] [262891] : REPORT_SLEEP_SECONDS [1]
+10/11 07:52:14.743 [colochman-Main] [262891] : BACKUP_SLEEP_SECONDS [10]
+10/11 07:52:14.743 [colochman-Main] [262891] : REORDER_SLEEP_SECONDS [1]
+10/11 07:52:14.743 [colochman-Main] [262891] : BATCH_SLEEP_SECONDS [300]
+10/11 07:52:14.743 [colochman-Main] [262891] : FETCH_COUNT [100]
+10/11 07:52:14.743 [colochman-Main] [262891] : SEND_THREAD_COUNT [1]
+10/11 07:52:14.743 [colochman-Main] [262891] : REPORT_THREAD_COUNT [1]
+10/11 07:52:14.743 [colochman-Main] [262891] : REPORT_QUEUE_SIZE [300]
+10/11 07:52:14.743 [colochman-Main] [262891] : BACKUP_OPTION [Y]
+10/11 07:52:14.743 [colochman-Main] [262891] : BACKUP_COUNT [1000]
+10/11 07:52:14.743 [colochman-Main] [262891] : BACKUP_WAIT_DAY [0]
+10/11 07:52:14.743 [colochman-Main] [262891] : # 부가기능
+10/11 07:52:14.743 [colochman-Main] [262891] : BLOCK_OPTION [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_OF_SEND_TIME []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_MONTH []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_DATE []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_TIME_SUNDAY []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_TIME_MONDAY []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_TIME_TUESDAY []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_TIME_WEDNESDAY []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_TIME_THURSDAY []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_TIME_FRIDAY []
+10/11 07:52:14.744 [colochman-Main] [262891] : BLOCK_TIME_SATURDAY []
+10/11 07:52:14.744 [colochman-Main] [262891] : APPOINTMENT_ON_CLIENT [Y]
+10/11 07:52:14.744 [colochman-Main] [262891] : FILE_DELETE_OPTION [Y]
+10/11 07:52:14.744 [colochman-Main] [262891] : REPORT_RECONFIRM_OPTION [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : DIST_PROC_OPTION [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : DIST_VALUE [0]
+10/11 07:52:14.744 [colochman-Main] [262891] : LOG_DELETE_OPTION [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : LOG_DELETE_DAY [30]
+10/11 07:52:14.744 [colochman-Main] [262891] : USE_DUMMY_MON [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : USE_DUMMY_MON_DEVICE [0]
+10/11 07:52:14.744 [colochman-Main] [262891] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/11 07:52:14.744 [colochman-Main] [262891] : DUMMY_MON_SUBJECT [D_MON]
+10/11 07:52:14.744 [colochman-Main] [262891] : DUMMY_MON_MSG_APPEND []
+10/11 07:52:14.744 [colochman-Main] [262891] : DUMMY_MON_TARGET_NUM [0700000000]
+10/11 07:52:14.744 [colochman-Main] [262891] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/11 07:52:14.744 [colochman-Main] [262891] : DUMMY_MON_INTERVAL [240]
+10/11 07:52:14.744 [colochman-Main] [262891] : MONITOR_SLEEP_SECONDS [1]
+10/11 07:52:14.744 [colochman-Main] [262891] : BLACKLIST_USE [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/11 07:52:14.744 [colochman-Main] [262891] : USE_DATEFORMAT_STRING [N]
+10/11 07:52:14.744 [colochman-Main] [262891] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/11 07:52:14.744 [colochman-Main] [262891] : CURRENT_TIME_FUNCTION [NOW()]
+10/11 07:52:14.744 [colochman-Main] [262891] : # DBMS 복호화기능 관련
+10/11 07:52:14.745 [colochman-Main] [262891] : DB_DATA_DECRYPTION [N]
+10/11 07:52:14.745 [colochman-Main] [262891] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/11 07:52:14.745 [colochman-Main] [262891] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/11 07:52:14.745 [colochman-Main] [262891] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/11 07:52:14.745 [colochman-Main] [262891] : DB_DATA_DECRYPTION_FUNCTION []
+10/11 07:52:14.745 [colochman-Main] [262891] : USE_RESULT_CODE_MAPPING [N]
+10/11 07:52:14.745 [colochman-Main] [262891] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/11 07:52:14.745 [colochman-Main] [262891] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/11 07:52:14.745 [colochman-Main] [262891] : FILE_HANDLING_MODE [0]
+10/11 07:52:14.745 [colochman-Main] [262891] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/11 07:52:14.745 [colochman-Main] [262891] : BIZCLIENT UUID [ 6600df98bd2848568aa3b2c76bf0c5b0 ]
+10/11 07:52:14.745 [colochman-Main] [262891] : SERVICE_NAME []
+10/11 07:52:14.745 [colochman-Main] [262891] : Access To The File Path. PATH [./spool]
+10/11 07:52:14.745 [colochman-Main] [262891] : Access To The Using File Path. PATH [./spool/using/colochman/ip-172-31-50-221]
+10/11 07:52:14.745 [colochman-Main] [262891] : Access To The Blacklist Path. PATH [./blk]
+10/11 07:52:14.745 [colochman-Main] [262891] : Access To The Report File Path. PATH [./rep]
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : SMS, 0
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : MMS, 5
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : FAX, 2
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : PHONE, 3
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : AT, 6
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : FT, 7
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : BI, 11
+10/11 07:52:14.747 [colochman-Main] [262891] : Supported Message Type : BW, 12
+10/11 07:52:14.935 [colochman-Main] [262891] : BizSend[0] (colochman-Send-0) Starting ...
+10/11 07:52:14.949 [colochman-Main] [262891] : BizFetch (colochman-Fetch) Starting ...
+10/11 07:52:14.950 [colochman-Main] [262891] : BizRecv (colochman-Recv) Starting ...
+10/11 07:52:14.959 [colochman-Main] [262891] : BizReport[0] (colochman-Report-0) Starting ...
+10/11 07:52:14.961 [colochman-Main] [262891] : BizBackup (colochman-Backup) Starting ...
+10/11 07:52:14.965 [colochman-Main] [262891] : BizBatch (colochman-Batch) Starting ...
+10/11 07:53:36.527 [Thread-1] [262891] : ShutDown Message Hook..
+10/11 07:53:36.528 [colochman-Main] [262891] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+10/11 07:53:36.529 [Thread-1] [262891] : Start Workers Shutdown ......
+10/11 07:53:36.593 [Thread-1] [262891] : End Workers Shutdown ......
+10/11 07:54:04.864 [main] [263126] : [INFO] BizClient Start   [SYSTEM TIME]:10/11 07:54:04
+10/11 07:54:04.868 [main] [263126] : [INFO] args.length=1  [SYSTEM TIME]:10/11 07:54:04
+10/11 07:54:04.868 [main] [263126] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/11 07:54:04
+10/11 07:54:04.868 [main] [263126] : #### BizClient Start ####
+10/11 07:54:04.890 [colerochman-Main] [263126] : CONFIGURATION [config/uds.confx_v3015]
+10/11 07:54:04.890 [colerochman-Main] [263126] : # BIZ PPURIO 접속정보
+10/11 07:54:04.890 [colerochman-Main] [263126] : UDS_IP [bizppurio.com]
+10/11 07:54:04.890 [colerochman-Main] [263126] : UDS_SEND_PORT [18300]
+10/11 07:54:04.890 [colerochman-Main] [263126] : UDS_RECV_PORT [18400]
+10/11 07:54:04.890 [colerochman-Main] [263126] : UDS_ID [colerochman]
+10/11 07:54:04.890 [colerochman-Main] [263126] : USE_SSL [Y]
+10/11 07:54:04.890 [colerochman-Main] [263126] : # DBMS 접속정보
+10/11 07:54:04.891 [colerochman-Main] [263126] : DBNAME [POSTGRES]
+10/11 07:54:04.891 [colerochman-Main] [263126] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+10/11 07:54:04.891 [colerochman-Main] [263126] : DBUSER [sean0921]
+10/11 07:54:04.891 [colerochman-Main] [263126] : MSG_TABLE [BIZ_MSG]
+10/11 07:54:04.891 [colerochman-Main] [263126] : BACKUP_TABLE [BIZ_LOG]
+10/11 07:54:04.891 [colerochman-Main] [263126] : # 디렉토리 정보
+10/11 07:54:04.891 [colerochman-Main] [263126] : LOG_PATH [./log]
+10/11 07:54:04.891 [colerochman-Main] [263126] : FILE_PATH [./spool]
+10/11 07:54:04.891 [colerochman-Main] [263126] : BLK_PATH [./blk]
+10/11 07:54:04.891 [colerochman-Main] [263126] : REP_PATH [./rep]
+10/11 07:54:04.891 [colerochman-Main] [263126] : # WORKER 실행 정보
+10/11 07:54:04.891 [colerochman-Main] [263126] : DO_FETCH_PROCESS [Y]
+10/11 07:54:04.891 [colerochman-Main] [263126] : DO_SEND_PROCESS [Y]
+10/11 07:54:04.891 [colerochman-Main] [263126] : DO_RECV_PROCESS [Y]
+10/11 07:54:04.891 [colerochman-Main] [263126] : DO_BACKUP_PROCESS [Y]
+10/11 07:54:04.891 [colerochman-Main] [263126] : DO_REORDER_PROCESS [N]
+10/11 07:54:04.891 [colerochman-Main] [263126] : DO_BATCH_PROCESS [Y]
+10/11 07:54:04.892 [colerochman-Main] [263126] : FETCH_SLEEP_SECONDS [1]
+10/11 07:54:04.892 [colerochman-Main] [263126] : SEND_SLEEP_SECONDS [1]
+10/11 07:54:04.892 [colerochman-Main] [263126] : RECV_SLEEP_SECONDS [1]
+10/11 07:54:04.892 [colerochman-Main] [263126] : REPORT_SLEEP_SECONDS [1]
+10/11 07:54:04.892 [colerochman-Main] [263126] : BACKUP_SLEEP_SECONDS [10]
+10/11 07:54:04.892 [colerochman-Main] [263126] : REORDER_SLEEP_SECONDS [1]
+10/11 07:54:04.892 [colerochman-Main] [263126] : BATCH_SLEEP_SECONDS [300]
+10/11 07:54:04.892 [colerochman-Main] [263126] : FETCH_COUNT [100]
+10/11 07:54:04.893 [colerochman-Main] [263126] : SEND_THREAD_COUNT [1]
+10/11 07:54:04.893 [colerochman-Main] [263126] : REPORT_THREAD_COUNT [1]
+10/11 07:54:04.893 [colerochman-Main] [263126] : REPORT_QUEUE_SIZE [300]
+10/11 07:54:04.893 [colerochman-Main] [263126] : BACKUP_OPTION [Y]
+10/11 07:54:04.893 [colerochman-Main] [263126] : BACKUP_COUNT [1000]
+10/11 07:54:04.893 [colerochman-Main] [263126] : BACKUP_WAIT_DAY [0]
+10/11 07:54:04.893 [colerochman-Main] [263126] : # 부가기능
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_OPTION [N]
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_OF_SEND_TIME []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_MONTH []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_DATE []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_TIME_SUNDAY []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_TIME_MONDAY []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_TIME_TUESDAY []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_TIME_WEDNESDAY []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_TIME_THURSDAY []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_TIME_FRIDAY []
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLOCK_TIME_SATURDAY []
+10/11 07:54:04.893 [colerochman-Main] [263126] : APPOINTMENT_ON_CLIENT [Y]
+10/11 07:54:04.893 [colerochman-Main] [263126] : FILE_DELETE_OPTION [Y]
+10/11 07:54:04.893 [colerochman-Main] [263126] : REPORT_RECONFIRM_OPTION [N]
+10/11 07:54:04.893 [colerochman-Main] [263126] : DIST_PROC_OPTION [N]
+10/11 07:54:04.893 [colerochman-Main] [263126] : DIST_VALUE [0]
+10/11 07:54:04.893 [colerochman-Main] [263126] : LOG_DELETE_OPTION [N]
+10/11 07:54:04.893 [colerochman-Main] [263126] : LOG_DELETE_DAY [30]
+10/11 07:54:04.893 [colerochman-Main] [263126] : USE_DUMMY_MON [N]
+10/11 07:54:04.893 [colerochman-Main] [263126] : USE_DUMMY_MON_DEVICE [0]
+10/11 07:54:04.893 [colerochman-Main] [263126] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/11 07:54:04.893 [colerochman-Main] [263126] : DUMMY_MON_SUBJECT [D_MON]
+10/11 07:54:04.893 [colerochman-Main] [263126] : DUMMY_MON_MSG_APPEND []
+10/11 07:54:04.893 [colerochman-Main] [263126] : DUMMY_MON_TARGET_NUM [0700000000]
+10/11 07:54:04.893 [colerochman-Main] [263126] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/11 07:54:04.893 [colerochman-Main] [263126] : DUMMY_MON_INTERVAL [240]
+10/11 07:54:04.893 [colerochman-Main] [263126] : MONITOR_SLEEP_SECONDS [1]
+10/11 07:54:04.893 [colerochman-Main] [263126] : BLACKLIST_USE [N]
+10/11 07:54:04.894 [colerochman-Main] [263126] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/11 07:54:04.894 [colerochman-Main] [263126] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/11 07:54:04.894 [colerochman-Main] [263126] : USE_DATEFORMAT_STRING [N]
+10/11 07:54:04.894 [colerochman-Main] [263126] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/11 07:54:04.894 [colerochman-Main] [263126] : CURRENT_TIME_FUNCTION [NOW()]
+10/11 07:54:04.894 [colerochman-Main] [263126] : # DBMS 복호화기능 관련
+10/11 07:54:04.894 [colerochman-Main] [263126] : DB_DATA_DECRYPTION [N]
+10/11 07:54:04.894 [colerochman-Main] [263126] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/11 07:54:04.894 [colerochman-Main] [263126] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/11 07:54:04.894 [colerochman-Main] [263126] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/11 07:54:04.894 [colerochman-Main] [263126] : DB_DATA_DECRYPTION_FUNCTION []
+10/11 07:54:04.894 [colerochman-Main] [263126] : USE_RESULT_CODE_MAPPING [N]
+10/11 07:54:04.898 [colerochman-Main] [263126] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/11 07:54:04.898 [colerochman-Main] [263126] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/11 07:54:04.898 [colerochman-Main] [263126] : FILE_HANDLING_MODE [0]
+10/11 07:54:04.899 [colerochman-Main] [263126] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/11 07:54:04.899 [colerochman-Main] [263126] : BIZCLIENT UUID [ 984bccf7106a4645a4da0cc79635dfa0 ]
+10/11 07:54:04.899 [colerochman-Main] [263126] : SERVICE_NAME []
+10/11 07:54:04.899 [colerochman-Main] [263126] : Access To The File Path. PATH [./spool]
+10/11 07:54:04.900 [colerochman-Main] [263126] : Access To The Using File Path. PATH [./spool/using/colerochman/ip-172-31-50-221]
+10/11 07:54:04.900 [colerochman-Main] [263126] : Access To The Blacklist Path. PATH [./blk]
+10/11 07:54:04.900 [colerochman-Main] [263126] : Access To The Report File Path. PATH [./rep]
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : SMS, 0
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : MMS, 5
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : FAX, 2
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : PHONE, 3
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : AT, 6
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : FT, 7
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : BI, 11
+10/11 07:54:04.902 [colerochman-Main] [263126] : Supported Message Type : BW, 12
+10/11 07:54:05.100 [colerochman-Main] [263126] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 07:54:05.102 [colerochman-Main] [263126] : BizFetch (colerochman-Fetch) Starting ...
+10/11 07:54:05.105 [colerochman-Main] [263126] : BizRecv (colerochman-Recv) Starting ...
+10/11 07:54:05.109 [colerochman-Main] [263126] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 07:54:05.110 [colerochman-Main] [263126] : BizBackup (colerochman-Backup) Starting ...
+10/11 07:54:05.111 [colerochman-Main] [263126] : BizBatch (colerochman-Batch) Starting ...
+10/11 07:55:07.122 [colerochman-Main] [263126] : BizFetch (colerochman-Fetch) Is Not Alive.
+10/11 07:55:07.123 [colerochman-Main] [263126] : BizFetch (colerochman-Fetch) Starting ...
+10/11 07:55:07.123 [colerochman-Main] [263126] : BizReport (colerochman-Report-0) Is Not Alive.
+10/11 07:55:07.123 [colerochman-Main] [263126] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 07:55:07.127 [colerochman-Main] [263126] : BizBackup (colerochman-Backup) Is Not Alive.
+10/11 07:55:07.127 [colerochman-Main] [263126] : BizBackup (colerochman-Backup) Starting ...
+10/11 07:55:20.757 [Thread-1] [263126] : ShutDown Message Hook..
+10/11 07:55:20.758 [colerochman-Main] [263126] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+10/11 07:55:20.861 [Thread-1] [263126] : Start Workers Shutdown ......
+10/11 07:55:20.935 [Thread-1] [263126] : End Workers Shutdown ......
+10/11 07:57:29.174 [main] [263214] : [INFO] BizClient Start   [SYSTEM TIME]:10/11 07:57:28
+10/11 07:57:29.176 [main] [263214] : [INFO] args.length=1  [SYSTEM TIME]:10/11 07:57:28
+10/11 07:57:29.176 [main] [263214] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/11 07:57:28
+10/11 07:57:29.176 [main] [263214] : [OK] confx file make  [SYSTEM TIME]:10/11 07:57:29
+10/11 07:57:29.176 [main] [263214] : [OK] conf file delete [SYSTEM TIME]:10/11 07:57:29
+10/11 07:57:29.176 [main] [263214] : #### BizClient Start ####
+10/11 07:57:29.189 [colerochman-Main] [263214] : CONFIGURATION [config/uds.confx_v3015]
+10/11 07:57:29.189 [colerochman-Main] [263214] : # BIZ PPURIO 접속정보
+10/11 07:57:29.189 [colerochman-Main] [263214] : UDS_IP [bizppurio.com]
+10/11 07:57:29.190 [colerochman-Main] [263214] : UDS_SEND_PORT [18300]
+10/11 07:57:29.190 [colerochman-Main] [263214] : UDS_RECV_PORT [18400]
+10/11 07:57:29.190 [colerochman-Main] [263214] : UDS_ID [colerochman]
+10/11 07:57:29.190 [colerochman-Main] [263214] : USE_SSL [Y]
+10/11 07:57:29.190 [colerochman-Main] [263214] : # DBMS 접속정보
+10/11 07:57:29.190 [colerochman-Main] [263214] : DBNAME [POSTGRES]
+10/11 07:57:29.190 [colerochman-Main] [263214] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+10/11 07:57:29.190 [colerochman-Main] [263214] : DBUSER [sean0921]
+10/11 07:57:29.190 [colerochman-Main] [263214] : MSG_TABLE [BIZ_MSG]
+10/11 07:57:29.190 [colerochman-Main] [263214] : BACKUP_TABLE [BIZ_LOG]
+10/11 07:57:29.190 [colerochman-Main] [263214] : # 디렉토리 정보
+10/11 07:57:29.190 [colerochman-Main] [263214] : LOG_PATH [./log]
+10/11 07:57:29.190 [colerochman-Main] [263214] : FILE_PATH [./spool]
+10/11 07:57:29.190 [colerochman-Main] [263214] : BLK_PATH [./blk]
+10/11 07:57:29.190 [colerochman-Main] [263214] : REP_PATH [./rep]
+10/11 07:57:29.190 [colerochman-Main] [263214] : # WORKER 실행 정보
+10/11 07:57:29.190 [colerochman-Main] [263214] : DO_FETCH_PROCESS [Y]
+10/11 07:57:29.190 [colerochman-Main] [263214] : DO_SEND_PROCESS [Y]
+10/11 07:57:29.190 [colerochman-Main] [263214] : DO_RECV_PROCESS [Y]
+10/11 07:57:29.190 [colerochman-Main] [263214] : DO_BACKUP_PROCESS [Y]
+10/11 07:57:29.190 [colerochman-Main] [263214] : DO_REORDER_PROCESS [N]
+10/11 07:57:29.190 [colerochman-Main] [263214] : DO_BATCH_PROCESS [Y]
+10/11 07:57:29.190 [colerochman-Main] [263214] : FETCH_SLEEP_SECONDS [1]
+10/11 07:57:29.191 [colerochman-Main] [263214] : SEND_SLEEP_SECONDS [1]
+10/11 07:57:29.191 [colerochman-Main] [263214] : RECV_SLEEP_SECONDS [1]
+10/11 07:57:29.191 [colerochman-Main] [263214] : REPORT_SLEEP_SECONDS [1]
+10/11 07:57:29.191 [colerochman-Main] [263214] : BACKUP_SLEEP_SECONDS [10]
+10/11 07:57:29.191 [colerochman-Main] [263214] : REORDER_SLEEP_SECONDS [1]
+10/11 07:57:29.191 [colerochman-Main] [263214] : BATCH_SLEEP_SECONDS [300]
+10/11 07:57:29.191 [colerochman-Main] [263214] : FETCH_COUNT [100]
+10/11 07:57:29.191 [colerochman-Main] [263214] : SEND_THREAD_COUNT [1]
+10/11 07:57:29.191 [colerochman-Main] [263214] : REPORT_THREAD_COUNT [1]
+10/11 07:57:29.191 [colerochman-Main] [263214] : REPORT_QUEUE_SIZE [300]
+10/11 07:57:29.191 [colerochman-Main] [263214] : BACKUP_OPTION [Y]
+10/11 07:57:29.191 [colerochman-Main] [263214] : BACKUP_COUNT [1000]
+10/11 07:57:29.191 [colerochman-Main] [263214] : BACKUP_WAIT_DAY [0]
+10/11 07:57:29.191 [colerochman-Main] [263214] : # 부가기능
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_OPTION [N]
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_OF_SEND_TIME []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_MONTH []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_DATE []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_TIME_SUNDAY []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_TIME_MONDAY []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_TIME_TUESDAY []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_TIME_WEDNESDAY []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_TIME_THURSDAY []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_TIME_FRIDAY []
+10/11 07:57:29.191 [colerochman-Main] [263214] : BLOCK_TIME_SATURDAY []
+10/11 07:57:29.191 [colerochman-Main] [263214] : APPOINTMENT_ON_CLIENT [Y]
+10/11 07:57:29.191 [colerochman-Main] [263214] : FILE_DELETE_OPTION [Y]
+10/11 07:57:29.191 [colerochman-Main] [263214] : REPORT_RECONFIRM_OPTION [N]
+10/11 07:57:29.191 [colerochman-Main] [263214] : DIST_PROC_OPTION [N]
+10/11 07:57:29.191 [colerochman-Main] [263214] : DIST_VALUE [0]
+10/11 07:57:29.191 [colerochman-Main] [263214] : LOG_DELETE_OPTION [N]
+10/11 07:57:29.191 [colerochman-Main] [263214] : LOG_DELETE_DAY [30]
+10/11 07:57:29.191 [colerochman-Main] [263214] : USE_DUMMY_MON [N]
+10/11 07:57:29.191 [colerochman-Main] [263214] : USE_DUMMY_MON_DEVICE [0]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DUMMY_MON_SUBJECT [D_MON]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DUMMY_MON_MSG_APPEND []
+10/11 07:57:29.192 [colerochman-Main] [263214] : DUMMY_MON_TARGET_NUM [0700000000]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DUMMY_MON_INTERVAL [240]
+10/11 07:57:29.192 [colerochman-Main] [263214] : MONITOR_SLEEP_SECONDS [1]
+10/11 07:57:29.192 [colerochman-Main] [263214] : BLACKLIST_USE [N]
+10/11 07:57:29.192 [colerochman-Main] [263214] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/11 07:57:29.192 [colerochman-Main] [263214] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/11 07:57:29.192 [colerochman-Main] [263214] : USE_DATEFORMAT_STRING [N]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/11 07:57:29.192 [colerochman-Main] [263214] : CURRENT_TIME_FUNCTION [NOW()]
+10/11 07:57:29.192 [colerochman-Main] [263214] : # DBMS 복호화기능 관련
+10/11 07:57:29.192 [colerochman-Main] [263214] : DB_DATA_DECRYPTION [N]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/11 07:57:29.192 [colerochman-Main] [263214] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/11 07:57:29.192 [colerochman-Main] [263214] : DB_DATA_DECRYPTION_FUNCTION []
+10/11 07:57:29.192 [colerochman-Main] [263214] : USE_RESULT_CODE_MAPPING [N]
+10/11 07:57:29.192 [colerochman-Main] [263214] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/11 07:57:29.192 [colerochman-Main] [263214] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/11 07:57:29.192 [colerochman-Main] [263214] : FILE_HANDLING_MODE [0]
+10/11 07:57:29.192 [colerochman-Main] [263214] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/11 07:57:29.192 [colerochman-Main] [263214] : BIZCLIENT UUID [ 539426dddf474d7e9a830c02418937ee ]
+10/11 07:57:29.192 [colerochman-Main] [263214] : SERVICE_NAME []
+10/11 07:57:29.192 [colerochman-Main] [263214] : Access To The File Path. PATH [./spool]
+10/11 07:57:29.193 [colerochman-Main] [263214] : Access To The Using File Path. PATH [./spool/using/colerochman/ip-172-31-50-221]
+10/11 07:57:29.193 [colerochman-Main] [263214] : Access To The Blacklist Path. PATH [./blk]
+10/11 07:57:29.193 [colerochman-Main] [263214] : Access To The Report File Path. PATH [./rep]
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : SMS, 0
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : MMS, 5
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : FAX, 2
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : PHONE, 3
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : AT, 6
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : FT, 7
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : BI, 11
+10/11 07:57:29.195 [colerochman-Main] [263214] : Supported Message Type : BW, 12
+10/11 07:57:29.362 [colerochman-Main] [263214] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 07:57:29.363 [colerochman-Main] [263214] : BizFetch (colerochman-Fetch) Starting ...
+10/11 07:57:29.364 [colerochman-Main] [263214] : BizRecv (colerochman-Recv) Starting ...
+10/11 07:57:29.366 [colerochman-Main] [263214] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 07:57:29.367 [colerochman-Main] [263214] : BizBackup (colerochman-Backup) Starting ...
+10/11 07:57:29.369 [colerochman-Main] [263214] : BizBatch (colerochman-Batch) Starting ...
+10/11 07:58:14.883 [Thread-1] [263214] : ShutDown Message Hook..
+10/11 07:58:14.884 [colerochman-Main] [263214] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+10/11 07:58:14.984 [Thread-1] [263214] : Start Workers Shutdown ......
+10/11 07:58:15.068 [Thread-1] [263214] : End Workers Shutdown ......
+10/11 08:00:17.072 [main] [263385] : [INFO] BizClient Start   [SYSTEM TIME]:10/11 08:00:16
+10/11 08:00:17.073 [main] [263385] : [INFO] args.length=1  [SYSTEM TIME]:10/11 08:00:16
+10/11 08:00:17.074 [main] [263385] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/11 08:00:16
+10/11 08:00:17.074 [main] [263385] : [OK] confx file make  [SYSTEM TIME]:10/11 08:00:16
+10/11 08:00:17.074 [main] [263385] : [OK] conf file delete [SYSTEM TIME]:10/11 08:00:16
+10/11 08:00:17.074 [main] [263385] : #### BizClient Start ####
+10/11 08:00:17.087 [colerochman-Main] [263385] : CONFIGURATION [config/uds.confx_v3015]
+10/11 08:00:17.088 [colerochman-Main] [263385] : # BIZ PPURIO 접속정보
+10/11 08:00:17.088 [colerochman-Main] [263385] : UDS_IP [bizppurio.com]
+10/11 08:00:17.088 [colerochman-Main] [263385] : UDS_SEND_PORT [18300]
+10/11 08:00:17.088 [colerochman-Main] [263385] : UDS_RECV_PORT [18400]
+10/11 08:00:17.088 [colerochman-Main] [263385] : UDS_ID [colerochman]
+10/11 08:00:17.088 [colerochman-Main] [263385] : USE_SSL [Y]
+10/11 08:00:17.088 [colerochman-Main] [263385] : # DBMS 접속정보
+10/11 08:00:17.088 [colerochman-Main] [263385] : DBNAME [POSTGRES]
+10/11 08:00:17.088 [colerochman-Main] [263385] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+10/11 08:00:17.088 [colerochman-Main] [263385] : DBUSER [sean0921]
+10/11 08:00:17.088 [colerochman-Main] [263385] : MSG_TABLE [BIZ_MSG]
+10/11 08:00:17.088 [colerochman-Main] [263385] : BACKUP_TABLE [BIZ_LOG]
+10/11 08:00:17.088 [colerochman-Main] [263385] : # 디렉토리 정보
+10/11 08:00:17.088 [colerochman-Main] [263385] : LOG_PATH [./log]
+10/11 08:00:17.088 [colerochman-Main] [263385] : FILE_PATH [./spool]
+10/11 08:00:17.088 [colerochman-Main] [263385] : BLK_PATH [./blk]
+10/11 08:00:17.089 [colerochman-Main] [263385] : REP_PATH [./rep]
+10/11 08:00:17.089 [colerochman-Main] [263385] : # WORKER 실행 정보
+10/11 08:00:17.089 [colerochman-Main] [263385] : DO_FETCH_PROCESS [Y]
+10/11 08:00:17.089 [colerochman-Main] [263385] : DO_SEND_PROCESS [Y]
+10/11 08:00:17.089 [colerochman-Main] [263385] : DO_RECV_PROCESS [Y]
+10/11 08:00:17.089 [colerochman-Main] [263385] : DO_BACKUP_PROCESS [Y]
+10/11 08:00:17.089 [colerochman-Main] [263385] : DO_REORDER_PROCESS [N]
+10/11 08:00:17.089 [colerochman-Main] [263385] : DO_BATCH_PROCESS [Y]
+10/11 08:00:17.089 [colerochman-Main] [263385] : FETCH_SLEEP_SECONDS [1]
+10/11 08:00:17.089 [colerochman-Main] [263385] : SEND_SLEEP_SECONDS [1]
+10/11 08:00:17.089 [colerochman-Main] [263385] : RECV_SLEEP_SECONDS [1]
+10/11 08:00:17.089 [colerochman-Main] [263385] : REPORT_SLEEP_SECONDS [1]
+10/11 08:00:17.089 [colerochman-Main] [263385] : BACKUP_SLEEP_SECONDS [10]
+10/11 08:00:17.089 [colerochman-Main] [263385] : REORDER_SLEEP_SECONDS [1]
+10/11 08:00:17.089 [colerochman-Main] [263385] : BATCH_SLEEP_SECONDS [300]
+10/11 08:00:17.089 [colerochman-Main] [263385] : FETCH_COUNT [100]
+10/11 08:00:17.089 [colerochman-Main] [263385] : SEND_THREAD_COUNT [1]
+10/11 08:00:17.089 [colerochman-Main] [263385] : REPORT_THREAD_COUNT [1]
+10/11 08:00:17.089 [colerochman-Main] [263385] : REPORT_QUEUE_SIZE [300]
+10/11 08:00:17.089 [colerochman-Main] [263385] : BACKUP_OPTION [Y]
+10/11 08:00:17.089 [colerochman-Main] [263385] : BACKUP_COUNT [1000]
+10/11 08:00:17.089 [colerochman-Main] [263385] : BACKUP_WAIT_DAY [0]
+10/11 08:00:17.089 [colerochman-Main] [263385] : # 부가기능
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_OPTION [N]
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_OF_SEND_TIME []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_MONTH []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_DATE []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_TIME_SUNDAY []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_TIME_MONDAY []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_TIME_TUESDAY []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_TIME_WEDNESDAY []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_TIME_THURSDAY []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_TIME_FRIDAY []
+10/11 08:00:17.090 [colerochman-Main] [263385] : BLOCK_TIME_SATURDAY []
+10/11 08:00:17.090 [colerochman-Main] [263385] : APPOINTMENT_ON_CLIENT [Y]
+10/11 08:00:17.090 [colerochman-Main] [263385] : FILE_DELETE_OPTION [Y]
+10/11 08:00:17.090 [colerochman-Main] [263385] : REPORT_RECONFIRM_OPTION [N]
+10/11 08:00:17.090 [colerochman-Main] [263385] : DIST_PROC_OPTION [N]
+10/11 08:00:17.090 [colerochman-Main] [263385] : DIST_VALUE [0]
+10/11 08:00:17.090 [colerochman-Main] [263385] : LOG_DELETE_OPTION [N]
+10/11 08:00:17.090 [colerochman-Main] [263385] : LOG_DELETE_DAY [30]
+10/11 08:00:17.090 [colerochman-Main] [263385] : USE_DUMMY_MON [N]
+10/11 08:00:17.090 [colerochman-Main] [263385] : USE_DUMMY_MON_DEVICE [0]
+10/11 08:00:17.090 [colerochman-Main] [263385] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/11 08:00:17.090 [colerochman-Main] [263385] : DUMMY_MON_SUBJECT [D_MON]
+10/11 08:00:17.090 [colerochman-Main] [263385] : DUMMY_MON_MSG_APPEND []
+10/11 08:00:17.090 [colerochman-Main] [263385] : DUMMY_MON_TARGET_NUM [0700000000]
+10/11 08:00:17.090 [colerochman-Main] [263385] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/11 08:00:17.090 [colerochman-Main] [263385] : DUMMY_MON_INTERVAL [240]
+10/11 08:00:17.091 [colerochman-Main] [263385] : MONITOR_SLEEP_SECONDS [1]
+10/11 08:00:17.091 [colerochman-Main] [263385] : BLACKLIST_USE [N]
+10/11 08:00:17.091 [colerochman-Main] [263385] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/11 08:00:17.091 [colerochman-Main] [263385] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/11 08:00:17.091 [colerochman-Main] [263385] : USE_DATEFORMAT_STRING [N]
+10/11 08:00:17.091 [colerochman-Main] [263385] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/11 08:00:17.091 [colerochman-Main] [263385] : CURRENT_TIME_FUNCTION [NOW()]
+10/11 08:00:17.091 [colerochman-Main] [263385] : # DBMS 복호화기능 관련
+10/11 08:00:17.091 [colerochman-Main] [263385] : DB_DATA_DECRYPTION [N]
+10/11 08:00:17.091 [colerochman-Main] [263385] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/11 08:00:17.091 [colerochman-Main] [263385] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/11 08:00:17.091 [colerochman-Main] [263385] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/11 08:00:17.091 [colerochman-Main] [263385] : DB_DATA_DECRYPTION_FUNCTION []
+10/11 08:00:17.091 [colerochman-Main] [263385] : USE_RESULT_CODE_MAPPING [N]
+10/11 08:00:17.091 [colerochman-Main] [263385] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/11 08:00:17.091 [colerochman-Main] [263385] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/11 08:00:17.091 [colerochman-Main] [263385] : FILE_HANDLING_MODE [0]
+10/11 08:00:17.091 [colerochman-Main] [263385] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/11 08:00:17.091 [colerochman-Main] [263385] : BIZCLIENT UUID [ d209b7c89bf54498829b19e471cc8464 ]
+10/11 08:00:17.091 [colerochman-Main] [263385] : SERVICE_NAME []
+10/11 08:00:17.091 [colerochman-Main] [263385] : Access To The File Path. PATH [./spool]
+10/11 08:00:17.091 [colerochman-Main] [263385] : Access To The Using File Path. PATH [./spool/using/colerochman/ip-172-31-50-221]
+10/11 08:00:17.091 [colerochman-Main] [263385] : Access To The Blacklist Path. PATH [./blk]
+10/11 08:00:17.091 [colerochman-Main] [263385] : Access To The Report File Path. PATH [./rep]
+10/11 08:00:17.100 [colerochman-Main] [263385] : Supported Message Type : SMS, 0
+10/11 08:00:17.100 [colerochman-Main] [263385] : Supported Message Type : MMS, 5
+10/11 08:00:17.100 [colerochman-Main] [263385] : Supported Message Type : FAX, 2
+10/11 08:00:17.100 [colerochman-Main] [263385] : Supported Message Type : PHONE, 3
+10/11 08:00:17.100 [colerochman-Main] [263385] : Supported Message Type : AT, 6
+10/11 08:00:17.100 [colerochman-Main] [263385] : Supported Message Type : FT, 7
+10/11 08:00:17.100 [colerochman-Main] [263385] : Supported Message Type : BI, 11
+10/11 08:00:17.101 [colerochman-Main] [263385] : Supported Message Type : BW, 12
+10/11 08:00:17.222 [colerochman-Main] [263385] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:00:17.231 [colerochman-Main] [263385] : BizFetch (colerochman-Fetch) Starting ...
+10/11 08:00:17.237 [colerochman-Main] [263385] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:00:17.239 [colerochman-Main] [263385] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 08:00:17.240 [colerochman-Main] [263385] : BizBackup (colerochman-Backup) Starting ...
+10/11 08:00:17.242 [colerochman-Main] [263385] : BizBatch (colerochman-Batch) Starting ...
+10/11 08:01:48.258 [colerochman-Main] [263385] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:01:48.258 [colerochman-Main] [263385] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:01:48.258 [colerochman-Main] [263385] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:01:48.259 [colerochman-Main] [263385] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:03:18.274 [colerochman-Main] [263385] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:03:18.274 [colerochman-Main] [263385] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:03:18.274 [colerochman-Main] [263385] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:03:18.274 [colerochman-Main] [263385] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:04:49.289 [colerochman-Main] [263385] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:04:49.290 [colerochman-Main] [263385] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:04:49.290 [colerochman-Main] [263385] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:04:49.290 [colerochman-Main] [263385] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:05:01.756 [Thread-1] [263385] : ShutDown Message Hook..
+10/11 08:05:01.756 [colerochman-Main] [263385] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+10/11 08:05:01.758 [Thread-1] [263385] : Start Workers Shutdown ......
+10/11 08:05:16.762 [Thread-17] [263385] : Safe Shutdown Timeout promptly stop All Thread.
+10/11 08:05:19.359 [Thread-1] [263385] : End Workers Shutdown ......
+10/11 08:18:36.390 [main] [263792] : [INFO] BizClient Start   [SYSTEM TIME]:10/11 08:18:36
+10/11 08:18:36.392 [main] [263792] : [INFO] args.length=1  [SYSTEM TIME]:10/11 08:18:36
+10/11 08:18:36.392 [main] [263792] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/11 08:18:36
+10/11 08:18:36.392 [main] [263792] : #### BizClient Start ####
+10/11 08:18:36.419 [colerochman-Main] [263792] : CONFIGURATION [config/uds.confx_v3015]
+10/11 08:18:36.419 [colerochman-Main] [263792] : # BIZ PPURIO 접속정보
+10/11 08:18:36.419 [colerochman-Main] [263792] : UDS_IP [bizppurio.com]
+10/11 08:18:36.420 [colerochman-Main] [263792] : UDS_SEND_PORT [18300]
+10/11 08:18:36.420 [colerochman-Main] [263792] : UDS_RECV_PORT [18400]
+10/11 08:18:36.420 [colerochman-Main] [263792] : UDS_ID [colerochman]
+10/11 08:18:36.420 [colerochman-Main] [263792] : USE_SSL [Y]
+10/11 08:18:36.420 [colerochman-Main] [263792] : # DBMS 접속정보
+10/11 08:18:36.420 [colerochman-Main] [263792] : DBNAME [POSTGRES]
+10/11 08:18:36.420 [colerochman-Main] [263792] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/csbdb1]
+10/11 08:18:36.420 [colerochman-Main] [263792] : DBUSER [sean0921]
+10/11 08:18:36.420 [colerochman-Main] [263792] : MSG_TABLE [BIZ_MSG]
+10/11 08:18:36.420 [colerochman-Main] [263792] : BACKUP_TABLE [BIZ_LOG]
+10/11 08:18:36.420 [colerochman-Main] [263792] : # 디렉토리 정보
+10/11 08:18:36.421 [colerochman-Main] [263792] : LOG_PATH [./log]
+10/11 08:18:36.421 [colerochman-Main] [263792] : FILE_PATH [./spool]
+10/11 08:18:36.421 [colerochman-Main] [263792] : BLK_PATH [./blk]
+10/11 08:18:36.421 [colerochman-Main] [263792] : REP_PATH [./rep]
+10/11 08:18:36.421 [colerochman-Main] [263792] : # WORKER 실행 정보
+10/11 08:18:36.421 [colerochman-Main] [263792] : DO_FETCH_PROCESS [Y]
+10/11 08:18:36.421 [colerochman-Main] [263792] : DO_SEND_PROCESS [Y]
+10/11 08:18:36.421 [colerochman-Main] [263792] : DO_RECV_PROCESS [Y]
+10/11 08:18:36.421 [colerochman-Main] [263792] : DO_BACKUP_PROCESS [Y]
+10/11 08:18:36.421 [colerochman-Main] [263792] : DO_REORDER_PROCESS [N]
+10/11 08:18:36.421 [colerochman-Main] [263792] : DO_BATCH_PROCESS [Y]
+10/11 08:18:36.421 [colerochman-Main] [263792] : FETCH_SLEEP_SECONDS [1]
+10/11 08:18:36.421 [colerochman-Main] [263792] : SEND_SLEEP_SECONDS [1]
+10/11 08:18:36.421 [colerochman-Main] [263792] : RECV_SLEEP_SECONDS [1]
+10/11 08:18:36.421 [colerochman-Main] [263792] : REPORT_SLEEP_SECONDS [1]
+10/11 08:18:36.421 [colerochman-Main] [263792] : BACKUP_SLEEP_SECONDS [10]
+10/11 08:18:36.421 [colerochman-Main] [263792] : REORDER_SLEEP_SECONDS [1]
+10/11 08:18:36.421 [colerochman-Main] [263792] : BATCH_SLEEP_SECONDS [300]
+10/11 08:18:36.421 [colerochman-Main] [263792] : FETCH_COUNT [100]
+10/11 08:18:36.421 [colerochman-Main] [263792] : SEND_THREAD_COUNT [1]
+10/11 08:18:36.421 [colerochman-Main] [263792] : REPORT_THREAD_COUNT [1]
+10/11 08:18:36.421 [colerochman-Main] [263792] : REPORT_QUEUE_SIZE [300]
+10/11 08:18:36.421 [colerochman-Main] [263792] : BACKUP_OPTION [Y]
+10/11 08:18:36.421 [colerochman-Main] [263792] : BACKUP_COUNT [1000]
+10/11 08:18:36.421 [colerochman-Main] [263792] : BACKUP_WAIT_DAY [0]
+10/11 08:18:36.422 [colerochman-Main] [263792] : # 부가기능
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_OPTION [N]
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_OF_SEND_TIME []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_MONTH []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_DATE []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_TIME_SUNDAY []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_TIME_MONDAY []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_TIME_TUESDAY []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_TIME_WEDNESDAY []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_TIME_THURSDAY []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_TIME_FRIDAY []
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLOCK_TIME_SATURDAY []
+10/11 08:18:36.422 [colerochman-Main] [263792] : APPOINTMENT_ON_CLIENT [Y]
+10/11 08:18:36.422 [colerochman-Main] [263792] : FILE_DELETE_OPTION [Y]
+10/11 08:18:36.422 [colerochman-Main] [263792] : REPORT_RECONFIRM_OPTION [N]
+10/11 08:18:36.422 [colerochman-Main] [263792] : DIST_PROC_OPTION [N]
+10/11 08:18:36.422 [colerochman-Main] [263792] : DIST_VALUE [0]
+10/11 08:18:36.422 [colerochman-Main] [263792] : LOG_DELETE_OPTION [N]
+10/11 08:18:36.422 [colerochman-Main] [263792] : LOG_DELETE_DAY [30]
+10/11 08:18:36.422 [colerochman-Main] [263792] : USE_DUMMY_MON [N]
+10/11 08:18:36.422 [colerochman-Main] [263792] : USE_DUMMY_MON_DEVICE [0]
+10/11 08:18:36.422 [colerochman-Main] [263792] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/11 08:18:36.422 [colerochman-Main] [263792] : DUMMY_MON_SUBJECT [D_MON]
+10/11 08:18:36.422 [colerochman-Main] [263792] : DUMMY_MON_MSG_APPEND []
+10/11 08:18:36.422 [colerochman-Main] [263792] : DUMMY_MON_TARGET_NUM [0700000000]
+10/11 08:18:36.422 [colerochman-Main] [263792] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/11 08:18:36.422 [colerochman-Main] [263792] : DUMMY_MON_INTERVAL [240]
+10/11 08:18:36.422 [colerochman-Main] [263792] : MONITOR_SLEEP_SECONDS [1]
+10/11 08:18:36.422 [colerochman-Main] [263792] : BLACKLIST_USE [N]
+10/11 08:18:36.423 [colerochman-Main] [263792] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/11 08:18:36.423 [colerochman-Main] [263792] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/11 08:18:36.423 [colerochman-Main] [263792] : USE_DATEFORMAT_STRING [N]
+10/11 08:18:36.423 [colerochman-Main] [263792] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/11 08:18:36.423 [colerochman-Main] [263792] : CURRENT_TIME_FUNCTION [NOW()]
+10/11 08:18:36.423 [colerochman-Main] [263792] : # DBMS 복호화기능 관련
+10/11 08:18:36.423 [colerochman-Main] [263792] : DB_DATA_DECRYPTION [N]
+10/11 08:18:36.423 [colerochman-Main] [263792] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/11 08:18:36.423 [colerochman-Main] [263792] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/11 08:18:36.423 [colerochman-Main] [263792] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/11 08:18:36.423 [colerochman-Main] [263792] : DB_DATA_DECRYPTION_FUNCTION []
+10/11 08:18:36.423 [colerochman-Main] [263792] : USE_RESULT_CODE_MAPPING [N]
+10/11 08:18:36.423 [colerochman-Main] [263792] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/11 08:18:36.423 [colerochman-Main] [263792] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/11 08:18:36.423 [colerochman-Main] [263792] : FILE_HANDLING_MODE [0]
+10/11 08:18:36.423 [colerochman-Main] [263792] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/11 08:18:36.423 [colerochman-Main] [263792] : BIZCLIENT UUID [ 588f29417ad54f7484157558cf663230 ]
+10/11 08:18:36.423 [colerochman-Main] [263792] : SERVICE_NAME []
+10/11 08:18:36.423 [colerochman-Main] [263792] : Access To The File Path. PATH [./spool]
+10/11 08:18:36.423 [colerochman-Main] [263792] : Access To The Using File Path. PATH [./spool/using/colerochman/ip-172-31-50-221]
+10/11 08:18:36.423 [colerochman-Main] [263792] : Access To The Blacklist Path. PATH [./blk]
+10/11 08:18:36.423 [colerochman-Main] [263792] : Access To The Report File Path. PATH [./rep]
+10/11 08:18:36.427 [colerochman-Main] [263792] : Supported Message Type : SMS, 0
+10/11 08:18:36.429 [colerochman-Main] [263792] : Supported Message Type : MMS, 5
+10/11 08:18:36.429 [colerochman-Main] [263792] : Supported Message Type : FAX, 2
+10/11 08:18:36.429 [colerochman-Main] [263792] : Supported Message Type : PHONE, 3
+10/11 08:18:36.429 [colerochman-Main] [263792] : Supported Message Type : AT, 6
+10/11 08:18:36.429 [colerochman-Main] [263792] : Supported Message Type : FT, 7
+10/11 08:18:36.429 [colerochman-Main] [263792] : Supported Message Type : BI, 11
+10/11 08:18:36.429 [colerochman-Main] [263792] : Supported Message Type : BW, 12
+10/11 08:18:36.585 [colerochman-Main] [263792] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:18:36.597 [colerochman-Main] [263792] : BizFetch (colerochman-Fetch) Starting ...
+10/11 08:18:36.598 [colerochman-Main] [263792] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:18:36.599 [colerochman-Main] [263792] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 08:18:36.604 [colerochman-Main] [263792] : BizBackup (colerochman-Backup) Starting ...
+10/11 08:18:36.605 [colerochman-Main] [263792] : BizBatch (colerochman-Batch) Starting ...
+10/11 08:19:38.617 [colerochman-Main] [263792] : BizFetch (colerochman-Fetch) Is Not Alive.
+10/11 08:19:38.617 [colerochman-Main] [263792] : BizFetch (colerochman-Fetch) Starting ...
+10/11 08:19:38.617 [colerochman-Main] [263792] : BizReport (colerochman-Report-0) Is Not Alive.
+10/11 08:19:38.617 [colerochman-Main] [263792] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 08:19:38.618 [colerochman-Main] [263792] : BizBackup (colerochman-Backup) Is Not Alive.
+10/11 08:19:38.618 [colerochman-Main] [263792] : BizBackup (colerochman-Backup) Starting ...
+10/11 08:20:07.623 [colerochman-Main] [263792] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:20:07.623 [colerochman-Main] [263792] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:20:07.623 [colerochman-Main] [263792] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:20:07.624 [colerochman-Main] [263792] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:20:39.629 [colerochman-Main] [263792] : BizFetch (colerochman-Fetch) Is Not Alive.
+10/11 08:20:39.629 [colerochman-Main] [263792] : BizFetch (colerochman-Fetch) Starting ...
+10/11 08:20:39.629 [colerochman-Main] [263792] : BizReport (colerochman-Report-0) Is Not Alive.
+10/11 08:20:39.630 [colerochman-Main] [263792] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 08:20:39.630 [colerochman-Main] [263792] : BizBackup (colerochman-Backup) Is Not Alive.
+10/11 08:20:39.630 [colerochman-Main] [263792] : BizBackup (colerochman-Backup) Starting ...
+10/11 08:21:04.512 [Thread-1] [263792] : ShutDown Message Hook..
+10/11 08:21:04.513 [colerochman-Main] [263792] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+10/11 08:21:04.515 [Thread-1] [263792] : Start Workers Shutdown ......
+10/11 08:21:04.553 [Thread-1] [263792] : End Workers Shutdown ......
+10/11 08:27:15.189 [main] [263993] : [INFO] BizClient Start   [SYSTEM TIME]:10/11 08:27:14
+10/11 08:27:15.191 [main] [263993] : [INFO] args.length=1  [SYSTEM TIME]:10/11 08:27:15
+10/11 08:27:15.191 [main] [263993] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/11 08:27:15
+10/11 08:27:15.191 [main] [263993] : [OK] confx file make  [SYSTEM TIME]:10/11 08:27:15
+10/11 08:27:15.191 [main] [263993] : [OK] conf file delete [SYSTEM TIME]:10/11 08:27:15
+10/11 08:27:15.191 [main] [263993] : #### BizClient Start ####
+10/11 08:27:15.204 [colerochman-Main] [263993] : CONFIGURATION [config/uds.confx_v3015]
+10/11 08:27:15.204 [colerochman-Main] [263993] : # BIZ PPURIO 접속정보
+10/11 08:27:15.204 [colerochman-Main] [263993] : UDS_IP [biz.ppurio.com]
+10/11 08:27:15.204 [colerochman-Main] [263993] : UDS_SEND_PORT [18300]
+10/11 08:27:15.204 [colerochman-Main] [263993] : UDS_RECV_PORT [18400]
+10/11 08:27:15.204 [colerochman-Main] [263993] : UDS_ID [colerochman]
+10/11 08:27:15.204 [colerochman-Main] [263993] : USE_SSL [Y]
+10/11 08:27:15.204 [colerochman-Main] [263993] : # DBMS 접속정보
+10/11 08:27:15.205 [colerochman-Main] [263993] : DBNAME [POSTGRES]
+10/11 08:27:15.205 [colerochman-Main] [263993] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+10/11 08:27:15.205 [colerochman-Main] [263993] : DBUSER [sean0921]
+10/11 08:27:15.205 [colerochman-Main] [263993] : MSG_TABLE [BIZ_MSG]
+10/11 08:27:15.205 [colerochman-Main] [263993] : BACKUP_TABLE [BIZ_LOG]
+10/11 08:27:15.205 [colerochman-Main] [263993] : # 디렉토리 정보
+10/11 08:27:15.205 [colerochman-Main] [263993] : LOG_PATH [./log]
+10/11 08:27:15.205 [colerochman-Main] [263993] : FILE_PATH [./spool]
+10/11 08:27:15.205 [colerochman-Main] [263993] : BLK_PATH [./blk]
+10/11 08:27:15.205 [colerochman-Main] [263993] : REP_PATH [./rep]
+10/11 08:27:15.205 [colerochman-Main] [263993] : # WORKER 실행 정보
+10/11 08:27:15.205 [colerochman-Main] [263993] : DO_FETCH_PROCESS [Y]
+10/11 08:27:15.205 [colerochman-Main] [263993] : DO_SEND_PROCESS [Y]
+10/11 08:27:15.205 [colerochman-Main] [263993] : DO_RECV_PROCESS [Y]
+10/11 08:27:15.205 [colerochman-Main] [263993] : DO_BACKUP_PROCESS [Y]
+10/11 08:27:15.205 [colerochman-Main] [263993] : DO_REORDER_PROCESS [N]
+10/11 08:27:15.205 [colerochman-Main] [263993] : DO_BATCH_PROCESS [Y]
+10/11 08:27:15.205 [colerochman-Main] [263993] : FETCH_SLEEP_SECONDS [1]
+10/11 08:27:15.205 [colerochman-Main] [263993] : SEND_SLEEP_SECONDS [1]
+10/11 08:27:15.205 [colerochman-Main] [263993] : RECV_SLEEP_SECONDS [1]
+10/11 08:27:15.205 [colerochman-Main] [263993] : REPORT_SLEEP_SECONDS [1]
+10/11 08:27:15.205 [colerochman-Main] [263993] : BACKUP_SLEEP_SECONDS [10]
+10/11 08:27:15.205 [colerochman-Main] [263993] : REORDER_SLEEP_SECONDS [1]
+10/11 08:27:15.205 [colerochman-Main] [263993] : BATCH_SLEEP_SECONDS [300]
+10/11 08:27:15.205 [colerochman-Main] [263993] : FETCH_COUNT [100]
+10/11 08:27:15.206 [colerochman-Main] [263993] : SEND_THREAD_COUNT [1]
+10/11 08:27:15.206 [colerochman-Main] [263993] : REPORT_THREAD_COUNT [1]
+10/11 08:27:15.206 [colerochman-Main] [263993] : REPORT_QUEUE_SIZE [300]
+10/11 08:27:15.206 [colerochman-Main] [263993] : BACKUP_OPTION [Y]
+10/11 08:27:15.207 [colerochman-Main] [263993] : BACKUP_COUNT [1000]
+10/11 08:27:15.207 [colerochman-Main] [263993] : BACKUP_WAIT_DAY [0]
+10/11 08:27:15.207 [colerochman-Main] [263993] : # 부가기능
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_OPTION [N]
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_OF_SEND_TIME []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_MONTH []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_DATE []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_TIME_SUNDAY []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_TIME_MONDAY []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_TIME_TUESDAY []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_TIME_WEDNESDAY []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_TIME_THURSDAY []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_TIME_FRIDAY []
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLOCK_TIME_SATURDAY []
+10/11 08:27:15.207 [colerochman-Main] [263993] : APPOINTMENT_ON_CLIENT [Y]
+10/11 08:27:15.207 [colerochman-Main] [263993] : FILE_DELETE_OPTION [Y]
+10/11 08:27:15.207 [colerochman-Main] [263993] : REPORT_RECONFIRM_OPTION [N]
+10/11 08:27:15.207 [colerochman-Main] [263993] : DIST_PROC_OPTION [N]
+10/11 08:27:15.207 [colerochman-Main] [263993] : DIST_VALUE [0]
+10/11 08:27:15.207 [colerochman-Main] [263993] : LOG_DELETE_OPTION [N]
+10/11 08:27:15.207 [colerochman-Main] [263993] : LOG_DELETE_DAY [30]
+10/11 08:27:15.207 [colerochman-Main] [263993] : USE_DUMMY_MON [N]
+10/11 08:27:15.207 [colerochman-Main] [263993] : USE_DUMMY_MON_DEVICE [0]
+10/11 08:27:15.207 [colerochman-Main] [263993] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/11 08:27:15.207 [colerochman-Main] [263993] : DUMMY_MON_SUBJECT [D_MON]
+10/11 08:27:15.207 [colerochman-Main] [263993] : DUMMY_MON_MSG_APPEND []
+10/11 08:27:15.207 [colerochman-Main] [263993] : DUMMY_MON_TARGET_NUM [0700000000]
+10/11 08:27:15.207 [colerochman-Main] [263993] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/11 08:27:15.207 [colerochman-Main] [263993] : DUMMY_MON_INTERVAL [240]
+10/11 08:27:15.207 [colerochman-Main] [263993] : MONITOR_SLEEP_SECONDS [1]
+10/11 08:27:15.207 [colerochman-Main] [263993] : BLACKLIST_USE [N]
+10/11 08:27:15.207 [colerochman-Main] [263993] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/11 08:27:15.207 [colerochman-Main] [263993] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/11 08:27:15.207 [colerochman-Main] [263993] : USE_DATEFORMAT_STRING [N]
+10/11 08:27:15.208 [colerochman-Main] [263993] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/11 08:27:15.208 [colerochman-Main] [263993] : CURRENT_TIME_FUNCTION [NOW()]
+10/11 08:27:15.208 [colerochman-Main] [263993] : # DBMS 복호화기능 관련
+10/11 08:27:15.208 [colerochman-Main] [263993] : DB_DATA_DECRYPTION [N]
+10/11 08:27:15.208 [colerochman-Main] [263993] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/11 08:27:15.208 [colerochman-Main] [263993] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/11 08:27:15.208 [colerochman-Main] [263993] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/11 08:27:15.208 [colerochman-Main] [263993] : DB_DATA_DECRYPTION_FUNCTION []
+10/11 08:27:15.208 [colerochman-Main] [263993] : USE_RESULT_CODE_MAPPING [N]
+10/11 08:27:15.208 [colerochman-Main] [263993] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/11 08:27:15.208 [colerochman-Main] [263993] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/11 08:27:15.208 [colerochman-Main] [263993] : FILE_HANDLING_MODE [0]
+10/11 08:27:15.208 [colerochman-Main] [263993] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/11 08:27:15.208 [colerochman-Main] [263993] : BIZCLIENT UUID [ 5492e1d1df414ae9917d9616e56c323f ]
+10/11 08:27:15.208 [colerochman-Main] [263993] : SERVICE_NAME []
+10/11 08:27:15.208 [colerochman-Main] [263993] : Access To The File Path. PATH [./spool]
+10/11 08:27:15.208 [colerochman-Main] [263993] : Access To The Using File Path. PATH [./spool/using/colerochman/ip-172-31-50-221]
+10/11 08:27:15.208 [colerochman-Main] [263993] : Access To The Blacklist Path. PATH [./blk]
+10/11 08:27:15.208 [colerochman-Main] [263993] : Access To The Report File Path. PATH [./rep]
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : SMS, 0
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : MMS, 5
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : FAX, 2
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : PHONE, 3
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : AT, 6
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : FT, 7
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : BI, 11
+10/11 08:27:15.210 [colerochman-Main] [263993] : Supported Message Type : BW, 12
+10/11 08:27:15.348 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:27:15.349 [colerochman-Main] [263993] : BizFetch (colerochman-Fetch) Starting ...
+10/11 08:27:15.351 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:27:15.369 [colerochman-Main] [263993] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 08:27:15.370 [colerochman-Main] [263993] : BizBackup (colerochman-Backup) Starting ...
+10/11 08:27:15.373 [colerochman-Main] [263993] : BizBatch (colerochman-Batch) Starting ...
+10/11 08:28:16.384 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:28:16.384 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:28:16.385 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:28:16.385 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:29:17.395 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:29:17.396 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:29:17.396 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:29:17.397 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:30:18.407 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:30:18.408 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:30:18.408 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:30:18.408 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:31:19.418 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:31:19.419 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:31:19.419 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:31:19.419 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:32:20.429 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:32:20.431 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:32:20.431 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:32:20.431 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:33:21.440 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:33:21.440 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:33:21.440 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:33:21.441 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:34:22.451 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:34:22.451 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:34:22.451 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:34:22.451 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:35:23.460 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:35:23.461 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:35:23.461 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:35:23.461 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:36:24.470 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:36:24.471 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:36:24.471 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:36:24.472 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:37:25.481 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:37:25.481 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:37:25.481 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:37:25.482 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:38:26.491 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:38:26.491 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:38:26.491 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:38:26.491 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:39:27.500 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:39:27.501 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:39:27.501 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:39:27.501 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:40:28.511 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:40:28.511 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:40:28.511 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:40:28.512 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:41:29.522 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:41:29.522 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:41:29.522 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:41:29.522 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:42:30.531 [colerochman-Main] [263993] : BizSend (colerochman-Send-0) Is Not Alive.
+10/11 08:42:30.532 [colerochman-Main] [263993] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:42:30.532 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Is Not Alive.
+10/11 08:42:30.532 [colerochman-Main] [263993] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:43:19.065 [Thread-1] [263993] : ShutDown Message Hook..
+10/11 08:43:19.065 [colerochman-Main] [263993] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+10/11 08:43:19.066 [Thread-1] [263993] : Start Workers Shutdown ......
+10/11 08:43:19.147 [Thread-1] [263993] : End Workers Shutdown ......
+10/11 08:43:30.488 [main] [264217] : [INFO] BizClient Start   [SYSTEM TIME]:10/11 08:43:30
+10/11 08:43:30.490 [main] [264217] : [INFO] args.length=1  [SYSTEM TIME]:10/11 08:43:30
+10/11 08:43:30.490 [main] [264217] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:10/11 08:43:30
+10/11 08:43:30.490 [main] [264217] : [OK] confx file make  [SYSTEM TIME]:10/11 08:43:30
+10/11 08:43:30.490 [main] [264217] : [OK] conf file delete [SYSTEM TIME]:10/11 08:43:30
+10/11 08:43:30.491 [main] [264217] : #### BizClient Start ####
+10/11 08:43:30.507 [colerochman-Main] [264217] : CONFIGURATION [config/uds.confx_v3015]
+10/11 08:43:30.508 [colerochman-Main] [264217] : # BIZ PPURIO 접속정보
+10/11 08:43:30.508 [colerochman-Main] [264217] : UDS_IP [biz.ppurio.com]
+10/11 08:43:30.508 [colerochman-Main] [264217] : UDS_SEND_PORT [18300]
+10/11 08:43:30.508 [colerochman-Main] [264217] : UDS_RECV_PORT [18400]
+10/11 08:43:30.508 [colerochman-Main] [264217] : UDS_ID [colerochman]
+10/11 08:43:30.508 [colerochman-Main] [264217] : USE_SSL [Y]
+10/11 08:43:30.508 [colerochman-Main] [264217] : # DBMS 접속정보
+10/11 08:43:30.508 [colerochman-Main] [264217] : DBNAME [POSTGRES]
+10/11 08:43:30.508 [colerochman-Main] [264217] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+10/11 08:43:30.508 [colerochman-Main] [264217] : DBUSER [sean0921]
+10/11 08:43:30.508 [colerochman-Main] [264217] : MSG_TABLE [BIZ_MSG]
+10/11 08:43:30.508 [colerochman-Main] [264217] : BACKUP_TABLE [BIZ_LOG]
+10/11 08:43:30.508 [colerochman-Main] [264217] : # 디렉토리 정보
+10/11 08:43:30.508 [colerochman-Main] [264217] : LOG_PATH [./log]
+10/11 08:43:30.508 [colerochman-Main] [264217] : FILE_PATH [./spool]
+10/11 08:43:30.508 [colerochman-Main] [264217] : BLK_PATH [./blk]
+10/11 08:43:30.508 [colerochman-Main] [264217] : REP_PATH [./rep]
+10/11 08:43:30.508 [colerochman-Main] [264217] : # WORKER 실행 정보
+10/11 08:43:30.509 [colerochman-Main] [264217] : DO_FETCH_PROCESS [Y]
+10/11 08:43:30.509 [colerochman-Main] [264217] : DO_SEND_PROCESS [Y]
+10/11 08:43:30.509 [colerochman-Main] [264217] : DO_RECV_PROCESS [Y]
+10/11 08:43:30.509 [colerochman-Main] [264217] : DO_BACKUP_PROCESS [Y]
+10/11 08:43:30.509 [colerochman-Main] [264217] : DO_REORDER_PROCESS [N]
+10/11 08:43:30.509 [colerochman-Main] [264217] : DO_BATCH_PROCESS [Y]
+10/11 08:43:30.509 [colerochman-Main] [264217] : FETCH_SLEEP_SECONDS [1]
+10/11 08:43:30.509 [colerochman-Main] [264217] : SEND_SLEEP_SECONDS [1]
+10/11 08:43:30.509 [colerochman-Main] [264217] : RECV_SLEEP_SECONDS [1]
+10/11 08:43:30.509 [colerochman-Main] [264217] : REPORT_SLEEP_SECONDS [1]
+10/11 08:43:30.509 [colerochman-Main] [264217] : BACKUP_SLEEP_SECONDS [10]
+10/11 08:43:30.509 [colerochman-Main] [264217] : REORDER_SLEEP_SECONDS [1]
+10/11 08:43:30.509 [colerochman-Main] [264217] : BATCH_SLEEP_SECONDS [300]
+10/11 08:43:30.509 [colerochman-Main] [264217] : FETCH_COUNT [100]
+10/11 08:43:30.509 [colerochman-Main] [264217] : SEND_THREAD_COUNT [1]
+10/11 08:43:30.509 [colerochman-Main] [264217] : REPORT_THREAD_COUNT [1]
+10/11 08:43:30.509 [colerochman-Main] [264217] : REPORT_QUEUE_SIZE [300]
+10/11 08:43:30.509 [colerochman-Main] [264217] : BACKUP_OPTION [Y]
+10/11 08:43:30.509 [colerochman-Main] [264217] : BACKUP_COUNT [1000]
+10/11 08:43:30.509 [colerochman-Main] [264217] : BACKUP_WAIT_DAY [0]
+10/11 08:43:30.509 [colerochman-Main] [264217] : # 부가기능
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_OPTION [N]
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_OF_SEND_TIME []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_MONTH []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_DATE []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_TIME_SUNDAY []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_TIME_MONDAY []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_TIME_TUESDAY []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_TIME_WEDNESDAY []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_TIME_THURSDAY []
+10/11 08:43:30.509 [colerochman-Main] [264217] : BLOCK_TIME_FRIDAY []
+10/11 08:43:30.510 [colerochman-Main] [264217] : BLOCK_TIME_SATURDAY []
+10/11 08:43:30.510 [colerochman-Main] [264217] : APPOINTMENT_ON_CLIENT [Y]
+10/11 08:43:30.510 [colerochman-Main] [264217] : FILE_DELETE_OPTION [Y]
+10/11 08:43:30.510 [colerochman-Main] [264217] : REPORT_RECONFIRM_OPTION [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DIST_PROC_OPTION [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DIST_VALUE [0]
+10/11 08:43:30.510 [colerochman-Main] [264217] : LOG_DELETE_OPTION [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : LOG_DELETE_DAY [30]
+10/11 08:43:30.510 [colerochman-Main] [264217] : USE_DUMMY_MON [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : USE_DUMMY_MON_DEVICE [0]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DUMMY_MON_CMID_FORMAT [D_MON]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DUMMY_MON_SUBJECT [D_MON]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DUMMY_MON_MSG_APPEND []
+10/11 08:43:30.510 [colerochman-Main] [264217] : DUMMY_MON_TARGET_NUM [0700000000]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DUMMY_MON_CALLBACK_NUM [0700000000]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DUMMY_MON_INTERVAL [240]
+10/11 08:43:30.510 [colerochman-Main] [264217] : MONITOR_SLEEP_SECONDS [1]
+10/11 08:43:30.510 [colerochman-Main] [264217] : BLACKLIST_USE [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : USE_ORACLE_PREPARED_STATEMENT [false]
+10/11 08:43:30.510 [colerochman-Main] [264217] : USE_DATEFORMAT_STRING [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+10/11 08:43:30.510 [colerochman-Main] [264217] : CURRENT_TIME_FUNCTION [NOW()]
+10/11 08:43:30.510 [colerochman-Main] [264217] : # DBMS 복호화기능 관련
+10/11 08:43:30.510 [colerochman-Main] [264217] : DB_DATA_DECRYPTION [N]
+10/11 08:43:30.510 [colerochman-Main] [264217] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+10/11 08:43:30.511 [colerochman-Main] [264217] : USE_DECRYPTION_SEPARATION_FIELD [N]
+10/11 08:43:30.511 [colerochman-Main] [264217] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+10/11 08:43:30.511 [colerochman-Main] [264217] : DB_DATA_DECRYPTION_FUNCTION []
+10/11 08:43:30.511 [colerochman-Main] [264217] : USE_RESULT_CODE_MAPPING [N]
+10/11 08:43:30.511 [colerochman-Main] [264217] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+10/11 08:43:30.511 [colerochman-Main] [264217] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+10/11 08:43:30.511 [colerochman-Main] [264217] : FILE_HANDLING_MODE [0]
+10/11 08:43:30.511 [colerochman-Main] [264217] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+10/11 08:43:30.511 [colerochman-Main] [264217] : BIZCLIENT UUID [ 8fed359913a044019f9e34fcab329f5e ]
+10/11 08:43:30.511 [colerochman-Main] [264217] : SERVICE_NAME []
+10/11 08:43:30.511 [colerochman-Main] [264217] : Access To The File Path. PATH [./spool]
+10/11 08:43:30.511 [colerochman-Main] [264217] : Access To The Using File Path. PATH [./spool/using/colerochman/ip-172-31-50-221]
+10/11 08:43:30.511 [colerochman-Main] [264217] : Access To The Blacklist Path. PATH [./blk]
+10/11 08:43:30.511 [colerochman-Main] [264217] : Access To The Report File Path. PATH [./rep]
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : SMS, 0
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : MMS, 5
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : FAX, 2
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : PHONE, 3
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : AT, 6
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : FT, 7
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : BI, 11
+10/11 08:43:30.513 [colerochman-Main] [264217] : Supported Message Type : BW, 12
+10/11 08:43:30.676 [colerochman-Main] [264217] : BizSend[0] (colerochman-Send-0) Starting ...
+10/11 08:43:30.678 [colerochman-Main] [264217] : BizFetch (colerochman-Fetch) Starting ...
+10/11 08:43:30.681 [colerochman-Main] [264217] : BizRecv (colerochman-Recv) Starting ...
+10/11 08:43:30.682 [colerochman-Main] [264217] : BizReport[0] (colerochman-Report-0) Starting ...
+10/11 08:43:30.683 [colerochman-Main] [264217] : BizBackup (colerochman-Backup) Starting ...
+10/11 08:43:30.684 [colerochman-Main] [264217] : BizBatch (colerochman-Batch) Starting ...

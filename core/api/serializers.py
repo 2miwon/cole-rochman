@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.models import Patient, Hospital, MeasurementResult
-
+from core.models.guardian import Guardian
 
 class PatientCreateSerializer(serializers.ModelSerializer):
     hospital = serializers.SlugRelatedField(
@@ -27,3 +27,9 @@ class MeasurementResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = MeasurementResult
         exclude = ('created_at', 'updated_at')
+
+class GuardianCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guardian
+        fields = '__all__'
+

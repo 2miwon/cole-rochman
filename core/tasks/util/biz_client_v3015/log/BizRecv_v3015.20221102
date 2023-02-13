@@ -1,0 +1,11 @@
+11/02 13:57:52.879 [colochman-Recv] [360107] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+11/02 13:57:53.073 [colochman-Recv] [360107] : User Authentication. USER [colochman]
+11/02 13:57:53.081 [colochman-Recv] [360107] : Start Sending And Receiving Data With The Server.
+11/02 14:00:59.182 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180001]
+11/02 14:01:08.196 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180002]
+11/02 14:02:05.281 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180003]
+11/02 14:03:06.368 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180004]
+11/02 14:04:03.451 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180005]
+11/02 14:05:06.541 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180006]
+11/02 14:08:07.795 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180001]
+11/02 14:10:04.963 [colochman-Recv] [360107] : Receive And Add a Report To Queue. CMSGID [201420180001]

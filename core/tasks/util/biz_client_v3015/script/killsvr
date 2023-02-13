@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ps -ef | grep $2 | grep -v grep | grep -v killsvr | grep -v stop | grep -v tail | grep -v vi | awk '{ print $2 }' |\
+while read PID
+	do
+	echo kill $1 $PID
+	kill $1 $PID
+done

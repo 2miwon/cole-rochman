@@ -1,0 +1,19 @@
+02/11 01:57:05.783 [colochman-Fetch] [888068] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.findIdleSendLineAndAssignMessages(AlioFetch.java:148)
+	at com.daou.alioclient.worker.AlioFetch.lambda$run$0(AlioFetch.java:90)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:89)
+02/11 01:57:05.784 [colochman-Fetch] [888068] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+02/11 01:57:05.785 [colochman-Fetch] [888068] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+02/11 01:57:05.785 [colochman-Fetch] [888068] : Worker [colochman-Fetch] End.
+02/11 01:57:05.822 [Thread-1] [888068] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+02/11 01:57:05.827 [Thread-1] [888068] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+02/11 01:57:05.827 [Thread-1] [888068] : Worker [colochman-Fetch] End.
+02/11 01:57:05.827 [Thread-1] [888068] : Worker [colochman-Fetch] ShutDown.

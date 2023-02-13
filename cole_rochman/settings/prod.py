@@ -2,33 +2,17 @@ from .base import *
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-DEBUG = False
+DEBUG = True
 
-#ALLOWED_HOSTS = secrets.get('ALLOWED_HOST')
-ALLOWED_HOSTS = ['43.200.26.183']
+ALLOWED_HOSTS = secrets.get('ALLOWED_HOST')
 
 DATABASES = {
-   'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db2',
-        'USER': 'postgres',
-        'PASSWORD': 'cjstmdqja',
-        'HOST': 'csbdb2.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com',
-        'PORT': '5432',
-        'TEST': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'db2test',
-            'USER': 'postgres',
-            'PASSWORD': 'cjstmdqja',
-            'HOST': 'csbdb2test.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com',
-            'PORT': '5432',
-        }
-    },
+    'default': secrets.get('DB_SETTINGS')
 }
-#    'default': secrets.get('DB_SETTINGS').get('PRODUCTION')
 
 # noinspection PyUnresolvedReferences
-STATIC_ROOT = '/var/www/cole-rochman/static/'
+
+STATIC_ROOT = '/var/www/cole-rochman/static'
 
 sentry_sdk.init(
     dsn=secrets.get('SENTRY_ADDRESS'),
@@ -70,7 +54,6 @@ LOGGING = {
     },
 }
 
-BROKER_URL = secrets.get('REDIS_ADDRESS')
+BROKER_URL = secrets.get('BROKER_URL')
 
-LG_CNS = secrets.get('LG_CNS')
 AUTO_SEND_NOTIFICAITON = True

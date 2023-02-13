@@ -1,0 +1,4 @@
+01/11 02:02:55.368 [colochman-Batch] [360107] : Enable Create Backup Table. DayOfMonth [11] LastDayOfMonth [31]
+01/11 03:02:55.370 [colochman-Batch] [360107] : Disable Create Backup Table.
+01/11 03:02:55.370 [colochman-Batch] [360107] : Enable Delete Attachments.
+01/11 04:02:55.373 [colochman-Batch] [360107] : Disable Delete Attachments.

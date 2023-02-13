@@ -1,0 +1,1077 @@
+10/04 01:49:12.022 [colochman-Fetch] [217002] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.findIdleSendLineAndAssignMessages(AlioFetch.java:148)
+	at com.daou.alioclient.worker.AlioFetch.lambda$run$0(AlioFetch.java:90)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:89)
+10/04 01:49:12.023 [colochman-Fetch] [217002] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/04 01:49:12.023 [colochman-Fetch] [217002] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/04 01:49:12.023 [colochman-Fetch] [217002] : Worker [colochman-Fetch] End.
+10/04 01:49:12.049 [Thread-1] [217002] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/04 01:49:12.050 [Thread-1] [217002] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/04 01:49:12.051 [Thread-1] [217002] : Worker [colochman-Fetch] End.
+10/04 01:49:12.051 [Thread-1] [217002] : Worker [colochman-Fetch] ShutDown.
+10/04 04:45:09.076 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:46:09.076 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:46:10.112 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:47:10.113 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:47:11.073 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:48:11.073 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:48:12.080 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:49:12.080 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:49:13.097 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:50:13.097 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:50:14.097 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:51:14.097 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:51:15.125 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:52:15.126 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:52:16.122 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:53:16.125 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:53:17.138 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:54:17.138 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:54:18.156 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:55:18.156 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:55:19.162 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:56:19.163 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:56:20.178 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:57:20.178 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:57:21.184 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:58:21.185 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:58:22.218 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 04:59:22.218 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 04:59:23.203 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:00:23.203 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:00:24.216 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:01:24.216 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:01:25.222 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:02:25.222 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:02:26.234 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:03:26.234 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:03:27.240 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:04:27.241 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:04:28.255 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:05:28.255 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:05:29.262 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:06:29.262 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:06:30.270 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:07:30.271 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:07:31.282 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:08:31.282 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:08:32.292 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:09:32.292 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:09:33.304 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:10:33.304 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:10:34.320 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:11:34.320 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:11:35.328 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:12:35.328 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:12:36.332 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:13:36.332 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:13:37.341 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:14:37.341 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:14:38.358 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:15:38.358 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:15:39.369 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:16:39.369 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:16:40.384 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:17:40.384 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:17:41.390 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:18:41.390 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:18:42.397 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:19:42.397 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:19:43.412 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:20:43.412 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:20:44.420 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:21:44.420 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:21:45.426 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:22:45.426 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:22:46.434 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:23:46.435 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:23:47.445 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:24:47.445 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:24:48.462 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:25:48.463 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:25:49.472 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:26:49.473 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:26:50.476 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:27:50.477 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:27:51.503 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:28:51.503 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:28:52.495 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:29:52.495 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:29:53.508 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:30:53.508 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:30:54.523 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:31:54.524 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:31:55.526 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:32:55.527 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:32:56.535 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:33:56.535 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:33:57.545 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:34:57.545 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:34:58.556 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:35:58.556 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:35:59.573 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:36:59.573 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:37:00.588 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:38:00.588 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:38:01.592 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:39:01.592 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:39:02.599 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:40:02.599 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:40:03.610 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:41:03.610 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:41:04.625 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:42:04.625 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:42:05.634 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:43:05.634 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:43:06.643 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:44:06.645 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:44:07.665 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:45:07.665 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:45:08.673 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:46:08.674 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:46:09.674 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:47:09.674 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:47:10.680 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:48:10.681 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:48:11.690 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:49:11.692 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:49:12.709 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:50:12.709 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:50:13.709 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:51:13.709 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:51:14.725 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:52:14.725 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:52:15.739 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:53:15.739 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:53:16.744 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:54:16.745 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:54:17.756 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:55:17.756 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:55:18.765 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:56:18.765 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:56:19.780 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:57:19.780 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:57:20.785 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:58:20.785 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:58:21.788 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 05:59:21.789 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 05:59:22.804 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:00:22.804 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:00:23.809 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:01:23.809 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:01:24.837 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:02:24.837 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:02:25.832 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:03:25.832 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:03:26.844 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:04:26.844 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:04:27.854 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:05:27.854 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:05:28.896 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:06:28.897 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:06:29.873 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:07:29.873 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:07:30.886 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:08:30.886 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:08:31.914 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:09:31.914 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:09:32.907 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:10:32.907 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:10:33.917 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:11:33.917 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:11:34.931 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:12:34.932 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:12:35.941 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:13:35.941 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:13:36.960 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:14:36.960 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:14:37.954 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:15:37.954 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:15:38.965 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:16:38.965 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:16:39.973 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:17:39.973 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:17:41.015 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:18:41.016 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:18:41.992 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:19:41.993 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:19:43.001 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:20:43.001 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:20:44.026 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:21:44.026 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:21:45.097 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:22:45.097 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:22:46.042 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:23:46.042 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:23:47.042 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:24:47.042 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:24:48.091 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:25:48.091 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:25:49.060 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:26:49.061 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:26:50.083 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:27:50.083 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:27:51.089 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:28:51.089 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:28:52.097 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:29:52.097 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:29:53.109 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:30:53.109 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:30:54.113 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:31:54.113 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:31:55.134 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:32:55.134 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:32:56.144 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:33:56.144 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:33:57.140 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:34:57.140 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:34:58.149 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:35:58.149 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:35:59.156 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:36:59.156 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:37:00.207 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:38:00.207 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:38:01.184 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:39:01.184 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:39:02.196 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:40:02.196 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:40:03.197 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:41:03.197 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:41:04.215 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:42:04.215 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:42:05.225 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:43:05.225 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:43:06.242 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:44:06.242 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:44:07.248 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:45:07.248 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:45:08.250 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:46:08.250 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:46:09.277 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:47:09.277 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:47:10.274 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:48:10.274 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:48:11.281 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:49:11.281 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:49:12.283 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:50:12.284 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:50:13.301 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:51:13.301 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:51:14.307 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:52:14.307 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:52:15.312 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:53:15.312 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:53:16.328 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:54:16.328 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:54:17.334 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:55:17.334 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:55:18.352 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:56:18.353 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:56:19.360 [colochman-Fetch] [219495] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/04 06:56:32.118 [colochman-Fetch] [219495] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:100)
+10/04 06:56:32.119 [colochman-Fetch] [219495] : Worker [colochman-Fetch] End.
+10/04 06:56:32.130 [Thread-1] [219495] : Failed To Database Connect For Restore. 
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.doShutDown(AlioFetch.java:131)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:284)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/04 06:56:32.130 [Thread-1] [219495] : Worker [colochman-Fetch] End.
+10/04 06:56:32.130 [Thread-1] [219495] : Worker [colochman-Fetch] ShutDown.

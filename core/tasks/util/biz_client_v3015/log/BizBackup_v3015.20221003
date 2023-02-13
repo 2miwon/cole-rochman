@@ -1,0 +1,15 @@
+10/03 23:37:16.267 [colochman-Backup] [217002] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/03 23:37:16.278 [colochman-Backup] [217002] : Exception.
+java.sql.SQLException: Failed to Execute a Query. 
+ MESSAGE : ERROR: relation "biz_msg" does not exist
+  Position: 98 SQLSTATE : 42P01
+ ERRORCODE : 0
+ QUERY :  SELECT cmid, msg_type, send_time, attached_file, call_status, re_type, re_part, rcs_refkey FROM BIZ_MSG WHERE status = ?  LIMIT 1000 
+	at com.daou.common.db.DBAccess.executeQuery(DBAccess.java:276)
+	at com.daou.alioclient.db.AlioDBAccess.fetchBackupMsgAL(AlioDBAccess.java:874)
+	at com.daou.alioclient.worker.AlioBackup.lambda$run$0(AlioBackup.java:41)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:36)
+10/03 23:37:21.280 [colochman-Backup] [217002] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/03 23:37:21.280 [colochman-Backup] [217002] : Worker [colochman-Backup] End.
+10/03 23:37:21.326 [colochman-Backup] [217002] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]

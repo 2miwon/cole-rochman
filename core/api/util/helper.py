@@ -3,7 +3,7 @@ import functools
 from rest_framework.generics import GenericAPIView, get_object_or_404
 
 from core.api.util.response_builder import ResponseBuilder
-from core.models import Patient
+from core.models import Patient, Guardian
 
 
 # decorators
@@ -100,8 +100,6 @@ class Kakao:
 
     def parse_kakao_user_id(self):
         parsed = self.__parse_request(keys='userRequest.user.id')  # TODO parse 할수없는 경우 400 response -> 모든 폴백에 적용 고려
-#        parsed = self.request_data.get('userRequest').get('user').get('id')  
-#        print('UserRequest user id: ', parsed)
         setattr(self, 'kakao_user_id', parsed)
         self.kakao_user_id_parsed = True
         self.data.update({'kakao_user_id': parsed})
@@ -128,18 +126,15 @@ class KakaoResponseAPI(Kakao, GenericAPIView):
     @require_kakao_user_id
     def get_object_by_kakao_user_id(self) -> Patient:
         queryset = Patient.objects.all()
-#        Patient.objects.all()
-#        for key in queryset:
-#            print(key)
-#        print('kakao user id: ', self.kakao_user_id)
-        #filter_kwargs = {self.lookup_field: self.kakao_user_id}
         filter_kwargs = {'kakao_user_id': self.kakao_user_id}
-        #obj = queryset.filter(**filter_kwargs)
         obj = get_object_or_404(queryset, **filter_kwargs)
-#        print('get_object: ', obj)
-        # May raise a permission denied
-        #self.check_object_permissions(self.request, obj)
+        return obj
 
+    @require_kakao_user_id
+    def get_guardian_by_kakao_user_id(self) -> Guardian:
+        queryset = Guardian.objects.all()
+        filter_kwargs = {'kakao_user_id': self.kakao_user_id}
+        obj = get_object_or_404(queryset, **filter_kwargs)
         return obj
 
     def get_object_by_kakao_id(self) -> Patient:

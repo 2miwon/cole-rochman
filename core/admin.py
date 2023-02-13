@@ -3,14 +3,15 @@ from guardian.admin import GuardedModelAdmin
 from import_export.admin import ImportExportModelAdmin
 
 from core.models import NotificationRecord
-from core.models.patient import Guardian
-from core.models.community import Post,Comment
-from .models import Patient, Hospital, MeasurementResult, MedicationResult, Certificaion
+from .models import Patient, Hospital, MeasurementResult, MedicationResult,Certificaion
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Profile
 from import_export.widgets import ForeignKeyWidget
 from import_export import resources, fields
+from core.models.patient import Pcr_Inspection, Sputum_Inspection
+from core.models.guardian import Guardian
+from core.models.community import Post,Comment
 
 
 class PatientResource(resources.ModelResource):
@@ -36,17 +37,18 @@ class PatientAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     user_can_access_owned_objects_only = True
   
     list_display = (
-        'code', 'hospital', 'name', 'phone_number', 'kakao_user_id', 'nickname', 'daily_medication_count',
+        'code', 'hospital', 'name', 'phone_number', 'kakao_user_id', 'nickname', 'safeout', 'daily_medication_count',
         'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
-        'medication_noti_time_5', 'next_visiting_date_time'
+        'medication_noti_time_5', 'next_visiting_date_time',
+        'weight', 'vision_left', 'vision_right'
     )
     search_fields = (
         'patient__code',
         'patient__kakao_user_id',
     )
     list_filter = [
-        'hospital', 'medication_manage_flag', 'measurement_manage_flag', 'visit_manage_flag',
-        'medication_noti_flag', 'visit_notification_flag', 'measurement_noti_flag'
+        'hospital', 'medication_manage_flag', 'visit_manage_flag',
+        'medication_noti_flag', 'visit_notification_flag'
     ]
 
 
@@ -94,7 +96,7 @@ class MeasurementResultAdmin(admin.ModelAdmin):
 class MedicationResultAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     list_display = [
         'id', 'patient', 'date', 'medication_time_num', 'medication_time', 'get_status_display', 'symptom_name',
-        'symptom_severity1','symptom_severity2','symptom_severity3',
+        'symptom_severity1', 'symptom_severity2', 'symptom_severity3',
         'notified_at', 'checked_at'
     ]
     search_fields = [
@@ -142,10 +144,6 @@ class NotificationRecordAdmin(admin.ModelAdmin):
     make_status_canceled.short_description = "Mark selected as CANCELED"
 
 
-@admin.register(Certificaion)
-class Certificationadmin(admin.ModelAdmin):
-    pass
-
 @admin.register(Guardian)
 class GuardianAdmin(admin.ModelAdmin):
     pass
@@ -157,3 +155,28 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Pcr_Inspection)
+class PcrAdmin(admin.ModelAdmin):
+    list_display = [
+            'patient_set', 'inspection_res','date'
+
+            ]
+    search_fields = [
+        'patient_set__code','patient_set__nickname'
+            ]
+
+@admin.register(Sputum_Inspection)
+class SputumAdmin(admin.ModelAdmin):
+    list_display = [
+            'patient_set', 'inspection_res','date'
+
+            ]
+    search_fields = [
+        'patient_set__code','patient_set__nickname'
+            ]
+
+@admin.register(Certificaion)
+class Certificationadmin(admin.ModelAdmin):
+    pass
+

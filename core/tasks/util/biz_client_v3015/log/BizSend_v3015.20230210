@@ -1,0 +1,4 @@
+02/10 22:54:43.439 [colochman-Send-0] [888068] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+02/10 22:54:43.640 [colochman-Send-0] [888068] : User Authentication. USER [colochman]
+02/10 22:54:43.643 [colochman-Send-0] [888068] : Start Sending And Receiving Data With The Server.
+02/10 22:54:44.314 [colochman-Send-0] [888068] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]

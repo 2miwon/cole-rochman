@@ -5,8 +5,7 @@ from core.models import Patient, NotificationRecord
 from core.serializers import NotificationRecordSerializer
 from core.tasks.util.biz_message import TYPE
 
-MORNING_NOTI_TIME = datetime.time(hour=8)  # originally 7, but temporarily 8 due to limitation by Kakao's policy
-
+MORNING_NOTI_TIME = datetime.time(minute=0, hour=8)  # originally 7, but temporarily 8 due to limitation by Kakao's policy
 
 def _create_morning_notification():
     success = []
@@ -103,45 +102,46 @@ def create_visit_notification():
     return result
 
 
-@app.task
-def create_measurement_notification():
-    patients = Patient.objects.all()
-    result = {
-        'patient_counts': len(patients)
-    }
-    for patient in patients:
-        if not patient.is_measurement_noti_sendable():
-            continue
-
-        for noti_time_num, noti_time in enumerate(patient.measurement_noti_time_list()):
-            if noti_time is None:
-                continue
-            measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num + 1)
-            if measurement_result:
-                measurement_result.create_notification_record(noti_time_num=noti_time_num + 1)
-                result['created_count'] = (result.get('created_count') or 0) + 1
-    return result
+#@app.task
+#def create_measurement_notification():
+#    patients = Patient.objects.all()
+#    result = {
+#        'patient_counts': len(patients)
+#    }
+#    for patient in patients:
+#        if not patient.is_measurement_noti_sendable():
+#            continue
+#
+#        for noti_time_num, noti_time in enumerate(patient.measurement_noti_time_list()):
+#            if noti_time is None:
+#                continue
+#            measurement_result = patient.create_measurement_result(noti_time_num=noti_time_num + 1)
+#            if measurement_result:
+#                measurement_result.create_notification_record(noti_time_num=noti_time_num + 1)
+#                result['created_count'] = (result.get('created_count') or 0) + 1
+#    return result
 
 
 @app.task(bind=True)
 def send_notifications(self):
     now = datetime.datetime.now().astimezone()
-    time_range = (now - datetime.timedelta(minutes=10), now)
+    time_range = [now - datetime.timedelta(minutes=1), now]
     
-#    print('noti send')
-#    notifications = NotificationRecord.objects.filter(
-#        status__in=[NotificationRecord.STATUS.PENDING, NotificationRecord.STATUS.RETRY], tries_left__gt=0,
-#        send_at__range=time_range).all()
-#
-#    result = {
-#        'notifications_counts': len(notifications),
-#        'sent_count': 0
-#    }
-#    for noti in notifications:
-#        success = noti.send()
-#        if success:
-#            result['sent_count'] += 1
+#    notifications = NotificationRecord.objects.all()
+#    notifications = NotificationRecord.objects.filter(tries_left__gt=0, send_at__range=time_range).all()
+    notifications = NotificationRecord.objects.filter(
+        status__in=[NotificationRecord.STATUS.PENDING, NotificationRecord.STATUS.RETRY], tries_left__gt=0,
+        send_at__range=time_range).all()
+
+    result = {
+        'notifications_counts': len(notifications),
+        'sent_count': 0
+    }
+    for noti in notifications:
+        success = noti.send()
+        if success:
+            result['sent_count'] += 1
 #    if result.get('sent_count') == 0:
 #        self.update_state(state='NOT SENT', meta=result)
 #        raise
-#    return result
+    return result

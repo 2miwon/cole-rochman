@@ -1,0 +1,8 @@
+02/11 01:57:05.671 [Thread-1] [888068] : ShutDown Message Hook..
+02/11 01:57:05.675 [colochman-Main] [888068] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+02/11 01:57:05.773 [Thread-1] [888068] : Start Workers Shutdown ......
+02/11 01:57:11.711 [Thread-1] [888068] : End Workers Shutdown ......
