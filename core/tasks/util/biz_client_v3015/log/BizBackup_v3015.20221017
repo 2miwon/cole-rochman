@@ -1,0 +1,17 @@
+10/17 12:11:59.254 [colerochman-Backup] [284312] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/17 12:12:09.307 [colerochman-Backup] [284312] : Backup a Message. CMSGID [201420180002]
+10/17 12:12:09.309 [colerochman-Backup] [284312] : Backup a Message. CMSGID [201420180003]
+10/17 12:12:09.316 [colerochman-Backup] [284312] : Backup a Message. CMSGID [201420180004]
+10/17 12:13:49.335 [colerochman-Backup] [284312] : Backup a Message. CMSGID [201420180006]
+10/17 12:21:59.387 [colerochman-Backup] [284312] : Backup a Message. CMSGID [201420180006]
+10/17 12:23:19.398 [colerochman-Backup] [284312] : Backup a Message. CMSGID [201420180001]
+10/17 12:29:09.435 [colerochman-Backup] [284312] : Backup a Message. CMSGID [201420180001]
+10/17 12:58:10.899 [colerochman-Backup] [284312] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:61)
+10/17 12:58:10.900 [colerochman-Backup] [284312] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/17 12:58:10.900 [colerochman-Backup] [284312] : Worker [colerochman-Backup] End.
+10/17 12:58:10.900 [Thread-1] [284312] : Worker [colerochman-Backup] End.
+10/17 12:58:10.901 [Thread-1] [284312] : Worker [colerochman-Backup] ShutDown.

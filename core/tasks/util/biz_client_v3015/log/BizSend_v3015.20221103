@@ -1,0 +1,4 @@
+11/03 10:52:32.050 [colochman-Send-0] [360107] : Send a Message. DEVICE [AT] CMSGID [201420180001] MSGID [1103co_GK1973017275101723876] REPART [S]
+11/03 10:52:32.053 [colochman-Send-0] [360107] : Update a Message Status At Success. CMSGID [201420180001]
+11/03 11:00:00.901 [colochman-Send-0] [360107] : Send a Message. DEVICE [AT] CMSGID [201420180001] MSGID [1103co_GK0475697320001724636] REPART [S]
+11/03 11:00:00.902 [colochman-Send-0] [360107] : Update a Message Status At Success. CMSGID [201420180001]

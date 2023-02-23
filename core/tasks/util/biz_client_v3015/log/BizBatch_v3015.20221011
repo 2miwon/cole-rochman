@@ -1,0 +1,48 @@
+10/11 07:53:36.592 [colochman-Batch] [262891] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/11 07:53:36.593 [colochman-Batch] [262891] : Worker [colochman-Batch] End.
+10/11 07:53:36.593 [Thread-1] [262891] : Worker [colochman-Batch] End.
+10/11 07:53:36.593 [Thread-1] [262891] : Worker [colochman-Batch] ShutDown.
+10/11 07:55:20.923 [colerochman-Batch] [263126] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/11 07:55:20.923 [colerochman-Batch] [263126] : Worker [colerochman-Batch] End.
+10/11 07:55:20.925 [Thread-1] [263126] : Worker [colerochman-Batch] End.
+10/11 07:55:20.935 [Thread-1] [263126] : Worker [colerochman-Batch] ShutDown.
+10/11 07:58:15.067 [colerochman-Batch] [263214] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/11 07:58:15.067 [colerochman-Batch] [263214] : Worker [colerochman-Batch] End.
+10/11 07:58:15.067 [Thread-1] [263214] : Worker [colerochman-Batch] End.
+10/11 07:58:15.068 [Thread-1] [263214] : Worker [colerochman-Batch] ShutDown.
+10/11 08:05:19.358 [colerochman-Batch] [263385] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/11 08:05:19.358 [colerochman-Batch] [263385] : Worker [colerochman-Batch] End.
+10/11 08:05:19.358 [Thread-1] [263385] : Worker [colerochman-Batch] End.
+10/11 08:05:19.358 [Thread-1] [263385] : Worker [colerochman-Batch] ShutDown.
+10/11 08:21:04.551 [colerochman-Batch] [263792] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/11 08:21:04.552 [colerochman-Batch] [263792] : Worker [colerochman-Batch] End.
+10/11 08:21:04.553 [Thread-1] [263792] : Worker [colerochman-Batch] End.
+10/11 08:21:04.553 [Thread-1] [263792] : Worker [colerochman-Batch] ShutDown.
+10/11 08:43:19.135 [colerochman-Batch] [263993] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+10/11 08:43:19.136 [colerochman-Batch] [263993] : Worker [colerochman-Batch] End.
+10/11 08:43:19.140 [Thread-1] [263993] : Worker [colerochman-Batch] End.
+10/11 08:43:19.147 [Thread-1] [263993] : Worker [colerochman-Batch] ShutDown.

@@ -1,0 +1,308 @@
+10/09 10:07:34.640 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:08:34.641 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:08:35.607 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:09:35.611 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:09:36.617 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:10:36.617 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:10:37.591 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:11:37.592 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:11:38.606 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:12:38.606 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:12:39.613 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:13:39.613 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:13:40.622 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:14:40.622 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:14:41.634 [colochman-Fetch] [248253] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:15:24.236 [colochman-Fetch] [248253] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:100)
+10/09 10:15:24.236 [colochman-Fetch] [248253] : Worker [colochman-Fetch] End.
+10/09 10:15:24.255 [Thread-1] [248253] : Failed To Database Connect For Restore. 
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.doShutDown(AlioFetch.java:131)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:284)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:15:24.256 [Thread-1] [248253] : Worker [colochman-Fetch] End.
+10/09 10:15:24.256 [Thread-1] [248253] : Worker [colochman-Fetch] ShutDown.
+10/09 10:16:04.142 [colochman-Fetch] [248496] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:17:04.142 [colochman-Fetch] [248496] : Worker [colochman-Fetch] End.
+10/09 10:17:05.151 [colochman-Fetch] [248496] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:18:05.153 [colochman-Fetch] [248496] : Worker [colochman-Fetch] End.
+10/09 10:18:06.139 [colochman-Fetch] [248496] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:19:06.139 [colochman-Fetch] [248496] : Worker [colochman-Fetch] End.
+10/09 10:19:07.195 [colochman-Fetch] [248496] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:20:02.979 [colochman-Fetch] [248496] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:100)
+10/09 10:20:02.979 [colochman-Fetch] [248496] : Worker [colochman-Fetch] End.
+10/09 10:20:03.007 [Thread-1] [248496] : Failed To Database Connect For Restore. 
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.doShutDown(AlioFetch.java:131)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:284)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:20:03.007 [Thread-1] [248496] : Worker [colochman-Fetch] End.
+10/09 10:20:03.007 [Thread-1] [248496] : Worker [colochman-Fetch] ShutDown.
+10/09 10:24:53.372 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:25:53.372 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:25:53.469 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:26:53.471 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:26:54.491 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:27:54.491 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:27:55.473 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:28:55.473 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:28:56.485 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:29:56.485 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:29:57.504 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:30:57.504 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:30:58.501 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:31:58.502 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:31:59.531 [colochman-Fetch] [248711] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:32:09.255 [colochman-Fetch] [248711] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:100)
+10/09 10:32:09.255 [colochman-Fetch] [248711] : Worker [colochman-Fetch] End.
+10/09 10:32:09.269 [Thread-1] [248711] : Failed To Database Connect For Restore. 
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.doShutDown(AlioFetch.java:131)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:284)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:32:09.269 [Thread-1] [248711] : Worker [colochman-Fetch] End.
+10/09 10:32:09.269 [Thread-1] [248711] : Worker [colochman-Fetch] ShutDown.
+10/09 10:32:36.804 [colochman-Fetch] [249241] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:32:36.820 [colochman-Fetch] [249241] : Clean Up Expired Message. update Count [1]
+10/09 10:32:36.843 [colochman-Fetch] [249241] : Assign Messages To SendLine. SENDLINE [0] SIZE [2]
+10/09 10:33:57.125 [colochman-Fetch] [249241] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/09 10:33:57.126 [colochman-Fetch] [249241] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:33:57.126 [colochman-Fetch] [249241] : Worker [colochman-Fetch] End.
+10/09 10:33:57.168 [Thread-1] [249241] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:33:57.174 [Thread-1] [249241] : SendLine-0 Update Fetch Messages To The Standby State. UPDATECOUNT [2]
+10/09 10:33:57.174 [Thread-1] [249241] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:33:57.174 [Thread-1] [249241] : Worker [colochman-Fetch] End.
+10/09 10:33:57.174 [Thread-1] [249241] : Worker [colochman-Fetch] ShutDown.
+10/09 10:40:16.753 [colochman-Fetch] [249473] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : No suitable driver found for jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:
+ SQLSTATE : 08001
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:41:16.753 [colochman-Fetch] [249473] : Worker [colochman-Fetch] End.
+10/09 10:41:17.709 [colochman-Fetch] [249473] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : No suitable driver found for jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:
+ SQLSTATE : 08001
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/09 10:42:06.525 [colochman-Fetch] [249473] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:100)
+10/09 10:42:06.525 [colochman-Fetch] [249473] : Worker [colochman-Fetch] End.
+10/09 10:42:06.528 [Thread-1] [249473] : Failed To Database Connect For Restore. 
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : No suitable driver found for jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:
+ SQLSTATE : 08001
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.doShutDown(AlioFetch.java:131)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:284)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/09 10:42:06.528 [Thread-1] [249473] : Worker [colochman-Fetch] End.
+10/09 10:42:06.529 [Thread-1] [249473] : Worker [colochman-Fetch] ShutDown.
+10/09 10:42:26.105 [colochman-Fetch] [249714] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:42:26.116 [colochman-Fetch] [249714] : Clean Up Expired Message. update Count [0]
+10/09 10:42:26.141 [colochman-Fetch] [249714] : Assign Messages To SendLine. SENDLINE [0] SIZE [2]
+10/09 10:54:28.783 [colochman-Fetch] [249714] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/09 10:54:28.783 [colochman-Fetch] [249714] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:28.783 [colochman-Fetch] [249714] : Worker [colochman-Fetch] End.
+10/09 10:54:28.815 [Thread-1] [249714] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:28.835 [Thread-1] [249714] : SendLine-0 Update Fetch Messages To The Standby State. UPDATECOUNT [2]
+10/09 10:54:28.836 [Thread-1] [249714] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:28.836 [Thread-1] [249714] : Worker [colochman-Fetch] End.
+10/09 10:54:28.836 [Thread-1] [249714] : Worker [colochman-Fetch] ShutDown.
+10/09 10:54:52.953 [colochman-Fetch] [250115] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:52.965 [colochman-Fetch] [250115] : Clean Up Expired Message. update Count [0]
+10/09 10:54:52.990 [colochman-Fetch] [250115] : Assign Messages To SendLine. SENDLINE [0] SIZE [2]
+10/09 11:05:56.605 [colochman-Fetch] [250115] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/09 11:05:56.606 [colochman-Fetch] [250115] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:05:56.606 [colochman-Fetch] [250115] : Worker [colochman-Fetch] End.
+10/09 11:05:56.628 [Thread-1] [250115] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:05:56.638 [Thread-1] [250115] : SendLine-0 Update Fetch Messages To The Standby State. UPDATECOUNT [2]
+10/09 11:05:56.639 [Thread-1] [250115] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:05:56.639 [Thread-1] [250115] : Worker [colochman-Fetch] End.
+10/09 11:05:56.639 [Thread-1] [250115] : Worker [colochman-Fetch] ShutDown.
+10/09 11:06:13.358 [colochman-Fetch] [250272] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:06:13.370 [colochman-Fetch] [250272] : Clean Up Expired Message. update Count [0]
+10/09 11:06:13.397 [colochman-Fetch] [250272] : Assign Messages To SendLine. SENDLINE [0] SIZE [2]
+10/09 11:07:22.337 [colochman-Fetch] [250272] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/09 11:07:22.338 [colochman-Fetch] [250272] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:07:22.339 [colochman-Fetch] [250272] : Worker [colochman-Fetch] End.
+10/09 11:07:22.370 [Thread-1] [250272] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:07:22.376 [Thread-1] [250272] : SendLine-0 Update Fetch Messages To The Standby State. UPDATECOUNT [2]
+10/09 11:07:22.376 [Thread-1] [250272] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:07:22.376 [Thread-1] [250272] : Worker [colochman-Fetch] End.
+10/09 11:07:22.376 [Thread-1] [250272] : Worker [colochman-Fetch] ShutDown.

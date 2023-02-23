@@ -1,0 +1,263 @@
+10/09 10:07:34.641 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:08:34.641 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:08:35.626 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:09:35.626 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:09:36.616 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:10:36.616 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:10:37.598 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:11:37.602 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:11:38.601 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:12:38.602 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:12:39.616 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:13:39.616 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:13:40.620 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:14:40.620 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:14:41.628 [colochman-Backup] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:15:24.261 [colochman-Backup] [248253] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:65)
+10/09 10:15:24.261 [colochman-Backup] [248253] : Worker [colochman-Backup] End.
+10/09 10:15:24.261 [Thread-1] [248253] : Worker [colochman-Backup] End.
+10/09 10:15:24.261 [Thread-1] [248253] : Worker [colochman-Backup] ShutDown.
+10/09 10:16:04.141 [colochman-Backup] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:17:04.141 [colochman-Backup] [248496] : Worker [colochman-Backup] End.
+10/09 10:17:05.152 [colochman-Backup] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:18:05.153 [colochman-Backup] [248496] : Worker [colochman-Backup] End.
+10/09 10:18:06.141 [colochman-Backup] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:19:06.142 [colochman-Backup] [248496] : Worker [colochman-Backup] End.
+10/09 10:19:07.194 [colochman-Backup] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:20:03.015 [colochman-Backup] [248496] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:65)
+10/09 10:20:03.015 [colochman-Backup] [248496] : Worker [colochman-Backup] End.
+10/09 10:20:03.016 [Thread-1] [248496] : Worker [colochman-Backup] End.
+10/09 10:20:03.016 [Thread-1] [248496] : Worker [colochman-Backup] ShutDown.
+10/09 10:24:53.372 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:25:53.372 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:25:53.465 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:26:53.466 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:26:54.471 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:27:54.481 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:27:55.470 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:28:55.471 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:28:56.489 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:29:56.489 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:29:57.510 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:30:57.510 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:30:58.512 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:31:58.512 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:31:59.530 [colochman-Backup] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:32:09.274 [colochman-Backup] [248711] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:65)
+10/09 10:32:09.274 [colochman-Backup] [248711] : Worker [colochman-Backup] End.
+10/09 10:32:09.274 [Thread-1] [248711] : Worker [colochman-Backup] End.
+10/09 10:32:09.274 [Thread-1] [248711] : Worker [colochman-Backup] ShutDown.
+10/09 10:32:36.805 [colochman-Backup] [249241] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:32:46.827 [colochman-Backup] [249241] : Not Exist The Backup Table. TABLENAME [BIZ_LOG_202210]
+10/09 10:32:46.848 [colochman-Backup] [249241] : Create a Table. TABLE [BIZ_LOG_202210]
+10/09 10:32:46.849 [colochman-Backup] [249241] : Exception.
+java.sql.SQLException: Failed to Execute a Query. 
+ MESSAGE : ERROR: relation "biz_log_202210" does not exist
+  Position: 14 SQLSTATE : 42P01
+ ERRORCODE : 0
+ QUERY :  INSERT INTO BIZ_LOG_202210  (cmid, umid, msg_type, status, call_status, request_time, send_time, report_time, dest_phone, send_phone, dest_name, send_name, subject, msg_body, nation_code, sender_key, template_code, response_method, timeout, re_type, re_body, re_part, cover_flag, sms_flag, reply_flag, retry_cnt, attached_file, vxml_file, use_page, use_time, sn_result, tel_info, cinfo, user_key, ad_flag, rcs_refkey)  SELECT cmid, umid, msg_type, status, call_status, request_time, send_time, report_time, dest_phone, send_phone, dest_name, send_name, subject, msg_body, nation_code, sender_key, template_code, response_method, timeout, re_type, re_body, re_part, cover_flag, sms_flag, reply_flag, retry_cnt, attached_file, vxml_file, use_page, use_time, sn_result, tel_info, cinfo, user_key, ad_flag, rcs_refkey FROM BIZ_MSG WHERE cmid = ? 
+	at com.daou.common.db.DBAccess.executeUpdate(DBAccess.java:373)
+	at com.daou.alioclient.db.AlioDBAccess.insertMessageToBackupTable(AlioDBAccess.java:993)
+	at com.daou.alioclient.db.AlioDBAccess.backupMsg(AlioDBAccess.java:902)
+	at com.daou.alioclient.worker.AlioBackup.backupMessage(AlioBackup.java:76)
+	at com.daou.alioclient.worker.AlioBackup.lambda$run$0(AlioBackup.java:57)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:36)
+10/09 10:32:51.851 [colochman-Backup] [249241] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:32:51.851 [colochman-Backup] [249241] : Worker [colochman-Backup] End.
+10/09 10:32:52.705 [colochman-Backup] [249241] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:32:52.712 [colochman-Backup] [249241] : Backup a Message. CMSGID [201000000001]
+10/09 10:33:57.181 [colochman-Backup] [249241] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:61)
+10/09 10:33:57.182 [colochman-Backup] [249241] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:33:57.182 [colochman-Backup] [249241] : Worker [colochman-Backup] End.
+10/09 10:33:57.182 [Thread-1] [249241] : Worker [colochman-Backup] End.
+10/09 10:33:57.183 [Thread-1] [249241] : Worker [colochman-Backup] ShutDown.
+10/09 10:40:16.752 [colochman-Backup] [249473] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : No suitable driver found for jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:
+ SQLSTATE : 08001
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:41:16.752 [colochman-Backup] [249473] : Worker [colochman-Backup] End.
+10/09 10:41:17.710 [colochman-Backup] [249473] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : No suitable driver found for jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:
+ SQLSTATE : 08001
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:31)
+10/09 10:42:06.534 [colochman-Backup] [249473] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:65)
+10/09 10:42:06.534 [colochman-Backup] [249473] : Worker [colochman-Backup] End.
+10/09 10:42:06.534 [Thread-1] [249473] : Worker [colochman-Backup] End.
+10/09 10:42:06.534 [Thread-1] [249473] : Worker [colochman-Backup] ShutDown.
+10/09 10:42:26.105 [colochman-Backup] [249714] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:28.840 [colochman-Backup] [249714] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:61)
+10/09 10:54:28.840 [colochman-Backup] [249714] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:28.840 [colochman-Backup] [249714] : Worker [colochman-Backup] End.
+10/09 10:54:28.841 [Thread-1] [249714] : Worker [colochman-Backup] End.
+10/09 10:54:28.841 [Thread-1] [249714] : Worker [colochman-Backup] ShutDown.
+10/09 10:54:52.957 [colochman-Backup] [250115] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:05:56.647 [colochman-Backup] [250115] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:61)
+10/09 11:05:56.647 [colochman-Backup] [250115] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:05:56.648 [colochman-Backup] [250115] : Worker [colochman-Backup] End.
+10/09 11:05:56.648 [Thread-1] [250115] : Worker [colochman-Backup] End.
+10/09 11:05:56.649 [Thread-1] [250115] : Worker [colochman-Backup] ShutDown.
+10/09 11:06:13.358 [colochman-Backup] [250272] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:07:22.383 [colochman-Backup] [250272] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBackup.run(AlioBackup.java:61)
+10/09 11:07:22.383 [colochman-Backup] [250272] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:07:22.383 [colochman-Backup] [250272] : Worker [colochman-Backup] End.
+10/09 11:07:22.384 [Thread-1] [250272] : Worker [colochman-Backup] End.
+10/09 11:07:22.384 [Thread-1] [250272] : Worker [colochman-Backup] ShutDown.

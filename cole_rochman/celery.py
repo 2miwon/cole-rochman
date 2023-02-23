@@ -11,10 +11,6 @@ app = Celery('cole_rochman',
              include=['core.tasks']
              )
 
-# broker_url = 'csb-redis.dxfo66.ng.0001.apn2.cache.amazonaws.com:6379'
-
-# result_backend = 'csb-redis.dxfo66.ng.0001.apn2.cache.amazonaws.com:6379'
-
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
 # - namespace='CELERY' means all celery-related configuration keys

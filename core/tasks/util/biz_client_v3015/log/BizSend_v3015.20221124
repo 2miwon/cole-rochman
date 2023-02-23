@@ -1,0 +1,25 @@
+11/24 17:03:53.000 [colochman-Send-0] [360107] : Exception.
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendPing(Protocol.java:129)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:78)
+11/24 17:03:58.002 [colochman-Send-0] [360107] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+11/24 17:03:58.002 [colochman-Send-0] [360107] : Failed To [colochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+11/24 17:03:58.003 [colochman-Send-0] [360107] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+11/24 17:03:58.003 [colochman-Send-0] [360107] : Worker [colochman-Send-0] End.
+11/24 17:03:58.812 [colochman-Send-0] [360107] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+11/24 17:03:58.881 [colochman-Send-0] [360107] : User Authentication. USER [colochman]
+11/24 17:03:58.885 [colochman-Send-0] [360107] : Start Sending And Receiving Data With The Server.
+11/24 17:03:58.937 [colochman-Send-0] [360107] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]

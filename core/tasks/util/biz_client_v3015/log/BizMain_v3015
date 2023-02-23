@@ -1,0 +1,116 @@
+02/14 22:56:20.301 [main] [912072] : [INFO] BizClient Start   [SYSTEM TIME]:02/14 22:56:20
+02/14 22:56:20.304 [main] [912072] : [INFO] args.length=1  [SYSTEM TIME]:02/14 22:56:20
+02/14 22:56:20.304 [main] [912072] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:02/14 22:56:20
+02/14 22:56:20.304 [main] [912072] : #### BizClient Start ####
+02/14 22:56:20.324 [colochman-Main] [912072] : CONFIGURATION [config/uds.confx_v3015]
+02/14 22:56:20.324 [colochman-Main] [912072] : # BIZ PPURIO 접속정보
+02/14 22:56:20.324 [colochman-Main] [912072] : UDS_IP [biz.ppurio.com]
+02/14 22:56:20.324 [colochman-Main] [912072] : UDS_SEND_PORT [18300]
+02/14 22:56:20.324 [colochman-Main] [912072] : UDS_RECV_PORT [18400]
+02/14 22:56:20.324 [colochman-Main] [912072] : UDS_ID [colochman]
+02/14 22:56:20.324 [colochman-Main] [912072] : USE_SSL [Y]
+02/14 22:56:20.324 [colochman-Main] [912072] : # DBMS 접속정보
+02/14 22:56:20.324 [colochman-Main] [912072] : DBNAME [POSTGRES]
+02/14 22:56:20.324 [colochman-Main] [912072] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+02/14 22:56:20.324 [colochman-Main] [912072] : DBUSER [sean0921]
+02/14 22:56:20.324 [colochman-Main] [912072] : MSG_TABLE [BIZ_MSG]
+02/14 22:56:20.324 [colochman-Main] [912072] : BACKUP_TABLE [BIZ_LOG]
+02/14 22:56:20.325 [colochman-Main] [912072] : # 디렉토리 정보
+02/14 22:56:20.325 [colochman-Main] [912072] : LOG_PATH [./log]
+02/14 22:56:20.325 [colochman-Main] [912072] : FILE_PATH [./spool]
+02/14 22:56:20.325 [colochman-Main] [912072] : BLK_PATH [./blk]
+02/14 22:56:20.325 [colochman-Main] [912072] : REP_PATH [./rep]
+02/14 22:56:20.325 [colochman-Main] [912072] : # WORKER 실행 정보
+02/14 22:56:20.325 [colochman-Main] [912072] : DO_FETCH_PROCESS [Y]
+02/14 22:56:20.325 [colochman-Main] [912072] : DO_SEND_PROCESS [Y]
+02/14 22:56:20.325 [colochman-Main] [912072] : DO_RECV_PROCESS [Y]
+02/14 22:56:20.325 [colochman-Main] [912072] : DO_BACKUP_PROCESS [Y]
+02/14 22:56:20.325 [colochman-Main] [912072] : DO_REORDER_PROCESS [N]
+02/14 22:56:20.325 [colochman-Main] [912072] : DO_BATCH_PROCESS [Y]
+02/14 22:56:20.325 [colochman-Main] [912072] : FETCH_SLEEP_SECONDS [1]
+02/14 22:56:20.325 [colochman-Main] [912072] : SEND_SLEEP_SECONDS [1]
+02/14 22:56:20.325 [colochman-Main] [912072] : RECV_SLEEP_SECONDS [1]
+02/14 22:56:20.325 [colochman-Main] [912072] : REPORT_SLEEP_SECONDS [1]
+02/14 22:56:20.325 [colochman-Main] [912072] : BACKUP_SLEEP_SECONDS [10]
+02/14 22:56:20.325 [colochman-Main] [912072] : REORDER_SLEEP_SECONDS [1]
+02/14 22:56:20.325 [colochman-Main] [912072] : BATCH_SLEEP_SECONDS [300]
+02/14 22:56:20.325 [colochman-Main] [912072] : FETCH_COUNT [100]
+02/14 22:56:20.325 [colochman-Main] [912072] : SEND_THREAD_COUNT [1]
+02/14 22:56:20.325 [colochman-Main] [912072] : REPORT_THREAD_COUNT [1]
+02/14 22:56:20.325 [colochman-Main] [912072] : REPORT_QUEUE_SIZE [300]
+02/14 22:56:20.325 [colochman-Main] [912072] : BACKUP_OPTION [Y]
+02/14 22:56:20.325 [colochman-Main] [912072] : BACKUP_COUNT [1000]
+02/14 22:56:20.325 [colochman-Main] [912072] : BACKUP_WAIT_DAY [0]
+02/14 22:56:20.325 [colochman-Main] [912072] : # 부가기능
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_OPTION [N]
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_OF_SEND_TIME []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_MONTH []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_DATE []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_TIME_SUNDAY []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_TIME_MONDAY []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_TIME_TUESDAY []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_TIME_WEDNESDAY []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_TIME_THURSDAY []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_TIME_FRIDAY []
+02/14 22:56:20.326 [colochman-Main] [912072] : BLOCK_TIME_SATURDAY []
+02/14 22:56:20.326 [colochman-Main] [912072] : APPOINTMENT_ON_CLIENT [Y]
+02/14 22:56:20.326 [colochman-Main] [912072] : FILE_DELETE_OPTION [Y]
+02/14 22:56:20.326 [colochman-Main] [912072] : REPORT_RECONFIRM_OPTION [N]
+02/14 22:56:20.326 [colochman-Main] [912072] : DIST_PROC_OPTION [N]
+02/14 22:56:20.326 [colochman-Main] [912072] : DIST_VALUE [0]
+02/14 22:56:20.326 [colochman-Main] [912072] : LOG_DELETE_OPTION [N]
+02/14 22:56:20.326 [colochman-Main] [912072] : LOG_DELETE_DAY [30]
+02/14 22:56:20.326 [colochman-Main] [912072] : USE_DUMMY_MON [N]
+02/14 22:56:20.326 [colochman-Main] [912072] : USE_DUMMY_MON_DEVICE [0]
+02/14 22:56:20.326 [colochman-Main] [912072] : DUMMY_MON_CMID_FORMAT [D_MON]
+02/14 22:56:20.326 [colochman-Main] [912072] : DUMMY_MON_SUBJECT [D_MON]
+02/14 22:56:20.326 [colochman-Main] [912072] : DUMMY_MON_MSG_APPEND []
+02/14 22:56:20.326 [colochman-Main] [912072] : DUMMY_MON_TARGET_NUM [0700000000]
+02/14 22:56:20.326 [colochman-Main] [912072] : DUMMY_MON_CALLBACK_NUM [0700000000]
+02/14 22:56:20.326 [colochman-Main] [912072] : DUMMY_MON_INTERVAL [240]
+02/14 22:56:20.326 [colochman-Main] [912072] : MONITOR_SLEEP_SECONDS [1]
+02/14 22:56:20.326 [colochman-Main] [912072] : BLACKLIST_USE [N]
+02/14 22:56:20.327 [colochman-Main] [912072] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+02/14 22:56:20.327 [colochman-Main] [912072] : USE_ORACLE_PREPARED_STATEMENT [false]
+02/14 22:56:20.327 [colochman-Main] [912072] : USE_DATEFORMAT_STRING [N]
+02/14 22:56:20.327 [colochman-Main] [912072] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+02/14 22:56:20.327 [colochman-Main] [912072] : CURRENT_TIME_FUNCTION [NOW()]
+02/14 22:56:20.327 [colochman-Main] [912072] : # DBMS 복호화기능 관련
+02/14 22:56:20.327 [colochman-Main] [912072] : DB_DATA_DECRYPTION [N]
+02/14 22:56:20.327 [colochman-Main] [912072] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+02/14 22:56:20.327 [colochman-Main] [912072] : USE_DECRYPTION_SEPARATION_FIELD [N]
+02/14 22:56:20.327 [colochman-Main] [912072] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+02/14 22:56:20.327 [colochman-Main] [912072] : DB_DATA_DECRYPTION_FUNCTION []
+02/14 22:56:20.327 [colochman-Main] [912072] : USE_RESULT_CODE_MAPPING [N]
+02/14 22:56:20.327 [colochman-Main] [912072] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+02/14 22:56:20.327 [colochman-Main] [912072] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+02/14 22:56:20.327 [colochman-Main] [912072] : FILE_HANDLING_MODE [0]
+02/14 22:56:20.327 [colochman-Main] [912072] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+02/14 22:56:20.327 [colochman-Main] [912072] : BIZCLIENT UUID [ f043babd1ea8470c980389af20602e3c ]
+02/14 22:56:20.327 [colochman-Main] [912072] : SERVICE_NAME []
+02/14 22:56:20.327 [colochman-Main] [912072] : Access To The File Path. PATH [./spool]
+02/14 22:56:20.327 [colochman-Main] [912072] : Access To The Using File Path. PATH [./spool/using/colochman/ip-172-31-50-221]
+02/14 22:56:20.327 [colochman-Main] [912072] : Access To The Blacklist Path. PATH [./blk]
+02/14 22:56:20.327 [colochman-Main] [912072] : Access To The Report File Path. PATH [./rep]
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : SMS, 0
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : MMS, 5
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : FAX, 2
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : PHONE, 3
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : AT, 6
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : FT, 7
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : BI, 11
+02/14 22:56:20.329 [colochman-Main] [912072] : Supported Message Type : BW, 12
+02/14 22:56:20.482 [colochman-Main] [912072] : BizSend[0] (colochman-Send-0) Starting ...
+02/14 22:56:20.485 [colochman-Main] [912072] : BizFetch (colochman-Fetch) Starting ...
+02/14 22:56:20.489 [colochman-Main] [912072] : BizRecv (colochman-Recv) Starting ...
+02/14 22:56:20.490 [colochman-Main] [912072] : BizReport[0] (colochman-Report-0) Starting ...
+02/14 22:56:20.491 [colochman-Main] [912072] : BizBackup (colochman-Backup) Starting ...
+02/14 22:56:20.492 [colochman-Main] [912072] : BizBatch (colochman-Batch) Starting ...
+02/14 23:03:13.528 [Thread-1] [912072] : ShutDown Message Hook..
+02/14 23:03:13.532 [colochman-Main] [912072] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioMain.run(AlioMain.java:70)
+02/14 23:03:13.630 [Thread-1] [912072] : Start Workers Shutdown ......
+02/14 23:03:21.555 [Thread-1] [912072] : End Workers Shutdown ......

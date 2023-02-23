@@ -1,0 +1,244 @@
+10/09 10:07:34.640 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:08:34.641 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:08:35.606 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:09:35.611 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:09:36.615 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:10:36.615 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:10:37.593 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:11:37.601 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:11:38.602 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:12:38.602 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:12:39.615 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:13:39.615 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:13:40.621 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:14:40.621 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:14:41.628 [colochman-Report-0] [248253] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:15:24.260 [colochman-Report-0] [248253] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:48)
+10/09 10:15:24.260 [colochman-Report-0] [248253] : Worker [colochman-Report-0] End.
+10/09 10:15:24.261 [Thread-1] [248253] : Worker [colochman-Report-0] End.
+10/09 10:15:24.261 [Thread-1] [248253] : Worker [colochman-Report-0] ShutDown.
+10/09 10:16:04.141 [colochman-Report-0] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:17:04.142 [colochman-Report-0] [248496] : Worker [colochman-Report-0] End.
+10/09 10:17:05.141 [colochman-Report-0] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:18:05.142 [colochman-Report-0] [248496] : Worker [colochman-Report-0] End.
+10/09 10:18:06.141 [colochman-Report-0] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:19:06.142 [colochman-Report-0] [248496] : Worker [colochman-Report-0] End.
+10/09 10:19:07.194 [colochman-Report-0] [248496] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:20:03.015 [colochman-Report-0] [248496] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:48)
+10/09 10:20:03.015 [colochman-Report-0] [248496] : Worker [colochman-Report-0] End.
+10/09 10:20:03.015 [Thread-1] [248496] : Worker [colochman-Report-0] End.
+10/09 10:20:03.015 [Thread-1] [248496] : Worker [colochman-Report-0] ShutDown.
+10/09 10:24:53.372 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:25:53.372 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:25:53.471 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:26:53.472 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:26:54.465 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:27:54.465 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:27:55.479 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:28:55.481 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:28:56.488 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:29:56.488 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:29:57.497 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:30:57.497 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:30:58.510 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:31:58.510 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:31:59.530 [colochman-Report-0] [248711] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:32:09.274 [colochman-Report-0] [248711] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:48)
+10/09 10:32:09.274 [colochman-Report-0] [248711] : Worker [colochman-Report-0] End.
+10/09 10:32:09.274 [Thread-1] [248711] : Worker [colochman-Report-0] End.
+10/09 10:32:09.274 [Thread-1] [248711] : Worker [colochman-Report-0] ShutDown.
+10/09 10:32:36.805 [colochman-Report-0] [249241] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:33:57.177 [colochman-Report-0] [249241] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/09 10:33:57.178 [colochman-Report-0] [249241] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:33:57.178 [colochman-Report-0] [249241] : Worker [colochman-Report-0] End.
+10/09 10:33:57.179 [Thread-1] [249241] : Worker [colochman-Report-0] End.
+10/09 10:33:57.180 [Thread-1] [249241] : Worker [colochman-Report-0] ShutDown.
+10/09 10:40:16.751 [colochman-Report-0] [249473] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : No suitable driver found for jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:
+ SQLSTATE : 08001
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:41:16.752 [colochman-Report-0] [249473] : Worker [colochman-Report-0] End.
+10/09 10:41:17.713 [colochman-Report-0] [249473] : AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : No suitable driver found for jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:
+ SQLSTATE : 08001
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:30)
+10/09 10:42:06.533 [colochman-Report-0] [249473] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:48)
+10/09 10:42:06.533 [colochman-Report-0] [249473] : Worker [colochman-Report-0] End.
+10/09 10:42:06.534 [Thread-1] [249473] : Worker [colochman-Report-0] End.
+10/09 10:42:06.534 [Thread-1] [249473] : Worker [colochman-Report-0] ShutDown.
+10/09 10:42:26.105 [colochman-Report-0] [249714] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:28.838 [colochman-Report-0] [249714] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/09 10:54:28.839 [colochman-Report-0] [249714] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 10:54:28.839 [colochman-Report-0] [249714] : Worker [colochman-Report-0] End.
+10/09 10:54:28.839 [Thread-1] [249714] : Worker [colochman-Report-0] End.
+10/09 10:54:28.840 [Thread-1] [249714] : Worker [colochman-Report-0] ShutDown.
+10/09 10:54:52.954 [colochman-Report-0] [250115] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:05:56.645 [colochman-Report-0] [250115] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/09 11:05:56.645 [colochman-Report-0] [250115] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:05:56.645 [colochman-Report-0] [250115] : Worker [colochman-Report-0] End.
+10/09 11:05:56.646 [Thread-1] [250115] : Worker [colochman-Report-0] End.
+10/09 11:05:56.647 [Thread-1] [250115] : Worker [colochman-Report-0] ShutDown.
+10/09 11:06:13.358 [colochman-Report-0] [250272] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:07:22.382 [colochman-Report-0] [250272] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/09 11:07:22.382 [colochman-Report-0] [250272] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/09 11:07:22.382 [colochman-Report-0] [250272] : Worker [colochman-Report-0] End.
+10/09 11:07:22.383 [Thread-1] [250272] : Worker [colochman-Report-0] End.
+10/09 11:07:22.383 [Thread-1] [250272] : Worker [colochman-Report-0] ShutDown.

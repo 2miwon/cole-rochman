@@ -1,0 +1,33 @@
+10/18 23:23:05.191 [colerochman-Recv] [289935] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+10/18 23:23:05.386 [colerochman-Recv] [289935] : User Authentication. USER [colerochman]
+10/18 23:23:05.388 [colerochman-Recv] [289935] : Start Sending And Receiving Data With The Server.
+10/18 23:25:05.570 [colerochman-Recv] [289935] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:49)
+10/18 23:25:10.579 [colerochman-Recv] [289935] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/18 23:25:10.580 [colerochman-Recv] [289935] : Failed To [colerochman-Recv] Protocol End. 
+com.daou.common.exception.BizException: Failed To End. RESULT [PI]
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:120)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+10/18 23:25:10.580 [colerochman-Recv] [289935] : Worker [colerochman-Recv] End.
+10/18 23:25:10.580 [Thread-1] [289935] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+10/18 23:25:10.581 [Thread-1] [289935] : Failed To [colerochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/18 23:25:10.581 [Thread-1] [289935] : Worker [colerochman-Recv] End.
+10/18 23:25:10.581 [Thread-1] [289935] : Worker [colerochman-Recv] ShutDown.

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+sh ./killsvr -15 biz_client
+
+index=1
+
+while [ ${index} -le 20 ]
+do
+	proc=`ps -ef | grep biz_client | grep -v vi | grep -v grep | grep -v sh`
+	if [ X"$proc" != X"" ] 
+	then
+		echo "Waiting about 20 Sec to Module Shutdown...."
+		index=$((index+1))
+		sleep 1
+		continue
+	fi
+
+	echo "Module Shutdown Success"
+	exit;
+done
+
+echo "Timeout Module Safe Shutdown!, Script will run force down."
+sh ./killsvr -9 biz_client

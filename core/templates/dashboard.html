@@ -1,5 +1,4 @@
 {% extends 'base2.html' %}
-{% load static %}
 {% block content %}
 
 
@@ -51,14 +50,6 @@
             <div style="float:right; ">{{ p.treatment_end_date }}</div>
           {% endfor %}
         </div>
-          <div class="col-md-12 proback">
-
-
-          <div style="float: left; margin-top: 30px;">
-              <h2>{% for patient in patientlist %}
-              {{ patient.name }}
-              {% endfor %}</h2></div>
-        </div>
 
       </div>
 
@@ -66,13 +57,13 @@
       <div class="col-md-9">
         <br>
         {% for p in clickedpatient %}
-          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
+          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'" style="width: 2vw;">
             <
           </div>
           {% for day in day_list %}
-            <span class="day">{{ day }}</span>
+	    <span class="day" style="width: 9vw; margin: 0 0.5vw:">{{ day }}</span>
           {% endfor %}
-          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
+          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'" style="width: 2vw;">
             >
           </div>
 
@@ -90,45 +81,43 @@
         <div class="col-md-2"><br>다음 내원
           예정일은<br><b>{{ p.next_visiting_date_time.month }}월 {{ p.next_visiting_date_time.day }}일</b> 입니다.
         </div>
+	<div class="col-md-1"></div>
         {% if visiting_num %}
-          <div class="col-md-10"><br>
-            <div id="visit">내원일</div>
+          <div class="col-md-9"><br>
+            <div id="visit" style="width: 9vw; margin: ">내원일</div>
           </div>
 
         {% endif %}
 
-        <div class="co-md-12 line" style="border-bottom: 1px solid black;"></div>
+        <div class="col-md-12 line" style="border-bottom: 1px solid black;"></div>
         <div class="col-md-2"><br>총 <b>{{ p.daily_medication_count }}회</b><br>복약해야 합니다.</div>
         <div class="col-md-1">
-          <br>
-          {% for hour in daily_hour_list %}
-            {{ forloop.counter }}회차({{ hour }})<br><br>
+	  <br>
+	  {% for hour in daily_hour_list %}
+	    {{ forloop.counter }}회차({{ hour }})<br><br>
           {% endfor %}
         </div>
         <div class="col-md-9">
 
-          <table>
+          <table style="margin-left: 2vw;">
             {% for line in mdresult %}
               <tr>
                 {% for re in line %}
-                  {% ifequal re '복약 성공' %}
-                    <td style="background-color:#81FCC8;">{{re}}     </td>
-                  {% endifequal %}
-                  {% ifequal re '성공(지연)' %}
-                    <td style="background-color:#D8D8D8">{{re}}     </td>
-                  {% endifequal %}
-                  {% ifequal re '응답 없음' %}
-                    <td style="background-color:#E9FFF5">{{re}}     </td>
-                  {% endifequal %}
-                  {% ifequal re '복약 실패' %}
-                    <td style="background-color:#FCAECE">{{re}}     </td>
-                  {% endifequal %}
-                  {% ifequal re '부작용' %}
-                    <td style="background-color:#FCAECE">{{re}}     </td>
-                  {% endifequal %}
-                  {% ifequal re '' %}
-                    <td>{{re}}     </td>
-                  {% endifequal %}
+                  {% if re == '복약 성공' %}
+		  <td style="background-color:#81FCC8; width: 9vw; margin: 0 0.5vw;">{{re}}<br>    </td>
+                  {% elif re == '성공(지연)' %}
+		  <td style="background-color:#D8D8D8;">{{re}}<br>     </td>
+                  {% elif re == '응답 없음' %}
+		  <td style="background-color:#E9FFF5;">{{re}}<br>     </td>
+                  {% elif re == '복약 실패' %}
+		  <td style="background-color:#FCAECE;">{{re}}<br>     </td>
+		  {% elif re == '부작용' %}
+		  <td style="background-color:#FCAECE; width: 9vw; margin: 0 0.5vw;">{{re}}<br>     </td>
+                  {% elif re == '' %}
+		  <td style="width: 9vw; margin: 0 0.5vw;">{{re}}<br>     </td>
+		  {% else %}
+		  <td style="background-color:#FCAECE; width: 9vw; margin: 0 0.5vw;">{{re}}<br>     </td>
+		  {% endif %}
                 {% endfor %}
 
               </tr>
@@ -136,61 +125,19 @@
 
           </table>
         </div>
-        <div class="co-md-12 line" style="border-bottom: 1px solid black;"></div>
-      <div class="col-md-12" >산소포화도 수치</div>
-
-      <div class="col-md-2"><br><div class="circle1" style="background-color:#81FCC8"></div><span>90%-100% 정상범위</span><br><div class="circle1" style="background-color:#F7E99A"></div><span>90% 이하 주의 필요</span><br><div class="circle1" style="background-color:#FCAECE"></div><span>80% 이하 심각한 저산소</span></div>
-      <div class="col-md-1" style="padding-left:105px;">100%<br><br>80%</div>
-        <div class="col-md-9">
-           <table style="height:84px;margin-top:0px;">
-
-              <tr >
-                {% for line in msresult %}
-                  {% ifequal line 'None' %}
-                    <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px;"></td>
-                  {% else %}
-                    {% if line >= 90 %}
-                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px; padding-bottom:{{line|add:-75}}px;"><div class="circle1" style="background-color:#81FCC8"></div>{{line}}%</td>
-                    {% elif line >= 80 %}
-                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px; padding-top:20px; "><div class="circle1" style="background-color:#F7E99A"></div>{{line}}%</td>
-                    {% else %}
-                      <td style="border-bottom: 1px solid black;border-top: 1px solid black; height:40px;"><div class="circle1" style="background-color:#FCAECE"></div>{{line}}%</td>
-                    {% endif %}
-                  {% endifequal %}
-
-                {% endfor %}
-
-              </tr>
-
-              <tr>
-
-                {% for line in msresult2 %}
-                  {% ifequal line 'None' %}
-                    <td style="height:39px;"></td>
-                  {% else %}
-                    {% if line >= 90 %}
-                      <td style="height:40px;"><div class="circle1" style="background-color:#81FCC8"></div>{{line}}%</td>
-                    {% elif line >= 80 %}
-                      <td style=" height:40px;"><div class="circle1" style="background-color:#F7E99A"></div>{{line}}%</td>
-                    {% else %}
-                      <td style=" height:40px;"><div class="circle1" style="background-color:#FCAECE"></div>{{line}}%</td>
-                    {% endif %}
-                  {% endifequal %}
-
-                {% endfor %}
-              </tr>
+        <div class="col-md-12 line" style="border-bottom: 1px solid black;"></div>
 
 
-          </table>
-
-
-        </div>
-
+      {% endfor %}
+    </div>
+    <div>
+      {% for se in sideeffect %}
+        <p>{{ se }}</p>
 
       {% endfor %}
     </div>
   </div>
 
 
-  <script>document.getElementById("visit").style.marginLeft = "{{visiting_num}}px";</script>
+  <script>document.getElementById("visit").style.marginLeft = "{{visiting_num}}vw";</script>
 {% endblock %}

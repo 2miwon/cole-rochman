@@ -1,0 +1,405 @@
+10/11 07:52:45.224 [colochman-Send-0] [262891] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 07:53:36.530 [colochman-Send-0] [262891] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:114)
+10/11 07:53:36.530 [colochman-Send-0] [262891] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 07:53:36.530 [colochman-Send-0] [262891] : Worker [colochman-Send-0] End.
+10/11 07:53:36.531 [Thread-1] [262891] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 07:53:36.534 [Thread-1] [262891] : Worker [colochman-Send-0] End.
+10/11 07:53:36.534 [Thread-1] [262891] : Worker [colochman-Send-0] ShutDown.
+10/11 07:54:35.326 [colerochman-Send-0] [263126] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 07:55:20.861 [colerochman-Send-0] [263126] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:114)
+10/11 07:55:20.862 [colerochman-Send-0] [263126] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 07:55:20.862 [colerochman-Send-0] [263126] : Worker [colerochman-Send-0] End.
+10/11 07:55:20.862 [Thread-1] [263126] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 07:55:20.865 [Thread-1] [263126] : Worker [colerochman-Send-0] End.
+10/11 07:55:20.868 [Thread-1] [263126] : Worker [colerochman-Send-0] ShutDown.
+10/11 07:57:59.521 [colerochman-Send-0] [263214] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 07:58:14.984 [colerochman-Send-0] [263214] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:114)
+10/11 07:58:14.985 [colerochman-Send-0] [263214] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 07:58:14.985 [colerochman-Send-0] [263214] : Worker [colerochman-Send-0] End.
+10/11 07:58:14.985 [Thread-1] [263214] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 07:58:14.992 [Thread-1] [263214] : Worker [colerochman-Send-0] End.
+10/11 07:58:14.993 [Thread-1] [263214] : Worker [colerochman-Send-0] ShutDown.
+10/11 08:00:47.377 [colerochman-Send-0] [263385] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:01:47.378 [colerochman-Send-0] [263385] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:01:47.378 [colerochman-Send-0] [263385] : Worker [colerochman-Send-0] End.
+10/11 08:02:18.264 [colerochman-Send-0] [263385] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:03:18.264 [colerochman-Send-0] [263385] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:03:18.265 [colerochman-Send-0] [263385] : Worker [colerochman-Send-0] End.
+10/11 08:03:48.342 [colerochman-Send-0] [263385] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:04:48.342 [colerochman-Send-0] [263385] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:04:48.344 [colerochman-Send-0] [263385] : Worker [colerochman-Send-0] End.
+10/11 08:05:19.309 [colerochman-Send-0] [263385] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:05:19.310 [colerochman-Send-0] [263385] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:114)
+10/11 08:05:19.310 [colerochman-Send-0] [263385] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:05:19.310 [colerochman-Send-0] [263385] : Worker [colerochman-Send-0] End.
+10/11 08:05:19.310 [Thread-1] [263385] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:05:19.310 [Thread-1] [263385] : Worker [colerochman-Send-0] End.
+10/11 08:05:19.310 [Thread-1] [263385] : Worker [colerochman-Send-0] ShutDown.
+10/11 08:19:06.866 [colerochman-Send-0] [263792] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:20:06.866 [colerochman-Send-0] [263792] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:20:06.866 [colerochman-Send-0] [263792] : Worker [colerochman-Send-0] End.
+10/11 08:20:37.637 [colerochman-Send-0] [263792] : AuthException.
+com.daou.common.exception.AuthException: Failed To Create a socket.connect timed out
+	at com.daou.common.protocol.Protocol.createSocket(Protocol.java:59)
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:65)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:21:04.515 [colerochman-Send-0] [263792] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:114)
+10/11 08:21:04.515 [colerochman-Send-0] [263792] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:21:04.515 [colerochman-Send-0] [263792] : Worker [colerochman-Send-0] End.
+10/11 08:21:04.516 [Thread-1] [263792] : Disconnect To Socket. IP [bizppurio.com] PORT [18300]
+10/11 08:21:04.517 [Thread-1] [263792] : Worker [colerochman-Send-0] End.
+10/11 08:21:04.517 [Thread-1] [263792] : Worker [colerochman-Send-0] ShutDown.
+10/11 08:27:15.563 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:27:15.741 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:28:15.743 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:28:15.743 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:28:15.743 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:28:16.389 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:28:16.467 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:29:16.468 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:29:16.468 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:29:16.468 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:29:17.400 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:29:17.480 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:30:17.481 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:30:17.481 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:30:17.481 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:30:18.412 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:30:18.485 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:31:18.486 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:31:18.487 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:31:18.487 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:31:19.423 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:31:19.487 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:32:19.488 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:32:19.488 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:32:19.488 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:32:20.472 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:32:20.531 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:33:20.532 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:33:20.533 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:33:20.533 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:33:21.445 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:33:21.505 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:34:21.506 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:34:21.506 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:34:21.506 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:34:22.456 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:34:22.535 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:35:22.536 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:35:22.536 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:35:22.536 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:35:23.464 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:35:23.522 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:36:23.523 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:36:23.523 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:36:23.523 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:36:24.475 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:36:24.536 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:37:24.537 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:37:24.537 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:37:24.537 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:37:25.524 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:37:25.585 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:38:25.586 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:38:25.586 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:38:25.586 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:38:26.496 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:38:26.555 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:39:26.556 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:39:26.556 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:39:26.556 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:39:27.505 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:39:27.567 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:40:27.569 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:40:27.569 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:40:27.569 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:40:28.516 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:40:28.576 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:41:28.577 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:41:28.577 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:41:28.577 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:41:29.525 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:41:29.584 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:42:29.586 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:42:29.586 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Broken pipe (Write failed)
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:42:29.586 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:42:30.572 [colerochman-Send-0] [263993] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:42:30.630 [colerochman-Send-0] [263993] : AuthException.
+com.daou.common.exception.AuthException: Failed To User Authentication Due To Not Match Password. RESULTCODE [R011]
+	at com.daou.common.protocol.Protocol.connectAndAuthToServer(Protocol.java:74)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:60)
+10/11 08:43:19.069 [colerochman-Send-0] [263993] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:114)
+10/11 08:43:19.069 [colerochman-Send-0] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:43:19.069 [colerochman-Send-0] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Read a Packet.
+ PACKET : null
+ MESSAGE : Already Socket Closed.
+
+	at com.daou.common.protocol.Protocol.socketReadPacket(Protocol.java:295)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:118)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioSend.run(AlioSend.java:122)
+10/11 08:43:19.069 [colerochman-Send-0] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:43:19.073 [Thread-1] [263993] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18300]
+10/11 08:43:19.074 [Thread-1] [263993] : Failed To [colerochman-Send-0] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.common.worker.Worker.doShutDown(Worker.java:89)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:279)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/11 08:43:19.074 [Thread-1] [263993] : Worker [colerochman-Send-0] End.
+10/11 08:43:19.074 [Thread-1] [263993] : Worker [colerochman-Send-0] ShutDown.
+10/11 08:43:30.819 [colerochman-Send-0] [264217] : Connect To Socket. IP [biz.ppurio.com] PORT [18300] 
+10/11 08:43:31.002 [colerochman-Send-0] [264217] : User Authentication. USER [colerochman]
+10/11 08:43:31.005 [colerochman-Send-0] [264217] : Start Sending And Receiving Data With The Server.
+10/11 08:43:31.975 [colerochman-Send-0] [264217] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:48:54.778 [colerochman-Send-0] [264217] : Send a Message. DEVICE [AT] CMSGID [201420180002] MSGID [1011co_FK1354867813445369857] REPART [S]
+10/11 08:48:54.781 [colerochman-Send-0] [264217] : Update a Message Status At Success. CMSGID [201420180002]
+10/11 08:56:04.612 [colerochman-Send-0] [264217] : Send a Message. DEVICE [AT] CMSGID [201420180002] MSGID [1011co_FK9605457856345383943] REPART [S]
+10/11 08:56:04.616 [colerochman-Send-0] [264217] : Update a Message Status At Success. CMSGID [201420180002]

@@ -1,0 +1,33 @@
+02/14 22:56:20.713 [colochman-Recv] [912072] : Connect To Socket. IP [biz.ppurio.com] PORT [18400] 
+02/14 22:56:20.920 [colochman-Recv] [912072] : User Authentication. USER [colochman]
+02/14 22:56:20.922 [colochman-Recv] [912072] : Start Sending And Receiving Data With The Server.
+02/14 23:03:16.541 [colochman-Recv] [912072] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:49)
+02/14 23:03:21.550 [colochman-Recv] [912072] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+02/14 23:03:21.550 [colochman-Recv] [912072] : Failed To [colochman-Recv] Protocol End. 
+com.daou.common.exception.BizException: Failed To End. RESULT [PI]
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:120)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.run(AlioRecv.java:58)
+02/14 23:03:21.550 [colochman-Recv] [912072] : Worker [colochman-Recv] End.
+02/14 23:03:21.551 [Thread-1] [912072] : Disconnect To Socket. IP [biz.ppurio.com] PORT [18400]
+02/14 23:03:21.552 [Thread-1] [912072] : Failed To [colochman-Recv] Protocol End. 
+java.io.IOException: Failed to Send a Packet.
+ PACKET : 00000002EN
+ MESSAGE : Connection or outbound has closed
+
+	at com.daou.common.protocol.Protocol.socketSendPacket(Protocol.java:279)
+	at com.daou.common.protocol.Protocol.sendEnd(Protocol.java:117)
+	at com.daou.common.protocol.Protocol.close(Protocol.java:99)
+	at com.daou.common.worker.Worker.doEnd(Worker.java:70)
+	at com.daou.alioclient.worker.AlioRecv.doShutDown(AlioRecv.java:74)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:288)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+02/14 23:03:21.552 [Thread-1] [912072] : Worker [colochman-Recv] End.
+02/14 23:03:21.552 [Thread-1] [912072] : Worker [colochman-Recv] ShutDown.

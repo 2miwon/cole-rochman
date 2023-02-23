@@ -1,0 +1,8 @@
+02/14 23:03:21.554 [colochman-Batch] [912072] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioBatch.run(AlioBatch.java:108)
+02/14 23:03:21.555 [colochman-Batch] [912072] : Worker [colochman-Batch] End.
+02/14 23:03:21.555 [Thread-1] [912072] : Worker [colochman-Batch] End.
+02/14 23:03:21.555 [Thread-1] [912072] : Worker [colochman-Batch] ShutDown.

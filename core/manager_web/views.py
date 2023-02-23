@@ -19,9 +19,14 @@ def user_dashboard(request):
 
 @login_required()
 def patient_status(request, pid):
+    # 보고자 하는 일주일의 월요일 날짜가 출력됨
+    # 예) 2023-01-30
     d = get_date(request.GET.get('week', None))
+    print(d)
 
+    # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
+    # 결핵치료과정 퍼센트 계산
     if clickedpatient.treatment_started_date:
         if clickedpatient.treatment_end_date:
             diff1 = clickedpatient.treatment_end_date - clickedpatient.treatment_started_date
@@ -44,8 +49,6 @@ def patient_status(request, pid):
     else:
         percent=1
 
-
-
     p_str = "{0:.0%}".format(percent).rstrip('%')
 
     context = dict(
@@ -58,11 +61,15 @@ def patient_status(request, pid):
         next_week=next_week(d),
         pid=pid,
         day_list=print_day_list(d),
-
+        
     )
+
+    
     for date in Patient.objects.filter(id__contains=pid, next_visiting_date_time__gte=cal_start_end_day(d, 1),
                                        next_visiting_date_time__lte=cal_start_end_day(d, 7)):
-        context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 140
+        context['visiting_num'] = int(date.next_visiting_date_time.isocalendar()[2] - 1) * 9.5 + 2
+#        context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 56
+#        context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 140
     daily_hour_list = list()
 
     try:
@@ -89,20 +96,29 @@ def patient_status(request, pid):
                 daily_hour_list.append('{}:{}'.format(str(clickedpatient.medication_noti_time_5.hour).zfill(2),
                                                       str(clickedpatient.medication_noti_time_5.minute).zfill(2)))
 
-
     except AttributeError:
         daily_hour_list=['재설정 필요']
 
     context["daily_hour_list"] = daily_hour_list
-    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
+
+    mdresult = []
+    print(clickedpatient.daily_medication_count)
+    for i in range(clickedpatient.daily_medication_count):
+        mdresult.append(["","","","","","",""])
+
+#    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
+    sideeffect=[]
     mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
                                         date__lte=cal_start_end_day(d, 7))
+    print(mediresult)
+
     for i in range(1,8):
+#        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=d + datetime.timedelta(days = i - 1))
+#        print(dailyresult)
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
         for r in dailyresult:
-            #medication_time_num == 1:
             if r.status=="SUCCESS":
-                mdresult[r.medication_time_num-1][i-1]="복약 성공"
+                mdresult[r.medication_time_num - 1][i - 1] = "복약 성공"
             elif r.status=='DELAYED_SUCCESS':
                 mdresult[r.medication_time_num - 1][i - 1] = "성공(지연)"
             elif r.status=='NO_RESPONSE':
@@ -110,33 +126,24 @@ def patient_status(request, pid):
             elif r.status=='FAILED':
                 mdresult[r.medication_time_num - 1][i - 1] = "복약 실패"
             elif r.status=='SIDE_EFFECT':
-                mdresult[r.medication_time_num - 1][i - 1] = "부작용"
+                symptom_more = r.symptom_name.count(",")
+                if symptom_more >= 1:
+                    mdresult[r.medication_time_num - 1][i - 1] = str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
+                else:
+                    mdresult[r.medication_time_num - 1][i - 1] = str(r.symptom_name)
+                now = r.checked_at
+                symptom_names = r.symptom_name.split(',')
+                symptom_severity1s = r.symptom_severity1.split(',')
+                symptom_severity2s = r.symptom_severity2.split(',')
+                symptom_severity3s = r.symptom_severity3.split(',')
+                symptom_num = len(symptom_names)
+                for i in range(symptom_num):
+                    sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[i]), str(symptom_severity1s[i]), str(symptom_severity2s[i]), str(symptom_severity3s[i])))
+    print(mdresult)
 
     context['mdresult']=mdresult
+    context['sideeffect']=sideeffect
 
-    msresult = [0, 0, 0, 0, 0, 0, 0]
-    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
-    dailycount = 0
-    for i in range(1, 8):
-        dailymearesult = MeasurementResult.objects.filter(patient__id__contains=pid,
-                                                          measured_at__gte=cal_start_end_day(d, i),date__lte=cal_start_end_day(d, 7))
-        for r in dailymearesult:
-            msresult[i - 1] += r.oxygen_saturation
-            print(r.oxygen_saturation)
-            dailycount += 1
-        if msresult[i - 1] == 0 or dailycount == 0:
-            msresult[i - 1] = 'None'
-        else:
-            msresult[i - 1] = int(msresult[i - 1] / dailycount)
-            if msresult[i-1]<=80 and msresult[i-1]>0:
-                msresult2[i - 1] = msresult[i - 1]
-                msresult[i-1]='None'
-
-        dailycount=0
-    context['msresult'] = msresult
-    context['msresult2'] =msresult2
-    msresult = [0, 0, 0, 0, 0, 0, 0]
-    msresult2 = ['None', 'None', 'None', 'None', 'None', 'None', 'None']
     return render(request, 'dashboard.html', context)
 
 
@@ -225,3 +232,9 @@ def print_day_list(dt):
             yo = '일'
         li.append(str(iso_to_gregorian(*iso).month) + ' / ' + str(iso_to_gregorian(*iso).day) + ' ' + yo)
     return li
+    
+    # 추가
+#@login_required()
+#def symptom(request, pid, sid):
+#    clickedpatient = Patient.objects.get(id=pid)
+

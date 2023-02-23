@@ -1,0 +1,11 @@
+10/19 05:58:41.404 [colerochman-Report-0] [290960] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/19 06:02:08.493 [colerochman-Report-0] [290960] : Update a Report. DEVICE [AT] CMSGID [201420180001] MSGID [1019co_FK1705075932050221893] RESULT [7000] REPART [S] REDEVICE [N]
+10/19 08:11:33.305 [colerochman-Report-0] [290960] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioReport.run(AlioReport.java:44)
+10/19 08:11:33.306 [colerochman-Report-0] [290960] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/19 08:11:33.306 [colerochman-Report-0] [290960] : Worker [colerochman-Report-0] End.
+10/19 08:11:33.307 [Thread-1] [290960] : Worker [colerochman-Report-0] End.
+10/19 08:11:33.307 [Thread-1] [290960] : Worker [colerochman-Report-0] ShutDown.

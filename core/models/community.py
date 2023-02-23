@@ -14,16 +14,16 @@ class Post(models.Model):
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
     content = models.TextField()
-    images = models.ImageField(blank=True, upload_to="images/", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    count_of_commnet = models.IntegerField(null=True, blank=True)
-   
+    print_created_at = models.CharField(max_length=10, default='', null=True, blank=True)
+    count_of_comment = models.IntegerField(null=True, blank=True)
+ 
 
 
 class Comment(models.Model):
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE )
     comment = models.TextField(max_length=200)
-    created_at_comment =  models.DateField(auto_now_add=True,editable= False, null=True)
+    created_at_comment = models.DateField(auto_now_add=True,editable= False, null=True)
     updated_at_comment = models.DateField(auto_created=timezone.now)
-    
+    print_created_at = models.CharField(max_length=10, default='', null=True, blank=True)

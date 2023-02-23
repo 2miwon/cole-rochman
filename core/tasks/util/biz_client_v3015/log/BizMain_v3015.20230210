@@ -1,0 +1,108 @@
+02/10 22:54:43.004 [main] [888068] : [INFO] BizClient Start   [SYSTEM TIME]:02/10 22:54:42
+02/10 22:54:43.007 [main] [888068] : [INFO] args.length=1  [SYSTEM TIME]:02/10 22:54:42
+02/10 22:54:43.007 [main] [888068] : [INFO] conf_File_name=config/uds  [SYSTEM TIME]:02/10 22:54:42
+02/10 22:54:43.007 [main] [888068] : #### BizClient Start ####
+02/10 22:54:43.031 [colochman-Main] [888068] : CONFIGURATION [config/uds.confx_v3015]
+02/10 22:54:43.031 [colochman-Main] [888068] : # BIZ PPURIO 접속정보
+02/10 22:54:43.031 [colochman-Main] [888068] : UDS_IP [biz.ppurio.com]
+02/10 22:54:43.031 [colochman-Main] [888068] : UDS_SEND_PORT [18300]
+02/10 22:54:43.031 [colochman-Main] [888068] : UDS_RECV_PORT [18400]
+02/10 22:54:43.031 [colochman-Main] [888068] : UDS_ID [colochman]
+02/10 22:54:43.031 [colochman-Main] [888068] : USE_SSL [Y]
+02/10 22:54:43.031 [colochman-Main] [888068] : # DBMS 접속정보
+02/10 22:54:43.031 [colochman-Main] [888068] : DBNAME [POSTGRES]
+02/10 22:54:43.031 [colochman-Main] [888068] : DBURL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1]
+02/10 22:54:43.031 [colochman-Main] [888068] : DBUSER [sean0921]
+02/10 22:54:43.031 [colochman-Main] [888068] : MSG_TABLE [BIZ_MSG]
+02/10 22:54:43.031 [colochman-Main] [888068] : BACKUP_TABLE [BIZ_LOG]
+02/10 22:54:43.031 [colochman-Main] [888068] : # 디렉토리 정보
+02/10 22:54:43.032 [colochman-Main] [888068] : LOG_PATH [./log]
+02/10 22:54:43.032 [colochman-Main] [888068] : FILE_PATH [./spool]
+02/10 22:54:43.032 [colochman-Main] [888068] : BLK_PATH [./blk]
+02/10 22:54:43.032 [colochman-Main] [888068] : REP_PATH [./rep]
+02/10 22:54:43.032 [colochman-Main] [888068] : # WORKER 실행 정보
+02/10 22:54:43.032 [colochman-Main] [888068] : DO_FETCH_PROCESS [Y]
+02/10 22:54:43.032 [colochman-Main] [888068] : DO_SEND_PROCESS [Y]
+02/10 22:54:43.032 [colochman-Main] [888068] : DO_RECV_PROCESS [Y]
+02/10 22:54:43.032 [colochman-Main] [888068] : DO_BACKUP_PROCESS [Y]
+02/10 22:54:43.032 [colochman-Main] [888068] : DO_REORDER_PROCESS [N]
+02/10 22:54:43.032 [colochman-Main] [888068] : DO_BATCH_PROCESS [Y]
+02/10 22:54:43.032 [colochman-Main] [888068] : FETCH_SLEEP_SECONDS [1]
+02/10 22:54:43.032 [colochman-Main] [888068] : SEND_SLEEP_SECONDS [1]
+02/10 22:54:43.032 [colochman-Main] [888068] : RECV_SLEEP_SECONDS [1]
+02/10 22:54:43.032 [colochman-Main] [888068] : REPORT_SLEEP_SECONDS [1]
+02/10 22:54:43.032 [colochman-Main] [888068] : BACKUP_SLEEP_SECONDS [10]
+02/10 22:54:43.032 [colochman-Main] [888068] : REORDER_SLEEP_SECONDS [1]
+02/10 22:54:43.032 [colochman-Main] [888068] : BATCH_SLEEP_SECONDS [300]
+02/10 22:54:43.032 [colochman-Main] [888068] : FETCH_COUNT [100]
+02/10 22:54:43.032 [colochman-Main] [888068] : SEND_THREAD_COUNT [1]
+02/10 22:54:43.032 [colochman-Main] [888068] : REPORT_THREAD_COUNT [1]
+02/10 22:54:43.032 [colochman-Main] [888068] : REPORT_QUEUE_SIZE [300]
+02/10 22:54:43.032 [colochman-Main] [888068] : BACKUP_OPTION [Y]
+02/10 22:54:43.033 [colochman-Main] [888068] : BACKUP_COUNT [1000]
+02/10 22:54:43.033 [colochman-Main] [888068] : BACKUP_WAIT_DAY [0]
+02/10 22:54:43.033 [colochman-Main] [888068] : # 부가기능
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_OPTION [N]
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_OF_SEND_TIME []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_MONTH []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_DATE []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_TIME_SUNDAY []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_TIME_MONDAY []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_TIME_TUESDAY []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_TIME_WEDNESDAY []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_TIME_THURSDAY []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_TIME_FRIDAY []
+02/10 22:54:43.033 [colochman-Main] [888068] : BLOCK_TIME_SATURDAY []
+02/10 22:54:43.033 [colochman-Main] [888068] : APPOINTMENT_ON_CLIENT [Y]
+02/10 22:54:43.033 [colochman-Main] [888068] : FILE_DELETE_OPTION [Y]
+02/10 22:54:43.033 [colochman-Main] [888068] : REPORT_RECONFIRM_OPTION [N]
+02/10 22:54:43.033 [colochman-Main] [888068] : DIST_PROC_OPTION [N]
+02/10 22:54:43.033 [colochman-Main] [888068] : DIST_VALUE [0]
+02/10 22:54:43.034 [colochman-Main] [888068] : LOG_DELETE_OPTION [N]
+02/10 22:54:43.034 [colochman-Main] [888068] : LOG_DELETE_DAY [30]
+02/10 22:54:43.034 [colochman-Main] [888068] : USE_DUMMY_MON [N]
+02/10 22:54:43.034 [colochman-Main] [888068] : USE_DUMMY_MON_DEVICE [0]
+02/10 22:54:43.034 [colochman-Main] [888068] : DUMMY_MON_CMID_FORMAT [D_MON]
+02/10 22:54:43.034 [colochman-Main] [888068] : DUMMY_MON_SUBJECT [D_MON]
+02/10 22:54:43.034 [colochman-Main] [888068] : DUMMY_MON_MSG_APPEND []
+02/10 22:54:43.034 [colochman-Main] [888068] : DUMMY_MON_TARGET_NUM [0700000000]
+02/10 22:54:43.034 [colochman-Main] [888068] : DUMMY_MON_CALLBACK_NUM [0700000000]
+02/10 22:54:43.034 [colochman-Main] [888068] : DUMMY_MON_INTERVAL [240]
+02/10 22:54:43.034 [colochman-Main] [888068] : MONITOR_SLEEP_SECONDS [1]
+02/10 22:54:43.034 [colochman-Main] [888068] : BLACKLIST_USE [N]
+02/10 22:54:43.034 [colochman-Main] [888068] : USE_BACKUP_PERSONAL_DATA_PROCESSING [N]
+02/10 22:54:43.034 [colochman-Main] [888068] : USE_ORACLE_PREPARED_STATEMENT [false]
+02/10 22:54:43.034 [colochman-Main] [888068] : USE_DATEFORMAT_STRING [N]
+02/10 22:54:43.035 [colochman-Main] [888068] : DATE_FORMAT [yyyy-MM-dd HH:mm:ss]
+02/10 22:54:43.035 [colochman-Main] [888068] : CURRENT_TIME_FUNCTION [NOW()]
+02/10 22:54:43.035 [colochman-Main] [888068] : # DBMS 복호화기능 관련
+02/10 22:54:43.035 [colochman-Main] [888068] : DB_DATA_DECRYPTION [N]
+02/10 22:54:43.035 [colochman-Main] [888068] : DB_DATA_DECRYPTION_FIELDS [MSG_BODY, RE_BODY, RCS_BODY]
+02/10 22:54:43.035 [colochman-Main] [888068] : USE_DECRYPTION_SEPARATION_FIELD [N]
+02/10 22:54:43.035 [colochman-Main] [888068] : DECRYPTION_SEPARATION_FIELD [USE_DECRYPT]
+02/10 22:54:43.035 [colochman-Main] [888068] : DB_DATA_DECRYPTION_FUNCTION []
+02/10 22:54:43.035 [colochman-Main] [888068] : USE_RESULT_CODE_MAPPING [N]
+02/10 22:54:43.035 [colochman-Main] [888068] : RESULT_CODE_MAPPING_FILE_PATH [./config/result/result.conf]
+02/10 22:54:43.035 [colochman-Main] [888068] : UPDATE_SENDTIME_FIELD [SENT_TIME]
+02/10 22:54:43.035 [colochman-Main] [888068] : FILE_HANDLING_MODE [0]
+02/10 22:54:43.036 [colochman-Main] [888068] : MESSAGE_SUPPORT_TYPE [SMS|MMS|FAX|PHONE|AT|FT|BI|BW]
+02/10 22:54:43.036 [colochman-Main] [888068] : BIZCLIENT UUID [ 87ab3914d5ab46feb3e9080a9a466024 ]
+02/10 22:54:43.036 [colochman-Main] [888068] : SERVICE_NAME []
+02/10 22:54:43.036 [colochman-Main] [888068] : Access To The File Path. PATH [./spool]
+02/10 22:54:43.036 [colochman-Main] [888068] : Access To The Using File Path. PATH [./spool/using/colochman/ip-172-31-50-221]
+02/10 22:54:43.036 [colochman-Main] [888068] : Access To The Blacklist Path. PATH [./blk]
+02/10 22:54:43.036 [colochman-Main] [888068] : Access To The Report File Path. PATH [./rep]
+02/10 22:54:43.038 [colochman-Main] [888068] : Supported Message Type : SMS, 0
+02/10 22:54:43.039 [colochman-Main] [888068] : Supported Message Type : MMS, 5
+02/10 22:54:43.039 [colochman-Main] [888068] : Supported Message Type : FAX, 2
+02/10 22:54:43.039 [colochman-Main] [888068] : Supported Message Type : PHONE, 3
+02/10 22:54:43.039 [colochman-Main] [888068] : Supported Message Type : AT, 6
+02/10 22:54:43.039 [colochman-Main] [888068] : Supported Message Type : FT, 7
+02/10 22:54:43.039 [colochman-Main] [888068] : Supported Message Type : BI, 11
+02/10 22:54:43.039 [colochman-Main] [888068] : Supported Message Type : BW, 12
+02/10 22:54:43.199 [colochman-Main] [888068] : BizSend[0] (colochman-Send-0) Starting ...
+02/10 22:54:43.201 [colochman-Main] [888068] : BizFetch (colochman-Fetch) Starting ...
+02/10 22:54:43.202 [colochman-Main] [888068] : BizRecv (colochman-Recv) Starting ...
+02/10 22:54:43.209 [colochman-Main] [888068] : BizReport[0] (colochman-Report-0) Starting ...
+02/10 22:54:43.209 [colochman-Main] [888068] : BizBackup (colochman-Backup) Starting ...
+02/10 22:54:43.214 [colochman-Main] [888068] : BizBatch (colochman-Batch) Starting ...

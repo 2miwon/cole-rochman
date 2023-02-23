@@ -1,0 +1,164 @@
+10/11 07:52:16.087 [colochman-Fetch] [262891] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:52:16.102 [colochman-Fetch] [262891] : Clean Up Expired Message. update Count [2]
+10/11 07:53:36.535 [colochman-Fetch] [262891] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.findIdleSendLineAndAssignMessages(AlioFetch.java:148)
+	at com.daou.alioclient.worker.AlioFetch.lambda$run$0(AlioFetch.java:90)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:89)
+10/11 07:53:36.535 [colochman-Fetch] [262891] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/11 07:53:36.537 [colochman-Fetch] [262891] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:53:36.537 [colochman-Fetch] [262891] : Worker [colochman-Fetch] End.
+10/11 07:53:36.577 [Thread-1] [262891] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:53:36.580 [Thread-1] [262891] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:53:36.580 [Thread-1] [262891] : Worker [colochman-Fetch] End.
+10/11 07:53:36.580 [Thread-1] [262891] : Worker [colochman-Fetch] ShutDown.
+10/11 07:54:06.275 [colerochman-Fetch] [263126] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: password authentication failed for user "sean0921"
+ SQLSTATE : 28P01
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/11 07:55:06.275 [colerochman-Fetch] [263126] : Worker [colerochman-Fetch] End.
+10/11 07:55:07.177 [colerochman-Fetch] [263126] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: password authentication failed for user "sean0921"
+ SQLSTATE : 28P01
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/11 07:55:20.869 [colerochman-Fetch] [263126] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:100)
+10/11 07:55:20.869 [colerochman-Fetch] [263126] : Worker [colerochman-Fetch] End.
+10/11 07:55:20.897 [Thread-1] [263126] : Failed To Database Connect For Restore. 
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: password authentication failed for user "sean0921"
+ SQLSTATE : 28P01
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.doShutDown(AlioFetch.java:131)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:284)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/11 07:55:20.899 [Thread-1] [263126] : Worker [colerochman-Fetch] End.
+10/11 07:55:20.899 [Thread-1] [263126] : Worker [colerochman-Fetch] ShutDown.
+10/11 07:57:30.513 [colerochman-Fetch] [263214] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:57:30.523 [colerochman-Fetch] [263214] : Clean Up Expired Message. update Count [0]
+10/11 07:58:14.993 [colerochman-Fetch] [263214] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.findIdleSendLineAndAssignMessages(AlioFetch.java:148)
+	at com.daou.alioclient.worker.AlioFetch.lambda$run$0(AlioFetch.java:90)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:89)
+10/11 07:58:14.994 [colerochman-Fetch] [263214] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/11 07:58:14.995 [colerochman-Fetch] [263214] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:58:14.995 [colerochman-Fetch] [263214] : Worker [colerochman-Fetch] End.
+10/11 07:58:15.050 [Thread-1] [263214] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:58:15.058 [Thread-1] [263214] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 07:58:15.058 [Thread-1] [263214] : Worker [colerochman-Fetch] End.
+10/11 07:58:15.058 [Thread-1] [263214] : Worker [colerochman-Fetch] ShutDown.
+10/11 08:00:18.297 [colerochman-Fetch] [263385] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:00:18.304 [colerochman-Fetch] [263385] : Clean Up Expired Message. update Count [0]
+10/11 08:05:19.310 [colerochman-Fetch] [263385] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.findIdleSendLineAndAssignMessages(AlioFetch.java:148)
+	at com.daou.alioclient.worker.AlioFetch.lambda$run$0(AlioFetch.java:90)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:89)
+10/11 08:05:19.310 [colerochman-Fetch] [263385] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/11 08:05:19.312 [colerochman-Fetch] [263385] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:05:19.312 [colerochman-Fetch] [263385] : Worker [colerochman-Fetch] End.
+10/11 08:05:19.348 [Thread-1] [263385] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:05:19.349 [Thread-1] [263385] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:05:19.349 [Thread-1] [263385] : Worker [colerochman-Fetch] End.
+10/11 08:05:19.349 [Thread-1] [263385] : Worker [colerochman-Fetch] ShutDown.
+10/11 08:18:37.937 [colerochman-Fetch] [263792] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/11 08:19:37.938 [colerochman-Fetch] [263792] : Worker [colerochman-Fetch] End.
+10/11 08:19:38.666 [colerochman-Fetch] [263792] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/11 08:20:38.666 [colerochman-Fetch] [263792] : Worker [colerochman-Fetch] End.
+10/11 08:20:39.678 [colerochman-Fetch] [263792] : Fetch AuthException.
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:72)
+10/11 08:21:04.517 [colerochman-Fetch] [263792] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:100)
+10/11 08:21:04.518 [colerochman-Fetch] [263792] : Worker [colerochman-Fetch] End.
+10/11 08:21:04.540 [Thread-1] [263792] : Failed To Database Connect For Restore. 
+com.daou.common.exception.AuthException: Failed To Connect Database. 
+  MESSAGE : FATAL: database "csbdb1" does not exist
+ SQLSTATE : 3D000
+ ERRORCODE : 0
+	at com.daou.common.db.DBAccess.connect(DBAccess.java:421)
+	at com.daou.alioclient.worker.AlioFetch.doShutDown(AlioFetch.java:131)
+	at com.daou.alioclient.worker.AlioMain.commandShutdown(AlioMain.java:317)
+	at com.daou.alioclient.worker.AlioMain.workerShutdown(AlioMain.java:284)
+	at com.daou.alioclient.worker.AlioMain.doShutDown(AlioMain.java:173)
+	at com.daou.common.ShutdownHook.run(ShutdownHook.java:21)
+10/11 08:21:04.541 [Thread-1] [263792] : Worker [colerochman-Fetch] End.
+10/11 08:21:04.541 [Thread-1] [263792] : Worker [colerochman-Fetch] ShutDown.
+10/11 08:27:16.468 [colerochman-Fetch] [263993] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:27:16.486 [colerochman-Fetch] [263993] : Clean Up Expired Message. update Count [0]
+10/11 08:43:19.075 [colerochman-Fetch] [263993] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.doSleep(Worker.java:51)
+	at com.daou.alioclient.worker.AlioFetch.findIdleSendLineAndAssignMessages(AlioFetch.java:148)
+	at com.daou.alioclient.worker.AlioFetch.lambda$run$0(AlioFetch.java:90)
+	at com.daou.common.locker.Locker.working(Locker.java:81)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:89)
+10/11 08:43:19.075 [colerochman-Fetch] [263993] : Thread is Interrupted. 
+java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep(Native Method)
+	at com.daou.common.worker.Worker.mSleep(Worker.java:60)
+	at com.daou.alioclient.worker.AlioFetch.run(AlioFetch.java:96)
+10/11 08:43:19.075 [colerochman-Fetch] [263993] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:43:19.075 [colerochman-Fetch] [263993] : Worker [colerochman-Fetch] End.
+10/11 08:43:19.105 [Thread-1] [263993] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:43:19.113 [Thread-1] [263993] : Disconnect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:43:19.113 [Thread-1] [263993] : Worker [colerochman-Fetch] End.
+10/11 08:43:19.113 [Thread-1] [263993] : Worker [colerochman-Fetch] ShutDown.
+10/11 08:43:31.973 [colerochman-Fetch] [264217] : Connect To Database. TYPE [POSTGRES] URL [jdbc:postgresql://csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com:5432/db1] USER [sean0921]
+10/11 08:43:31.991 [colerochman-Fetch] [264217] : Clean Up Expired Message. update Count [0]
+10/11 08:48:54.755 [colerochman-Fetch] [264217] : Assign Messages To SendLine. SENDLINE [0] SIZE [1]
+10/11 08:56:04.594 [colerochman-Fetch] [264217] : Assign Messages To SendLine. SENDLINE [0] SIZE [1]
