@@ -45,3 +45,4 @@ LOGGING = {
 BROKER_URL = 'redis://localhost:6380/0'
 
 AUTO_SEND_NOTIFICAITON = True 
+
