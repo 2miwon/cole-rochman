@@ -156,25 +156,17 @@ class PostAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Pcr_Inspection)
-class PcrAdmin(admin.ModelAdmin):
-    list_display = [
-            'patient_set', 'inspection_res','date'
-
-            ]
-    search_fields = [
-        'patient_set__code','patient_set__nickname'
-            ]
 
 @admin.register(Sputum_Inspection)
 class SputumAdmin(admin.ModelAdmin):
-    list_display = [
-            'patient_set', 'inspection_res','date'
+    list_display = ['patient_set', 'insp_date', 'method', 'smear_result', 'culture_result']
+    search_fields = ['patient_set__code', 'patient_set__nickname']
 
-            ]
-    search_fields = [
-        'patient_set__code','patient_set__nickname'
-            ]
+@admin.register(Pcr_Inspection)
+class PcrAdmin(admin.ModelAdmin):
+    list_display = ['patient_set', 'insp_date', 'method', 'pcr_result']
+    search_fields = ['patient_set__code','patient_set__nickname']
+
 
 @admin.register(Certificaion)
 class Certificationadmin(admin.ModelAdmin):

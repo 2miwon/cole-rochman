@@ -149,6 +149,12 @@ def patient_dashboard(request):
     
     p_str = "{0:.0%}".format(percent).rstrip('%')
 
+    #복약 성공률
+    med_tot = len(MedicationResult.objects.filter(patient__code=request.user.username))
+    med_cnt = len(MedicationResult.objects.filter(patient__code=request.user.username, status='PENDING'))
+    med_per = 1 - (med_cnt / med_tot)
+    med_str = "{0:.0%}".format(med_per).rstrip('%')
+    
     #다음 내원 예정일
     d = get_date(request.GET.get('week', None))
     visiting_num=0
@@ -336,6 +342,7 @@ def patient_dashboard(request):
         'treat_started_date': patient.treatment_started_date,
         'treat_end_date': patient.treatment_end_date,
         'cure_progress': p_str,
+        'med_progress': med_str,
         'patient': patient,
         'day_list': print_day_list(d),
         "daily_hour_list": daily_hour_list,
@@ -662,6 +669,12 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
     
     p_str = "{0:.0%}".format(percent).rstrip('%')
 
+    #복약 성공률
+    med_tot = len(MedicationResult.objects.filter(patient__code=request.user.username))
+    med_cnt = len(MedicationResult.objects.filter(patient__code=request.user.username, status='PENDING'))
+    med_per = 1 - (med_cnt / med_tot)
+    med_str = "{0:.0%}".format(med_per).rstrip('%')
+
     #다음 내원 예정일
     d = get_date(request.GET.get('week', None))
     visiting_num=0
@@ -859,6 +872,7 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
         'treat_started_date': patient.treatment_started_date,
         'treat_end_date': patient.treatment_end_date,
         'cure_progress': p_str,
+        'med_progress': med_str,
         'patient': patient,
         'day_list': print_day_list(d),
         "daily_hour_list": daily_hour_list,
@@ -914,16 +928,53 @@ def nex_month(y, m):
 
 @login_required(login_url = '/', redirect_field_name='next')
 def inspection_result(request):
-    pcr_inspections = Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username).order_by('-date')
-    sputum_inspections = Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username).order_by('-date')
-    for pcr in pcr_inspections:
-        pcr.pcr_date = "{}.{}.{}".format(str(pcr.date.year), str(pcr.date.month).zfill(2), str(pcr.date.day).zfill(2))
-        pcr.save()
-    for sputum in sputum_inspections:
-        sputum.sputum_date = "{}.{}.{}".format(str(sputum.date.year), str(sputum.date.month).zfill(2), str(sputum.date.day).zfill(2))
-        sputum.save()
+    date_list = []
+    type_list = []
+    th_list = []
+    res_list = []
+
+    print(request.user.username)
+    inspections = list(Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username)) + list(Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username))
+    print(Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username))
+    inspections.sort(key=lambda x: x.insp_date, reverse=True)
+    print(inspections)
+    for insp in inspections:
+        #검사 날짜, 검사 종류, 검사 세부 분류, 검사 결과
+        if hasattr(insp, 'pcr_result'):
+            date_list.append("{}.{}.{}".format(str(insp.insp_date.year)[2:4], str(insp.insp_date.month).zfill(2), str(insp.insp_date.day).zfill(2)))
+            type_list.append('PCR 검사')
+            th_list.append('')
+            res_list.append(insp.pcr_result)
+        else:
+            date_list.append("{}.{}.{}".format(str(insp.insp_date.year)[2:4], str(insp.insp_date.month).zfill(2), str(insp.insp_date.day).zfill(2)))
+            date_list.append("{}.{}.{}".format(str(insp.insp_date.year)[2:4], str(insp.insp_date.month).zfill(2), str(insp.insp_date.day).zfill(2)))
+            type_list.append('도말 검사')
+            type_list.append('배양 검사')
+            th_list.append(insp.th)
+            th_list.append(insp.th)
+            res_list.append(insp.smear_result)
+            res_list.append(insp.culture_result)
     
-    context = {'pcr_inspections':pcr_inspections, 'sputum_inspections':sputum_inspections}
+    insp_zip = zip(date_list, type_list, th_list, res_list)
+#    inspection_list = []
+#    inspections = list(Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username)) + list(Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username))
+#    inspections.sort(key=lambda x: x.date_time, reverse=True)
+#    for insp in inspections:
+#        insp.date = "{}.{}.{}".format(str(insp.date.year)[2:4], str(insp.date.month).zfill(2), str(insp.date.day).zfill(2))
+#        insp.save()
+#    pcr_inspections = Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username)
+#    sputum_inspections = Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username)
+#    for pcr in pcr_inspections:
+#        pcr.pcr_date = "{}.{}.{}".format(str(pcr.date.year)[2:4], str(pcr.date.month).zfill(2), str(pcr.date.day).zfill(2))
+#        pcr.save()
+#        inspection_list.append(pcr)
+#    for sputum in sputum_inspections:
+#        sputum.sputum_date = "{}.{}.{}".format(str(sputum.date.year)[2:4], str(sputum.date.month).zfill(2), str(sputum.date.day).zfill(2))
+#        sputum.save()
+#        inspection_list.append(sputum)
+
+    context = {'insp_zip':insp_zip}
+#    context = {'pcr_inspections':pcr_inspections, 'sputum_inspections':sputum_inspections}
     return render(request, 'inspection_result.html', context=context)
 
 def inspection_detail(request):

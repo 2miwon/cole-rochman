@@ -10,7 +10,7 @@
 
 
     <style>
-     #nav-component {
+        #nav-component {
             background-color: #00A6E4;
             color: white;
             border-radius: 10px 10px 0px 0px;;
@@ -21,35 +21,40 @@
             color: #00A6E4;
         }
         
-    .material-symbols-outlined {
-        font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 200,
-        'opsz' 48
-    }
+    	.material-symbols-outlined {
+            font-variation-settings:
+        	'FILL' 0,
+        	'wght' 400,
+                'GRAD' 200,
+        	'opsz' 48
+        }
 
-    .scroll::-webkit-scrollbar {
-  width: 9px;
-  height: 100%;
-  background-color: #D9D9D9; /* 또는 트랙에 추가한다 */
-  margin-right:8%;
-}
-	    .scroll::-webkit-scrollbar-thumb {
-  background: #ADADAD;
-}
-	    .scroll::-webkit-scrollbar-track {
-		    height:10px;
-	    }
-body {
-	font-family:'Apple SD Gothic Neo';
-}
+        .scroll::-webkit-scrollbar {
+  	    width: 9px;
+  	    height: 100%;
+  	    background-color: #D9D9D9; /* 또는 트랙에 추가한다 */
+  	    margin-right:8%;
+	}
+	
+	.scroll::-webkit-scrollbar-thumb {
+  	    background: #ADADAD;
+	}
+	
+	.scroll::-webkit-scrollbar-track {
+	    height:10px;
+	}
+
+	body {
+	    font-family:'Apple SD Gothic Neo';
+	}
     </style>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 </head>
+
 <body style="background-color: #D4EBF3;">
     <ul class="nav nav-pills nav-fill" style="background-color:#00A6E3; padding-top:1.5%;">
         <li class="nav-item">
@@ -64,44 +69,45 @@ body {
     </ul>
     
     <div>
-    	<div style="font-weight: 900; font-size: 20px; padding-top: 5%; margin-left:6%; margin-bottom: 1vh;">객담 도말/배양 검사</div>
-
-    	<div class="scroll" style="overflow-y: scroll; width: 90vw; background-color: #F6F6F6; height: 30vh; margin: auto; border-radius: 20px;">
-            {% if sputum_inspections %}
-                {% for res in sputum_inspections %}
-                    <div style="font-weight: 500; font-size: 1.2rem; margin-top: 5%; margin-left: 8%;">
-		        {{res.sputum_date}}: {{res.inspection_res}} / {{res.positive_negative}}
-                    </div>
-    		    <hr>
-                {% endfor %}
-        
+	<div class="scroll" style="overflow-y: scroll; width: 90vw; background-color: #F6F6F6; height: 70vh; margin: auto; border-radius: 20px;">
+            {% if insp_zip %}
+                {% for insp_date, insp_type, insp_th, insp_res in insp_zip %}
+		    <div style="display: flex; flex-direction: row; align-items: center; font-weight: 500; font-size: 1.2rem; margin-top: 5%; margin-left: 8%;">
+			{{insp_date}} {{insp_type}}
+			{% if insp_res == '음성' or insp_res == '-' %}
+			    <div style="background-color: #C6EAFF; border-radius: 10px; padding: 4px; text-align: center; margin-left: 2vw;">
+			        {{insp_res}}
+			    </div>
+			{% elif insp_res == '양성' or insp_res == '1+' or insp_res == '2+' or insp_res == '3+' or insp_res == '4+' %}
+			    <div style="background-color: #FFEAE3; border-radius: 10px; padding: 4px; text-align: center; margin-left: 2vw;">
+			        {{insp_res}}
+			    </div>
+			{% elif insp_res == '+-' %}
+			    <div style="background-color: #FFF279; border-radius: 10px; padding: 4px; text-align: center; margin-left: 2vw;">
+				{{insp_res}}
+			    </div>
+			{% elif insp_res == '오염' %}
+			    <div style="background-color: #EBEBEB; border-radius: 10px; padding: 4px; text-align: center; margin-left: 2vw;">
+				{{insp_res}}
+			    </div>
+			{% elif insp_res == '검사중'  %}
+			    <div style="background-color: rgba(83, 92, 95, 0.1); color: #00A6E3; border: solid #D4EBF3 2px; border-radius: 10px; padding: 4px; text-align: center; margin-left: 2vw;">
+				{{insp_res}}
+			    </div>
+			{% else %}
+			{% endif %}
+		    </div>
+		    <hr>
+       		{% endfor %} 
 	    {% else%}
                 <br>
-            	<h5 style= "color:rgba(148,148,148,1); margin-left:13%;">아직 기록된 검사 결과가 없습니다 <h5>
+            	<h5 style= "color: rgba(148,148,148,1); margin-left: 13%;">
+		    아직 기록된 검사 결과가 없습니다
+		<h5>
 
             {% endif%}  
         </div>
 
-  
-    	<br>
-    	<br>
-
-    	<div style="font-weight:700; margin-left:6%; font-size:20px; font-family:Apple SD Gothic Neo; margin-bottom: 1vh;">결핵 객담균 PCR 검사</div>
-
-    	<div class="scroll" style="overflow-y: scroll; width: 90vw; height: 30vh; margin: auto; background-color: #F6F6F6; border-radius: 20px;">
-            {% if pcr_inspections %}
-                {% for res in pcr_inspections %}
-                    <div style="font-weight: 500; margin-top: 5%; font-size: 1.2rem; margin-left: 8%;">
-                        {{res.pcr_date}}: {{res.inspection_res}}
-                    </div>
-                    <hr>
-	    {% endfor %}
-        
-	    {% else %}
-            <br>
-            <h5 style="color:rgba(148,148,148,1); margin-left:13%;">아직 기록된 검사 결과가 없습니다 <h5>
-            {% endif %}
-        </div>
 
         <a href="{% url 'inspection_detail' %}" style="font-weight: 400; border-radius: 100px; width: 90vw; height: 5vh; margin: auto; margin-top: 5vh; margin-bottom: 10px; background-color: white; color: #00A6E3; display: flex; justify-content: center; align-items: center; text-decoration: none;">
 	    <div style="width: 20px; height: 20px; text-align: center; border: 2px solid #00A6E3; border-radius: 50%; font-size: 1rem;">i</div>
