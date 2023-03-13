@@ -152,35 +152,31 @@ class Patient(models.Model):
         return serializer.save()
 
 
+class Sputum_Inspection(models.Model):
+    patient_set = models.ForeignKey(Patient, on_delete = models.CASCADE)
+    insp_date = models.DateField(verbose_name = '검사 날짜', null = True)
+    CHOICE_METHOD = ('객담','객담'),('기관지내시경 검체','기관지내시경 검체'),('기타','기타')
+    method = models.CharField(verbose_name = '검체 종류', max_length = 20, default = '', choices = CHOICE_METHOD)
+    CHOICE_TH = ('1차','1차'),('2차','2차'),('3차','3차')
+    th = models.CharField(verbose_name = '검체 세부 분류', max_length = 20, default = '1차', choices = CHOICE_TH)
+    CHOICE_SMEAR = ('검사중','검사중'),('-','-'),('+-','+-'),('1+','1+'),('2+','2+'),('3+','3+'),('4+','4+'),('미시행','미시행')
+    smear_result = models.CharField(verbose_name = '도말검사 결과', max_length = 20, default = '미시행', choices = CHOICE_SMEAR)
+    CHOICE_CULTURE = ('검사중','검사중'),('양성','양성'),('음성','음성'),('오염','오염'),('미시행','미시행')
+    culture_result =  models.CharField(verbose_name='배양검사 결과', max_length = 20, default = '미시행', choices = CHOICE_CULTURE)
+
+    class Meta:
+        verbose_name = '도말, 배양 검사'
+        verbose_name_plural = '도말, 배양 검사'
+
+
 class Pcr_Inspection(models.Model):
-    patient_set = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    CHOICE_RES = (('양성','양성'),('음성','음성'))
-    inspection_res = models.CharField(verbose_name='양성/음성', max_length = 20, choices = CHOICE_RES)
-    CHOICE_METHOD = ('Sputum','Sputum'),('기관지내시경 검체','기관지내시경 검체'),('기타','기타')
+    patient_set = models.ForeignKey(Patient, on_delete = models.CASCADE)
+    insp_date = models.DateField(verbose_name='검사 날짜', null=True)
+    CHOICE_METHOD = ('객담','객담'),('기관지내시경 검체','기관지내시경 검체'),('기타','기타')
     method = models.CharField(verbose_name='검사 방법', max_length = 20, default='', choices = CHOICE_METHOD)
-    date = models.DateField(verbose_name='검사 날짜', null=True)
-    pcr_date = models.CharField(verbose_name='검사 날짜_출력용(입력 x)', max_length=20, default='', null=True, blank=True)
+    CHOICE_PCR = ('양성','양성'),('음성','음성')
+    pcr_result = models.CharField(verbose_name = '검사 결과', max_length = 20, default='', choices = CHOICE_PCR)
 
     class Meta:
         verbose_name = 'PCR 검사'
         verbose_name_plural = 'PCR 검사'
-
-
-
-class Sputum_Inspection(models.Model):
-    patient_set = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    CHOICE_RES = (('-','-'),('+/-','+/-'),('+1','+1'),('+2','+2'),('+3','+3'),('+4','+4'))
-    inspection_res = models.CharField(verbose_name='정도', max_length = 20, choices = CHOICE_RES)
-    CHOICE_POSITIVE = (('결핵균 양성','결핵균 양성'),('결핵균 음성','결핵균 음성'),('검사중','검사중'))
-    positive_negative =  models.CharField(verbose_name='양성/음성', max_length = 40, choices = CHOICE_POSITIVE)
-    CHOICE_METHOD = ('객담 검체','객담 검체'),('기관지경 검체','기관지경 검체'),('기타','기타')
-    method = models.CharField(verbose_name='검사 방법', max_length = 20, default='', choices = CHOICE_METHOD)
-    date = models.DateField(verbose_name='검사 날짜', null=True)
-    th = models.IntegerField(verbose_name='번째 검사', default=1)
-    sputum_date = models.CharField(verbose_name='검사 날짜_출력용(입력 x)', max_length=20, default='', null=True, blank=True)
-
-    class Meta:
-        verbose_name = '객담 도말 검사'
-        verbose_name_plural = '객담 도말 검사'
-
-
