@@ -1,0 +1,83 @@
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-gray: #E0E2E7;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #e85255;
+}
+
+body {
+  background: var(--bg-color-lightgray);
+}
+
+.col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-cole-rochman {
+  width: 187px;
+  height: 265px;
+  margin-bottom: 10px;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.form-login {
+  margin: 15px 0 50px 0;
+  padding: 20px 50px;
+  border-radius: 12px;
+  background-color: var(--bg-color-white);
+}
+
+.form-login-input {
+  width: 318px;
+  height: 48px;
+  padding-left: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-gray);
+  background-color: var(--bg-color-white);
+  font-size: 16px;
+}
+
+.form-login-input::placeholder {
+  color: var(--txt-color-gray);
+}
+
+.form-login-input:focus {
+  outline: 1px solid var(--bg-color-blue);
+}
+
+.txt-login-fail {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--txt-color-red);
+}
+
+.btn-login {
+  width: 332px;
+  height: 48px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-blue);
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn-login:hover {
+  cursor: pointer;
+}
+
+.img-logo-hospital {
+  width: 116px;
+  height: 20px;
+  margin-top: 5px;
+}
