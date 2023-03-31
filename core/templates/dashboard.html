@@ -1,6 +1,19 @@
 {% extends 'base2.html' %}
+{% load static %}
 {% block content %}
 
+  <header class="header">
+    <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+    <div class="header-right">
+      {% if user.is_active %}
+        <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
+        <a class="btn-logout" href="{% url 'logout' %}">
+          <span class="material-symbols-outlined icon-logout">logout</span>
+          <p class="txt-logout">로그아웃</p>
+        </a>
+      {% endif %}
+    </div>
+  </header>
 
   {% comment %} <div class="col-md-12">
     <div class="row ">
