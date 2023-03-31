@@ -4,7 +4,7 @@
 
   <container class="container col-center">
     <img class="img-cole-rochman" src={% static 'media/images/cole_rochman.png' %} alt="cole-rochman">
-    <label class="txt-center">안녕하세요! 결핵 환자 관리 챗봇<br><b>결핵 박사 콜로크만</b> 관리자 사이트 입니다.</label>
+    <p class="txt-center">안녕하세요! 결핵 환자 관리 챗봇<br><b>결핵 박사 콜로크만</b> 관리자 사이트 입니다.</p>
 
     <form method="post" class="form-login col-center">
       {% csrf_token %}
@@ -13,13 +13,13 @@
       
       {% for err_message in errors %}
         {% if err_message %}
-          <label class="txt-login-fail">{{ err_message }}</label>
+          <p class="txt-login-fail">{{ err_message }}</p>
         {% endif %}
       {% endfor %}
       <button type="submit" class="btn-login">로그인</button>
     </form>
 
-    <label class="txt-center">연세대학교 결핵챗봇 연구팀</label>
+    <p class="txt-center">연세대학교 결핵챗봇 연구팀</p>
     <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
   </container>
 
