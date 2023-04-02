@@ -1,7 +1,30 @@
 {% extends 'base1.html' %}
-
+{% load static %}
 {% block content %}
-  <div class="col-md-12" style="height:100%">
+
+  <container class="container col-center">
+    <img class="img-cole-rochman" src={% static 'media/images/cole_rochman.png' %} alt="cole-rochman">
+    {% if user.is_active %}
+      <p><b>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</b>님 안녕하세요!</p>
+    {% endif %}
+
+    <div class="row-center">
+      <a href="{% url 'admin:index'%}" class="btn-manage col-center bg-white-txt-blue">
+        <span class="material-symbols-outlined">assignment_turned_in</span>
+        <p>의료 관리</p>
+      </a>
+      <a href="{% url 'user_dashboard' %}" class="btn-manage col-center bg-blue-txt-white">
+        <span class="material-symbols-outlined">badge</span>
+        <p>환자 관리</p>
+      </a>
+    </div>
+
+    <p class="txt-center">연세대학교 결핵챗봇 연구팀</p>
+    <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+  </container>
+
+
+  {% comment %} <div class="col-md-12" style="height:100%">
     <div class="row ">
       <div class="col-md-4" style="padding-right:0px;padding-left:0px;">
         <div style="height :25%" class="menubar">
@@ -31,5 +54,5 @@
       </div>
     </div>
 
-  </div>
+  </div> {% endcomment %}
 {% endblock %}

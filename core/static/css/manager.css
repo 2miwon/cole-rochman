@@ -118,6 +118,35 @@ span.icon-warning {
   margin: 5px 0;
 }
 
+/* Manager Menu */
+.row-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-manage {
+  padding: 15px 80px;
+  margin: 15px 10px 100px 10px;
+  border: 1px solid var(--bg-color-blue);
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.btn-manage>p {
+  margin-top: 5px;
+}
+
+.bg-white-txt-blue {
+  background-color: var(--bg-color-white);
+  color: var(--bg-color-blue);
+}
+
+.bg-blue-txt-white {
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+}
+
 /* Manager Dashboard */
 .header {
   display: flex;
