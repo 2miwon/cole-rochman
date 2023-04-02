@@ -158,7 +158,7 @@ def sign_in(request):
             return redirect('web_menu')
 
         else:
-            msg.append('존재하는 아이디가 없거나 비밀번호가 일치 안합니다')
+            msg.append('아이디 또는 비밀번호 오류입니다.')
     else:
         msg.append('')
 

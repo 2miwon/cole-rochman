@@ -5,7 +5,7 @@
   --bg-color-blue: #2E65F3;
   --bg-color-gray: #E0E2E7;
   --txt-color-gray: #6A727A;
-  --txt-color-red: #e85255;
+  --txt-color-red: #F86767;
   --txt-color-lightgray: #5F6D7E;
 }
 
@@ -58,6 +58,7 @@ button {
 }
 
 .form-login {
+  align-items: start;
   margin: 15px 0 50px 0;
   padding: 20px 50px;
   border-radius: 12px;
@@ -83,8 +84,14 @@ button {
   outline: 1px solid var(--bg-color-blue);
 }
 
+span.icon-warning {
+  font-size: 14px;
+  display: inline;
+  vertical-align: top;
+}
+
 .txt-login-fail {
-  margin-bottom: 10px;
+  margin-left: 10px;
   font-size: 14px;
   color: var(--txt-color-red);
 }
