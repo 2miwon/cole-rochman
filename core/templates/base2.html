@@ -21,7 +21,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     {% comment %} <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>{% endcomment %}
     <script>
       function myFunction() {
       // Declare variables
@@ -44,6 +44,6 @@
      }
      document.getElementById("myBar").style.width = "{{p_str}}%";
      document.getElementById("myBar").style.width = "{{cure_progress}}%";
-    </script> {% endcomment %}
+    </script> 
   </body>
 </html>

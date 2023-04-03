@@ -21,6 +21,59 @@
       <button><span class="material-symbols-outlined icon-nav">person</span></button>
       <button><span class="material-symbols-outlined icon-nav">settings</span></button>
     </nav>
+
+    <div class="section-patient-status">
+      <h2>환자 복약 현황</h2>
+      <div class="grid-container">
+        <div class="item">
+          <input type="text" id="myInput" class="bg-white-round" onkeyup="myFunction()" placeholder="환자 이름을 입력하세요.">
+          <ul id="myUL" class="bg-white-round">
+            {% for patient in patientlist %}
+              <li class="li-patient">
+                <input id="radio-patient" type="radio" name="radio" value={{ patient.id }} 
+                  onclick="location.href='{% url 'patient_status' patient.id %}'"
+                  {% if pid == patient.id %} checked {% endif %}>
+                <a href="{% url 'patient_status' patient.id %}" id="btn-patient" for="radio-patient">
+                  <span class="txt-black">{{ patient.name }}</span> 
+                  <span class="txt-lightgray">{{ patient.code }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="item status-container">
+          <div class="bg-white-round item-status grid-progress">
+            {% for p in clickedpatient %}
+              <h3 class="item-progress">{{ p.name }}({{ p.code }})님</h3>
+              <div class="item-progress">다음 내원 예정일 : {{ p.next_visiting_date_time | date:"y.m.d" }}</div>
+              <div id="myProgress" class="item-progress">
+                <div id="myBar"></div>
+              </div>
+              <div class="item-progress">{{ p.treatment_started_date | date:"y.m.d" }} 치료 시작</div>
+              <div class="item-progress">{{ p.treatment_end_date | date:"y.m.d" }} 종료 예정</div>
+            {% endfor %}
+          </div>
+          <div class="bg-white-round item-status">
+            <h3>복약도</h3>
+          </div>
+          <div class="bg-white-round item-status">
+            <h3>부작용 빈도</h3>
+          </div>
+          <div class="bg-white-round item-status">
+            <h3>부작용 정도</h3>
+          </div>
+        </div>
+
+        <div class="bg-white-round item remain">
+          <h3>남은 복약 횟수</h3>
+        </div>
+
+        <div class="bg-white-round item manage-current">
+          <h3>관리 현황</h3>
+        </div>
+      </div>
+    </div>
   </div>
 
   {% comment %} <div class="col-md-12">
