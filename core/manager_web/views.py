@@ -230,7 +230,7 @@ def print_day_list(dt):
             yo = '토'
         elif (i == 7):
             yo = '일'
-        li.append(str(iso_to_gregorian(*iso).month) + ' / ' + str(iso_to_gregorian(*iso).day) + ' ' + yo)
+        li.append(str(iso_to_gregorian(*iso).month).zfill(2) + '.' + str(iso_to_gregorian(*iso).day).zfill(2) + ' ' + yo)
     return li
     
     # 추가
