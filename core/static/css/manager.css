@@ -10,6 +10,7 @@
   --txt-color-lightgray: #5F6D7E;
   --txt-color-black: #000;
   --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
 }
 
 html, body {
@@ -378,4 +379,97 @@ nav {
 .manage-current {
   padding: 25px;
   height: 150px;
+  position: relative;
+}
+
+/* Manage Current */
+.manage-date {
+  display: flex;
+  width: 100%;
+  margin-top: 25px;
+  align-items: center;
+}
+
+.btn-date {
+  color: var(--bg-color-blue);
+}
+
+.manage-date > .day {
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+.legend {
+  display: flex;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  align-items: center;
+}
+
+.legend > div {
+  margin-left: 2vw;
+}
+
+.legend > span {
+  margin-left: 5px;
+  font-size: 13px;
+}
+
+.legend > .success {
+  width: 18px;
+  height: 18px;
+}
+
+.legend > .sideeffect {
+  width: 15px;
+  height: 15px;
+}
+
+.line-status {
+  position: relative;
+  top: 25px;
+  height: 10px;
+  width: 80%;
+  margin: 0 auto;
+  background-color: var(--bg-color-lightblue);
+}
+
+.manage-status {
+  margin: 5px 1.5vw;
+  position: relative;
+  z-index: 1;
+}
+
+.status {
+  width: 9vw;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: top;
+  word-break: keep-all;
+}
+
+.status > div {
+  margin: auto auto 10px auto;
+}
+
+.empty {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--bg-color-lightblue);
+}
+
+.success {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--bg-color-blue);
+}
+
+.sideeffect {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  border: 3px solid var(--txt-color-pink);
 }

@@ -69,6 +69,47 @@
 
         <div class="bg-white-round item manage-current">
           <h3>관리 현황</h3>
+          <div class="legend">
+            <div class="success"></div> <span>복용</span>
+            <div class="sideeffect"></div> <span>부작용</span>
+          </div>
+          <div class="manage-date">
+            {% for p in clickedpatient %}
+            <button class="btn-date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            {% for day in day_list %}
+              <span class="day">{{ day }}</span>
+            {% endfor %}
+            <button class="btn-date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+            {% endfor %}
+          </div>
+          <div class="line-status"></div>
+          <table class="manage-status">
+            {% for line in mdresult %}
+              <tr>
+                {% for re in line %}
+                  {% if re == '복약 성공' %}
+                    <td class="status"><div class="success"></div></td>
+                  {% elif re == '성공(지연)' %}
+                    <td class="status"><div class="empty"></div></td>
+                  {% elif re == '응답 없음' %}
+                    <td class="status"><div class="empty"></div>{{re}}</td>
+                  {% elif re == '복약 실패' %}
+                    <td class="status"><div class="empty"></div>{{re}}</td>
+                  {% elif re == '부작용' %}
+                    <td class="status"><div class="success sideeffect"></div>{{re}}</td>
+                  {% elif re == '' %}
+                    <td class="status"><div class="empty"></div>{{re}}</td>
+                  {% else %}
+                    <td class="status"><div class="success sideeffect"></div>{{re}}</td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </table>
         </div>
       </div>
     </div>
