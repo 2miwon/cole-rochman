@@ -374,6 +374,42 @@ nav {
   padding: 30px;
 }
 
+.chart {
+  position: relative;
+  margin: auto;
+}
+
+.chart > canvas {
+  margin: auto;
+}
+
+.chart-title {
+  text-align: center;
+  width: 100px;
+  position: absolute;
+  top: 45%;
+  left: 32%;
+}
+
+.chart-title > p {
+  font-size: 12px;
+}
+
+.chart-bg {
+  position: absolute;
+  top: 0.6rem;
+  left: 3.75rem;
+  width: 110px;
+  height: 110px;
+  border: 20px solid #DCECFB;
+  border-radius: 50%;
+}
+
+#myMedication,
+#mySideEffectFreq {
+  position: relative;
+}
+
 /* Bottom */
 .remain,
 .manage-current {

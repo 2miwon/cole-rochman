@@ -22,6 +22,7 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     {% comment %} <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>{% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script>
       function myFunction() {
       // Declare variables
@@ -44,6 +45,63 @@
      }
      document.getElementById("myBar").style.width = "{{p_str}}%";
      document.getElementById("myBar").style.width = "{{cure_progress}}%";
+
+     // chart
+     const medi = document.getElementById("myMedication");
+     const mediValue = 60;
+     var myMedication = new Chart(medi, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [mediValue, 100-mediValue],
+          backgroundColor: ['#2E65F3', '#DCECFB00'],
+          borderWidth: 0,
+          borderRadius: 10,
+        }]
+      },
+      options: {
+        cutout: '75%',
+      }
+    });
+
+    const sef = document.getElementById("mySideEffectFreq");
+    const sefValue = 80;
+    var mySideEffectFreq = new Chart(sef, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [sefValue, 100-sefValue],
+          backgroundColor: ['#2E65F3', '#DCECFB00'],
+          borderWidth: 0,
+          borderRadius: 30,
+        }]
+      },
+      options: {
+        cutout: '75%',
+      }
+    });
+
+    const set = document.getElementById("mySideEffectType");
+    const setValue = [40, 20, 20, 20];
+    var mySideEffectType = new Chart(set, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [...setValue],
+          backgroundColor: [
+            '#2E65F3',
+            '#2E65F3CC',
+            '#2E65F380',
+            '#DCECFB'
+          ],
+          borderWidth: 0,
+          scaleBeginAtZero: true,
+        }]
+      },
+      options: {
+        cutout: '75%',
+      }
+    });
     </script> 
   </body>
 </html>
