@@ -14,10 +14,12 @@
 }
 
 html, body {
+  min-width: 1440px;
   width: 100%;
   height: 100%;
   background: var(--bg-color-lightgray);
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 html, body, p, h3 {
@@ -387,8 +389,8 @@ nav {
   text-align: center;
   width: 100px;
   position: absolute;
-  top: 45%;
-  left: 32%;
+  top: 70px;
+  left: 85px;
 }
 
 .chart-title > p {
@@ -396,11 +398,11 @@ nav {
 }
 
 .chart-bg {
-  position: absolute;
-  top: 0.6rem;
-  left: 3.75rem;
   width: 110px;
   height: 110px;
+  position: absolute;
+  top: 10px;
+  left: 60px;
   border: 20px solid #DCECFB;
   border-radius: 50%;
 }
