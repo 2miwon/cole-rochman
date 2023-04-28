@@ -29,14 +29,13 @@
     </div>
   </div>
 
+  {% if user.is_active %}
+  <h3 id="hello">
+    <b>좋은 아침이에요,</b><br>{{nickname}}님
+  </h3>
+  {% endif %}
+
     <div style="display: flex; flex-direction: column; justify-content: center;"> 
-        <header style="margin-left: 7vw;">
-            {% if user.is_active %}
-                <div id="hello_user" style="color: #00A6E3; font-size: 1.4rem;">
-		    안녕하세요, {{nickname}}님
-		</div>
-            {% endif %}
-        </header>
     
         <div id="cure" style="height: 140px; margin-top: 1.5vh; padding-left: 5vw; padding-right: 5vw;">
        	    <div style="font-size: 1.2rem; font-weight: 700;">

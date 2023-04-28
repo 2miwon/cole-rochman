@@ -64,6 +64,12 @@
   justify-content: space-between;
 }
 
+/* hello */
+#hello {
+  padding: 0 20px;
+}
+
+/* MedProgress */
 #medProgress {
 display: flex;
 align-items: flex-end;
