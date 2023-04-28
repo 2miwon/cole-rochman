@@ -33,26 +33,31 @@
   <h3 id="hello">
     <b>좋은 아침이에요,</b><br>{{nickname}}님
   </h3>
-  {% endif %}
 
-    <div style="display: flex; flex-direction: column; justify-content: center;"> 
-    
-        <div id="cure" style="height: 140px; margin-top: 1.5vh; padding-left: 5vw; padding-right: 5vw;">
-       	    <div style="font-size: 1.2rem; font-weight: 700;">
-    	        복약 성공률
-    	    </div>
-    	    <div style="font-size: 0.9rem; font-weight: 500; margin-top: 0.5vh;">
-    	        잘하고 있어요! 조금만 더 신경써보아요.
-    	    </div>
-    	    <div id="curepercent">
-    	        <div style="color: #009CF4; font-size: 1.2rem; font-weight: 700;">{{med_progress}}%</div>
-                    <div id="medProgress">
-                        <div id="medBar"></div>
-                    </div>
-                </div>
-            	<br>
-            </div>
+  <div id="currentMed">
+    <div id="currentMedTitle" class="flex-row">
+      <div id="currentMedIcon">
+        <span class="material-symbols-outlined">pill</span>
+      </div>
+      <h3>{{nickname}}님의 복약 현황이에요.</h3>
+    </div>
+    <p id="currentMedSub">
+      {{nickname}}님! 이번주도 응원할게요.<br>
+      일주일 완주, 할 수 있어요!
+    </p>
+    <div id="currentMedContent" >
+      <div id="currentMedText" class="flex-row">
+        <span class="material-symbols-outlined icon">check</span>
+        <div class="flex-row space-between">
+          <span>오늘 복약을 완료했어요!</span>
+          <span>03.02</span>
         </div>
+      </div>
+      <div class='wave -one'></div>
+      <div class='wave -two'></div>
+    </div>
+  </div>
+  {% endif %}
     
     <div id="cure" style="margin-top: 1.5vh;">
         <div style="font-size: 1.2rem; font-weight: 700; margin-left: 5vw;">
@@ -192,8 +197,7 @@
     </ul>
 
     <script>
-	document.getElementById("myBar").style.width = "{{cure_progress}}%";
-	document.getElementById("medBar").style.width = "{{med_progress}}%";
+      document.getElementById("myBar").style.width = "{{cure_progress}}%";
     </script>
 </body>
 

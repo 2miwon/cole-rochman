@@ -2,6 +2,7 @@
   --bg-color-lightgray: #F4F6FA;
   --bg-color-white: #FFFFFF;
   --bg-color-blue: #2E65F3;
+  --bg-color-midblue: #CDDEFF;
   --bg-color-gray: #E0E2E7;
   --bg-color-lightblue: #F3F6FF;
   --txt-color-gray: #6A727A;
@@ -10,6 +11,13 @@
   --txt-color-black: #000;
   --txt-color-placeholder: #919BA7;
   --txt-color-pink: #FFA19B;
+}
+
+ul {list-style-type: none;}
+
+html, body {
+  background-color: var(--bg-color-gray);
+  overflow-x: hidden;
 }
 
 /* NavBar */
@@ -66,29 +74,88 @@
 
 /* hello */
 #hello {
-  padding: 0 20px;
+  padding: 10px 20px;
 }
 
 /* MedProgress */
-#medProgress {
-display: flex;
-align-items: flex-end;
-width: 68vw;
-height: 3vh;
-background-color: #AAE0FF;
-border-radius: 20px;
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
-#medBar {
-height: 3vh;
-background-color: #0CA1F5;
-border-radius: 10px;
+.space-between {
+  justify-content: space-between;
 }
 
-ul {list-style-type: none;}
+#currentMed {
+  margin: 20px 10px;
+  padding: 20px;
+  background-color: var(--bg-color-white);
+  border-radius: 10px;
+  box-shadow: 0 0 5px var(--bg-color-gray);
+}
 
-body {font-family: Verdana, sans-serif;}
+#currentMedTitle > h3 {
+  font-weight: bold;
+  line-height: 36px;
+}
 
+#currentMedIcon {
+  background-color: var(--bg-color-midblue);
+  width: 36px;
+  height: 36px;
+  border-radius: 20px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 46px;
+}
+
+#currentMedIcon > span {
+  color: var(--bg-color-blue);
+}
+
+#currentMedSub {
+  color: var(--txt-color-placeholder)
+}
+
+#currentMedContent {
+  color: var(--bg-color-white);
+  background-color: var(--bg-color-blue);
+  padding: 15px;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  height: 54px;
+}
+
+#currentMedContent > div > .icon {
+  margin-right: 5px;
+}
+
+.wave {
+  position: relative;
+  background: var(--bg-color-white);
+  opacity: .35;
+  width: 500px;
+  height: 500px;
+  border-radius: 43%;
+}
+
+.wave.-one {
+  animation: drift 9000ms infinite linear;
+  left: -150px;
+}
+
+.wave.-two {
+  animation: drift 7000ms infinite linear;
+  bottom: 500px;
+}
+
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  from { transform: rotate(360deg); }
+}
 
 /* Weekdays (Mon-Sun) */
 .weekdays {
