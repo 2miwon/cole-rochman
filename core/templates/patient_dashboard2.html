@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en" style="width:100%;">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="{% static 'css/patient.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>환자 치료 정보</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <style>
         body {
@@ -30,10 +31,8 @@
         #hello_user {
             margin-top: 3vh;
             font-size: 1.5rem;
-            font-weight: bold;
 	    font-family: 'Apple SD Gothic Neo';
 	    font-style: normal;
-	    font-weight: 700;
         }
 
         #cure {
@@ -159,18 +158,6 @@
 </head>
 
 <body style="background-color: #D4EBF3;">
-
-    <ul class="nav nav-pills nav-fill" style="background-color:#00A6E3; width:100vw; padding-top:1.5%;">
-        <li class="nav-item">
-            <a class="nav-link" id="nav-component" aria-current="page" href="{%url 'patient_dashboard'%}" style = "background-color: #D4EBF3; color: #00A6E3; font-weight: 900; font-size: 1.2rem;">치료정보</a>
-        </li>
-        <li class="nav-item">
-	    <a class="nav-link" id="nav-component" href="{% url 'inspection_result'%}" style="font-weight: 900; font-size: 1.2rem;">검사결과</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav-component" href="{% url 'community_main'%}" style="font-weight: 900; font-size: 1.2rem;">커뮤니티</a>
-        </li>
-    </ul>
 
     <div style="display: flex; flex-direction: column; justify-content: center;"> 
         <header style="margin-left: 7vw;">
@@ -336,6 +323,24 @@
     <!-- 부작용 증상 정리 end -->
 
     {% endfor %}
+
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link"aria-current="page" href="{%url 'inspection_result'%}">
+          <span class="material-symbols-outlined">content_paste</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"aria-current="page" href="{%url 'patient_dashboard'%}">
+          <span class="material-symbols-outlined active">home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"aria-current="page" href="{%url 'community_main'%}">
+          <span class="material-symbols-outlined">chat_bubble</span>
+        </a>
+      </li>
+    </ul>
 
     <script>
 	document.getElementById("myBar").style.width = "{{cure_progress}}%";

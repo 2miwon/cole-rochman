@@ -1,0 +1,36 @@
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-gray: #E0E2E7;
+  --bg-color-lightblue: #F3F6FF;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #F86767;
+  --txt-color-lightgray: #5F6D7E;
+  --txt-color-black: #000;
+  --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
+}
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  justify-content: space-around;
+  background-color: var(--bg-color-white);
+  padding: 5px 0;
+  border-top: 1px solid var(--bg-color-lightgray);
+  box-shadow: 0 0 10px var(--bg-color-gray);
+}
+
+.nav-link {
+  line-height: 16px;
+}
+
+.nav-link > span {
+  color: var(--txt-color-placeholder);
+}
+
+.nav-link > .active {
+  color: var(--bg-color-blue);
+}
