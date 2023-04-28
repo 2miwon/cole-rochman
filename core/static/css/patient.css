@@ -5,6 +5,8 @@
   --bg-color-midblue: #CDDEFF;
   --bg-color-gray: #E0E2E7;
   --bg-color-lightblue: #F3F6FF;
+  --bg-color-red: #FF5A36;
+  --bg-color-yellow: #FDB806;
   --txt-color-gray: #6A727A;
   --txt-color-red: #F86767;
   --txt-color-lightgray: #5F6D7E;
@@ -89,18 +91,20 @@ html, body {
 }
 
 #currentMed {
-  margin: 20px 10px;
+  margin: 30px 10px;
   padding: 20px;
   background-color: var(--bg-color-white);
   border-radius: 10px;
   box-shadow: 0 0 5px var(--bg-color-gray);
 }
 
+#cureManageTitle > h3,
 #currentMedTitle > h3 {
   font-weight: bold;
   line-height: 36px;
 }
 
+#cureManageIcon,
 #currentMedIcon {
   background-color: var(--bg-color-midblue);
   width: 36px;
@@ -111,6 +115,7 @@ html, body {
   line-height: 46px;
 }
 
+#cureManageIcon > span,
 #currentMedIcon > span {
   color: var(--bg-color-blue);
 }
@@ -157,26 +162,63 @@ html, body {
   from { transform: rotate(360deg); }
 }
 
-/* Weekdays (Mon-Sun) */
-.weekdays {
-  padding: 1vh 1.25vw 0 1.25vw;
+/* Cure Manage */
+#cureManage {
+  margin-bottom: 70px;
+}
+
+#cureManageTitle {
+  margin: 20px 20px 0 20px;
+}
+
+#cureManageCalendar {
+  background-color: var(--bg-color-white);
+  border-radius: 10px;
+  box-shadow: 0 0 5px var(--bg-color-gray);
+  margin: 5px 10px;
+  padding: 10px;
+}
+
+#cureManageYear {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#cureManageYear > .prev,
+#cureManageYear > .next {
+  color: var(--bg-color-blue);
+  line-height: 20px;
+}
+
+#cureManageYearText {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin: 10px 20px 0 20px;
 }
 
 .weekdays li {
-  width: 12.5vw;
-  color: #929292;
+  color: var(--txt-color-placeholder);
   text-align: center;
+  margin: 0;
 }
 
 /* Days (1-31) */
 .days {
-  width: 90vw;
-  border-radius: 0 0 25px 25px;
-  padding: 0 1.25vw;
   font-size: 0px;
+  margin: 0 5px;
 }
 
 .days ul {
@@ -187,17 +229,69 @@ html, body {
 .days ul li {
   list-style-type: none;
   display: inline-block;
-  width: 12.5vw;
-  height: 40px;
+  width: calc(100% / 7);
+  height: 50px;
+  line-height: 50px;
   text-align: center;
   justify-items: center;
-  margin-bottom: 5px;
   font-size: 1rem;
-  color: #929292;
+}
+
+.days ul li a {
+  text-decoration: none;
+  color: var(--txt-color-black)
 }
 
 /* Highlight the "current" day */
 .days li .active {
   background: #929292;
   color: white !important
+}
+
+#today {
+  background-color: var(--bg-color-blue);
+  padding: 7px;
+  color: var(--bg-color-white);
+  border-radius: 20px;
+}
+
+#success {
+  background-color: var(--bg-color-midblue);
+}
+
+#sideeffect {
+  background-color: var(--bg-color-red);
+}
+
+#visit {
+  background-color: var(--bg-color-yellow);
+  padding: 7px;
+  border-radius: 5px;
+}
+
+#legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+  margin: 0 5px 0 15px;
+}
+
+#legendSuccess {
+  background-color: var(--bg-color-midblue);
+}
+
+#legendSideeffect {
+  background-color: var(--bg-color-red);
+}
+
+#legendVisit {
+  background-color: var(--bg-color-yellow);
 }
