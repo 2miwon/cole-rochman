@@ -18,18 +18,28 @@
 ul {list-style-type: none;}
 
 html, body {
-  background-color: var(--bg-color-gray);
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color-white);
   overflow-x: hidden;
+}
+
+h2, h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
 }
 
 /* NavBar */
 .nav {
+  display: flex;
+  flex-direction: row;
   position: fixed;
   bottom: 0;
   width: 100%;
   justify-content: space-around;
   background-color: var(--bg-color-white);
-  padding: 5px 0;
+  padding: 10px 0;
   border-top: 1px solid var(--bg-color-lightgray);
   box-shadow: 0 0 10px var(--bg-color-gray);
 }
@@ -51,7 +61,7 @@ html, body {
   padding: 30px 20px;
 }
 
-#cure > h6 {
+#cure > h3 {
   font-weight: bold;
 }
 
@@ -60,6 +70,7 @@ html, body {
   height: 20px;
   background-color: var(--bg-color-lightblue);
   border-radius: 20px;
+  margin: 10px 0;
 }
 
 #myBar {
@@ -98,8 +109,8 @@ html, body {
   box-shadow: 0 0 5px var(--bg-color-gray);
 }
 
-#cureManageTitle > h3,
-#currentMedTitle > h3 {
+#cureManageTitle > h2,
+#currentMedTitle > h2 {
   font-weight: bold;
   line-height: 36px;
 }
@@ -129,9 +140,9 @@ html, body {
   background-color: var(--bg-color-blue);
   padding: 15px;
   border-radius: 5px;
-  position: relative;
   overflow: hidden;
-  height: 54px;
+  line-height: 24px;
+  height: 20px;
 }
 
 #currentMedContent > div > .icon {
@@ -168,7 +179,7 @@ html, body {
 }
 
 #cureManageTitle {
-  margin: 20px 20px 0 20px;
+  margin: 10px 20px;
 }
 
 #cureManageCalendar {
@@ -182,8 +193,7 @@ html, body {
 #cureManageYear {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  padding: 10px;
+  padding: 20px 10px;
   margin: 0;
   justify-content: space-between;
   align-items: center;
@@ -228,7 +238,6 @@ html, body {
 }
 
 .days ul li {
-  height: 50px;
   line-height: 40px;
   text-align: center;
   justify-items: center;
@@ -245,8 +254,8 @@ html, body {
   background-color: var(--bg-color-blue);
   color: var(--bg-color-white);
   border-radius: 50px;
-  width: 100%;
-  height: 100%;
+  width: 36px;
+  height: 36px;
 }
 
 #success {
