@@ -26,59 +26,46 @@
   </div>
  
   {% for post in posts %}
-	<div style="margin-left: 7vw; display: flex; font-family: 'Apple SD Gothic Neo';">
-
-        {% if post.category == 'question' %}
-            <div style="border-radius: 20px; background-color: #B3F4AD; width: 41px; height: 26px; margin-top: 0.3vh; margin-right: 5px; text-align: center; font-family: Apple SD Gothic Neo;">
-	        질문
-            </div>
-        {% endif %}
-            <a href="{% url 'post_detail' post.id %}" style="text-decoration: none; color: black;">
-                <div style="font-size: 20px; font-family:'Apple SD Cothic Neo'; font-weight: 400;">
-                    {{post.title}}
-                </div>
-            </a>
-        </div>
-        <div style="width: 55vw; display: flex; justify-content: space-between; font-fmily: Apple SD Gothic Neo; font-size: 1rem; color: #949494; margin-top: 2px; margin-left: 7vw;">
-	    <div style="margin-left: 1vw;">
-		{% if not post.anonymous %}
-            	{{post.writer.profile.nickname}}
-	    	{% else %}
-	    	익명
-            	{% endif %}
-	    </div>
-	    
-	    <div style="display: flex; flex-direction: row;">
-		<div style="margin-right: 8vw;">
-            	    {{post.print_created_at}}
-	        </div>
-		<div>
-		    댓글 {{post.count_of_the_comment}}개
-		</div>
-	    </div>
-
-        </div>
+	<div id="post_box">
+    <div id="post_title">
+      {% if post.category == 'question' %}
+      <div id="post_question">질문</div>
+      {% endif %}
+      <a href="{% url 'post_detail' post.id %}">
+        <div>{{post.title}}</div>
+      </a>
+      <div id="post_comment">[{{post.count_of_the_comment}}]</div>
     </div>
-    <hr>
-    {% endfor %}
+    <div id="post_info">
+      <div>{{post.print_created_at}}</div>
+      <div>
+      {% if not post.anonymous %}
+      {{post.writer.profile.nickname}}
+      {% else %}
+      익명
+      {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
     
-    <div class="nav">
-      <div class="nav-item">
-        <a class="nav-link"aria-current="page" href="{%url 'inspection_result'%}">
-          <span class="material-symbols-outlined">content_paste</span>
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link"aria-current="page" href="{%url 'patient_dashboard'%}">
-          <span class="material-symbols-outlined">home</span>
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link"aria-current="page" href="{%url 'community_main'%}">
-          <span class="material-symbols-outlined active">chat_bubble</span>
-        </a>
-      </div>
+  <div class="nav">
+    <div class="nav-item">
+      <a class="nav-link"aria-current="page" href="{%url 'inspection_result'%}">
+        <span class="material-symbols-outlined">content_paste</span>
+      </a>
     </div>
+    <div class="nav-item">
+      <a class="nav-link"aria-current="page" href="{%url 'patient_dashboard'%}">
+        <span class="material-symbols-outlined">home</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link"aria-current="page" href="{%url 'community_main'%}">
+        <span class="material-symbols-outlined active">chat_bubble</span>
+      </a>
+    </div>
+  </div>
       
-  </body>
+</body>
 </html>
