@@ -99,6 +99,7 @@ a, a:hover, a:active {
 
 /* Post Box */
 #post_box {
+  display: block;
   padding: 25px;
 }
 
