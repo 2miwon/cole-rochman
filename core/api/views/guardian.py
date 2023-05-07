@@ -19,7 +19,8 @@ from core.models.guardian import Guardian
 from core.models.medication_result import MedicationResult
 import datetime
 
-
+# 보호자 계정이 있는지를 확인
+# 없으면 보호자 계정 등록으로 연결
 class GuardianCreateStart(KakaoResponseAPI):
     serializer_class = GuardianCreateSerializer
     model_class = serializer_class.Meta.model
@@ -47,6 +48,7 @@ class GuardianCreateStart(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 보호자 계정 등록
 class GuardianCreate(KakaoResponseAPI, CreateAPIView):
     serializer_class = GuardianCreateSerializer
     model_class = serializer_class.Meta.model
@@ -76,6 +78,7 @@ class GuardianCreate(KakaoResponseAPI, CreateAPIView):
         return response.get_response_200()
 
 
+# 보호자 휴대폰번호 입력받음
 class GuardianPhone(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -157,6 +160,8 @@ class GuardianPhone(KakaoResponseAPI):
 #            )
 #        return response.get_response_200()
 
+
+# 보호자의 환자 복약여부 확인
 class GuardianCheckPatientMedication(KakaoResponseAPI):
     serializer_class = MeasurementResultSerializer
     model_class = serializer_class.Meta.model
@@ -187,29 +192,18 @@ class GuardianCheckPatientMedication(KakaoResponseAPI):
         if dailyresult:
             for i in dailyresult:
                 if i.status == "SUCCESS":
-                    text = '환자분은 복약을'
-                    text += str(i.medication_time)[:-3]
-                    text += '에 완료하셨습니다'
+                    text = '환자분은 복약을 ' + str(i.medication_time)[:-3] + '에 완료하셨습니다'
                     response.add_simple_text(text=text)
                 elif i.status == "SIDE_EFFECT":
-                    text = '환자께서 복약하셨으나 부작용이 있었습니다.\n'
-                    text += '증상: '
-                    text += str(i.symptom_name)
+                    text = '환자분께서 ' + str(i.symptom_name) + '에 부작용이 있었습니다.\n'
+                    # 증상 정도도 추가 필요
+                    # 증상 여러 개일 때 따로 출력하도록
                     response.add_simple_text(text=text)
                 else:
-                    response.add_simple_text("환자꼐서 복약을 하지 않으셨습니다!!")
+                    response.add_simple_text("환자분께서 오늘 복약을 하지 않으셨습니다.")
             return response.get_response_200()
         else:
-            response.add_simple_text("환자분은 오늘 복약을 하지 않으셨습니다.")
+            response.add_simple_text("환자분께서 오늘 복약을 하지 않으셨습니다.")
 
         return response.get_response_200()
- 
- 
- 
- 
- 
- 
- 
- 
- 
          

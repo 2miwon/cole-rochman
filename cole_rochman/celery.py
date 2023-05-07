@@ -5,6 +5,7 @@ from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cole_rochman.settings')
 
+# Broker로 Redis를 사용
 app = Celery('cole_rochman',
              broker=settings.BROKER_URL,
              backend=settings.CELERY_RESULT_BACKEND,

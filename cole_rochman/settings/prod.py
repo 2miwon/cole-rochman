@@ -1,3 +1,5 @@
+# prod.py 파일은 실제 서비스를 위한 운영 코드
+
 from .base import *
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration

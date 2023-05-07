@@ -7,6 +7,8 @@ from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 
+# 이미 설정된 복약 알림이 있는지 확인
+# 없으면 복약 관리 시작으로 연결
 class PatientMedicationEntrance(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -39,6 +41,7 @@ class PatientMedicationEntrance(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 복약 알림 재설정 시작
 class PatientMedicationNotiTimeQuestion(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -79,6 +82,7 @@ class PatientMedicationNotiTimeQuestion(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 복약 알림 시간대 설정
 class PatientMedicationNotiSetTime(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -144,6 +148,7 @@ class PatientMedicationNotiSetTime(KakaoResponseAPI):
             return response.get_response_200()
 
 
+# 복약 알림 재설정 시작
 class PatientMedicationRestart(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -166,6 +171,7 @@ class PatientMedicationRestart(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 복약 알림 시간대 재설정
 class PatientMedicationNotiReset(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model

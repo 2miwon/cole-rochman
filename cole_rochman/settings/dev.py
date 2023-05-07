@@ -1,9 +1,12 @@
+# dev.py 파일은 서버에서 테스트해보는 코드
+
 from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.cole-rochman.co.kr', '3.39.109.10']
+ALLOWED_HOSTS = []
 
+# 실제 데이터베이스가 아님
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
