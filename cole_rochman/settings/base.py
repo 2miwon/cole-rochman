@@ -14,7 +14,9 @@ import os
 import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# cole-rochman 위치
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# cole-rochman/cole_rochman 위치
 PROJECT_DIR = os.path.join(BASE_DIR, 'cole_rochman')
 
 # Quick-start development settings - unsuitable for production
@@ -151,7 +153,7 @@ AUTHENTICATION_BACKENDS = (
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-#email with sendgrid
+# 비밀번호 변경 또는 비밀번호 찾기 기능에 필요
 SENDGRID_API_KEY = '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'
 EMAIL_HOST =  'smtp.sendgrid.net' #'http://127.0.0.1'
 EMAIL_PORT = 587

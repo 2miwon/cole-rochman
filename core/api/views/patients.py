@@ -21,6 +21,8 @@ from core.api.util.response_builder import ResponseBuilder
 logger = logging.getLogger(__name__)
 
 
+# 계정이 등록되어 있는지 확인
+# 없으면 계정 등록 시작으로 연결
 class PatientCreateStart(KakaoResponseAPI):
     serializer_class = PatientCreateSerializer
     model_class = serializer_class.Meta.model
@@ -52,6 +54,8 @@ class PatientCreateStart(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 계정 등록 시작
+# 환자 정보를 입력받음
 class PatientCreate(KakaoResponseAPI, CreateAPIView):
     serializer_class = PatientCreateSerializer
     model_class = serializer_class.Meta.model
@@ -109,6 +113,7 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         return response.get_response_200()
 
 
+# 환자정보 변경
 class PatientUpdate(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -214,6 +219,7 @@ class PatientUpdate(KakaoResponseAPI):
         return Response(response, status=status.HTTP_200_OK)
 
 
+# 환자정보 출력 (현재 사용 안 함)
 class PatientInfo(KakaoResponseAPI):
     """
     환자의 정보를 응답합니다. 없으면 빈 문자열을 내려줍니다.
@@ -238,6 +244,7 @@ class PatientInfo(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 환자의 외출가능여부 출력
 class PatientSafeOut(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -269,6 +276,7 @@ class PatientSafeOut(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 환자 몸무게 입력
 class PatientWeight(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -289,6 +297,7 @@ class PatientWeight(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 환자 시력 입력
 class PatientVision(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -312,6 +321,7 @@ class PatientVision(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 환자코드 출력
 class PatientCodePrint(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model

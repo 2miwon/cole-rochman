@@ -9,6 +9,8 @@ from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 
 
+# 기존 내원일 설정 여부 확인
+# 없으면 내원일 등록 시작으로 연결
 class PatientVisitStart(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -42,6 +44,7 @@ class PatientVisitStart(KakaoResponseAPI):
             return response.get_response_200()
 
 
+# 내원일 입력
 class PatientVisitDateSet(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -84,6 +87,7 @@ class PatientVisitDateSet(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 내원일 기준 알림 희망 시간 입력
 class PatientVisitNotiTimeBefore(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -139,6 +143,7 @@ class PatientVisitNotiTimeBefore(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 내원일 재설정 시작
 class PatientVisitRestart(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
