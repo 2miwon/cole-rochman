@@ -1,0 +1,139 @@
+/* Init */
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-gray: #E0E2E7;
+  --bg-color-lightblue: #F3F6FF;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #F86767;
+  --txt-color-lightgray: #5F6D7E;
+  --txt-color-black: #000;
+  --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-color-lightgray);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+html, body, p, h3 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration-line: none;
+}
+
+button {
+  background: inherit ; 
+  border:none; 
+  box-shadow:none; 
+  border-radius:0; 
+  padding:0; 
+  overflow:visible;
+  cursor: pointer;
+}
+
+/* Login Page */
+.container {
+  margin: auto;
+  padding-bottom: 50px;
+}
+
+.col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-cole-rochman {
+  width: 187px;
+  height: 265px;
+  margin-bottom: 10px;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.form-login {
+  width: 95vw;
+  margin: 15px 0 50px 0;
+  padding: 20px 0;
+  border-radius: 12px;
+  background-color: var(--bg-color-white);
+  align-items: end;
+
+}
+
+.form-login > form {
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.form-login-input {
+  width: calc(95vw - 40px);
+  height: 48px;
+  padding-left: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-gray);
+  background-color: var(--bg-color-white);
+  font-size: 16px;
+}
+
+.form-login-input::placeholder {
+  color: var(--txt-color-gray);
+}
+
+.form-login-input:focus {
+  outline: 1px solid var(--bg-color-blue);
+}
+
+span.icon-warning {
+  font-size: 14px;
+  display: inline;
+  vertical-align: top;
+}
+
+.txt-login-fail {
+  margin-left: 10px;
+  font-size: 14px;
+  color: var(--txt-color-red);
+}
+
+.btn-login {
+  width: calc(95vw - 40px);
+  height: 48px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-blue);
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn-login:hover {
+  cursor: pointer;
+}
+
+.img-logo-hospital {
+  width: 116px;
+  height: 20px;
+  margin: 5px 0;
+}
+
+#password_reset {
+  color: var(--bg-color-blue);
+  margin: 0 20px auto 0;
+}
