@@ -1,0 +1,202 @@
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-midblue: #CDDEFF;
+  --bg-color-gray: #E0E2E7;
+  --bg-color-lightblue: #F3F6FF;
+  --bg-color-red: #FF5A36;
+  --bg-color-yellow: #FDB806;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #F86767;
+  --txt-color-lightgray: #5F6D7E;
+  --txt-color-darkgray: #1C1C1C;
+  --txt-color-black: #000;
+  --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color-white);
+  overflow: hidden;
+}
+
+a, a:hover, a:active {
+  text-decoration: none; 
+  outline: none;
+  color: var(--txt-color-black);
+}
+
+/* Category */
+#options {
+  box-shadow: 0 0 10px var(--bg-color-gray);
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.insp_options {
+  padding: 10px 0;
+}
+
+.insp_options > span {
+  margin-right: 10px;
+}
+
+.insp_options > input {
+  display: none;
+}
+
+.insp_options > label {
+  border: 1px solid var(--txt-color-placeholder);
+  color: var(--txt-color-placeholder);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+.insp_options > input:checked + label {
+  border: 1px solid var(--bg-color-blue);
+  color: var(--bg-color-blue);
+}
+
+/* Scroll Bar */
+.scroll {
+  overflow-y: scroll;
+  height: 70vh;
+  margin: 0 20px;
+}
+
+.insp_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+.insp_date {
+  color: var(--txt-color-placeholder);
+  margin-right: 15px;
+}
+
+.insp_status {
+  border: 1px solid;
+  border-radius: 10px; 
+  padding: 5px 0;
+  width: 70px;
+  text-align: center;
+  margin-left: auto;
+  font-weight: bold;
+}
+
+/* 음성 or - or 오염 */
+.insp_status.case1 {
+  color: var(--bg-color-blue);
+  border-color: var(--bg-color-blue);
+}
+
+/* 양성 */
+.insp_status.case2 {
+  color: var(--bg-color-red);
+  border-color: var(--bg-color-red);
+}
+
+/* +- */
+.insp_status.case3 {
+  color: var(--bg-color-yellow);
+  border-color: var(--bg-color-yellow);
+}
+
+/* 검사중 */
+.insp_status.case4 {
+  color: var(--txt-color-placeholder);
+  border-color: var(--txt-color-placeholder);
+}
+
+/* No Result */
+.insp_no {
+  color: var(--txt-color-placeholder);
+  text-align: center;
+  margin: 50px 0;
+}
+
+/* Inspection Detail */
+#insp_detail {
+  background-color: var(--bg-color-white);
+  position: fixed;
+  /* bottom: 40px; */
+  bottom: calc(-80vh + 90px);
+  border-radius: 20px 20px 0 0; 
+  width: 100vw; 
+  height: 85vh;
+  box-shadow: 0 0 10px var(--bg-color-gray);
+}
+
+#insp_bar {
+  width: 70px;
+  height: 3.5px;
+  background-color: var(--bg-color-gray);
+  margin: 15px auto;
+  border-radius: 10px;
+}
+
+#insp_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+#insp_title > div:nth-child(1) {
+  width: 18px; 
+  height: 18px; 
+  border: 1px solid; 
+  border-radius: 50%; 
+  margin-right: 5px;
+}
+
+#insp_title > div:nth-child(2) {
+  line-height: 22px;
+}
+
+#insp_info {
+  width: 100vw; 
+  height: 80vh; 
+  border-radius: 20px 20px 0 0;
+  line-height: 26px;
+}
+
+#insp_info > p {
+  margin: 20px;
+}
+
+/* NavBar */
+.nav {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  justify-content: space-around;
+  background-color: var(--bg-color-white);
+  padding: 10px 0;
+  border-top: 1px solid var(--bg-color-lightgray);
+  box-shadow: 0 0 10px var(--bg-color-gray);
+}
+
+.nav-link {
+  line-height: 16px;
+}
+
+.nav-link > span {
+  color: var(--txt-color-placeholder);
+}
+
+.nav-link > .active {
+  color: var(--bg-color-blue);
+}
