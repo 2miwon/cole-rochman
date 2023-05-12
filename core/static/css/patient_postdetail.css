@@ -86,3 +86,63 @@ a, a:hover, a:active {
   line-height: 1.5rem;
   border-bottom: 10px solid var(--bg-color-lightgray);
 }
+
+/* Comment Box */
+#comment_title {
+  font-size: 1.1rem;
+  padding: 20px 20px 0 20px;
+}
+
+#comment_title > span:nth-child(2) {
+  color: var(--bg-color-blue);
+  margin-left: 5px;
+}
+
+#comment_form {
+  border-bottom: 1px solid var(--bg-color-gray);
+  padding: 0 20px 15px 20px;
+}
+
+#comment_form > form {
+  display: flex;
+  flex-direction: column;
+}
+
+#comment_form > form > textarea {
+  border: 1px solid var(--txt-color-placeholder);
+  border-radius: 10px;
+  margin: 10px 0;
+  height: 70px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+#comment_form > form > textarea::placeholder {
+  color: var(--txt-color-placeholder);
+}
+
+#comment_form > form > button {
+  margin-left: auto;
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  border-radius: 20px;
+  padding: 5px 20px;
+}
+
+.comment {
+  padding: 20px;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+.comment_info > span:nth-child(1) {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.comment_info > span:nth-child(2) {
+  color: var(--txt-color-placeholder);
+}
+
+.comment_content {
+  margin-bottom: 0;
+}

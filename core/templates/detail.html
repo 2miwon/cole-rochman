@@ -46,5 +46,35 @@
       </span>
     </a>
   {% endif %}
+
+  <div id="comment_box">
+    <div id="comment_title">
+      <span>댓글</span>
+      <span>총 {{post.count_of_the_comment}}개</span>
+    </div>
+
+    <div id="comment_form">
+      <form action="" method="post">
+        {% csrf_token%}
+        <textarea type="text" name="comment" placeholder="댓글을 입력하세요"></textarea>
+        <button type="submit">작성</button>
+      </form>
+    </div>
+    
+    {% for comment in comments %}
+    <div class="comment">
+      <div class="comment_info">
+        <span>{{comment.writer.profile.nickname}}</span>
+        <span>{{comment.print_created_at}}</span>
+      </div>
+      <p class="comment_content">{{comment.comment}}</p>
+      {% if comment.writer == request.user %}
+      <a href="{% url 'comment_delete' post_id comment.id%}">
+        <span class="material-symbols-outlined">delete</span>
+      </a>
+      {% endif %}
+    </div>
+    {% endfor%}
+  </div>
 </body>
 </html>
