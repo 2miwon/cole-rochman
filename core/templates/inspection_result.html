@@ -39,6 +39,107 @@
 
 	  <div class="scroll">
       {% if insp_zip %}
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">음성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case2">양성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case3">+/-</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">오염</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case4">검사중</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">음성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case2">양성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case3">+/-</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">오염</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case4">검사중</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">음성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case2">양성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case3">+/-</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">오염</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case4">검사중</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">음성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case2">양성</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case3">+/-</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case1">오염</div>
+        </div>
+        <div class="insp_item">
+          <div class="insp_date">22.12.14</div>
+          <div>배양검사[1번]</div>
+          <div class="insp_status case4">검사중</div>
+        </div>
+
         {% for insp_date, insp_type, insp_th, insp_res in insp_zip %}
           <div class="insp_item">
             <div class="insp_date">{{insp_date}}</div>
@@ -62,8 +163,12 @@
       {% endif%}  
       </div>
 
-      <a href="{% url 'inspection_detail' %}" id="insp_detail">
-        <div id="insp_bar"></div>
+      <button id="insp_bg"></button>
+
+      <div id="insp_detail">
+        <button id="insp_button">
+          <div id="insp_bar"></div>
+        </button>
         <div id="insp_title">
           <div>i</div>
           <div>결핵 검사 결과는 어떻게 이해하면 되나요?</div>
@@ -82,7 +187,7 @@
             <br>결핵균은 서서히 증식하기 때문에 배양검사 결과확인까지 2~8주의 시간이 필요합니다. 가래에 균이 적어 도말검사가 음성이더라도 배양검사에서 결핵균이 확인될 수 있습니다. 따라서 도말검사에서 균이 검출되지 않았다 하더라도 배양검사 결과까지 확인이 필요합니다.
           </p>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
@@ -104,5 +209,20 @@
     </div>
   </div>
 
+  <script>
+    const inspButton = document.getElementById('insp_button');
+    const inspDetail = document.getElementById('insp_detail');
+    const inspBG = document.getElementById('insp_bg');
+
+    inspButton.addEventListener("click", function() {
+      inspDetail.classList.toggle("open");
+      inspBG.classList.toggle("open");
+    });
+
+    inspBG.addEventListener("click", function() {
+      inspDetail.classList.toggle("open");
+      inspBG.classList.toggle("open");
+    });
+  </script>
 </body>
 </html>

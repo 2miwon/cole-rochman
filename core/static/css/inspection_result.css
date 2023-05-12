@@ -124,15 +124,47 @@ a, a:hover, a:active {
 }
 
 /* Inspection Detail */
+#insp_bg {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0000004D;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease;
+}
+
+#insp_bg.open {
+  opacity: 1;
+  visibility: visible;
+}
+
 #insp_detail {
   background-color: var(--bg-color-white);
   position: fixed;
-  /* bottom: 40px; */
   bottom: calc(-80vh + 90px);
   border-radius: 20px 20px 0 0; 
   width: 100vw; 
   height: 85vh;
   box-shadow: 0 0 10px var(--bg-color-gray);
+  transition: bottom 0.3s ease-out;
+}
+
+#insp_detail.open {
+  bottom: 30px;
+}
+
+button {
+  background: none ; 
+  border: none; 
+  box-shadow: none; 
+  border-radius: 0; 
+  padding: 0;
+}
+
+#insp_button {
+  width: 100%;
 }
 
 #insp_bar {
