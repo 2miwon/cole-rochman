@@ -45,7 +45,7 @@
         <span class="material-symbols-outlined icon">check</span>
         <div class="flex-row space-between">
           <span>오늘 복약을 완료했어요!</span>
-          <span>03.02</span>
+          <span>{{month}}.{{day}}</span>
         </div>
       </div>
       <div class='wave -one'></div>
@@ -96,7 +96,7 @@
           {% endfor %}
           {% for day in day_list%}
           <li>
-            <a href="{% url 'patient_dashboard_by_day' year month day %}">
+            <a class="day_of_the_week" href="{% url 'patient_dashboard_by_day' year month day %}">
               {% if day in today %}
               <span id="today">{{day}}</span>
               {% else %}
@@ -190,9 +190,50 @@
       </div>
     </div>
 
+    {% if request.path == "/dashboard/" %}
+    <div id="modal_bg">
+    {% else %}
+    <div id="modal_bg" class="open">
+    {% endif %}
+      <div id="modal">
+        <div id="modal_title">복약 일기</div>
+        <div id="modal_body">
+          <div id="modal_date">{{month}}/{{day}}</div>
+          <div id="modal_content">
+            {% for element in today_md_success_list %}
+            <div class="medi_info">
+              <div class="medi_color"></div>
+              <div class="medi_status">복약 완료</div>
+              <div class="medi_content">{{element}}</div>
+            </div>
+            {% endfor %}
+            {% for name, time, sev1, sev2, sev3 in symptoms %}
+            <div class="medi_info">
+              <div class="medi_color sideeffect"></div>
+              <div class="medi_status">부작용</div>
+              <div class="medi_content">{{name}}</div>
+            </div>
+            <p class="medi_detail">
+              {{sev1}} {{sev2}} {{sev3}}
+            </p>
+            {% endfor %}
+      </div>
+    </div> 
+
     <script>
       document.getElementById("myBar").style.width = "{{cure_progress}}%";
+      const modalBG = document.getElementById("modal_bg");
+      const days = document.querySelectorAll(".day_of_the_week");
+
+      modalBG.addEventListener("click", () => {
+        modalBG.classList.remove("open");
+      });
+
+      for(const day of days) {
+        day.addEventListener("click", () => {
+          modalBG.classList.add("open");
+        });
+      };
     </script>
 </body>
-
 </html>

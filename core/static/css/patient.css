@@ -6,6 +6,7 @@
   --bg-color-gray: #E0E2E7;
   --bg-color-lightblue: #F3F6FF;
   --bg-color-red: #FF5A36;
+  --bg-color-lightred: #FF5A3626;
   --bg-color-yellow: #FDB806;
   --txt-color-gray: #6A727A;
   --txt-color-red: #F86767;
@@ -199,8 +200,8 @@ h2, h3 {
   align-items: center;
 }
 
-#cureManageYear > .prev,
-#cureManageYear > .next {
+#cureManageYear a,
+#cureManageYear a:visited {
   color: var(--bg-color-blue);
   line-height: 20px;
 }
@@ -297,4 +298,83 @@ h2, h3 {
 
 #legendVisit {
   background-color: var(--bg-color-yellow);
+}
+
+/* Calendar Detail */
+#modal_bg {
+  visibility: hidden;
+  display: none;
+  
+}
+
+#modal_bg.open {
+  visibility: visible;
+  display: flex;
+  position: fixed;
+  top: 0;
+  background-color: #0000004D;
+  width: 100%;
+  height: 100%;
+}
+
+#modal {
+  background-color: var(--bg-color-white);
+  border-radius: 10px;
+  margin: auto;
+  padding: 25px;
+  width: 70vw;
+}
+
+#modal_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#modal_body {
+  display: flex;
+  flex-direction: row;
+}
+
+#modal_date {
+  font-weight: bold;
+  margin: 3px 15px 0 0;
+}
+
+.medi_info {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.medi_color {
+  padding: 12px 4px;
+  background-color: var(--bg-color-blue);
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.medi_color.sideeffect {
+  background-color: var(--bg-color-red);
+}
+
+.medi_status,
+.medi_content {
+  margin: auto 0;
+}
+
+.medi_status {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.medi_content {
+  color: var(--txt-color-placeholder);
+}
+
+.medi_detail {
+  margin: 0 10px 10px 10px;
+  background-color: var(--bg-color-lightred);
+  padding: 10px;
+  border-radius: 10px;
 }
