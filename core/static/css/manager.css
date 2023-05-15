@@ -236,8 +236,8 @@ nav {
 
 /* Patient Status Section */
 .section-patient-status {
-  margin: 50px;
-  width: 100%;
+  margin: auto;
+  width: 1280px;
 }
 
 .section-patient-status>h2 {
