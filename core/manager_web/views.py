@@ -156,7 +156,7 @@ def sign_in(request):
             return redirect('web_menu')
 
         else:
-            msg.append('존재하는 아이디가 없거나 비밀번호가 일치 안합니다')
+            msg.append('아이디 또는 비밀번호 오류입니다.')
     else:
         msg.append('')
 
@@ -228,7 +228,7 @@ def print_day_list(dt):
             yo = '토'
         elif (i == 7):
             yo = '일'
-        li.append(str(iso_to_gregorian(*iso).month) + ' / ' + str(iso_to_gregorian(*iso).day) + ' ' + yo)
+        li.append(str(iso_to_gregorian(*iso).month).zfill(2) + '.' + str(iso_to_gregorian(*iso).day).zfill(2) + ' ' + yo)
     return li
     
     # 추가

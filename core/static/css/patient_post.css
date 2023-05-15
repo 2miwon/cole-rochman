@@ -1,0 +1,100 @@
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-midblue: #CDDEFF;
+  --bg-color-gray: #E0E2E7;
+  --bg-color-lightblue: #F3F6FF;
+  --bg-color-red: #FF5A36;
+  --bg-color-yellow: #FDB806;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #F86767;
+  --txt-color-lightgray: #5F6D7E;
+  --txt-color-black: #000;
+  --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color-white);
+}
+
+button {
+  background: none;
+  border: none; 
+  outline: none;
+}
+
+a, a:hover, a:active {
+  text-decoration: none; 
+  outline: none;
+  color: var(--txt-color-black);
+}
+
+#post_header {
+  display: flex; 
+  flex-direction: row; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px var(--bg-color-gray);
+}
+
+#post_header > a {
+  color: var(--bg-color-blue)
+}
+
+#post_submit {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--bg-color-blue);
+}
+
+#post_options {
+  margin: 0 20px;
+}
+
+#post_options > input {
+  display: none;
+}
+
+#post_options > label {
+  border: 1px solid var(--txt-color-placeholder);
+  color: var(--txt-color-placeholder);
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+#post_options > input:checked + label {
+  border: 1px solid var(--bg-color-blue);
+  color: var(--bg-color-blue);
+}
+
+#post_contents {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#post_contents > input,
+#post_contents > textarea {
+  border: 1px solid var(--txt-color-placeholder);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+#post_contents > textarea {
+  height: 70vh;
+}
+
+#post_contents::placeholder,
+#post_contents::placeholder {
+  color: var(--txt-color-placeholder);
+}

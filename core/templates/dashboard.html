@@ -1,143 +1,234 @@
 {% extends 'base2.html' %}
+{% load static %}
 {% block content %}
 
-
-  <div class="col-md-12">
-    <div class="row ">
-      <div class="col-md-9">
-        <h2>결핵 박사 콜로크만 | 환자관리</h2>
-        <br>
-        <br>
-
-      </div>
-      <div class="col-md-3 ">
-
-        {% if user.is_active %}
-          <p>
-            <b>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</b>님 안녕하세요!<a href="{% url 'logout' %}">로그아웃</a>
-          </p>
-        {% endif %}
-
-      </div>
-      <div class="col-md-3" style="padding-right:2%;padding-left:2%;">
-        <p><b>환자 찾기</b></p>
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="환자 이름을 입력하세요">
-
-        <ul id="myUL">
-          {% for patient in patientlist %}
-            <li>
-              <a href="{% url 'patient_status' patient.id %}">
-                {{ patient.name }} {{ patient.code }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="col-md-9 ">
-        <p><b>결핵치료과정</b></p>
-        <div class="col-md-12 proback">
-
-
-          <div style="float: left;">결핵치료시작</div>
-          <div style="float:right; ">결핵치료완료예정</div>
-          <br>
-          {% for p in clickedpatient %}
-            <div id="myProgress">
-              <div id="myBar">{{ p_str }}%</div>
-            </div>
-            <br>
-            <div style="float: left;">{{ p.treatment_started_date }}</div>
-            <div style="float:right; ">{{ p.treatment_end_date }}</div>
-          {% endfor %}
-        </div>
-
-      </div>
-
-      <div class="col-md-3" style="padding-left:2%;"><br><b>관리 현황</b></div>
-      <div class="col-md-9">
-        <br>
-        {% for p in clickedpatient %}
-          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'" style="width: 2vw;">
-            <
-          </div>
-          {% for day in day_list %}
-	    <span class="day" style="width: 9vw; margin: 0 0.5vw:">{{ day }}</span>
-          {% endfor %}
-          <div class="btn btn-sm btn-success" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'" style="width: 2vw;">
-            >
-          </div>
-
-        {% endfor %}
-        <br>
-        <br>
-      </div>
+  <header class="header">
+    <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+    <div class="header-right">
+      {% if user.is_active %}
+        <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
+        <a class="btn-logout" href="{% url 'logout' %}">
+          <span class="material-symbols-outlined icon-logout">logout</span>
+          <p class="txt-logout">로그아웃</p>
+        </a>
+      {% endif %}
     </div>
+  </header>
+  
+  <div class="container">
+     <nav>
+      <button><span class="material-symbols-outlined icon-nav active">home</span></button>
+    </nav>
 
-  </div>
-  <div class="col-md-12 staback">
-    <div class="row">
-
-      {% for p in clickedpatient %}
-        <div class="col-md-2"><br>다음 내원
-          예정일은<br><b>{{ p.next_visiting_date_time.month }}월 {{ p.next_visiting_date_time.day }}일</b> 입니다.
+    <div class="section-patient-status">
+      <h2>환자 복약 현황</h2>
+      <div class="grid-container">
+        <div class="item">
+          <input type="text" id="myInput" class="bg-white-round" onkeyup="myFunction()" placeholder="환자 이름을 입력하세요.">
+          <ul id="myUL" class="bg-white-round">
+            {% for patient in patientlist %}
+              <li class="li-patient">
+                <input id="radio-patient" type="radio" name="radio" value={{ patient.id }} 
+                  onclick="location.href='{% url 'patient_status' patient.id %}'"
+                  {% if pid == patient.id %} checked {% endif %}>
+                <a href="{% url 'patient_status' patient.id %}" id="btn-patient" for="radio-patient">
+                  <span class="txt-black">{{ patient.name }}</span> 
+                  <span class="txt-lightgray">{{ patient.code }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         </div>
-	<div class="col-md-1"></div>
-        {% if visiting_num %}
-          <div class="col-md-9"><br>
-            <div id="visit" style="width: 9vw; margin: ">내원일</div>
+
+        <div class="item status-container">
+          <div class="bg-white-round item-status grid-progress">
+            {% for p in clickedpatient %}
+              <h3 class="item-progress">{{ p.name }}({{ p.code }})님</h3>
+              <div class="item-progress">다음 내원 예정일 : {{ p.next_visiting_date_time | date:"y.m.d" }}</div>
+              <div id="myProgress" class="item-progress">
+                <div id="myBar"></div>
+              </div>
+              <div class="item-progress">{{ p.treatment_started_date | date:"y.m.d" }} 치료 시작</div>
+              <div class="item-progress">{{ p.treatment_end_date | date:"y.m.d" }} 종료 예정</div>
+            {% endfor %}
           </div>
-
-        {% endif %}
-
-        <div class="col-md-12 line" style="border-bottom: 1px solid black;"></div>
-        <div class="col-md-2"><br>총 <b>{{ p.daily_medication_count }}회</b><br>복약해야 합니다.</div>
-        <div class="col-md-1">
-	  <br>
-	  {% for hour in daily_hour_list %}
-	    {{ forloop.counter }}회차({{ hour }})<br><br>
-          {% endfor %}
+          <div class="bg-white-round item-status">
+            <h3>복약도</h3>
+            {% if pid %}
+            <div class="chart">
+              <div class="chart-title">
+                <p>최근 30회 기준</p>
+                <b>총 17회 복용</b>
+              </div>
+              <div class="chart-bg"></div>
+              <canvas id="myMedication"></canvas>
+            </div>
+            {% endif %}
+          </div>
+          <div class="bg-white-round item-status">
+            <h3>부작용 빈도</h3>
+            {% if pid %}
+            <div class="chart">
+              <div class="chart-title">
+                <p>부작용 빈도</p>
+                <b>60%</b>
+              </div>
+              <div class="chart-bg"></div>
+              <canvas id="mySideEffectFreq"></canvas>
+            </div>
+            {% endif %}
+          </div>
+          <div class="bg-white-round item-status">
+            <h3>부작용 종류</h3>
+            {% if pid %}
+            <div class="chart">
+              <div class="chart-title">
+                <p>주 부작용</p>
+                <b>구토</b>
+              </div>
+              <canvas id="mySideEffectType"></canvas>
+            </div>
+            {% endif %}
+          </div>
         </div>
-        <div class="col-md-9">
 
-          <table style="margin-left: 2vw;">
+        <div class="bg-white-round item remain">
+          <h3>남은 복약 횟수</h3>
+          <h1>1회</h1>
+        </div>
+
+        <div class="bg-white-round item manage-current">
+          <h3>관리 현황</h3>
+          <div class="legend">
+            <div class="success"></div> <span>복용</span>
+            <div class="sideeffect"></div> <span>부작용</span>
+          </div>
+          <div class="manage-date">
+            {% for p in clickedpatient %}
+            <button class="btn-date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            {% for day in day_list %}
+              <span class="day">{{ day }}</span>
+            {% endfor %}
+            <button class="btn-date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+            {% endfor %}
+          </div>
+          <div class="line-status"></div>
+          <table class="manage-status">
             {% for line in mdresult %}
               <tr>
                 {% for re in line %}
                   {% if re == '복약 성공' %}
-		  <td style="background-color:#81FCC8; width: 9vw; margin: 0 0.5vw;">{{re}}<br>    </td>
+                    <td class="status"><div class="success"></div></td>
                   {% elif re == '성공(지연)' %}
-		  <td style="background-color:#D8D8D8;">{{re}}<br>     </td>
+                    <td class="status"><div class="empty"></div></td>
                   {% elif re == '응답 없음' %}
-		  <td style="background-color:#E9FFF5;">{{re}}<br>     </td>
+                    <td class="status"><div class="empty"></div>{{re}}</td>
                   {% elif re == '복약 실패' %}
-		  <td style="background-color:#FCAECE;">{{re}}<br>     </td>
-		  {% elif re == '부작용' %}
-		  <td style="background-color:#FCAECE; width: 9vw; margin: 0 0.5vw;">{{re}}<br>     </td>
+                    <td class="status"><div class="empty"></div>{{re}}</td>
+                  {% elif re == '부작용' %}
+                    <td class="status"><div class="success sideeffect"></div>{{re}}</td>
                   {% elif re == '' %}
-		  <td style="width: 9vw; margin: 0 0.5vw;">{{re}}<br>     </td>
-		  {% else %}
-		  <td style="background-color:#FCAECE; width: 9vw; margin: 0 0.5vw;">{{re}}<br>     </td>
-		  {% endif %}
+                    <td class="status"><div class="empty"></div>{{re}}</td>
+                  {% else %}
+                    <td class="status"><div class="success sideeffect"></div>{{re}}</td>
+                  {% endif %}
                 {% endfor %}
-
               </tr>
             {% endfor %}
-
           </table>
         </div>
-        <div class="col-md-12 line" style="border-bottom: 1px solid black;"></div>
-
-
-      {% endfor %}
-    </div>
-    <div>
-      {% for se in sideeffect %}
-        <p>{{ se }}</p>
-
-      {% endfor %}
+      </div>
     </div>
   </div>
 
+  <!-- Optional JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  <script>
+    function myFunction() {
+    // Declare variables
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName('li');
 
-  <script>document.getElementById("visit").style.marginLeft = "{{visiting_num}}vw";</script>
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+   }
+   document.getElementById("myBar").style.width = "{{p_str}}%";
+   document.getElementById("myBar").style.width = "{{cure_progress}}%";
+
+   // chart
+   const medi = document.getElementById("myMedication");
+   const mediValue = 60;
+   var myMedication = new Chart(medi, {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [mediValue, 100-mediValue],
+        backgroundColor: ['#2E65F3', '#DCECFB00'],
+        borderWidth: 0,
+        borderRadius: 10,
+      }]
+    },
+    options: {
+      cutout: '75%',
+      responsive: false,
+    }
+  });
+
+  const sef = document.getElementById("mySideEffectFreq");
+  const sefValue = 80;
+  var mySideEffectFreq = new Chart(sef, {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [sefValue, 100-sefValue],
+        backgroundColor: ['#2E65F3', '#DCECFB00'],
+        borderWidth: 0,
+        borderRadius: 30,
+      }]
+    },
+    options: {
+      cutout: '75%',
+      responsive: false,
+    }
+  });
+
+  const set = document.getElementById("mySideEffectType");
+  const setValue = [40, 20, 20, 20];
+  var mySideEffectType = new Chart(set, {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [...setValue],
+        backgroundColor: [
+          '#2E65F3',
+          '#2E65F3CC',
+          '#2E65F380',
+          '#DCECFB'
+        ],
+        borderWidth: 0,
+        scaleBeginAtZero: true,
+      }]
+    },
+    options: {
+      cutout: '75%',
+      responsive: false,
+    }
+  });
+  </script>
+
 {% endblock %}

@@ -1,80 +1,30 @@
 {% extends 'base1.html' %}
+{% load static %}
 {% block content %}
 
+  <container class="container col-center">
+    <img class="img-cole-rochman" src={% static 'media/images/cole_rochman.png' %} alt="cole-rochman">
+    <p class="txt-center">안녕하세요! 결핵 환자 관리 챗봇<br><b>결핵 박사 콜로크만</b> 관리자 사이트 입니다.</p>
 
-  <div class="row mb-0">
-  <div class="col-md-12" style="height:100%">
-    <div class="row ">
-      <div class="col-md-4">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+    <form method="post" class="form-login col-center">
+      {% csrf_token %}
+      <input type="text" class="form-login-input" name="username" placeholder="병원코드" required>
+      <input type="password" class="form-login-input" name="password" placeholder="비밀번호" required>
+      
+      {% for err_message in errors %}
+        {% if err_message %}
+          <p class="txt-login-fail">
+            <span class="material-symbols-outlined icon-warning">warning</span>
+            {{ err_message }}
+          </p>
+        {% endif %}
+      {% endfor %}
+      <button type="submit" class="btn-login">로그인</button>
+      
+    </form>
 
+    <p class="txt-center">연세대학교 결핵챗봇 연구팀</p>
+    <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+  </container>
 
-        <div class="col-md-8 offset-2">
-          <h3 class="text-center">
-            안녕하세요!
-          </h3>
-
-          <h6 class="md-5 text-center"><br>
-            결핵 환자 관리 챗봇<b> 결핵 박사 콜로크만</b><br>관리자 사이트입니다.
-          </h6>
-          <br><br>
-          {% if errors %}
-            <ul>
-              {% for msg in errors %}
-                <strong>{{ msg }}<br></strong>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p>No errors</p>
-          {% endif %}
-          <br>
-
-
-          <form method="post">
-            {% csrf_token %}
-            <div class="form-group row">
-              <label for="exampleInputEmail1" class="col-sm-4 col-form-label font-weight-bold">
-                병원 코드
-              </label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" name="username" aria-describedby="emailHelp"
-                       style="background-color:#F0F0F0;" required>
-              </div>
-            </div>
-            <div class="form-group row mt-4">
-              <label for="exampleInputPassword1" class="col-sm-4 col-form-label font-weight-bold">
-                비밀 번호
-              </label>
-              <div class="col-sm-8">
-                <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                       style="background-color:#F0F0F0;-ms-ime-mode:inactive;" required>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-          </form>
-        </div>
-      </div>
-      <div class="col-md-8 blue bg-image">
-
-      </div>
-
-
-    </div>
-
-
-  </div>
-  </div>
-  <div class="row-md-12 footer fixed-bottom text-center bg-white" style="height:13%">
-      <footer><br>
-        <b>연세대학교 결핵챗봇 연구팀</b>
-      </footer>
-    </div>
 {% endblock %}

@@ -1,0 +1,380 @@
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-midblue: #CDDEFF;
+  --bg-color-gray: #E0E2E7;
+  --bg-color-lightblue: #F3F6FF;
+  --bg-color-red: #FF5A36;
+  --bg-color-lightred: #FF5A3626;
+  --bg-color-yellow: #FDB806;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #F86767;
+  --txt-color-lightgray: #5F6D7E;
+  --txt-color-black: #000;
+  --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
+}
+
+ul {list-style-type: none;}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color-white);
+  overflow-x: hidden;
+}
+
+h2, h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+/* NavBar */
+.nav {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  justify-content: space-around;
+  background-color: var(--bg-color-white);
+  padding: 10px 0;
+  border-top: 1px solid var(--bg-color-lightgray);
+  box-shadow: 0 0 10px var(--bg-color-gray);
+}
+
+.nav-link {
+  line-height: 16px;
+}
+
+.nav-link > span {
+  color: var(--txt-color-placeholder);
+}
+
+.nav-link > .active {
+  color: var(--bg-color-blue);
+}
+
+/* Cure */
+#cure {
+  padding: 30px 20px;
+}
+
+#cure > h3 {
+  font-weight: bold;
+}
+
+#myProgress {
+  width: 100%;
+  height: 20px;
+  background-color: var(--bg-color-lightblue);
+  border-radius: 20px;
+  margin: 10px 0;
+}
+
+#myBar {
+  height: 20px;
+  background-color: var(--bg-color-blue);
+  border-radius: 20px;
+}
+
+#cureDate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* hello */
+#hello {
+  padding: 10px 20px;
+}
+
+/* MedProgress */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+#currentMed {
+  margin: 30px 10px;
+  padding: 20px;
+  background-color: var(--bg-color-white);
+  border-radius: 10px;
+  box-shadow: 0 0 5px var(--bg-color-gray);
+}
+
+#cureManageTitle > h2,
+#currentMedTitle > h2 {
+  font-weight: bold;
+  line-height: 36px;
+}
+
+#cureManageIcon,
+#currentMedIcon {
+  background-color: var(--bg-color-midblue);
+  width: 36px;
+  height: 36px;
+  border-radius: 20px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 46px;
+}
+
+#cureManageIcon > span,
+#currentMedIcon > span {
+  color: var(--bg-color-blue);
+}
+
+#currentMedSub {
+  color: var(--txt-color-placeholder)
+}
+
+#currentMedContent {
+  color: var(--bg-color-white);
+  background-color: var(--bg-color-blue);
+  padding: 15px;
+  border-radius: 5px;
+  overflow: hidden;
+  line-height: 24px;
+  height: 20px;
+}
+
+#currentMedContent > div > .icon {
+  margin-right: 5px;
+}
+
+.wave {
+  position: relative;
+  background: var(--bg-color-white);
+  opacity: .35;
+  width: 500px;
+  height: 500px;
+  border-radius: 43%;
+}
+
+.wave.-one {
+  animation: drift 9000ms infinite linear;
+  left: -150px;
+}
+
+.wave.-two {
+  animation: drift 7000ms infinite linear;
+  bottom: 500px;
+}
+
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  from { transform: rotate(360deg); }
+}
+
+/* Cure Manage */
+#cureManage {
+  margin-bottom: 70px;
+}
+
+#cureManageTitle {
+  margin: 10px 20px;
+}
+
+#cureManageCalendar {
+  background-color: var(--bg-color-white);
+  border-radius: 10px;
+  box-shadow: 0 0 5px var(--bg-color-gray);
+  margin: 5px 10px;
+  padding: 10px;
+}
+
+#cureManageYear {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 10px;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#cureManageYear a,
+#cureManageYear a:visited {
+  color: var(--bg-color-blue);
+  line-height: 20px;
+}
+
+#cureManageYearText {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin: 10px 20px 0 20px;
+}
+
+.weekdays li {
+  color: var(--txt-color-placeholder);
+  text-align: center;
+  margin: 0;
+}
+
+/* Days (1-31) */
+.days {
+  margin: 5px;
+}
+
+.days ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.days ul li {
+  line-height: 40px;
+  text-align: center;
+  justify-items: center;
+  padding: 5px;
+}
+
+.days ul li a {
+  text-decoration: none;
+  color: var(--txt-color-black);
+}
+
+#today {
+  display: block;
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  border-radius: 50px;
+  width: 36px;
+  height: 36px;
+}
+
+#success {
+  background-color: var(--bg-color-midblue);
+}
+
+#sideeffect {
+  background-color: var(--bg-color-red);
+}
+
+#visit {
+  background-color: var(--bg-color-yellow);
+  padding: 7px;
+  border-radius: 5px;
+}
+
+#legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+  margin: 0 5px 0 15px;
+}
+
+#legendSuccess {
+  background-color: var(--bg-color-midblue);
+}
+
+#legendSideeffect {
+  background-color: var(--bg-color-red);
+}
+
+#legendVisit {
+  background-color: var(--bg-color-yellow);
+}
+
+/* Calendar Detail */
+#modal_bg {
+  visibility: hidden;
+  display: none;
+  
+}
+
+#modal_bg.open {
+  visibility: visible;
+  display: flex;
+  position: fixed;
+  top: 0;
+  background-color: #0000004D;
+  width: 100%;
+  height: 100%;
+}
+
+#modal {
+  background-color: var(--bg-color-white);
+  border-radius: 10px;
+  margin: auto;
+  padding: 25px;
+  width: 70vw;
+}
+
+#modal_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#modal_body {
+  display: flex;
+  flex-direction: row;
+}
+
+#modal_date {
+  font-weight: bold;
+  margin: 3px 15px 0 0;
+}
+
+.medi_info {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.medi_color {
+  padding: 12px 4px;
+  background-color: var(--bg-color-blue);
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.medi_color.sideeffect {
+  background-color: var(--bg-color-red);
+}
+
+.medi_status,
+.medi_content {
+  margin: auto 0;
+}
+
+.medi_status {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.medi_content {
+  color: var(--txt-color-placeholder);
+}
+
+.medi_detail {
+  margin: 0 10px 10px 10px;
+  background-color: var(--bg-color-lightred);
+  padding: 10px;
+  border-radius: 10px;
+}

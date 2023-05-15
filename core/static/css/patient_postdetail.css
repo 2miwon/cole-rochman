@@ -1,0 +1,148 @@
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-midblue: #CDDEFF;
+  --bg-color-gray: #E0E2E7;
+  --bg-color-lightblue: #F3F6FF;
+  --bg-color-red: #FF5A36;
+  --bg-color-yellow: #FDB806;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #F86767;
+  --txt-color-lightgray: #5F6D7E;
+  --txt-color-darkgray: #1C1C1C;
+  --txt-color-black: #000;
+  --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color-white);
+}
+
+button {
+  background: none;
+  border: none; 
+  outline: none;
+}
+
+a, a:hover, a:active {
+  text-decoration: none; 
+  outline: none;
+  color: var(--txt-color-black);
+}
+
+/* Header */
+#detail_header {
+  padding: 20px;
+  box-shadow: 0 0 10px var(--bg-color-gray);
+}
+
+#detail_header a {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.2rem;
+  color: var(--bg-color-blue);
+}
+
+/* Post Box */
+#post_box {
+  padding: 20px;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+#post_title {
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+}
+
+#post_question {
+  color: var(--bg-color-blue);
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+#post_comment {
+  color: var(--bg-color-blue);
+  margin-left: 10px;
+}
+
+#post_info {
+  display: flex;
+  flex-direction: row;
+  color: var(--txt-color-placeholder);
+  margin-top: 5px;
+  justify-content: space-between;
+  width: 30vw;
+}
+
+/* Post Content */
+#post_content {
+  padding: 25px 20px;
+  color: var(--txt-color-darkgray);
+  line-height: 1.5rem;
+  border-bottom: 10px solid var(--bg-color-lightgray);
+}
+
+/* Comment Box */
+#comment_title {
+  font-size: 1.1rem;
+  padding: 20px 20px 0 20px;
+}
+
+#comment_title > span:nth-child(2) {
+  color: var(--bg-color-blue);
+  margin-left: 5px;
+}
+
+#comment_form {
+  border-bottom: 1px solid var(--bg-color-gray);
+  padding: 0 20px 15px 20px;
+}
+
+#comment_form > form {
+  display: flex;
+  flex-direction: column;
+}
+
+#comment_form > form > textarea {
+  border: 1px solid var(--txt-color-placeholder);
+  border-radius: 10px;
+  margin: 10px 0;
+  height: 70px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+#comment_form > form > textarea::placeholder {
+  color: var(--txt-color-placeholder);
+}
+
+#comment_form > form > button {
+  margin-left: auto;
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  border-radius: 20px;
+  padding: 5px 20px;
+}
+
+.comment {
+  padding: 20px;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+.comment_info > span:nth-child(1) {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.comment_info > span:nth-child(2) {
+  color: var(--txt-color-placeholder);
+}
+
+.comment_content {
+  margin-bottom: 0;
+}
