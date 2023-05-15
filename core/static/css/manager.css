@@ -383,13 +383,15 @@ nav {
 
 .chart > canvas {
   margin: auto;
+  width: 150px;
+  /* height: 110px; */
 }
 
 .chart-title {
   text-align: center;
-  width: 100px;
+  width: 105px;
   position: absolute;
-  top: 70px;
+  top: 65px;
   left: 85px;
 }
 
@@ -398,12 +400,12 @@ nav {
 }
 
 .chart-bg {
-  width: 110px;
-  height: 110px;
+  width: 105px;
+  height: 105px;
   position: absolute;
   top: 10px;
-  left: 60px;
-  border: 20px solid #DCECFB;
+  left: 65px;
+  border: 18px solid #DCECFB;
   border-radius: 50%;
 }
 
