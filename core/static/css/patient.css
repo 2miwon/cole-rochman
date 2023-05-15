@@ -8,6 +8,7 @@
   --bg-color-red: #FF5A36;
   --bg-color-lightred: #FF5A3626;
   --bg-color-yellow: #FDB806;
+  --bg-color-lightyellow: #FBEAC7;
   --txt-color-gray: #6A727A;
   --txt-color-red: #F86767;
   --txt-color-lightgray: #5F6D7E;
@@ -43,6 +44,7 @@ h2, h3 {
   padding: 10px 0;
   border-top: 1px solid var(--bg-color-lightgray);
   box-shadow: 0 0 10px var(--bg-color-gray);
+  z-index: 10;
 }
 
 .nav-link {
@@ -243,6 +245,8 @@ h2, h3 {
   text-align: center;
   justify-items: center;
   padding: 5px;
+  position: relative;
+  z-index: 1;
 }
 
 .days ul li a {
@@ -257,20 +261,40 @@ h2, h3 {
   border-radius: 50px;
   width: 36px;
   height: 36px;
+  margin-left: 1px;
 }
 
 #success {
+  position: absolute;
   background-color: var(--bg-color-midblue);
+  border-radius: 50px;
+  width: 36px;
+  height: 36px;
+  top: 5px;
+  left: 6px;
+  z-index: -2;
 }
 
 #sideeffect {
+  position: absolute;
   background-color: var(--bg-color-red);
+  border-radius: 50px;
+  width: 11px;
+  height: 11px;
+  top: 6px;
+  right: 6px;
+  z-index: 0;
 }
 
 #visit {
-  background-color: var(--bg-color-yellow);
-  padding: 7px;
-  border-radius: 5px;
+  position: absolute;
+  background-color: var(--bg-color-lightyellow);
+  border-radius: 50px;
+  width: 28px;
+  height: 28px;
+  top: 9px;
+  left: 10px;
+  z-index: -1;
 }
 
 #legend {
@@ -297,14 +321,13 @@ h2, h3 {
 }
 
 #legendVisit {
-  background-color: var(--bg-color-yellow);
+  background-color: var(--bg-color-lightyellow);
 }
 
 /* Calendar Detail */
 #modal_bg {
   visibility: hidden;
   display: none;
-  
 }
 
 #modal_bg.open {
@@ -315,6 +338,7 @@ h2, h3 {
   background-color: #0000004D;
   width: 100%;
   height: 100%;
+  z-index: 11;
 }
 
 #modal {
