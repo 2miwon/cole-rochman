@@ -12,6 +12,7 @@ def get_now():
     return datetime.datetime.now().time()
 
 
+# 현재 시간 이전의 가장 최근 복약 알림 시간 출력
 def get_recent_noti_time(noti_time_list, now_time):
     noti_time_list = [x for x in noti_time_list if x is not None]
     s = sorted(noti_time_list)
@@ -21,17 +22,16 @@ def get_recent_noti_time(noti_time_list, now_time):
         if s:
             return s[-1]
 
-
+# recent_noti_time이 오늘 복약의 몇 번째 복약 알림인지를 출력
 def get_recent_noti_time_num(noti_time_list, recent_noti_time):
     return [i + 1 for i, x in enumerate(noti_time_list) if x == recent_noti_time][0]
 
 
+# 가장 최근 복약 알림을 Model로 가져옴
 def get_recent_medication_result(patient) -> MedicationResult:
     noti_time_list = patient.medication_noti_time_list()
     now_time = get_now()
     recent_noti_time = get_recent_noti_time(noti_time_list=noti_time_list, now_time=now_time)
-    print(now_time)
-    print(recent_noti_time)
     if now_time > recent_noti_time:
         date = datetime.date.today()
     else:
@@ -47,6 +47,7 @@ def get_recent_medication_result(patient) -> MedicationResult:
     return recent_medication_result
 
 
+# 복약 체크 시작
 class PastMedicationEntrance(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -76,6 +77,7 @@ class PastMedicationEntrance(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 복약성공 체크
 class PastMedicationSuccess(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -96,6 +98,7 @@ class PastMedicationSuccess(KakaoResponseAPI):
         return response.get_response_200_without_data()
 
 
+# 복약실패 확인 (현재 사용 안 함)
 class PastMedicationFailed(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -121,6 +124,7 @@ class PastMedicationFailed(KakaoResponseAPI):
         return response.get_response_200()
 
 
+# 복약부작용 체크 (기본으로 주는 보기 10개 + 기타까지 11개의 함수가 있음)
 class PastMedicationSideEffect_N01(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
@@ -704,15 +708,3 @@ class PastMedicationSideEffect_N11(KakaoResponseAPI):
         return response.get_response_200()
 
 
-#        response.add_simple_text(text='그랬군요. 해당 증상을 기록해두겠습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-#        response.set_quick_replies_yes_or_no(
-#            block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-#            block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-#            message_text_for_yes='예',
-#            message_text_for_no='아니요'
-#        )
-#        response.add_quick_reply(
-#            action='block', label='처음으로 돌아가기',
-#            block_id='5d732d1b92690d0001813d45'  # (블록) Generic_시작하기 처음으로
-#        )
-#        return response.get_response_200()

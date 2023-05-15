@@ -5,6 +5,7 @@ from core.models import Patient, MeasurementResult, MedicationResult
 import datetime
 
 
+# 환자 선택 전 환자관리 대시보드
 @login_required()
 def user_dashboard(request):
     context = dict(
@@ -12,17 +13,16 @@ def user_dashboard(request):
 
     )
     pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
-    print(pl)
 
     return render(request, 'dashboard.html', context)
 
 
+# 환자 선택 후 환자관리 대시보드
 @login_required()
 def patient_status(request, pid):
     # 보고자 하는 일주일의 월요일 날짜가 출력됨
     # 예) 2023-01-30
     d = get_date(request.GET.get('week', None))
-    print(d)
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
@@ -102,7 +102,6 @@ def patient_status(request, pid):
     context["daily_hour_list"] = daily_hour_list
 
     mdresult = []
-    print(clickedpatient.daily_medication_count)
     for i in range(clickedpatient.daily_medication_count):
         mdresult.append(["","","","","","",""])
 
@@ -110,7 +109,6 @@ def patient_status(request, pid):
     sideeffect=[]
     mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
                                         date__lte=cal_start_end_day(d, 7))
-    print(mediresult)
 
     for i in range(1,8):
 #        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=d + datetime.timedelta(days = i - 1))
