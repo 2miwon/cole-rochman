@@ -38,129 +38,25 @@
     </div>
 
 	  <div class="scroll">
-      {% if insp_zip %}
+      {% for insp_date, insp_type, insp_th, insp_res in insp_zip %}
         <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">음성</div>
+          <div class="insp_date">{{insp_date}}</div>
+          <div>{{insp_type}}</div>
+        {% if insp_res == '음성' or insp_res == '-' %}
+          <div class="insp_status case1">{{insp_res}}</div>
+        {% elif insp_res == '양성' or insp_res == '1+' or insp_res == '2+' or insp_res == '3+' or insp_res == '4+' %}
+          <div class="insp_status case2">{{insp_res}}</div>
+        {% elif insp_res == '+-' %}
+          <div class="insp_status case3">{{insp_res}}</div>
+        {% elif insp_res == '오염' %}
+          <div class="insp_status case1">{{insp_res}}</div>
+        {% elif insp_res == '검사중'  %}
+          <div class="insp_status case4">{{insp_res}}</div>
+        {% endif %}
         </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case2">양성</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case3">+/-</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">오염</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case4">검사중</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">음성</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case2">양성</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case3">+/-</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">오염</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case4">검사중</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">음성</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case2">양성</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case3">+/-</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">오염</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case4">검사중</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">음성</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case2">양성</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case3">+/-</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case1">오염</div>
-        </div>
-        <div class="insp_item">
-          <div class="insp_date">22.12.14</div>
-          <div>배양검사[1번]</div>
-          <div class="insp_status case4">검사중</div>
-        </div>
-
-        {% for insp_date, insp_type, insp_th, insp_res in insp_zip %}
-          <div class="insp_item">
-            <div class="insp_date">{{insp_date}}</div>
-            <div>{{insp_type}}</div>
-          {% if insp_res == '음성' or insp_res == '-' %}
-            <div class="insp_status case1">{{insp_res}}</div>
-          {% elif insp_res == '양성' or insp_res == '1+' or insp_res == '2+' or insp_res == '3+' or insp_res == '4+' %}
-            <div class="insp_status case2">{{insp_res}}</div>
-          {% elif insp_res == '+-' %}
-            <div class="insp_status case3">{{insp_res}}</div>
-          {% elif insp_res == '오염' %}
-            <div class="insp_status case1">{{insp_res}}</div>
-          {% elif insp_res == '검사중'  %}
-            <div class="insp_status case4">{{insp_res}}</div>
-          {% else %}
-          {% endif %}
-          </div>
-        {% endfor %} 
-	    {% else%}
+        {% empty %}
         <div class="insp_no">아직 기록된 검사 결과가 없습니다.</div>
-      {% endif%}  
+      {% endfor %} 
       </div>
 
       <button id="insp_bg"></button>
