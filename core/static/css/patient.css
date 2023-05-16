@@ -6,7 +6,7 @@
   --bg-color-gray: #E0E2E7;
   --bg-color-lightblue: #F3F6FF;
   --bg-color-red: #FF5A36;
-  --bg-color-lightred: #FF5A3626;
+  --bg-color-lightred: #FCE8E3;
   --bg-color-yellow: #FDB806;
   --bg-color-lightyellow: #FBEAC7;
   --txt-color-gray: #6A727A;
@@ -302,7 +302,7 @@ h2, h3 {
   flex-direction: row;
   justify-content: end;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 15px;
 }
 
 .legend-color {
@@ -346,7 +346,6 @@ h2, h3 {
   border-radius: 10px;
   margin: auto;
   padding: 25px;
-  width: 70vw;
 }
 
 #modal_title {
@@ -371,6 +370,10 @@ h2, h3 {
   margin-bottom: 10px;
 }
 
+.medi_no_info {
+  line-height: 25px;
+}
+
 .medi_color {
   padding: 12px 4px;
   background-color: var(--bg-color-blue);
@@ -385,6 +388,7 @@ h2, h3 {
 .medi_status,
 .medi_content {
   margin: auto 0;
+  white-space: nowrap;
 }
 
 .medi_status {
@@ -397,8 +401,8 @@ h2, h3 {
 }
 
 .medi_detail {
-  margin: 0 10px 10px 10px;
+  margin: 0 0 10px 10px;
   background-color: var(--bg-color-lightred);
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
 }

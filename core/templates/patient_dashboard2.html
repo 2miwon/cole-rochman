@@ -127,51 +127,6 @@
     </div>
   </div>
 
-
-{% comment %} <div style="display: flex; flex-direction: column; border-radius: 35px 35px 0 0; background-color: white; margin-top: 30px; padding-bottom: 40px;">
-    <div style="font-size: 1.2rem; font-weight: 700; font-family: Apple SD Gothic Neo`; margin-top: 3vh; margin-bottom: 1vh; margin-left: 10vw;">{{print_year}}.{{month}}.{{day}} {{weekday}}</div>  
-
-
-    {% for element in today_md_success_list %}
-    <div style="background-color: #E0F3FE; width: 84vw; height: 7vh; margin-top: 1.5vh; margin-left: 8vw; border-radius: 15px; display: flex; flex-direction: row; align-items: center;">
-        <div style="background-color: #009CF4; border-radius: 20px; width: 5%; height: 7px; margin-left: 3%;"></div> 
-        <div style="font-size: 1.2rem; margin-left: 3%; font-weight: 400;">
-	    복약 완료 {{element}}
-	</div>
-    </div>
-    {% endfor %}
-
-    {% for name, time, sev1, sev2, sev3 in symptoms %}
-    <div style="background-color: #FFEAE3; width: 84vw; height: 6vh; margin-top: 1.5vh; margin-left: 8vw; border-radius: 15px 15px 0 0; display: flex; flex-direction: row; align-items: center;">
-        <div style="background-color: #FF3D00; border-radius: 20px; width: 5%; height: 7px; margin-left: 3%;"></div>
-        <div style="font-size: 1.2rem; margin-left: 3%; font-weight: 400;">
-            부작용 {{name}} ({{time}})
-        </div>
-    </div>
-    
-    <!-- 부작용 증상 정리 -->
-    {% if sev1 != '얼마나 자주: 선택 없음' %}
-    <div style="background-color: #FFEAE3; width: 84vw; height: 3vh; margin-top: 0; margin-left: 8vw; border-radius: 0 0 0 0; font-size: 1rem; font-weight: 400; padding-left: 9vw;">
-       	{{sev1}}
-    </div>
-    {% endif %}
-    {% if sev2 != '가장 심할 때: 선택 없음' %}
-    <div style="background-color: #FFEAE3; width: 84vw; height: 3vh; margin-top: 0; margin-left: 8vw; border-radius: 0 0 0 0; font-size: 1rem; font-weight: 400;; padding-left: 9vw;">
-        {{sev2}}
-    </div>
-    {% endif %}
-    {% if sev3 != '일상에 지장: 선택 없음' %}
-    <div style="background-color: #FFEAE3; width: 84vw; height: 3vh; margin-top: 0; margin-left: 8vw; border-radius: 0 0 0 0; font-size: 1rem; font-weight: 400; padding-left: 9vw;">
-        {{sev3}}
-    </div>
-    {% endif %}
-
-    <div style="background-color: #FFEAE3; width: 84vw; height: 2vh; margin-top: 0; margin-left: 8vw; border-radius: 0 0 15px 15px;"></div>
-
-    <!-- 부작용 증상 정리 end -->
-
-    {% endfor %} {% endcomment %}
-
     <div class="nav">
       <div class="nav-item">
         <a class="nav-link"aria-current="page" href="{%url 'inspection_result'%}">
@@ -213,12 +168,24 @@
               <div class="medi_status">부작용</div>
               <div class="medi_content">{{name}}</div>
             </div>
-            <p class="medi_detail">
-              {{sev1}} {{sev2}} {{sev3}}
-            </p>
+            {% if sev1 != '얼마나 자주: 선택 없음' or sev2 != '가장 심할 때: 선택 없음' or sev3 != '일상에 지장: 선택 없음' %}
+            <div class="medi_detail">
+              {% if sev1 != '얼마나 자주: 선택 없음' %}
+                {{sev1}}</br>
+              {% endif %}
+              {% if sev2 != '가장 심할 때: 선택 없음' %}
+                {{sev2}}</br>
+              {% endif %}
+              {% if sev3 != '일상에 지장: 선택 없음' %}
+                {{sev3}}</br>
+              {% endif %}
+            </div>
+            {% endif %}
+            {% empty %}
+            <span class="medi_no_info">복약 내역이 없습니다.</span>
             {% endfor %}
       </div>
-    </div> 
+    </div>
 
     <script>
       document.getElementById("myBar").style.width = "{{cure_progress}}%";
