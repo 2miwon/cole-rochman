@@ -11,29 +11,44 @@
 </head>
 
 <body>  
-  <div id="container">
+    <div id="container">
     <div id="options">
-      <div class="insp_options">
-        <span>검사 종류</span>
-        <input id="op1" type="checkbox" name="category" value="question">
-        <label for="op1">전체보기</label>
-        <input id="op2" type="checkbox" name="anonymous" value="True">
-        <label for="op2">도말</label>
-        <input id="op3" type="checkbox" name="category" value="question">
-        <label for="op3">배양</label>
-        <input id="op4" type="checkbox" name="category" value="question">
-        <label for="op4">PCR</label>
-      </div>
-      <div class="insp_options">
-        <span>검체 종류</span>
-        <input id="op5" type="checkbox" name="category" value="question">
-        <label for="op5">전체보기</label>
-        <input id="op6" type="checkbox" name="anonymous" value="True">
-        <label for="op6">객담</label>
-        <input id="op7" type="checkbox" name="category" value="question">
-        <label for="op7">기관지경</label>
-        <input id="op8" type="checkbox" name="category" value="question">
-        <label for="op8">기타</label>
+      <header class="header">
+        <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+        <div class="header-right">
+          {% if user.is_active %}
+            <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
+            <a class="btn-logout" href="{% url 'logout' %}">
+              <span class="material-symbols-outlined icon-logout">logout</span>
+              <p class="txt-logout">로그아웃</p>
+            </a>
+          {% endif %}
+        </div>
+      </header>
+
+      <div id="option_box">
+        <div class="insp_options">
+          <span>검사 종류</span>
+          <input id="op1" type="checkbox" name="category" value="question">
+          <label for="op1">전체보기</label>
+          <input id="op2" type="checkbox" name="anonymous" value="True">
+          <label for="op2">도말</label>
+          <input id="op3" type="checkbox" name="category" value="question">
+          <label for="op3">배양</label>
+          <input id="op4" type="checkbox" name="category" value="question">
+          <label for="op4">PCR</label>
+        </div>
+        <div class="insp_options">
+          <span>검체 종류</span>
+          <input id="op5" type="checkbox" name="category" value="question">
+          <label for="op5">전체보기</label>
+          <input id="op6" type="checkbox" name="anonymous" value="True">
+          <label for="op6">객담</label>
+          <input id="op7" type="checkbox" name="category" value="question">
+          <label for="op7">기관지경</label>
+          <input id="op8" type="checkbox" name="category" value="question">
+          <label for="op8">기타</label>
+        </div>
       </div>
     </div>
 

@@ -66,15 +66,18 @@ button {
 }
 
 .form-login {
-  width: 85vw;
-  margin: 15px 0 50px 0;
+  /* width: 85vw; */
+  margin: 15px auto 50px auto;
   padding: 20px;
   border-radius: 12px;
   background-color: var(--bg-color-white);
 }
 
 .form-login > form {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
+  width: 318px;
 }
 
 .form-login-input {
@@ -140,10 +143,6 @@ span.icon-warning {
   font-size: 1.1rem;
   font-weight: bold;
   margin: 10px auto 20px auto;
-}
-
-.form-login > form {
-  width: 100%;
 }
 
 .input-button {

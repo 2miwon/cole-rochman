@@ -11,18 +11,32 @@
 </head>
 
 <body>
-
   <div id="searchBox">
-	  <form action="{% url 'search' %}" method="get">
-	    <input type="search" id="community_search" name="search_content" class="form-control">
-      <button type="submit" id="community_btn">
-        <span class="material-symbols-outlined">search</span>
-      </button>
-	  </form>
+    <header class="header">
+      <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+      <div class="header-right">
+        {% if user.is_active %}
+          <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
+          <a class="btn-logout" href="{% url 'logout' %}">
+            <span class="material-symbols-outlined icon-logout">logout</span>
+            <p class="txt-logout">로그아웃</p>
+          </a>
+        {% endif %}
+      </div>
+    </header>
 
-    <a href="{% url 'post_community'%}" id="post_btn"> 
-      <span class="material-symbols-outlined">edit</span>
-    </a>
+    <div id="search_form">
+      <form action="{% url 'search' %}" method="get">
+        <input type="search" id="community_search" name="search_content" class="form-control">
+        <button type="submit" id="community_btn">
+          <span class="material-symbols-outlined">search</span>
+        </button>
+      </form>
+
+      <a href="{% url 'post_community'%}" id="post_btn"> 
+        <span class="material-symbols-outlined">edit</span>
+      </a>
+    </div>
   </div>
  
   {% for post in posts %}
