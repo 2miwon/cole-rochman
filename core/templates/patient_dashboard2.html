@@ -12,117 +12,135 @@
 </head>
 
 <body>
-
-  <div id="cure">
-    <h3>치료 경과</h3>
-    <div id="myProgress">
-      <div id="myBar"></div>
+  <header class="header">
+    <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+    <div class="header-right">
+      {% if user.is_active %}
+        <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
+        <a class="btn-logout" href="{% url 'logout' %}">
+          <span class="material-symbols-outlined icon-logout">logout</span>
+          <p class="txt-logout">로그아웃</p>
+        </a>
+      {% endif %}
     </div>
-    <div id="cureDate">
-        <span>{{start_date}}</span>
-        <span>{{end_date}}</span>
-    </div>
-  </div>
+  </header>
 
-  {% if user.is_active %}
-  <h2 id="hello">
-    <b>좋은 아침이에요,</b><br>{{nickname}}님
-  </h2>
-
-  <div id="currentMed">
-    <div id="currentMedTitle" class="flex-row">
-      <div id="currentMedIcon">
-        <span class="material-symbols-outlined">pill</span>
-      </div>
-      <h2><b>{{nickname}}님의 복약 현황이에요.</b></h2>
-    </div>
-    <p id="currentMedSub">
-      {{nickname}}님! 이번주도 응원할게요.<br>
-      일주일 완주, 할 수 있어요!
-    </p>
-    <div id="currentMedContent" >
-      <div id="currentMedText" class="flex-row">
-        <span class="material-symbols-outlined icon">check</span>
-        <div class="flex-row space-between">
-          <span>오늘 복약을 완료했어요!</span>
-          <span>{{month}}.{{day}}</span>
+  <div id="section">
+    <div id="section_left">
+      <div id="cure">
+        <h3>치료 경과</h3>
+        <div id="myProgress">
+          <div id="myBar"></div>
+        </div>
+        <div id="cureDate">
+            <span>{{start_date}}</span>
+            <span>{{end_date}}</span>
         </div>
       </div>
-      <div class='wave -one'></div>
-      <div class='wave -two'></div>
-    </div>
-  </div>
-  {% endif %}
-    
-  <div id="cureManage">
-    <div id="cureManageTitle" class="flex-row">
-      <div id="cureManageIcon">
-        <span class="material-symbols-outlined">calendar_today</span>
+
+      {% if user.is_active %}
+      <h2 id="hello">
+        <b>좋은 아침이에요,</b><br>{{nickname}}님
+      </h2>
+
+      <div id="currentMed">
+        <div id="currentMedTitle" class="flex-row">
+          <div id="currentMedIcon">
+            <span class="material-symbols-outlined">pill</span>
+          </div>
+          <h2><b>{{nickname}}님의 복약 현황이에요.</b></h2>
+        </div>
+        <p id="currentMedSub">
+          {{nickname}}님! 이번주도 응원할게요.<br>
+          일주일 완주, 할 수 있어요!
+        </p>
+        <div id="currentMedContent" >
+          <div id="currentMedText" class="flex-row">
+            <span class="material-symbols-outlined icon">check</span>
+            <div class="flex-row space-between">
+              <span>오늘 복약을 완료했어요!</span>
+              <span>{{month}}.{{day}}</span>
+            </div>
+          </div>
+          <div class='wave -one'></div>
+          <div class='wave -two'></div>
+        </div>
       </div>
-      <h2><b>치료 관리</b></h2>
+      {% endif %}
     </div>
-    <div id="cureManageCalendar">
-      <ul id="cureManageYear">
-        <li class="prev">
-          <a href="{% url 'patient_dashboard_by_day' prev_year prev_month day %}">
-            <span class="material-symbols-outlined">arrow_back_ios</span>
-          </a>
-        </li>
-        <li id="cureManageYearText">
-          {{year}}년 {{month}}월
-        </li>
-        <li class="next">
-          <a href="{% url 'patient_dashboard_by_day' next_year next_month day %}">
-            <span class="material-symbols-outlined">arrow_forward_ios</span>
-          </a>
-        </li>
-      </ul>
-    
-      <ul class="weekdays">
-        <li>Su</li>
-        <li>Mo</li>
-        <li>Tu</li>
-        <li>We</li>
-        <li>Th</li>
-        <li>Fr</li>
-        <li>Sa</li>
-      </ul>
-     
-    
-      <div class="days">
-        <ul>
-          {% for i in day_of_the_week_list%}
-          <li></li>
-          {% endfor %}
-          {% for day in day_list%}
-          <li>
-            <a class="day_of_the_week" href="{% url 'patient_dashboard_by_day' year month day %}">
-              {% if day in today %}
-              <span id="today">{{day}}</span>
-              {% else %}
-              {{day}}
-              {% endif %}
-              {% if day in visit_list %}
-              <div id="visit"></div>
-              {% endif %}
-              {% if day in md_success_list %}
-              <div id="success"></div>
-              {% endif %}
-              {% if day in md_side_effect_list %}
-              <div id="sideeffect"></div>
-              {% endif %}
-            </a>    
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div id="legend">
-        <div id="legendSuccess" class="legend-color"></div> 
-        <div>복약 완료</div> 
-        <div id="legendSideeffect" class="legend-color"></div> 
-        <div>부작용</div>
-        <div id="legendVisit" class="legend-color"></div> 
-        <div>내원일</div>
+      
+    <div id="section_right">
+      <div id="cureManage">
+        <div id="cureManageTitle" class="flex-row">
+          <div id="cureManageIcon">
+            <span class="material-symbols-outlined">calendar_today</span>
+          </div>
+          <h2><b>치료 관리</b></h2>
+        </div>
+        <div id="cureManageCalendar">
+          <ul id="cureManageYear">
+            <li class="prev">
+              <a href="{% url 'patient_dashboard_by_day' prev_year prev_month day %}">
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+              </a>
+            </li>
+            <li id="cureManageYearText">
+              {{year}}년 {{month}}월
+            </li>
+            <li class="next">
+              <a href="{% url 'patient_dashboard_by_day' next_year next_month day %}">
+                <span class="material-symbols-outlined">arrow_forward_ios</span>
+              </a>
+            </li>
+          </ul>
+        
+          <ul class="weekdays">
+            <li>Su</li>
+            <li>Mo</li>
+            <li>Tu</li>
+            <li>We</li>
+            <li>Th</li>
+            <li>Fr</li>
+            <li>Sa</li>
+          </ul>
+        
+        
+          <div class="days">
+            <ul>
+              {% for i in day_of_the_week_list%}
+              <li></li>
+              {% endfor %}
+              {% for day in day_list%}
+              <li>
+                <a class="day_of_the_week" href="{% url 'patient_dashboard_by_day' year month day %}">
+                  {% if day in today %}
+                  <span id="today">{{day}}</span>
+                  {% else %}
+                  {{day}}
+                  {% endif %}
+                  {% if day in visit_list %}
+                  <div id="visit"></div>
+                  {% endif %}
+                  {% if day in md_success_list %}
+                  <div id="success"></div>
+                  {% endif %}
+                  {% if day in md_side_effect_list %}
+                  <div id="sideeffect"></div>
+                  {% endif %}
+                </a>    
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div id="legend">
+            <div id="legendSuccess" class="legend-color"></div> 
+            <div>복약 완료</div> 
+            <div id="legendSideeffect" class="legend-color"></div> 
+            <div>부작용</div>
+            <div id="legendVisit" class="legend-color"></div> 
+            <div>내원일</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
