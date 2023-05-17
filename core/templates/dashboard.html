@@ -94,7 +94,9 @@
 
         <div class="bg-white-round item remain">
           <h3>남은 복약 횟수</h3>
+          {% if pid %}
           <h1>1회</h1>
+          {% endif %}
         </div>
 
         <div class="bg-white-round item manage-current">
@@ -136,6 +138,12 @@
                   {% else %}
                     <td class="status"><div class="success sideeffect"></div>{{re}}</td>
                   {% endif %}
+                {% endfor %}
+              </tr>
+            {% empty %}
+              <tr>
+                {% for _ in ""|rjust:"7" %}
+                <td class="status"><div class="empty"></div>{{re}}</td>
                 {% endfor %}
               </tr>
             {% endfor %}
