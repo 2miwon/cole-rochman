@@ -11,48 +11,21 @@
 </head>
 
 <body>  
-    <div id="container">
-    <div id="options">
-      <header class="header">
-        <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
-        <div class="header-right">
-          {% if user.is_active %}
-            <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
-            <a class="btn-logout" href="{% url 'logout' %}">
-              <span class="material-symbols-outlined icon-logout">logout</span>
-              <p class="txt-logout">로그아웃</p>
-            </a>
-          {% endif %}
-        </div>
-      </header>
-
-      <div id="option_box">
-        <div class="insp_options">
-          <span>검사 종류</span>
-          <input id="op1" type="checkbox" name="category" value="question">
-          <label for="op1">전체보기</label>
-          <input id="op2" type="checkbox" name="anonymous" value="True">
-          <label for="op2">도말</label>
-          <input id="op3" type="checkbox" name="category" value="question">
-          <label for="op3">배양</label>
-          <input id="op4" type="checkbox" name="category" value="question">
-          <label for="op4">PCR</label>
-        </div>
-        <div class="insp_options">
-          <span>검체 종류</span>
-          <input id="op5" type="checkbox" name="category" value="question">
-          <label for="op5">전체보기</label>
-          <input id="op6" type="checkbox" name="anonymous" value="True">
-          <label for="op6">객담</label>
-          <input id="op7" type="checkbox" name="category" value="question">
-          <label for="op7">기관지경</label>
-          <input id="op8" type="checkbox" name="category" value="question">
-          <label for="op8">기타</label>
-        </div>
+  <div id="container">
+    <header class="header">
+      <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+      <div class="header-right">
+        {% if user.is_active %}
+          <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
+          <a class="btn-logout" href="{% url 'logout' %}">
+            <span class="material-symbols-outlined icon-logout">logout</span>
+            <p class="txt-logout">로그아웃</p>
+          </a>
+        {% endif %}
       </div>
-    </div>
+    </header>
 
-	  <div class="scroll">
+	  <div id="inspections">
       {% for insp_date, insp_type, insp_th, insp_res in insp_zip %}
         <div class="insp_item">
           <div class="insp_date">{{insp_date}}</div>
@@ -75,28 +48,29 @@
       </div>
 
       <button id="insp_bg"></button>
-
-      <div id="insp_detail">
-        <button id="insp_button">
-          <div id="insp_bar"></div>
-        </button>
-        <div id="insp_title">
-          <div>i</div>
-          <div>결핵 검사 결과는 어떻게 이해하면 되나요?</div>
-        </div>
-        <div id="insp_info">
-          <p>가래 검사는 도말검사와 배양검사 두 가지로 나뉩니다.
-            <br>
-            <br><b>1. 도말검사</b>
-            <br>도말검사는 가래를 유리 슬라이드에 펴 바르고 균을 염색하여 현미경으로 직접 균을 관찰하는 검사입니다.
-            <br>결과를 24시간 이내에 확인할 수 있으며, 가래에 균이 많이 있어야 도말검사에서 균을 발견할 수 있습니다.
-            <br>질병 초기이거나 가래가 많지 않은 경우에는 도말검사에서 균이 발견되지 않을 수 있습니다.
-            <br>결과는 음성 (-), 미약 (+/-), 양성 (1+, 2+, 3+, 4+)으로 보고됩니다.
-            <br>
-            <br><b>2. 배양 검사</b>
-            <br>또한, 도말검사로는 '결핵균'과 '비결핵항상균'을 구분할 수 없기 때문에 가래의 균을 키워 균의 종류를 확인하는 배양검사가 꼭 필요합니다.
-            <br>결핵균은 서서히 증식하기 때문에 배양검사 결과확인까지 2~8주의 시간이 필요합니다. 가래에 균이 적어 도말검사가 음성이더라도 배양검사에서 결핵균이 확인될 수 있습니다. 따라서 도말검사에서 균이 검출되지 않았다 하더라도 배양검사 결과까지 확인이 필요합니다.
-          </p>
+      <div>
+        <div id="insp_detail">
+          <button id="insp_button">
+            <div id="insp_bar"></div>
+          </button>
+          <div id="insp_title">
+            <div>i</div>
+            <div>결핵 검사 결과는 어떻게 이해하면 되나요?</div>
+          </div>
+          <div id="insp_info">
+            <p>가래 검사는 도말검사와 배양검사 두 가지로 나뉩니다.
+              <br>
+              <br><b>1. 도말검사</b>
+              <br>도말검사는 가래를 유리 슬라이드에 펴 바르고 균을 염색하여 현미경으로 직접 균을 관찰하는 검사입니다.
+              <br>결과를 24시간 이내에 확인할 수 있으며, 가래에 균이 많이 있어야 도말검사에서 균을 발견할 수 있습니다.
+              <br>질병 초기이거나 가래가 많지 않은 경우에는 도말검사에서 균이 발견되지 않을 수 있습니다.
+              <br>결과는 음성 (-), 미약 (+/-), 양성 (1+, 2+, 3+, 4+)으로 보고됩니다.
+              <br>
+              <br><b>2. 배양 검사</b>
+              <br>또한, 도말검사로는 '결핵균'과 '비결핵항상균'을 구분할 수 없기 때문에 가래의 균을 키워 균의 종류를 확인하는 배양검사가 꼭 필요합니다.
+              <br>결핵균은 서서히 증식하기 때문에 배양검사 결과확인까지 2~8주의 시간이 필요합니다. 가래에 균이 적어 도말검사가 음성이더라도 배양검사에서 결핵균이 확인될 수 있습니다. 따라서 도말검사에서 균이 검출되지 않았다 하더라도 배양검사 결과까지 확인이 필요합니다.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -121,18 +95,36 @@
   </div>
 
   <script>
+    const inspections = document.getElementById('inspections');
     const inspButton = document.getElementById('insp_button');
     const inspDetail = document.getElementById('insp_detail');
     const inspBG = document.getElementById('insp_bg');
 
+    inspections.style.height = (window.innerHeight - 140) + 'px';
+    inspDetail.style.bottom = (140 - inspDetail.clientHeight) + 'px';
+
     inspButton.addEventListener("click", function() {
       inspDetail.classList.toggle("open");
       inspBG.classList.toggle("open");
+
+      if (inspDetail.classList.contains("open")) {
+        inspDetail.style.bottom = 0 + 'px';
+        console.log(inspDetail);
+      } else {
+        inspDetail.style.bottom = (140 - inspDetail.clientHeight) + 'px';
+      }
     });
 
     inspBG.addEventListener("click", function() {
       inspDetail.classList.toggle("open");
       inspBG.classList.toggle("open");
+
+      if (inspDetail.classList.contains("open")) {
+        inspDetail.style.bottom = 0 + 'px';
+        console.log(inspDetail);
+      } else {
+        inspDetail.style.bottom = (140 - inspDetail.clientHeight) + 'px';
+      }
     });
   </script>
 </body>

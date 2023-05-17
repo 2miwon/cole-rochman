@@ -20,6 +20,7 @@
 ul {list-style-type: none;}
 
 html, body {
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Sans-serif';
   width: 100vw;
   height: 100vh;
   margin: 0;

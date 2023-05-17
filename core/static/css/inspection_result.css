@@ -17,6 +17,7 @@
 }
 
 html, body {
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Sans-serif';
   margin: 0;
   padding: 0;
   background-color: var(--bg-color-white);
@@ -33,43 +34,9 @@ a, a:hover, a:active {
   display: none;
 }
 
-/* Category */
-#options {
-  box-shadow: 0 0 10px var(--bg-color-gray);
-  padding: 20px;
-  justify-content: center;
-  align-items: center;
-}
-
-.insp_options {
-  padding: 10px 0;
-}
-
-.insp_options > span {
-  margin-right: 10px;
-}
-
-.insp_options > input {
-  display: none;
-}
-
-.insp_options > label {
-  border: 1px solid var(--txt-color-placeholder);
-  color: var(--txt-color-placeholder);
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-weight: bold;
-}
-
-.insp_options > input:checked + label {
-  border: 1px solid var(--bg-color-blue);
-  color: var(--bg-color-blue);
-}
-
 /* Scroll Bar */
-.scroll {
+#inspections {
   overflow-y: scroll;
-  height: 70vh;
   margin: 0 20px;
 }
 
@@ -124,7 +91,7 @@ a, a:hover, a:active {
 .insp_no {
   color: var(--txt-color-placeholder);
   text-align: center;
-  margin: 50px 0;
+  margin-top: 30vh;
 }
 
 /* Inspection Detail */
@@ -147,16 +114,15 @@ a, a:hover, a:active {
 #insp_detail {
   background-color: var(--bg-color-white);
   position: fixed;
-  bottom: calc(-80vh + 90px);
+  /* bottom: calc(-100% + 140px); */
   border-radius: 20px 20px 0 0; 
   width: 100vw; 
-  height: 85vh;
   box-shadow: 0 0 10px var(--bg-color-gray);
   transition: bottom 0.3s ease-out;
 }
 
 #insp_detail.open {
-  bottom: 30px;
+  bottom: 0;
 }
 
 button {
@@ -202,13 +168,14 @@ button {
 
 #insp_info {
   width: 100vw; 
-  height: 80vh; 
+  margin-bottom: 50px;
   border-radius: 20px 20px 0 0;
   line-height: 26px;
 }
 
 #insp_info > p {
-  margin: 20px;
+  padding: 20px;
+  margin: 0;
 }
 
 /* NavBar */
@@ -242,8 +209,9 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 10px 20px;
     background-color: var(--bg-color-white);
+    box-shadow: 0 0 10px var(--bg-color-gray);
   }
 
   .img-logo-hospital {
@@ -289,9 +257,5 @@ button {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-  }
-
-  #insp_detail.open {
-    bottom: -200px;
   }
 }
