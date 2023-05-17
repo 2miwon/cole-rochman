@@ -476,7 +476,8 @@ nav {
 }
 
 .manage-status {
-  margin: 5px 1.5vw;
+  width: calc(100% - 40px);
+  margin: 5px auto;
   position: relative;
   z-index: 1;
 }
