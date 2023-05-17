@@ -114,18 +114,16 @@ a, a:hover, a:active {
 #insp_detail {
   background-color: var(--bg-color-white);
   position: fixed;
-  /* bottom: calc(-100% + 140px); */
   border-radius: 20px 20px 0 0; 
   width: 100vw; 
+  max-height: 85vh;
   box-shadow: 0 0 10px var(--bg-color-gray);
   transition: bottom 0.3s ease-out;
 }
 
-#insp_detail.open {
-  bottom: 0;
-}
-
 button {
+  position: relative;
+  top: 0;
   background: none ; 
   border: none; 
   box-shadow: none; 
@@ -168,9 +166,11 @@ button {
 
 #insp_info {
   width: 100vw; 
+  max-height: calc(85vh - 130px);
   margin-bottom: 50px;
   border-radius: 20px 20px 0 0;
   line-height: 26px;
+  overflow-y: auto;
 }
 
 #insp_info > p {
