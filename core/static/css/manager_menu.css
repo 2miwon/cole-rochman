@@ -1,0 +1,59 @@
+@import "reset.css";
+
+/* Manager Menu */
+html {
+  background: var(--bg-color-lightgray);
+}
+
+main {
+  padding-top: 100px;
+  overflow: hidden;
+}
+
+#img_cole_rochman {
+  width: 187px;
+  height: 265px;
+  margin-bottom: 10px;
+}
+
+.col_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_manage {
+  padding: 15px 80px;
+  margin: 15px 10px 100px 10px;
+  border: 1px solid var(--bg-color-blue);
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.btn_manage > span:nth-child(2) {
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+.bg_white_txt_blue {
+  background-color: var(--bg-color-white);
+  color: var(--bg-color-blue);
+}
+
+.bg_blue_txt_white {
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+}
+
+#img_logo {
+  width: 116px;
+  height: 20px;
+  margin: 5px 0;
+}
