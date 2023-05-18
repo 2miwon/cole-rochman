@@ -1,0 +1,84 @@
+:root {
+  --bg-color-lightgray: #F4F6FA;
+  --bg-color-white: #FFFFFF;
+  --bg-color-blue: #2E65F3;
+  --bg-color-midblue: #CDDEFF;
+  --bg-color-gray: #E0E2E7;
+  --bg-color-lightblue: #F3F6FF;
+  --bg-color-red: #FF5A36;
+  --bg-color-lightred: #FCE8E3;
+  --bg-color-yellow: #FDB806;
+  --bg-color-lightyellow: #FBEAC7;
+  --txt-color-gray: #6A727A;
+  --txt-color-red: #F86767;
+  --txt-color-lightgray: #5F6D7E;
+  --txt-color-black: #000;
+  --txt-color-placeholder: #919BA7;
+  --txt-color-pink: #FFA19B;
+}
+
+/* style reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Init */
+html {
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Sans-serif';
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background: inherit ; 
+  border:none; 
+  box-shadow:none; 
+  border-radius:0; 
+  padding:0; 
+  overflow:visible;
+  cursor: pointer;
+}
