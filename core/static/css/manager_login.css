@@ -1,0 +1,88 @@
+@import "reset.css";
+
+/* Login Page */
+html {
+  background: var(--bg-color-lightgray);
+}
+
+main {
+  padding-top: 50px;
+  overflow: hidden;
+}
+
+.col_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#img_cole_rochman {
+  width: 187px;
+  height: 265px;
+  margin-bottom: 10px;
+}
+
+.txt_center {
+  text-align: center;
+}
+
+#form_login {
+  margin: 15px 0 50px 0;
+  padding: 20px 30px;
+  border-radius: 12px;
+  background-color: var(--bg-color-white);
+}
+
+.form_login_input {
+  width: 318px;
+  height: 48px;
+  padding-left: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-gray);
+  background-color: var(--bg-color-white);
+  font-size: 16px;
+}
+
+.form_login_input::placeholder {
+  color: var(--txt-color-gray);
+}
+
+.form_login_input:focus {
+  outline: 1px solid var(--bg-color-blue);
+}
+
+#icon_warning {
+  font-size: 14px;
+  display: inline;
+  vertical-align: top;
+}
+
+#txt_login_fail {
+  margin-left: 10px;
+  font-size: 14px;
+  color: var(--txt-color-red);
+}
+
+#btn_login {
+  width: 332px;
+  height: 48px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-blue);
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#btn_login:hover {
+  cursor: pointer;
+}
+
+#img_logo {
+  width: 116px;
+  height: 20px;
+  margin: 5px 0;
+}
