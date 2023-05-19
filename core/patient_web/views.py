@@ -975,7 +975,7 @@ def inspection_result(request):
 
     context = {'insp_zip':insp_zip}
 #    context = {'pcr_inspections':pcr_inspections, 'sputum_inspections':sputum_inspections}
-    return render(request, 'inspection_result.html', context=context)
+    return render(request, 'patient_inspection.html', context=context)
 
 def inspection_detail(request):
     return render(request, 'inspection_detail.html')

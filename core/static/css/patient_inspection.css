@@ -1,43 +1,18 @@
-:root {
-  --bg-color-lightgray: #F4F6FA;
-  --bg-color-white: #FFFFFF;
-  --bg-color-blue: #2E65F3;
-  --bg-color-midblue: #CDDEFF;
-  --bg-color-gray: #E0E2E7;
-  --bg-color-lightblue: #F3F6FF;
-  --bg-color-red: #FF5A36;
-  --bg-color-yellow: #FDB806;
-  --txt-color-gray: #6A727A;
-  --txt-color-red: #F86767;
-  --txt-color-lightgray: #5F6D7E;
-  --txt-color-darkgray: #1C1C1C;
-  --txt-color-black: #000;
-  --txt-color-placeholder: #919BA7;
-  --txt-color-pink: #FFA19B;
-}
+@import "reset.css";
 
 html, body {
-  font-family:'Noto Sans KR','Apple SD Gothic Neo','Sans-serif';
-  margin: 0;
-  padding: 0;
   background-color: var(--bg-color-white);
   overflow: hidden;
 }
 
-a, a:hover, a:active {
-  text-decoration: none; 
-  outline: none;
-  color: var(--txt-color-black);
-}
-
-.header {
+header {
   display: none;
 }
 
 /* Scroll Bar */
 #inspections {
   overflow-y: scroll;
-  margin: 0 20px;
+  padding: 10px 20px;
 }
 
 .insp_item {
@@ -121,16 +96,6 @@ a, a:hover, a:active {
   transition: bottom 0.3s ease-out;
 }
 
-button {
-  position: relative;
-  top: 0;
-  background: none ; 
-  border: none; 
-  box-shadow: none; 
-  border-radius: 0; 
-  padding: 0;
-}
-
 #insp_button {
   width: 100%;
 }
@@ -179,7 +144,7 @@ button {
 }
 
 /* NavBar */
-.nav {
+nav {
   display: flex;
   flex-direction: row;
   position: fixed;
@@ -190,51 +155,53 @@ button {
   padding: 10px 0;
   border-top: 1px solid var(--bg-color-lightgray);
   box-shadow: 0 0 10px var(--bg-color-gray);
+  z-index: 10;
 }
 
-.nav-link {
+.nav_link {
   line-height: 16px;
 }
 
-.nav-link > span {
+.nav_link > span {
   color: var(--txt-color-placeholder);
 }
 
-.nav-link > .active {
+.nav_link > .active {
   color: var(--bg-color-blue);
 }
 
 @media (min-width: 768px) {
-  .header {
+  /* Header */
+  header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 30px;
     background-color: var(--bg-color-white);
     box-shadow: 0 0 10px var(--bg-color-gray);
   }
 
-  .img-logo-hospital {
+  #img_logo {
     width: 116px;
     height: 20px;
     margin: 5px 0;
   }
 
-  .header-right {
+  #header_right {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
   }
 
-  .btn-logout {
+  #btn_logout {
     display: flex;
     align-items: center;
     margin-left: 20px;
     color: var(--txt-color-lightgray);
   }
 
-  .icon-logout {
+  #icon_logout {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     margin-right: 3px;
@@ -245,7 +212,7 @@ button {
       'opsz' 20
   }
 
-  .txt-logout {
+  #txt_logout {
     font-size: 14px;
   }
 
