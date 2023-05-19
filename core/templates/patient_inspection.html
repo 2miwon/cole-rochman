@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검사 결과</title>
+    <link rel="stylesheet" href="{% static 'css/patient_inspection.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>  
+  <header>
+    <img id="img_logo" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+    <div id="header_right">
+      {% if user.is_active %}
+        <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
+        <a id="btn_logout" href="{% url 'logout' %}">
+          <span id="icon_logout" class="material-symbols-outlined">logout</span>
+          <p id="txt_logout">로그아웃</p>
+        </a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main>
+	  <div id="inspections">
+      {% for insp_date, insp_type, insp_th, insp_res in insp_zip %}
+        <div class="insp_item">
+          <div class="insp_date">{{insp_date}}</div>
+          <div>{{insp_type}}</div>
+          {% if insp_res == '음성' or insp_res == '-' %}
+          <div class="insp_status case1">{{insp_res}}</div>
+          {% elif insp_res == '양성' or insp_res == '1+' or insp_res == '2+' or insp_res == '3+' or insp_res == '4+' %}
+          <div class="insp_status case2">{{insp_res}}</div>
+          {% elif insp_res == '+-' %}
+          <div class="insp_status case3">{{insp_res}}</div>
+          {% elif insp_res == '오염' %}
+          <div class="insp_status case1">{{insp_res}}</div>
+          {% elif insp_res == '검사중'  %}
+          <div class="insp_status case4">{{insp_res}}</div>
+          {% endif %}
+        </div>
+      {% empty %}
+        <div class="insp_no">아직 기록된 검사 결과가 없습니다.</div>
+      {% endfor %} 
+    </div>
+
+    <button id="insp_bg"></button>
+    <div id="insp_detail">
+      <button id="insp_button">
+        <div id="insp_bar"></div>
+      </button>
+      <div id="insp_title">
+        <div>i</div>
+        <div>결핵 검사 결과는 어떻게 이해하면 되나요?</div>
+      </div>
+      <div id="insp_info">
+        <p>
+          가래 검사는 도말검사와 배양검사 두 가지로 나뉩니다.</br>
+          </br>
+          <b>1. 도말검사</b></br>
+          도말검사는 가래를 유리 슬라이드에 펴 바르고 균을 염색하여 현미경으로 직접 균을 관찰하는 검사입니다.</br>
+          결과를 24시간 이내에 확인할 수 있으며, 가래에 균이 많이 있어야 도말검사에서 균을 발견할 수 있습니다.</br>
+          질병 초기이거나 가래가 많지 않은 경우에는 도말검사에서 균이 발견되지 않을 수 있습니다.</br>
+          결과는 음성 (-), 미약 (+/-), 양성 (1+, 2+, 3+, 4+)으로 보고됩니다.</br>
+          </br>
+          <b>2. 배양 검사</b></br>
+          또한, 도말검사로는 '결핵균'과 '비결핵항상균'을 구분할 수 없기 때문에 가래의 균을 키워 균의 종류를 확인하는 배양검사가 꼭 필요합니다.</br>
+          결핵균은 서서히 증식하기 때문에 배양검사 결과확인까지 2~8주의 시간이 필요합니다. 가래에 균이 적어 도말검사가 음성이더라도 배양검사에서 결핵균이 확인될 수 있습니다. 따라서 도말검사에서 균이 검출되지 않았다 하더라도 배양검사 결과까지 확인이 필요합니다.</br>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <nav>
+    <div class="nav_item">
+      <a class="nav_link" aria-current="page" href="{%url 'inspection_result'%}">
+        <span class="material-symbols-outlined active">content_paste</span>
+      </a>
+    </div>
+    <div class="nav_item">
+      <a class="nav_link" aria-current="page" href="{%url 'patient_dashboard'%}">
+        <span class="material-symbols-outlined">home</span>
+      </a>
+    </div>
+    <div class="nav_item">
+      <a class="nav_link" aria-current="page" href="{%url 'community_main'%}">
+        <span class="material-symbols-outlined">chat_bubble</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    const inspections = document.getElementById('inspections');
+    const inspButton = document.getElementById('insp_button');
+    const inspDetail = document.getElementById('insp_detail');
+    const inspBG = document.getElementById('insp_bg');
+
+    inspections.style.height = (window.innerHeight - 145) + 'px';
+    inspDetail.style.bottom = (135 - inspDetail.clientHeight) + 'px';
+
+    // Create Event Function
+    const modalToggleEvent = () => {
+      inspDetail.classList.toggle("open");
+      inspBG.classList.toggle("open");
+
+      if (inspDetail.classList.contains("open")) {
+        inspDetail.style.bottom = 0 + 'px';
+        console.log(inspDetail);
+      } else {
+        inspDetail.style.bottom = (135 - inspDetail.clientHeight) + 'px';
+      }
+    }
+
+    // Add EventListener
+    inspButton.addEventListener("click", modalToggleEvent);
+    inspBG.addEventListener("click", modalToggleEvent);
+  </script>
+</body>
+</html>

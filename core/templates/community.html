@@ -11,21 +11,21 @@
 </head>
 
 <body>
-  <div id="searchBox">
-    <header class="header">
-      <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
-      <div class="header-right">
+  <header>
+    <section>
+      <img id="img_logo" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+      <div id="header_right">
         {% if user.is_active %}
           <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
-          <a class="btn-logout" href="{% url 'logout' %}">
-            <span class="material-symbols-outlined icon-logout">logout</span>
-            <p class="txt-logout">로그아웃</p>
+          <a id="btn_logout" href="{% url 'logout' %}">
+            <span id="icon_logout" class="material-symbols-outlined">logout</span>
+            <p id="txt_logout">로그아웃</p>
           </a>
         {% endif %}
       </div>
-    </header>
+    </section>
 
-    <div id="search_form">
+    <section id="search_form">
       <form action="{% url 'search' %}" method="get">
         <input type="search" id="community_search" name="search_content" class="form-control">
         <button type="submit" id="community_btn">
@@ -36,48 +36,52 @@
       <a href="{% url 'post_community'%}" id="post_btn"> 
         <span class="material-symbols-outlined">edit</span>
       </a>
-    </div>
-  </div>
- 
-  {% for post in posts %}
-	<a id="post_box" href="{% url 'post_detail' post.id %}">
-    <div id="post_title">
-      {% if post.category == 'question' %}
-      <div id="post_question">질문</div>
-      {% endif %}
-      <div>{{post.title}}</div>
-      <div id="post_comment">[{{post.count_of_the_comment}}]</div>
-    </div>
-    <div id="post_info">
-      <div>{{post.print_created_at}}</div>
-      <div>
-      {% if not post.anonymous %}
-      {{post.writer.profile.nickname}}
-      {% else %}
-      익명
-      {% endif %}
+    </section>
+  </header>
+
+  <main>
+    {% for post in posts %}
+    <a id="post_box" href="{% url 'post_detail' post.id %}">
+      <div id="post_title">
+        {% if post.category == 'question' %}
+        <div id="post_question">질문</div>
+        {% endif %}
+        <div>{{post.title}}</div>
+        <div id="post_comment">[{{post.count_of_the_comment}}]</div>
       </div>
-    </div>
-  </a>
-  {% endfor %}
+      <div id="post_info">
+        <div>{{post.print_created_at}}</div>
+        <div>
+        {% if not post.anonymous %}
+        {{post.writer.profile.nickname}}
+        {% else %}
+        익명
+        {% endif %}
+        </div>
+      </div>
+    </a>
+    {% empty %}
+    <div id="post_no">아직 게시물이 없습니다.</div>
+    {% endfor %}
+  </main>
     
-  <div class="nav">
-    <div class="nav-item">
-      <a class="nav-link"aria-current="page" href="{%url 'inspection_result'%}">
+  <nav>
+    <div class="nav_item">
+      <a class="nav_link" aria-current="page" href="{%url 'inspection_result'%}">
         <span class="material-symbols-outlined">content_paste</span>
       </a>
     </div>
-    <div class="nav-item">
-      <a class="nav-link"aria-current="page" href="{%url 'patient_dashboard'%}">
+    <div class="nav_item">
+      <a class="nav_link" aria-current="page" href="{%url 'patient_dashboard'%}">
         <span class="material-symbols-outlined">home</span>
       </a>
     </div>
-    <div class="nav-item">
-      <a class="nav-link"aria-current="page" href="{%url 'community_main'%}">
+    <div class="nav_item">
+      <a class="nav_link" aria-current="page" href="{%url 'community_main'%}">
         <span class="material-symbols-outlined active">chat_bubble</span>
       </a>
     </div>
-  </div>
+  </nav>
       
 </body>
 </html>

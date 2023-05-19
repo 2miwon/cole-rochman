@@ -70,7 +70,14 @@ html, body {
 }
 
 a {
+  text-decoration: none; 
+  outline: none;
+  color: var(--txt-color-black);
+}
+
+ a:hover, a:active {
   text-decoration: none;
+  color: var(--txt-color-black);
 }
 
 button {
@@ -81,4 +88,10 @@ button {
   padding:0; 
   overflow:visible;
   cursor: pointer;
+}
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
