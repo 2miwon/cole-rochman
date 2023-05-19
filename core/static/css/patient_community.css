@@ -1,80 +1,23 @@
-:root {
-  --bg-color-lightgray: #F4F6FA;
-  --bg-color-white: #FFFFFF;
-  --bg-color-blue: #2E65F3;
-  --bg-color-midblue: #CDDEFF;
-  --bg-color-gray: #E0E2E7;
-  --bg-color-lightblue: #F3F6FF;
-  --bg-color-red: #FF5A36;
-  --bg-color-yellow: #FDB806;
-  --txt-color-gray: #6A727A;
-  --txt-color-red: #F86767;
-  --txt-color-lightgray: #5F6D7E;
-  --txt-color-black: #000;
-  --txt-color-placeholder: #919BA7;
-  --txt-color-pink: #FFA19B;
+@import "reset.css";
+
+html {
+  overflow-x: hidden;
 }
 
-html, body {
-  font-family:'Noto Sans KR','Apple SD Gothic Neo','Sans-serif';
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-color-white);
+/* Header */
+header {
+  box-shadow: 0 0 10px var(--bg-color-gray);
 }
 
-button {
-  background: none;
-  border: none; 
-  outline: none;
-}
-
-a, a:hover, a:active {
-  text-decoration: none; 
-  outline: none;
-  color: var(--txt-color-black);
-}
-
-.header {
+header > section:nth-child(1) {
   display: none;
-}
-
-/* NavBar */
-.nav {
-  display: flex;
-  flex-direction: row;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  justify-content: space-around;
-  background-color: var(--bg-color-white);
-  padding: 10px 0;
-  border-top: 1px solid var(--bg-color-lightgray);
-  box-shadow: 0 0 10px var(--bg-color-gray);
-}
-
-.nav-link {
-  line-height: 16px;
-}
-
-.nav-link > span {
-  color: var(--txt-color-placeholder);
-}
-
-.nav-link > .active {
-  color: var(--bg-color-blue);
-}
-
-/* Search Box */
-#searchBox {
-  box-shadow: 0 0 10px var(--bg-color-gray);
-  padding: 20px;
 }
 
 #search_form {
   display: flex; 
   flex-direction: row; 
   justify-content: center;
-  margin: 20px 0 10px 0;
+  padding: 20px;
 }
 
 #search_form > form {
@@ -138,36 +81,70 @@ a, a:hover, a:active {
   width: 30vw;
 }
 
+#post_no {
+  color: var(--txt-color-placeholder);
+  text-align: center;
+  margin-top: 30vh;
+}
+
+/* NavBar */
+nav {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  justify-content: space-around;
+  background-color: var(--bg-color-white);
+  padding: 10px 0;
+  border-top: 1px solid var(--bg-color-lightgray);
+  box-shadow: 0 0 10px var(--bg-color-gray);
+  z-index: 10;
+}
+
+.nav_link {
+  line-height: 16px;
+}
+
+.nav_link > span {
+  color: var(--txt-color-placeholder);
+}
+
+.nav_link > .active {
+  color: var(--bg-color-blue);
+}
+
 @media (min-width: 768px) {
-  .header {
+  /* Header */
+  header > section:nth-child(1) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 10px 30px;
     background-color: var(--bg-color-white);
   }
 
-  .img-logo-hospital {
+  #img_logo {
     width: 116px;
     height: 20px;
     margin: 5px 0;
   }
 
-  .header-right {
+  #header_right {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
   }
 
-  .btn-logout {
+  #btn_logout {
     display: flex;
     align-items: center;
     margin-left: 20px;
     color: var(--txt-color-lightgray);
   }
 
-  .icon-logout {
+  #icon_logout {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     margin-right: 3px;
@@ -178,11 +155,7 @@ a, a:hover, a:active {
       'opsz' 20
   }
 
-  .txt-logout {
+  #txt_logout {
     font-size: 14px;
-  }
-
-  #searchBox {
-    padding-top: 10px;
   }
 }
