@@ -1,0 +1,80 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+env:
+  PRO_DIR: ~/cole-rochman/cole-rochman
+  VIR_DIR: /home/ubuntu/.pyenv/versions/production
+  
+jobs:
+  build:
+  
+    runs-on: ubuntu-22.04
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py test
+        
+  deploy:
+    name: DEPLOY
+    runs-on: ubuntu-22.04
+    
+    steps:
+    #작동확인
+      - name: Checkout
+        uses: actions/checkout@v2
+      #- name: Install dependencies
+      #  run: |
+      #    python -m pip install --upgrade pip
+      #    pip install -r requirements.txt
+      
+      #- name: abc
+      #  run : ./manage.py makemigrations --dry-run
+      
+      #- name: Upload Secrets File
+      #  run: scp secrets.json ubuntu@$172.31.50.221:${{ env.PRO_DIR }}
+          
+      - name: Update Settings
+        run: |
+          sed -i 's/dev/prod/g' ${{ env.PRO_DIR }}/settings/__init__.py
+          
+      #- name: update virtualenv
+      #  run: |
+
+      - name: Update Static Files
+        run: python3 manage.py collectstatic --noinput
+        
+      - name: Update DB
+        run: |
+          python3 manage.py makemigrations --noinput
+          python3 manage.py migrate --noinput
+          python3 manage.py makemigrations core --noinput
+          python3 manage.py migrate core --noinput
+      
+      - name: Test
+        run: python3 manage.py test --keepdb --failfast
+      
+      - name: Restart
+        run: |
+          sudo cp -f {}/config/uwsgi.service /etc/systemd/system/uwsgi.service
+          sudo systemctl daemon-reload
+          sudo systemctl restart uwsgi
+          
+      
