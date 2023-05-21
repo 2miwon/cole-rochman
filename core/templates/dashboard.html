@@ -1,234 +1,242 @@
-{% extends 'base2.html' %}
+<!doctype html>
 {% load static %}
-{% block content %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/manager_dashboard.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>결핵 환자 정보 대쉬보드</title>
+  </head>
 
-  <header class="header">
-    <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
-    <div class="header-right">
-      {% if user.is_active %}
-        <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
-        <a class="btn-logout" href="{% url 'logout' %}">
-          <span class="material-symbols-outlined icon-logout">logout</span>
-          <p class="txt-logout">로그아웃</p>
-        </a>
-      {% endif %}
-    </div>
-  </header>
-  
-  <div class="container">
-     <nav>
-      <button><span class="material-symbols-outlined icon-nav active">home</span></button>
-    </nav>
-
-    <div class="section-patient-status">
-      <h2>환자 복약 현황</h2>
-      <div class="grid-container">
-        <div class="item">
-          <input type="text" id="myInput" class="bg-white-round" onkeyup="myFunction()" placeholder="환자 이름을 입력하세요.">
-          <ul id="myUL" class="bg-white-round">
-            {% for patient in patientlist %}
-              <li class="li-patient">
-                <input id="radio-patient" type="radio" name="radio" value={{ patient.id }} 
-                  onclick="location.href='{% url 'patient_status' patient.id %}'"
-                  {% if pid == patient.id %} checked {% endif %}>
-                <a href="{% url 'patient_status' patient.id %}" id="btn-patient" for="radio-patient">
-                  <span class="txt-black">{{ patient.name }}</span> 
-                  <span class="txt-lightgray">{{ patient.code }}</span>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-
-        <div class="item status-container">
-          <div class="bg-white-round item-status grid-progress">
-            {% for p in clickedpatient %}
-              <h3 class="item-progress">{{ p.name }}({{ p.code }})님</h3>
-              <div class="item-progress">다음 내원 예정일 : {{ p.next_visiting_date_time | date:"y.m.d" }}</div>
-              <div id="myProgress" class="item-progress">
-                <div id="myBar"></div>
-              </div>
-              <div class="item-progress">{{ p.treatment_started_date | date:"y.m.d" }} 치료 시작</div>
-              <div class="item-progress">{{ p.treatment_end_date | date:"y.m.d" }} 종료 예정</div>
-            {% endfor %}
-          </div>
-          <div class="bg-white-round item-status">
-            <h3>복약도</h3>
-            {% if pid %}
-            <div class="chart">
-              <div class="chart-title">
-                <p>최근 30회 기준</p>
-                <b>총 17회 복용</b>
-              </div>
-              <div class="chart-bg"></div>
-              <canvas id="myMedication"></canvas>
-            </div>
-            {% endif %}
-          </div>
-          <div class="bg-white-round item-status">
-            <h3>부작용 빈도</h3>
-            {% if pid %}
-            <div class="chart">
-              <div class="chart-title">
-                <p>부작용 빈도</p>
-                <b>60%</b>
-              </div>
-              <div class="chart-bg"></div>
-              <canvas id="mySideEffectFreq"></canvas>
-            </div>
-            {% endif %}
-          </div>
-          <div class="bg-white-round item-status">
-            <h3>부작용 종류</h3>
-            {% if pid %}
-            <div class="chart">
-              <div class="chart-title">
-                <p>주 부작용</p>
-                <b>구토</b>
-              </div>
-              <canvas id="mySideEffectType"></canvas>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="bg-white-round item remain">
-          <h3>남은 복약 횟수</h3>
-          <h1>1회</h1>
-        </div>
-
-        <div class="bg-white-round item manage-current">
-          <h3>관리 현황</h3>
-          <div class="legend">
-            <div class="success"></div> <span>복용</span>
-            <div class="sideeffect"></div> <span>부작용</span>
-          </div>
-          <div class="manage-date">
-            {% for p in clickedpatient %}
-            <button class="btn-date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
-              <span class="material-symbols-outlined">chevron_left</span>
-            </button>
-            {% for day in day_list %}
-              <span class="day">{{ day }}</span>
-            {% endfor %}
-            <button class="btn-date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
-              <span class="material-symbols-outlined">chevron_right</span>
-            </button>
-            {% endfor %}
-          </div>
-          <div class="line-status"></div>
-          <table class="manage-status">
-            {% for line in mdresult %}
-              <tr>
-                {% for re in line %}
-                  {% if re == '복약 성공' %}
-                    <td class="status"><div class="success"></div></td>
-                  {% elif re == '성공(지연)' %}
-                    <td class="status"><div class="empty"></div></td>
-                  {% elif re == '응답 없음' %}
-                    <td class="status"><div class="empty"></div>{{re}}</td>
-                  {% elif re == '복약 실패' %}
-                    <td class="status"><div class="empty"></div>{{re}}</td>
-                  {% elif re == '부작용' %}
-                    <td class="status"><div class="success sideeffect"></div>{{re}}</td>
-                  {% elif re == '' %}
-                    <td class="status"><div class="empty"></div>{{re}}</td>
-                  {% else %}
-                    <td class="status"><div class="success sideeffect"></div>{{re}}</td>
-                  {% endif %}
-                {% endfor %}
-              </tr>
-            {% endfor %}
-          </table>
-        </div>
+  <body>
+    <header>
+      <img id="img_logo" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+      <div id="header_right">
+        {% if user.is_active %}
+          <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
+          <a id="btn_logout" href="{% url 'logout' %}">
+            <span id="icon_logout" class="material-symbols-outlined">logout</span>
+            <p id="txt_logout">로그아웃</p>
+          </a>
+        {% endif %}
       </div>
-    </div>
-  </div>
-
-  <!-- Optional JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-  <script>
-    function myFunction() {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('myInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName('li');
-
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
+    </header>
+    
+    <main>
+      <nav>
+        <button><span id="icon_nav" class="material-symbols-outlined active">home</span></button>
+      </nav>
+  
+      <section>
+        <h2>환자 복약 현황</h2>
+        <div class="grid_container">
+          <div class="item">
+            <input type="text" id="myInput" class="bg_white_round" onkeyup="myFunction()" placeholder="환자 이름을 입력하세요.">
+            <ul id="myUL" class="bg_white_round">
+              {% for patient in patientlist %}
+                <li class="li_patient">
+                  <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
+                    onclick="location.href='{% url 'patient_status' patient.id %}'"
+                    {% if pid == patient.id %} checked {% endif %}>
+                  <a href="{% url 'patient_status' patient.id %}" id="btn_patient" for="radio_patient">
+                    <span class="txt_black">{{ patient.name }}</span> 
+                    <span class="txt_lightgray">{{ patient.code }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+  
+          <div class="item status_container">
+            <div class="bg_white_round item_status grid_progress">
+              {% for p in clickedpatient %}
+                <h3 class="item_progress">{{ p.name }}({{ p.code }})님</h3>
+                <div class="item_progress">다음 내원 예정일 : {{ p.next_visiting_date_time | date:"y.m.d" }}</div>
+                <div id="myProgress" class="item_progress">
+                  <div id="myBar"></div>
+                </div>
+                <div class="item_progress">{{ p.treatment_started_date | date:"y.m.d" }} 치료 시작</div>
+                <div class="item_progress">{{ p.treatment_end_date | date:"y.m.d" }} 종료 예정</div>
+              {% endfor %}
+            </div>
+            <div class="bg_white_round item_status">
+              <h3>복약도</h3>
+              {% if pid %}
+              <div class="chart">
+                <div class="chart_title">
+                  <p>최근 30회 기준</p>
+                  <b>총 17회 복용</b>
+                </div>
+                <div class="chart_bg"></div>
+                <canvas id="myMedication"></canvas>
+              </div>
+              {% endif %}
+            </div>
+            <div class="bg_white_round item_status">
+              <h3>부작용 빈도</h3>
+              {% if pid %}
+              <div class="chart">
+                <div class="chart_title">
+                  <p>부작용 빈도</p>
+                  <b>60%</b>
+                </div>
+                <div class="chart_bg"></div>
+                <canvas id="mySideEffectFreq"></canvas>
+              </div>
+              {% endif %}
+            </div>
+            <div class="bg_white_round item_status">
+              <h3>부작용 종류</h3>
+              {% if pid %}
+              <div class="chart">
+                <div class="chart_title">
+                  <p>주 부작용</p>
+                  <b>구토</b>
+                </div>
+                <canvas id="mySideEffectType"></canvas>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+  
+          <div class="bg_white_round item remain">
+            <h3>남은 복약 횟수</h3>
+            {% if pid %}
+            <h1>1회</h1>
+            {% endif %}
+          </div>
+  
+          <div class="bg_white_round item manage_current">
+            <h3>관리 현황</h3>
+            <div class="legend">
+              <div class="success"></div> <span>복용</span>
+              <div class="sideeffect"></div> <span>부작용</span>
+            </div>
+            <div class="manage_date">
+              {% for p in clickedpatient %}
+              <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              {% for day in day_list %}
+                <span class="day">{{ day }}</span>
+              {% endfor %}
+              <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+              {% endfor %}
+            </div>
+            <div class="line_status"></div>
+            <div class="manage_status">
+              {% for line in mdresult %}
+                  {% for re in line %}
+                    {% if re == '복약 성공' %}
+                      <div class="status"><div class="success"></div></div>
+                    {% elif re == '성공(지연)' or re == '응답 없음' or re == '복약 실패' %}
+                      <div class="status"><div class="empty"></div></div>
+                    {% elif re == '부작용' %}
+                      <div class="status"><div class="success sideeffect"></div>{{re}}</div>
+                    {% elif re == '' %}
+                      <div class="status"><div class="empty"></div></div>
+                    {% else %}
+                      <div class="status"><div class="success sideeffect"></div>{{re}}</div>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+              {% empty %}
+                {% for _ in ""|rjust:"7" %}
+                <div class="status"><div class="empty"></div></div>
+                {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script>
+      function myFunction() {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('myInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName('li');
+  
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
       }
-    }
-   }
-   document.getElementById("myBar").style.width = "{{p_str}}%";
-   document.getElementById("myBar").style.width = "{{cure_progress}}%";
-
-   // chart
-   const medi = document.getElementById("myMedication");
-   const mediValue = 60;
-   var myMedication = new Chart(medi, {
-    type: 'doughnut',
-    data: {
-      datasets: [{
-        data: [mediValue, 100-mediValue],
-        backgroundColor: ['#2E65F3', '#DCECFB00'],
-        borderWidth: 0,
-        borderRadius: 10,
-      }]
-    },
-    options: {
-      cutout: '75%',
-      responsive: false,
-    }
-  });
-
-  const sef = document.getElementById("mySideEffectFreq");
-  const sefValue = 80;
-  var mySideEffectFreq = new Chart(sef, {
-    type: 'doughnut',
-    data: {
-      datasets: [{
-        data: [sefValue, 100-sefValue],
-        backgroundColor: ['#2E65F3', '#DCECFB00'],
-        borderWidth: 0,
-        borderRadius: 30,
-      }]
-    },
-    options: {
-      cutout: '75%',
-      responsive: false,
-    }
-  });
-
-  const set = document.getElementById("mySideEffectType");
-  const setValue = [40, 20, 20, 20];
-  var mySideEffectType = new Chart(set, {
-    type: 'doughnut',
-    data: {
-      datasets: [{
-        data: [...setValue],
-        backgroundColor: [
-          '#2E65F3',
-          '#2E65F3CC',
-          '#2E65F380',
-          '#DCECFB'
-        ],
-        borderWidth: 0,
-        scaleBeginAtZero: true,
-      }]
-    },
-    options: {
-      cutout: '75%',
-      responsive: false,
-    }
-  });
-  </script>
-
-{% endblock %}
+     }
+     document.getElementById("myBar").style.width = "{{p_str}}%";
+     document.getElementById("myBar").style.width = "{{cure_progress}}%";
+  
+     // chart
+     const medi = document.getElementById("myMedication");
+     const mediValue = 60;
+     var myMedication = new Chart(medi, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [mediValue, 100-mediValue],
+          backgroundColor: ['#2E65F3', '#DCECFB00'],
+          borderWidth: 0,
+          borderRadius: 10,
+        }]
+      },
+      options: {
+        cutout: '75%',
+        responsive: false,
+      }
+    });
+  
+    const sef = document.getElementById("mySideEffectFreq");
+    const sefValue = 80;
+    var mySideEffectFreq = new Chart(sef, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [sefValue, 100-sefValue],
+          backgroundColor: ['#2E65F3', '#DCECFB00'],
+          borderWidth: 0,
+          borderRadius: 30,
+        }]
+      },
+      options: {
+        cutout: '75%',
+        responsive: false,
+      }
+    });
+  
+    const set = document.getElementById("mySideEffectType");
+    const setValue = [40, 20, 20, 20];
+    var mySideEffectType = new Chart(set, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [...setValue],
+          backgroundColor: [
+            '#2E65F3',
+            '#2E65F3CC',
+            '#2E65F380',
+            '#DCECFB'
+          ],
+          borderWidth: 0,
+          scaleBeginAtZero: true,
+        }]
+      },
+      options: {
+        cutout: '75%',
+        responsive: false,
+      }
+    });
+    </script>
+  </body>
+</html>

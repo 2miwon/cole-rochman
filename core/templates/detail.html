@@ -10,71 +10,78 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
-  <div id="detail_header">
+  <header>
 	  <a href="{% url 'community_main' %}">
       <span class="material-symbols-outlined">arrow_back_ios</span>
 	    <span>목록으로 돌아가기</span>
     </a>
-  </div>
+  </header>
 
-  <div id="post_box">
-    <div id="post_title">
-      {% if post.category == 'question' %}
-      <div id="post_question">질문</div>
+  <main>
+    <section>
+      <div id="post_box">
+        <div id="post_title">
+          {% if post.category == 'question' %}
+          <div id="post_question">질문</div>
+          {% endif %}
+          <div>{{post.title}}</div>
+          <div id="post_comment">[{{comment_cnt}}]</div>
+        </div>
+
+        <div id="post_info">
+          <div>
+            {% if not post.anonymous %}
+            {{post.writer.profile.nickname}}
+            {% else %}
+            익명
+            {% endif %}
+          </div>
+          <div>{{post.print_created_at}}</div>
+        </div>
+
+        {% if post.writer == request.user %}
+        <a id="post_delete" href="{% url 'post_delete' post.id %}">
+          <span class="material-symbols-outlined">
+              delete
+          </span>
+        </a>
       {% endif %}
-      <div>{{post.title}}</div>
-      <div id="post_comment">[{{post.count_of_the_comment}}]</div>
-    </div>
-    <div id="post_info">
-      <div>
-        {% if not post.anonymous %}
-        {{post.writer.profile.nickname}}
-        {% else %}
-        익명
-        {% endif %}
       </div>
-      <div>{{post.print_created_at}}</div>
-    </div>
-  </div>
-    
-  <div id="post_content">{{post.content}}</div>
+      
+      <p id="post_content">{{post.content}}</p>
+    </section>
 
-  {% if post.writer == request.user %}
-    <a href="{% url 'post_delete' post.id %}">
-      <span class="material-symbols-outlined" style="color: black; font-size: 2rem; margin-left: 5vw;">
-          delete
-      </span>
-    </a>
-  {% endif %}
-
-  <div id="comment_box">
-    <div id="comment_title">
-      <span>댓글</span>
-      <span>총 {{post.count_of_the_comment}}개</span>
-    </div>
-
-    <div id="comment_form">
-      <form action="" method="post">
-        {% csrf_token%}
-        <textarea type="text" name="comment" placeholder="댓글을 입력하세요"></textarea>
-        <button type="submit">작성</button>
-      </form>
-    </div>
-    
-    {% for comment in comments %}
-    <div class="comment">
-      <div class="comment_info">
-        <span>{{comment.writer.profile.nickname}}</span>
-        <span>{{comment.print_created_at}}</span>
+    <section>
+      <div id="comment_title">
+        <span>댓글</span>
+        <span>총 {{comment_cnt}}개</span>
       </div>
-      <p class="comment_content">{{comment.comment}}</p>
-      {% if comment.writer == request.user %}
-      <a href="{% url 'comment_delete' post_id comment.id%}">
-        <span class="material-symbols-outlined">delete</span>
-      </a>
-      {% endif %}
-    </div>
-    {% endfor%}
-  </div>
+
+      <div id="comment_form">
+        <form action="{% url 'comment_post' post_id %}" method="post">
+          {% csrf_token%}
+          <textarea type="text" name="comment" placeholder="댓글을 입력하세요"></textarea>
+          <button type="submit">작성</button>
+        </form>
+      </div>
+      
+      {% for comment in comments %}
+      <div class="comment_box">
+        <div class="comment_info">
+          <span>{{comment.writer.profile.nickname}}</span>
+          <span>{{comment.print_created_at}}</span>
+
+          {% if comment.writer == request.user %}
+          <a id="comment_delete" href="{% url 'comment_delete' post_id comment.id%}">
+            <span class="material-symbols-outlined">delete</span>
+          </a>
+          {% endif %}
+
+        </div>
+        <p class="comment_content">{{comment.comment}}</p>
+      </div>
+      {% endfor%}
+    </section>
+  </main>
 </body>
 </html>

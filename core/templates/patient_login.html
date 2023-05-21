@@ -8,31 +8,31 @@
   </head>
 
   <body>
-    <container class="container col-center">
-      <img class="img-cole-rochman" src={% static 'media/images/cole_rochman.png' %} alt="cole-rochman">
-      <p class="txt-center">안녕하세요! 결핵 환자 관리 챗봇<br><b>결핵 박사 콜로크만</b> 관리자 사이트 입니다.</p>
+    <main class="col_center">
+      <img class="img_cole_rochman" src={% static 'media/images/cole_rochman.png' %} alt="cole-rochman">
+      <p class="txt_center">안녕하세요! 결핵 환자 관리 챗봇<br><b>결핵 박사 콜로크만</b> 관리자 사이트 입니다.</p>
 
-      <div class="form-login col-center">
+      <div class="form_login col_center">
         <form method="post">
           {% csrf_token %}
-          <input type="text" class="form-login-input" name="username" placeholder="환자코드" required>
-          <input type="password" class="form-login-input" name="password" placeholder="비밀번호" required>
+          <input type="text" class="form_login_input" name="username" placeholder="환자코드" required>
+          <input type="password" class="form_login_input" name="password" placeholder="비밀번호" required>
           
           {% for err_message in errors %}
             {% if err_message %}
-              <p class="txt-login-fail">
-                <span class="material-symbols-outlined icon-warning">warning</span>
+              <p class="txt_login_fail">
+                <span class="material-symbols-outlined icon_warning">warning</span>
                 {{ err_message }}
               </p>
             {% endif %}
           {% endfor %}
-          <button type="submit" class="btn-login">로그인</button>
+          <button type="submit" class="btn_login">로그인</button>
         </form>
         <a href="{% url 'password_reset' %}" id="password_reset">비밀번호를 잊으셨나요?</a>
       </div>
   
-      <p class="txt-center">연세대학교 결핵챗봇 연구팀</p>
-      <img class="img-logo-hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
-    </container>
+      <p class="txt_center">연세대학교 결핵챗봇 연구팀</p>
+      <img class="img_logo_hospital" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+    </main>
   </body>
 </html>

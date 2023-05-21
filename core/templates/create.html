@@ -6,33 +6,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>새 글 작성</title>
-    <link rel="stylesheet" href="{% static 'css/patient_post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/patient_create.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
-    
-  <form action="{% url 'post_community' %}" method="post" enctype= multipart/form-data>
-	  <div id="post_header">
-	    <a href="{% url 'community_main' %}">
-	    	<span class="material-symbols-outlined">arrow_back_ios</span>
-	    </a>
-      {% csrf_token %}
-      <button type="submit" id="post_submit">
-        <div style="margin: auto;">작성 완료</div>
-      </button>
-	  </div>
-
-    <div id="post_options">
-      <input id="question" type="checkbox" name="category" value="question">
-      <label for="question">질문글</label>
-      <input id="anonymous" type="checkbox" name="anonymous" value="True">
-      <label for="anonymous">익명</label>
+  <header>
+    <img id="img_logo" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
+    <div id="header_right">
+      {% if user.is_active %}
+        <p>{{ user.profile.nickname }}({{ user.profile.user }})</p>
+        <a id="btn_logout" href="{% url 'logout' %}">
+          <span id="icon_logout" class="material-symbols-outlined">logout</span>
+          <p id="txt_logout">로그아웃</p>
+        </a>
+      {% endif %}
     </div>
-	  <div id="post_contents">
-      <input type="text" name="title" name="comment" placeholder="제목">
-	    <textarea placeholder="내용을 입력하세요."></textarea>
-	  </div>      
-  </form>
-    
+  </header>
+  
+  <main id="create_form">
+    <form action="{% url 'post_community' %}" method="post" enctype= multipart/form-data>
+      <div id="post_header">
+        <a href="{% url 'community_main' %}">
+          <span class="material-symbols-outlined">arrow_back_ios</span>
+        </a>
+        {% csrf_token %}
+        <button type="submit" id="post_submit">
+          <div style="margin: auto;">작성 완료</div>
+        </button>
+      </div>
+
+      <div id="post_options">
+        <input id="question" type="checkbox" name="category" value="question">
+        <label for="question">질문글</label>
+        <input id="anonymous" type="checkbox" name="anonymous" value="True">
+        <label for="anonymous">익명</label>
+      </div>
+
+      <div id="post_contents">
+        <input type="text" name="title" placeholder="제목">
+        <textarea placeholder="내용을 입력하세요." name="content"></textarea>
+      </div>      
+    </form>
+  </main>   
 </body>
 </html>

@@ -578,7 +578,19 @@ def post(request):
 
 def post_detail(request, post_id):
     post = Post.objects.get(id = post_id)
-    context = {'post':post}
+    comments = Comment.objects.filter(post = post_id)
+    cnt = 0
+    for comment in comments:
+        comment.print_created_at = "{}.{}.{}".format(str(comment.created_at_comment.year)[2:4], str(comment.created_at_comment.month).zfill(2), str(comment.created_at_comment.day).zfill(2))
+        comment.save()
+        cnt += 1
+
+    context = {
+        'post':post,
+        'post_id':post_id,
+        'comments':comments,
+        'comment_cnt':cnt
+        }
     return render(request, 'detail.html', context)
 
 def post_delete(request, post_id):
@@ -611,13 +623,13 @@ def comment_post(request, post_id):
     comment.post = Post.objects.get(id = post_id)
     comment.comment = request.POST['comment']
     comment.save()
-    return redirect('comments', post_id)
+    return redirect('post_detail', post_id)
 
 def comment_delete(request, post_id, comment_id):
     comment = Comment.objects.get(id = comment_id)
     if comment.writer == request.user:
         comment.delete()
-    return redirect('comments', post_id)
+    return redirect('post_detail', post_id)
 
 def search(request):
     search_content = request.GET.get('search_content')
@@ -975,7 +987,7 @@ def inspection_result(request):
 
     context = {'insp_zip':insp_zip}
 #    context = {'pcr_inspections':pcr_inspections, 'sputum_inspections':sputum_inspections}
-    return render(request, 'inspection_result.html', context=context)
+    return render(request, 'patient_inspection.html', context=context)
 
 def inspection_detail(request):
     return render(request, 'inspection_detail.html')
