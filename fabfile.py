@@ -160,7 +160,7 @@ def deploy(skip_migrations=False):
     _check_if_migration_needed(skip_migrations)
     _local_test()
     try:
-        _send_deploy_message(message='*Deploy has been started.*')
+        #_send_deploy_message(message='*Deploy has been started.*')
         _get_latest_source()
         _upload_secrets_file()
         _update_settings()
@@ -172,9 +172,10 @@ def deploy(skip_migrations=False):
         _restart_uwsgi()
         _restart_nginx()
         # _restart_celery()
-        _send_deploy_message(message='*Deploy succeed.*')
+        #_send_deploy_message(message='*Deploy succeed.*')
     except SystemExit as e:
-        _send_slack_message(message='*Deploy failed.*\n<@한규주>')
+        #_send_slack_message(message='*Deploy failed.*\n<@한규주>')
+        print('*Deploy failed.*')
 
 
 def refresh():
