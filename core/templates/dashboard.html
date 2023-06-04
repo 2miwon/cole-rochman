@@ -173,8 +173,10 @@
         };
 
         const searchPatient = sessionStorage.getItem("search");
-        searchInput.value = searchPatient;
-        patientFilter(searchPatient);
+        if (searchPatient != null) {
+          searchInput.value = searchPatient;
+          patientFilter(searchPatient);
+        }
       });
       
       function patientFilter(name) {
