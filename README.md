@@ -80,6 +80,27 @@ $ celery -A cole_rochman control shutdown   # celery 종료
 $ celery -A cole_rochman worker --scheduler django_celery_beat.schedulers:DatabaseScheduler --detach -B  # celery 시작
 ```
 
+- 자동화 완료
+
+damonize 화 해서 celery 를 구동중 입니다.
+
+`/etc/systemd/system/celery.service`
+`/etc/systemd/system/celerybeat.service`
+
+위에 두 파일에서 확인할 수 있고
+
+`sudo systemctl status celery.service`
+`sudo systemctl status celerybeat.service`
+
+두 명령어로 celery 상태확인이 가능합니다.
+
+한국시간 기준으로 밤 12시 마다 `celery.service, celerybeat.service` 리스타트 하고있습니다
+`sudo crontab -l`명령어로 확인 가능합니다.
+
+celery 프로그램에 대해서 자세히 이해하고 개발한게 아니여서 알람 보내는 것에 투머치한 프로그램을 쓰고 있는 기분입니다..
+개발하시다가 더 간단한 방법이 있으면 변경 부탁드려요
+celery 때문에 데이터베이스 입출력이 많아서 비용이 더 많이 나온다고 들었는데 최적화 할 수 있으면 좋을꺼 같습니다
+
 ### Code
 - API는 boilerplate를 줄이기 위해 아래 두 모듈을 사용합니다.
     - [helper](https://github.com/hanqyu/cole-rochman/blob/master/core/api/util/helper.py)
