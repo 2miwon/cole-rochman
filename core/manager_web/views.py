@@ -13,7 +13,6 @@ def user_dashboard(request):
 
     )
     pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
-
     return render(request, 'dashboard.html', context)
 
 
@@ -61,7 +60,6 @@ def patient_status(request, pid):
         next_week=next_week(d),
         pid=pid,
         day_list=print_day_list(d),
-        
     )
 
     
@@ -101,10 +99,13 @@ def patient_status(request, pid):
 
     context["daily_hour_list"] = daily_hour_list
 
-    mdresult = []
-    for i in range(clickedpatient.daily_medication_count):
-        mdresult.append(["","","","","","",""])
+    mdresult = [ [ "" for _ in range(clickedpatient.daily_medication_count) ] for _ in range(7)]
 
+    #for i in range(clickedpatient.daily_medication_count):
+    #    mdresult.append(["O","O","","","O","",""])
+    #    mdresult.append(["","","","","","O",""])
+    #    mdresult.append(["","","","","","O",""])
+    #    mdresult.append(["","","","","","",""])
 #    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
     sideeffect=[]
     mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
@@ -116,19 +117,19 @@ def patient_status(request, pid):
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
         for r in dailyresult:
             if r.status=="SUCCESS":
-                mdresult[r.medication_time_num - 1][i - 1] = "복약 성공"
+                mdresult[i-1][r.medication_time_num - 1] = "복약 성공"
             elif r.status=='DELAYED_SUCCESS':
-                mdresult[r.medication_time_num - 1][i - 1] = "성공(지연)"
+                mdresult[i-1][r.medication_time_num - 1] = "성공(지연)"
             elif r.status=='NO_RESPONSE':
-                mdresult[r.medication_time_num - 1][i - 1] = "응답 없음"
+                mdresult[i-1][r.medication_time_num - 1] = "응답 없음"
             elif r.status=='FAILED':
-                mdresult[r.medication_time_num - 1][i - 1] = "복약 실패"
+                mdresult[i-1][r.medication_time_num - 1] = "복약 실패"
             elif r.status=='SIDE_EFFECT':
                 symptom_more = r.symptom_name.count(",")
                 if symptom_more >= 1:
-                    mdresult[r.medication_time_num - 1][i - 1] = str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
+                    mdresult[i - 1][r.medication_time_num - 1] = str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
                 else:
-                    mdresult[r.medication_time_num - 1][i - 1] = str(r.symptom_name)
+                    mdresult[i - 1][r.medication_time_num - 1] = str(r.symptom_name)
                 now = r.checked_at
                 symptom_names = r.symptom_name.split(',')
                 symptom_severity1s = r.symptom_severity1.split(',')
@@ -136,11 +137,20 @@ def patient_status(request, pid):
                 symptom_severity3s = r.symptom_severity3.split(',')
                 symptom_num = len(symptom_names)
                 for i in range(symptom_num):
-                    sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[i]), str(symptom_severity1s[i]), str(symptom_severity2s[i]), str(symptom_severity3s[i])))
-    print(mdresult)
+                    sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[i]), str(symptom_severity1s[i]), str(symptom_severity2s[i]), str(symptom_severity3s[i])))     
 
     context['mdresult']=mdresult
     context['sideeffect']=sideeffect
+
+    today_mr_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SUCCESS')
+    remain = 0
+    print(today_mr_list)
+    if len(today_mr_list):
+        for mr in today_mr_list:
+            if mr.medication_time_num > remain:
+                remain = mr.medication_time_num
+    print(" remain = ", remain)
+    context['remain']= clickedpatient.daily_medication_count - remain
 
     return render(request, 'dashboard.html', context)
 

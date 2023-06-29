@@ -102,9 +102,9 @@
   
           <div class="bg_white_round item remain">
             <h3>남은 복약 횟수</h3>
-            {% if pid %}
-            <h1>1회</h1>
-            {% endif %}
+            {% for p in clickedpatient %}
+            <h1> {{ remain }} / {{ p.daily_medication_count }}회</h1>
+            {% endfor %}
           </div>
   
           <div class="bg_white_round item manage_current">
