@@ -101,22 +101,20 @@ def patient_status(request, pid):
 
     mdresult = [ [ "" for _ in range(clickedpatient.daily_medication_count) ] for _ in range(7)]
 
-    #for i in range(clickedpatient.daily_medication_count):
-    #    mdresult.append(["O","O","","","O","",""])
-    #    mdresult.append(["","","","","","O",""])
-    #    mdresult.append(["","","","","","O",""])
-    #    mdresult.append(["","","","","","",""])
+
 #    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
     sideeffect=[]
-    mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
-                                        date__lte=cal_start_end_day(d, 7))
-
+    # mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
+    #                                    date__lte=cal_start_end_day(d, 7))
     for i in range(1,8):
 #        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=d + datetime.timedelta(days = i - 1))
 #        print(dailyresult)
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
+        ind = i
+        print(i, dailyresult)
         for r in dailyresult:
             if r.status=="SUCCESS":
+                print("SSI",ind,r.medication_time_num)
                 mdresult[i-1][r.medication_time_num - 1] = "복약 성공"
             elif r.status=='DELAYED_SUCCESS':
                 mdresult[i-1][r.medication_time_num - 1] = "성공(지연)"
@@ -127,25 +125,24 @@ def patient_status(request, pid):
             elif r.status=='SIDE_EFFECT':
                 symptom_more = r.symptom_name.count(",")
                 if symptom_more >= 1:
-                    mdresult[i - 1][r.medication_time_num - 1] = str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
+                    mdresult[i-1][r.medication_time_num - 1] = str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
                 else:
-                    mdresult[i - 1][r.medication_time_num - 1] = str(r.symptom_name)
+                    mdresult[i-1][r.medication_time_num - 1] = str(r.symptom_name)
                 now = r.checked_at
                 symptom_names = r.symptom_name.split(',')
                 symptom_severity1s = r.symptom_severity1.split(',')
                 symptom_severity2s = r.symptom_severity2.split(',')
                 symptom_severity3s = r.symptom_severity3.split(',')
                 symptom_num = len(symptom_names)
-                for i in range(symptom_num):
-                    sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[i]), str(symptom_severity1s[i]), str(symptom_severity2s[i]), str(symptom_severity3s[i])))     
+                for j in range(symptom_num):
+                    sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[j]), str(symptom_severity1s[j]), str(symptom_severity2s[j]), str(symptom_severity3s[j])))     
 
     context['mdresult']=mdresult
     context['sideeffect']=sideeffect
-
+    print("res:", mdresult)
     today_su_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SUCCESS')
     today_se_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SIDE_EFFECT')
     remain = 0
-    print(today_su_list)
     if len(today_su_list):
         for mr in today_su_list:
             if mr.medication_time_num > remain:
@@ -154,7 +151,6 @@ def patient_status(request, pid):
         for mr in today_se_list:
             if mr.medication_time_num > remain:
                 remain = mr.medication_time_num
-    print(" remain = ", remain)
     context['remain']= clickedpatient.daily_medication_count - remain
 
     return render(request, 'dashboard.html', context)
