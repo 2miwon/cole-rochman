@@ -37,7 +37,6 @@ class Patient(models.Model):
     register_completed_flag = models.BooleanField(verbose_name='계정 등록 완료 여부', default=False)
     medication_manage_flag = models.NullBooleanField(verbose_name='복약관리 여부', blank=True, null=True, default=None)
     daily_medication_count = models.IntegerField(verbose_name='하루 복약 횟수', default=0)
-    #daily_medication_remain = models.IntegerField(verbose_name='하루 남은 복약 횟수', default=daily_medication_count)
     medication_noti_flag = models.NullBooleanField(verbose_name='복약알림 여부', blank=True, null=True, default=None)
     medication_noti_time_1 = models.TimeField(verbose_name='복약알림 시간 1', blank=True, null=True, default=None)
     medication_noti_time_2 = models.TimeField(verbose_name='복약알림 시간 2', blank=True, null=True, default=None)
@@ -102,7 +101,6 @@ class Patient(models.Model):
         self.medication_manage_flag = None
         self.medication_noti_flag = None
         self.daily_medication_count = 0
-        #self.daily_medication_remain = self.daily_medication_count
         self.reset_medication_noti_time()
         self.save()
 
@@ -149,7 +147,6 @@ class Patient(models.Model):
             'medication_time_num': noti_time_num,
             'medication_time': noti_time,
         }
-        #self.daily_medication_remain = noti_time_num
         serializer = MedicationResultSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         return serializer.save()

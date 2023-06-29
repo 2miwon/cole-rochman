@@ -142,11 +142,16 @@ def patient_status(request, pid):
     context['mdresult']=mdresult
     context['sideeffect']=sideeffect
 
-    today_mr_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SUCCESS')
+    today_su_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SUCCESS')
+    today_se_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SIDE_EFFECT')
     remain = 0
-    print(today_mr_list)
-    if len(today_mr_list):
-        for mr in today_mr_list:
+    print(today_su_list)
+    if len(today_su_list):
+        for mr in today_su_list:
+            if mr.medication_time_num > remain:
+                remain = mr.medication_time_num
+    if len(today_se_list):
+        for mr in today_se_list:
             if mr.medication_time_num > remain:
                 remain = mr.medication_time_num
     print(" remain = ", remain)
