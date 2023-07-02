@@ -60,6 +60,7 @@ def patient_status(request, pid):
         next_week=next_week(d),
         pid=pid,
         day_list=print_day_list(d),
+        code_hyphen = clickedpatient.code_hyphen()
     )
 
     
@@ -152,7 +153,7 @@ def patient_status(request, pid):
             if mr.medication_time_num > remain:
                 remain = mr.medication_time_num
     context['remain']= clickedpatient.daily_medication_count - remain
-
+    print(context)
     return render(request, 'dashboard.html', context)
 
 
