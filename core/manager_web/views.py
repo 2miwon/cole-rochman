@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
 from core.models import Patient, MeasurementResult, MedicationResult
 import datetime
 
@@ -62,7 +63,6 @@ def patient_status(request, pid):
         day_list=print_day_list(d),
         code_hyphen = clickedpatient.code_hyphen()
     )
-
     
     for date in Patient.objects.filter(id__contains=pid, next_visiting_date_time__gte=cal_start_end_day(d, 1),
                                        next_visiting_date_time__lte=cal_start_end_day(d, 7)):
@@ -112,7 +112,6 @@ def patient_status(request, pid):
 #        print(dailyresult)
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
         ind = i
-        print(i, dailyresult)
         for r in dailyresult:
             if r.status=="SUCCESS":
                 print("SSI",ind,r.medication_time_num)

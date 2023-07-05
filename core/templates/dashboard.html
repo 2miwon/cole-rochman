@@ -29,10 +29,12 @@
       </nav>
   
       <section>
-        <h2>환자 복약 현황</h2>
+        <div>
+          <h2>환자 복약 현황</h2>
+        </div>
         <div class="grid_container">
           <div class="item">
-            <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름을 입력하세요.">
+            <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
                 <li class="li_patient">
@@ -42,6 +44,7 @@
                   <a href="{% url 'patient_status' patient.id %}" id="btn_patient" for="radio_patient">
                     <span class="txt_black">{{ patient.name }}</span> 
                     <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
+                    <span style="display: none;">{{ patient.code }}</span>
                   </a>
                 </li>
               {% endfor %}
@@ -178,7 +181,7 @@
           patientFilter(searchPatient);
         }
       });
-      
+
       function patientFilter(name) {
         var li = patientList.getElementsByTagName('li');
         for (i = 0; i < li.length; i++) {
