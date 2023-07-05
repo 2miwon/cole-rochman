@@ -140,7 +140,7 @@ def patient_status(request, pid):
 
     context['mdresult']=mdresult
     context['sideeffect']=sideeffect
-    print("res:", mdresult)
+
     today_su_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SUCCESS')
     today_se_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SIDE_EFFECT')
     remain = 0
@@ -153,7 +153,7 @@ def patient_status(request, pid):
             if mr.medication_time_num > remain:
                 remain = mr.medication_time_num
     context['remain']= clickedpatient.daily_medication_count - remain
-    print(context)
+
     return render(request, 'dashboard.html', context)
 
 

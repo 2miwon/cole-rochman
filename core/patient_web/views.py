@@ -63,7 +63,7 @@ def sign_up(request):
     return render(request,'signup.html',{'errors': msg})
 
 def sign_in(request):
-    try:
+    try: 
         patient = Patient.objects.get(code = request.user.username)
         if patient:
             return redirect("patient_dashboard")
