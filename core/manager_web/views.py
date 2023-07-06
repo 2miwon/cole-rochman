@@ -125,7 +125,7 @@ def patient_status(request, pid):
             elif r.status=='SIDE_EFFECT':
                 symptom_more = r.symptom_name.count(",")
                 if symptom_more >= 1:
-                    mdresult[i-1][r.medication_time_num - 1] = str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
+                    mdresult[i-1][r.medication_time_num - 1] = r.symptom_name #str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
                 else:
                     mdresult[i-1][r.medication_time_num - 1] = str(r.symptom_name)
                 now = r.checked_at
