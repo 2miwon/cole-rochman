@@ -10,8 +10,8 @@ import datetime
 @login_required()
 def user_dashboard(request):
     context = dict(
-        patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id),
-
+        patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id, display_dashboard = True)
+        .order_by('code'),
     )
     pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
     return render(request, 'dashboard.html', context)
@@ -54,7 +54,7 @@ def patient_status(request, pid):
     context = dict(
         p_str=p_str,
         clickedpatient=Patient.objects.filter(id=pid),
-        patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id),
+        patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id, display_dashboard = True),
         a=MeasurementResult.objects.filter(patient__id__contains=pid, measured_at__gte=cal_start_end_day(d, 1),
                                            measured_at__lte=cal_start_end_day(d, 7)),
         prev_week=prev_week(d),
