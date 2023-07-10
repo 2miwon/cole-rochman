@@ -3,7 +3,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from core.models import Patient, MeasurementResult, MedicationResult
+from datetime import timedelta
 import datetime
+from django.utils import timezone
 
 
 # 환자 선택 전 환자관리 대시보드
@@ -54,7 +56,7 @@ def patient_status(request, pid):
     context = dict(
         p_str=p_str,
         clickedpatient=Patient.objects.filter(id=pid),
-        patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id, display_dashboard = True),
+        patientlist=Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id, display_dashboard = True).order_by('code'),
         a=MeasurementResult.objects.filter(patient__id__contains=pid, measured_at__gte=cal_start_end_day(d, 1),
                                            measured_at__lte=cal_start_end_day(d, 7)),
         prev_week=prev_week(d),
@@ -111,10 +113,8 @@ def patient_status(request, pid):
 #        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=d + datetime.timedelta(days = i - 1))
 #        print(dailyresult)
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
-        ind = i
         for r in dailyresult:
             if r.status=="SUCCESS":
-                print("SSI",ind,r.medication_time_num)
                 mdresult[i-1][r.medication_time_num - 1] = "복약 성공"
             elif r.status=='DELAYED_SUCCESS':
                 mdresult[i-1][r.medication_time_num - 1] = "성공(지연)"
@@ -140,6 +140,30 @@ def patient_status(request, pid):
     context['mdresult']=mdresult
     context['sideeffect']=sideeffect
 
+    # 30일간의 정보
+    tday = timezone.now()
+    thirty_days_ago = tday - timedelta(days=30)
+    month_mdresult = MedicationResult.objects.filter(patient__id__contains=pid, date__range=(thirty_days_ago, tday)).order_by('-medication_time')[:30]
+
+
+    # 30일동안의 총 복약 횟수
+    count_succ = 0
+    for i in range(0, 30):
+        if(i<len(month_mdresult)):
+            print(month_mdresult[i].is_success())
+            if(month_mdresult[i].is_success()):
+                count_succ += 1
+    context['count_succ'] = count_succ
+
+    # 30일동안의 총 부작용 보고 횟수
+    count_side = 0
+    for i in range(0, 30):
+        if(i<len(month_mdresult)):
+           if(month_mdresult[i].is_side_effect()):
+                count_side += 1
+    context['count_side'] = count_side
+
+    # 관리 현황 정렬
     today_su_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SUCCESS')
     today_se_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SIDE_EFFECT')
     remain = 0
@@ -153,6 +177,7 @@ def patient_status(request, pid):
                 remain = mr.medication_time_num
     context['remain']= clickedpatient.daily_medication_count - remain
 
+    print(context)
     return render(request, 'dashboard.html', context)
 
 
@@ -241,7 +266,10 @@ def print_day_list(dt):
             yo = '일'
         li.append(str(iso_to_gregorian(*iso).month).zfill(2) + '.' + str(iso_to_gregorian(*iso).day).zfill(2) + ' ' + yo)
     return li
-    
+
+def get_month_data(dt):
+    pass
+
     # 추가
 #@login_required()
 #def symptom(request, pid, sid):

@@ -148,13 +148,13 @@ class NotificationRecordAdmin(admin.ModelAdmin):
 class GuardianAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    pass
+#@admin.register(Post)
+#class PostAdmin(admin.ModelAdmin):
+#    pass
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    pass
+#@admin.register(Comment)
+#class CommentAdmin(admin.ModelAdmin):
+#    pass
 
 
 @admin.register(Sputum_Inspection)
@@ -168,7 +168,7 @@ class PcrAdmin(admin.ModelAdmin):
     search_fields = ['patient_set__code','patient_set__nickname']
 
 
-@admin.register(Certificaion)
-class Certificationadmin(admin.ModelAdmin):
-    pass
+#@admin.register(Certificaion)
+#class Certificationadmin(admin.ModelAdmin):
+#    pass
 

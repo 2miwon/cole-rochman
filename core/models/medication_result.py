@@ -143,3 +143,9 @@ class MedicationResult(models.Model):
             return serializer.save()
         else:
             return serializer.errors
+
+    def is_success(self):
+        return self.get_status() == self.STATUS.SUCCESS or self.get_status() == self.STATUS.SIDE_EFFECT
+    
+    def is_side_effect(self):
+        return self.get_status() == self.STATUS.SIDE_EFFECT
