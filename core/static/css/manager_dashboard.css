@@ -368,6 +368,9 @@ section > h2 {
   height: 24px;
   border-radius: 50%;
   background-color: var(--bg-color-lightblue);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
 }
 
 .success {
@@ -375,6 +378,10 @@ section > h2 {
   height: 24px;
   border-radius: 50%;
   background-color: var(--bg-color-blue);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
+  color: var(--bg-color-white);
 }
 
 .sideeffect {

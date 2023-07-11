@@ -69,7 +69,7 @@
               <div class="chart">
                 <div class="chart_title">
                   <p>최근 30회 기준</p>
-                  <b>총 17회 복용</b>
+                  <b>총 {{ count_succ }}회 복용</b>
                 </div>
                 <div class="chart_bg"></div>
                 <canvas id="myMedication"></canvas>
@@ -82,7 +82,7 @@
               <div class="chart">
                 <div class="chart_title">
                   <p>부작용 빈도</p>
-                  <b>60%</b>
+                  <b>{{ per_side }}%</b>
                 </div>
                 <div class="chart_bg"></div>
                 <canvas id="mySideEffectFreq"></canvas>
@@ -134,18 +134,17 @@
               {% for line in mdresult %}
                   {% for re in line %}
                     {% if re == '복약 성공' %}
-                      <div class="status"><div class="success"></div></div>
+                      <div class="status"><div class="success">1/{{line | length}}</div></div>
                     {% elif re == '성공(지연)' or re == '응답 없음' or re == '복약 실패' %}
-                      <div class="status"><div class="empty"></div></div>
+                      <div class="status"><div class="empty">0/{{line | length}}</div></div>
                     {% elif re == '부작용' %}
-                      <div class="status"><div class="success sideeffect"></div>{{re}}</div>
+                      <div class="status"><div class="success sideeffect">1/{{line | length}}</div>{{re}}</div>
                     {% elif re == '' %}
-                      <div class="status"><div class="empty"></div></div>
+                      <div class="status"><div class="empty">0/{{line | length}}</div></div>
                     {% else %}
-                      <div class="status"><div class="success sideeffect"></div>{{re}}</div>
+                      <div class="status"><div class="success sideeffect">1/{{line | length}}</div>{{re}}</div>
                     {% endif %}
                   {% endfor %}
-                </tr>
               {% empty %}
                 {% for _ in ""|rjust:"7" %}
                 <div class="status"><div class="empty"></div></div>
@@ -206,7 +205,7 @@
   
      // chart
      const medi = document.getElementById("myMedication");
-     const mediValue = 60;
+     const mediValue = {{ per_succ }};
      var myMedication = new Chart(medi, {
       type: 'doughnut',
       data: {
@@ -224,7 +223,7 @@
     });
   
     const sef = document.getElementById("mySideEffectFreq");
-    const sefValue = 80;
+    const sefValue = {{ per_side }};
     var mySideEffectFreq = new Chart(sef, {
       type: 'doughnut',
       data: {
