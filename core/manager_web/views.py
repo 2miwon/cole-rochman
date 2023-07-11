@@ -154,7 +154,7 @@ def patient_status(request, pid):
             if(month_mdresult[i].is_success()):
                 count_succ += 1
     context['count_succ'] = count_succ
-
+    context['per_succ'] = int(100 * count_succ / 30)
     # 30일동안의 총 부작용 보고 횟수
     count_side = 0
     for i in range(0, 30):
@@ -162,6 +162,7 @@ def patient_status(request, pid):
            if(month_mdresult[i].is_side_effect()):
                 count_side += 1
     context['count_side'] = count_side
+    context['per_side'] = int(100 * count_side / 30)
 
     # 관리 현황 정렬
     today_su_list = MedicationResult.objects.filter(patient__id__contains=pid, date=datetime.date.today(), status = 'SUCCESS')
