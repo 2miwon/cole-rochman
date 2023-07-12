@@ -117,20 +117,26 @@ def patient_status(request, pid):
         succ_count = 0
         for r in dailyresult:
             if r.status=="SUCCESS":
-                mdresult[i-1][r.medication_time_num] = "복약 성공"
+                #mdresult[i-1][r.medication_time_num] = "복약 성공"
                 succ_count += 1
             elif r.status=='DELAYED_SUCCESS':
-                mdresult[i-1][r.medication_time_num] = "성공(지연)"
+                #mdresult[i-1][r.medication_time_num] = "성공(지연)"
+                pass
             elif r.status=='NO_RESPONSE':
-                mdresult[i-1][r.medication_time_num] = "응답 없음"
+                #mdresult[i-1][r.medication_time_num] = "응답 없음"
+                pass
             elif r.status=='FAILED':
-                mdresult[i-1][r.medication_time_num] = "복약 실패"
+                #mdresult[i-1][r.medication_time_num] = "복약 실패"
+                pass
             elif r.status=='SIDE_EFFECT':
                 symptom_more = r.symptom_name.count(",")
+                succ_count += 1
                 if symptom_more >= 1:
-                    mdresult[i-1][r.medication_time_num - 1] = r.symptom_name #str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
+                    #mdresult[i-1][r.medication_time_num - 1] = r.symptom_name #str(r.symptom_name.split(',')[0] + " 외 " + str(symptom_more) + "개")
+                    pass
                 else:
-                    mdresult[i-1][r.medication_time_num - 1] = str(r.symptom_name)
+                    #mdresult[i-1][r.medication_time_num - 1] = str(r.symptom_name)
+                    pass
                 now = r.checked_at
                 symptom_names = r.symptom_name.split(',')
                 symptom_severity1s = r.symptom_severity1.split(',')
@@ -138,11 +144,11 @@ def patient_status(request, pid):
                 symptom_severity3s = r.symptom_severity3.split(',')
                 symptom_num = len(symptom_names)
                 for j in range(symptom_num):
-                    sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[j]), str(symptom_severity1s[j]), str(symptom_severity2s[j]), str(symptom_severity3s[j])))     
+                    #sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[j]), str(symptom_severity1s[j]), str(symptom_severity2s[j]), str(symptom_severity3s[j])))    
+                    sideeffect = symptom_names
         mdresult[i-1]['total'] = clickedpatient.daily_medication_count
         mdresult[i-1]['medication'] = succ_count
         mdresult[i-1]['sideeffect'] = sideeffect
-
     context['mdresult']=mdresult
 
     # 30일간의 정보
@@ -182,7 +188,9 @@ def patient_status(request, pid):
                 remain = mr.medication_time_num
     context['remain']= clickedpatient.daily_medication_count - remain
 
-    print(mdresult)
+    for i in mdresult:
+        print(i)
+        
     return render(request, 'dashboard.html', context)
 
 
