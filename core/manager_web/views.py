@@ -102,17 +102,18 @@ def patient_status(request, pid):
 
     context["daily_hour_list"] = daily_hour_list
 
-    mdresult = [ [ "" for _ in range(clickedpatient.daily_medication_count+1) ] for _ in range(7)]
+    mdresult = [ dict() for _ in range(7)]
 
 
 #    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
-    sideeffect=[]
+    
     # mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
     #                                    date__lte=cal_start_end_day(d, 7))
     for i in range(1,8):
 #        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=d + datetime.timedelta(days = i - 1))
 #        print(dailyresult)
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
+        sideeffect=[]
         succ_count = 0
         for r in dailyresult:
             if r.status=="SUCCESS":
@@ -138,10 +139,11 @@ def patient_status(request, pid):
                 symptom_num = len(symptom_names)
                 for j in range(symptom_num):
                     sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[j]), str(symptom_severity1s[j]), str(symptom_severity2s[j]), str(symptom_severity3s[j])))     
-        mdresult[i-1][0] = succ_count
+        mdresult[i-1]['total'] = clickedpatient.daily_medication_count
+        mdresult[i-1]['medication'] = succ_count
+        mdresult[i-1]['sideeffect'] = sideeffect
 
     context['mdresult']=mdresult
-    context['sideeffect']=sideeffect
 
     # 30일간의 정보
     tday = timezone.now()
@@ -152,11 +154,11 @@ def patient_status(request, pid):
     count_succ = 0
     for i in range(0, 30):
         if(i<len(month_mdresult)):
-            print(month_mdresult[i].is_success())
             if(month_mdresult[i].is_success()):
                 count_succ += 1
     context['count_succ'] = count_succ
     context['per_succ'] = int(100 * count_succ / 30)
+
     # 30일동안의 총 부작용 보고 횟수
     count_side = 0
     for i in range(0, 30):
@@ -180,7 +182,7 @@ def patient_status(request, pid):
                 remain = mr.medication_time_num
     context['remain']= clickedpatient.daily_medication_count - remain
 
-    print(context)
+    print(mdresult)
     return render(request, 'dashboard.html', context)
 
 
