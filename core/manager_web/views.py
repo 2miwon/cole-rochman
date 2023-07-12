@@ -102,7 +102,7 @@ def patient_status(request, pid):
 
     context["daily_hour_list"] = daily_hour_list
 
-    mdresult = [ [ "" for _ in range(clickedpatient.daily_medication_count) ] for _ in range(7)]
+    mdresult = [ [ "" for _ in range(clickedpatient.daily_medication_count+1) ] for _ in range(7)]
 
 
 #    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
@@ -113,15 +113,17 @@ def patient_status(request, pid):
 #        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=d + datetime.timedelta(days = i - 1))
 #        print(dailyresult)
         dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=cal_start_end_day(d, i))
+        succ_count = 0
         for r in dailyresult:
             if r.status=="SUCCESS":
-                mdresult[i-1][r.medication_time_num - 1] = "복약 성공"
+                mdresult[i-1][r.medication_time_num] = "복약 성공"
+                succ_count += 1
             elif r.status=='DELAYED_SUCCESS':
-                mdresult[i-1][r.medication_time_num - 1] = "성공(지연)"
+                mdresult[i-1][r.medication_time_num] = "성공(지연)"
             elif r.status=='NO_RESPONSE':
-                mdresult[i-1][r.medication_time_num - 1] = "응답 없음"
+                mdresult[i-1][r.medication_time_num] = "응답 없음"
             elif r.status=='FAILED':
-                mdresult[i-1][r.medication_time_num - 1] = "복약 실패"
+                mdresult[i-1][r.medication_time_num] = "복약 실패"
             elif r.status=='SIDE_EFFECT':
                 symptom_more = r.symptom_name.count(",")
                 if symptom_more >= 1:
@@ -136,6 +138,7 @@ def patient_status(request, pid):
                 symptom_num = len(symptom_names)
                 for j in range(symptom_num):
                     sideeffect.append('{} => {}: {} {} {}'.format(str(now), str(symptom_names[j]), str(symptom_severity1s[j]), str(symptom_severity2s[j]), str(symptom_severity3s[j])))     
+        mdresult[i-1][0] = succ_count
 
     context['mdresult']=mdresult
     context['sideeffect']=sideeffect
@@ -144,7 +147,6 @@ def patient_status(request, pid):
     tday = timezone.now()
     thirty_days_ago = tday - timedelta(days=30)
     month_mdresult = MedicationResult.objects.filter(patient__id__contains=pid, date__range=(thirty_days_ago, tday)).order_by('-medication_time')[:30]
-
 
     # 30일동안의 총 복약 횟수
     count_succ = 0
