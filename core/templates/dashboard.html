@@ -131,20 +131,21 @@
             </div>
             <div class="line_status"></div>
             <div class="manage_status">
-              {% for line in mdresult %}
-                  {% for re in line %}
-                    {% if re == '복약 성공' %}
-                      <div class="status"><div class="success">1/{{line | length}}</div></div>
-                    {% elif re == '성공(지연)' or re == '응답 없음' or re == '복약 실패' %}
-                      <div class="status"><div class="empty">0/{{line | length}}</div></div>
-                    {% elif re == '부작용' %}
-                      <div class="status"><div class="success sideeffect">1/{{line | length}}</div>{{re}}</div>
-                    {% elif re == '' %}
-                      <div class="status"><div class="empty">0/{{line | length}}</div></div>
-                    {% else %}
-                      <div class="status"><div class="success sideeffect">1/{{line | length}}</div>{{re}}</div>
-                    {% endif %}
-                  {% endfor %}
+              {% for result in mdresult %}
+                {% if not result.medication %}
+                <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
+                {% elif result.sideeffect %}
+                <div class="status">
+                  <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                  {% if result.sideeffect|length == 1 %}
+                  {{result.sideeffect | first}}
+                  {% else %}
+                  {{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건
+                  {% endif %}
+                </div>
+                {% else %}
+                <div class="status"><div class="success">{{result.medication}}/{{result.total}}</div></div>
+                {% endif %}
               {% empty %}
                 {% for _ in ""|rjust:"7" %}
                 <div class="status"><div class="empty"></div></div>
