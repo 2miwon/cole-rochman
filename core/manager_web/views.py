@@ -104,11 +104,6 @@ def patient_status(request, pid):
 
     mdresult = [ dict() for _ in range(7)]
 
-
-#    mdresult=[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]]
-    
-    # mediresult = MedicationResult.objects.filter(patient__id__contains=pid, date__gte=cal_start_end_day(d, 1),
-    #                                    date__lte=cal_start_end_day(d, 7))
     for i in range(1,8):
 #        dailyresult=MedicationResult.objects.filter(patient__id__contains=pid, date=d + datetime.timedelta(days = i - 1))
 #        print(dailyresult)

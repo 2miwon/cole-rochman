@@ -25,7 +25,9 @@
     
     <main>
       <nav>
-        <button><span id="icon_nav" class="material-symbols-outlined active">home</span></button>
+        <button onclick="location.href='{% url 'web_menu' %}'">
+          <span id="icon_nav" class="material-symbols-outlined active">home</span>
+        </button>
       </nav>
   
       <section>
@@ -140,7 +142,9 @@
                   {% if result.sideeffect|length == 1 %}
                   {{result.sideeffect | first}}
                   {% else %}
-                  {{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건
+                    {% for side in result.sideeffect %}
+                      {{side}}
+                    {% endfor %}
                   {% endif %}
                 </div>
                 {% else %}
