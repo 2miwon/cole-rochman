@@ -473,6 +473,7 @@ def password_reset(request):
                 if i.email == email:
 
                     try:
+                        print("Certification Number:", certificate_number)
                         contents = MIMEText('<h1>[결핵챗봇 콜로그만] 인증번호입니다 </h1><hr> <br><br><h2> 안녕하세요 ' 
                                        + username+ '님! <br> 결핵챗봇 콜로크만 비밀 번호 찾기를 위한<br> 인증번호입니다!</h2> <br><h2>고객님의 인증번호: <strong>'
                                        + certificate_number+ '<strong></h2>', 'html')
@@ -482,9 +483,6 @@ def password_reset(request):
                         message['To'] = i.email # 받는이
                         message.attach(contents)
                         mailSend(message)
-
-                        print("Certification Number:", certificate_number)
-
                         try:
                             certification = Certificaion.objects.get(user__username = username)
                             print("certifiaction exist")
