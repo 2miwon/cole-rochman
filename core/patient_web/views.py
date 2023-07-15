@@ -31,6 +31,12 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Q
 from core.models.certification import Certificaion
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
+import os 
+load_dotenv()
 
 def sign_up(request):
     msg = []
@@ -460,31 +466,22 @@ def password_reset(request):
             print("hello certification")
             print(User.objects.all().filter(username=username))
             for i in User.objects.all().filter(username = username):
-                print(i)
-                print("환자 통과")
                 if i.email == email:
-                    print("201")
-                    sender = settings.EMAIL_SENDER
-                    reciever = i.email
-                    print("hello")
-                    message = Mail( from_email=sender,
-                                    to_emails=reciever,
-                                    subject='cole-rochman 인증번호입니다',
-                                    html_content='<h1>[결핵챗봇 콜로그만] 인증번호입니다 </h1><hr> <br><br><h2> 안녕하세요 '+ username+ '님! <br> 결핵챗봇 콜로크만 비밀 번호 찾기를 위한<br> 인증번호입니다!</h2> <br><h2>고객님의 인증번호: <strong>'+ certificate_number+ '<strong></h2>')
-                    print("1-1")
-                    try:
-                        
-                        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-                        print("hello")
-                        
-                        response = sg.send(message)
-                        print(message)
 
-                        print(response.status_code)
-                        print(response.body)
-                        print(response.headers)
+                    try:
+                        contents = MIMEText('<h1>[결핵챗봇 콜로그만] 인증번호입니다 </h1><hr> <br><br><h2> 안녕하세요 ' 
+                                       + username+ '님! <br> 결핵챗봇 콜로크만 비밀 번호 찾기를 위한<br> 인증번호입니다!</h2> <br><h2>고객님의 인증번호: <strong>'
+                                       + certificate_number+ '<strong></h2>', 'html')
+                        message = MIMEMultipart()
+                        message['Subject'] = 'cole-rochman 인증번호입니다.' # 제목
+                        message['From'] = os.environ.get('EMAIL_SENDER') # 보내는이
+                        message['To'] = i.email # 받는이
+                        message.attach(contents)
+                        mailSend(message)
+
+                        print("require Number:", certificate_number)
+
                         try:
-                            print("try문")
                             certification = Certificaion.objects.get(user__username = username)
                             print("certifiaction exist")
                         except:
@@ -493,7 +490,6 @@ def password_reset(request):
                             certification.number = int(certificate_number)
                             certification.save()
                             
-                        
                         if certification:
                             print("if certification")
                             certification.number = int(certificate_number)
@@ -516,26 +512,32 @@ def password_reset(request):
             print("인증번호: ",certification.number)
             print(request.POST['user_certificate_number'])
             if certification.number == int(request.POST['user_certificate_number']):
+                
                 certification.number = int(certification_number())
                 certification.save()
                 user = User.objects.get(username = username)
+                # Random PW
                 password = temporary_password()
                 user.set_password(password)
                 user.save()
-                sender = settings.EMAIL_SENDER
-                reciever = user.email
-                message = Mail( from_email=sender,
-                                to_emails=reciever,
-                                subject='cole-rochman 임시 비밀번호입니다',
-                                html_content='<h1>[결핵챗봇 콜로크만] 임시비밀번호입니다 </h1><hr> <br><br><h2> 안녕하세요 '+ username+ '님! <br> 결핵챗봇 콜로크만 환자용 대쉬보드를 위한<br> 비밀번호를 안내해 드립니다.</h2> <br><h2>고객님의 임시비밀번호: <strong>'+ password + '<strong></h2>')
+
+                contents = MIMEText('<h1>[결핵챗봇 콜로크만] 임시비밀번호입니다 </h1><hr> <br><br><h2> 안녕하세요 '
+                                    + username+ '님! <br> 결핵챗봇 콜로크만 환자용 대쉬보드를 위한<br> 비밀번호를 안내해 드립니다.</h2> <br><h2>고객님의 임시비밀번호: <strong>'
+                                    + password + '<strong></h2>', 'html')
+                message = MIMEMultipart()
+                message['Subject'] = 'cole-rochman 임시 비밀번호입니다' # 제목
+                message['From'] = os.environ.get('EMAIL_SENDER') # 보내는이
+                message['To'] = user.email # 받는이
+                message.attach(contents)
+                mailSend(message)
+                
+                """
                 try:
-                    sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-                    response = sg.send(message)
-                    print(response.status_code)
-                    print(response.body)
-                    print(response.headers)
+                    #sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+                    #response = sg.send(message)
                 except Exception as e:
                     print(e.message)
+                """
                 print("success")
                 return render(request, "password_reset_success.html")
             else:
@@ -968,26 +970,22 @@ def inspection_result(request):
             res_list.append(insp.culture_result)
     
     insp_zip = zip(date_list, type_list, th_list, res_list)
-#    inspection_list = []
-#    inspections = list(Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username)) + list(Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username))
-#    inspections.sort(key=lambda x: x.date_time, reverse=True)
-#    for insp in inspections:
-#        insp.date = "{}.{}.{}".format(str(insp.date.year)[2:4], str(insp.date.month).zfill(2), str(insp.date.day).zfill(2))
-#        insp.save()
-#    pcr_inspections = Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username)
-#    sputum_inspections = Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username)
-#    for pcr in pcr_inspections:
-#        pcr.pcr_date = "{}.{}.{}".format(str(pcr.date.year)[2:4], str(pcr.date.month).zfill(2), str(pcr.date.day).zfill(2))
-#        pcr.save()
-#        inspection_list.append(pcr)
-#    for sputum in sputum_inspections:
-#        sputum.sputum_date = "{}.{}.{}".format(str(sputum.date.year)[2:4], str(sputum.date.month).zfill(2), str(sputum.date.day).zfill(2))
-#        sputum.save()
-#        inspection_list.append(sputum)
 
     context = {'insp_zip':insp_zip}
-#    context = {'pcr_inspections':pcr_inspections, 'sputum_inspections':sputum_inspections}
     return render(request, 'patient_inspection.html', context=context)
 
 def inspection_detail(request):
     return render(request, 'inspection_detail.html')
+
+def mailSend(msg): # 메일전송 함수
+    smtp_server = smtplib.SMTP(
+        host='smtp.office365.com',
+        port=587
+    )
+    smtp_server.ehlo()
+    smtp_server.starttls() 
+    smtp_server.ehlo()
+    smtp_server.login(os.environ.get('EMAIL_SENDER'), os.environ.get('PW_SENDER'))
+    
+    smtp_server.send_message(msg) # 메세지 전송
+    smtp_server.quit() # stmp 종료
