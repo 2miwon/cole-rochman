@@ -36,6 +36,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import os 
+from django.http import HttpResponseRedirect
+
 load_dotenv()
 
 def sign_up(request):
@@ -459,9 +461,11 @@ def temporary_password():
 def password_reset(request):
     msg = []
     if request.method == "POST":
-        username = request.POST['username']
-        email = request.POST['email']
-        certificate_number = str(certification_number())
+        print("request status",request.POST)
+        if 'modify' not in request.POST:
+            username = request.POST['username']
+            email = request.POST['email']
+            certificate_number = str(certification_number())
         if 'certification' in request.POST:
             print("hello certification")
             print(User.objects.all().filter(username=username))
@@ -479,7 +483,7 @@ def password_reset(request):
                         message.attach(contents)
                         mailSend(message)
 
-                        print("require Number:", certificate_number)
+                        print("Certification Number:", certificate_number)
 
                         try:
                             certification = Certificaion.objects.get(user__username = username)
@@ -505,15 +509,13 @@ def password_reset(request):
                     print("success")
                 else:
                     msg.append('등록된 이메일과 다릅니다!')
-            context = {'username':username, 'email':email, 'msg':msg}
+            context = {'username':username, 'email':email, 'msg':msg }
             return render(request,'password_reset.html',context)
-        elif 'submit' in request.POST:
+        elif 'user_certificate_number' in request.POST:
             certification = Certificaion.objects.get(user__username=username)
-            print("인증번호: ",certification.number)
-            print(request.POST['user_certificate_number'])
             if certification.number == int(request.POST['user_certificate_number']):
                 
-                certification.number = int(certification_number())
+                """certification.number = int(certification_number())
                 certification.save()
                 user = User.objects.get(username = username)
                 # Random PW
@@ -531,21 +533,36 @@ def password_reset(request):
                 message.attach(contents)
                 mailSend(message)
                 
-                """
-                try:
-                    #sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-                    #response = sg.send(message)
-                except Exception as e:
-                    print(e.message)
-                """
                 print("success")
-                return render(request, "password_reset_success.html")
+                """
+                context = {'username':username, }
+                return render(request, "password_reset_success.html", context)
+                
             else:
                 msg.append('인증번호가 다릅니다!')
                 return render(request, 'password_reset.html', {'errors':msg})
+        elif 'modify' in request.POST:
+            print("MODI")
+            password = request.POST['password']
+            username = request.POST['username']
+            user = User.objects.get(username=username)
+            user.set_password(password)
+            user.save()
+            return HttpResponseRedirect('/')
     else:
         msg.append('')
         return render(request, 'password_reset.html')
+
+def password_modify(request):
+    username = request.POST['username']
+    if 'modify' in request.POST:
+            print("MODI")
+            password = request.POST['PW']
+            user = User.objects.get(username = username)
+            user.set_password(password)
+            user.save()
+    else:
+        return render(request, 'password_reset_success.html')
 
 def post_list(request):
     posts = Post.objects.order_by('-created_at')

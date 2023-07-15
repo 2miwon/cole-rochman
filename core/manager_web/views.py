@@ -6,7 +6,7 @@ from core.models import Patient, MeasurementResult, MedicationResult
 from datetime import timedelta
 import datetime
 from django.utils import timezone
-
+from django.http import HttpResponseRedirect
 
 # 환자 선택 전 환자관리 대시보드
 @login_required()
