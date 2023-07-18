@@ -10,17 +10,11 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'colerochman_dev',
-        'USER': 'colerochman',
-        'PASSWORD': 'colerochman',
+        'NAME': 'test_db1',
+        'USER': 'sean0921',
+        'PASSWORD': 'cjstmdqja',
+        'HOST': 'csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com',
         'PORT': 5432,
-        'TEST': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'colerochman_test',
-            'USER': 'colerochman',
-            'PASSWORD': 'colerochman',
-            'PORT': 5432,
-        },
     },
 }
 
