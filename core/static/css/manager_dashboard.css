@@ -275,11 +275,19 @@ section > h2 {
 }
 
 /* Bottom */
+
+.bottom_container {
+  display:grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .remain,
 .manage_current {
   padding: 25px;
-  height: 150px;
+  /* height: 150px; */
   position: relative;
+  grid-column: 1/3;
 }
 
 /* Manage Current */
@@ -378,11 +386,26 @@ section > h2 {
   color: var(--bg-color-white);
 }
 
+.unfinished {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--bg-color-yellow);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
+  color: var(--bg-color-white);
+}
+
 .sideeffect {
   width: 21px;
   height: 21px;
   border-radius: 50%;
   border: 3px solid var(--txt-color-pink);
+}
+
+.bottom_calendar {
+  padding: 25px;
 }
 
 .search-sidebar {

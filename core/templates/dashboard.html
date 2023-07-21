@@ -110,48 +110,59 @@
             {% endfor %}
           </div> {% endcomment %}
   
-          <div class="bg_white_round item manage_current">
-            <h3>주간 관리</h3>
-            <div class="legend">
-              <div class="success"></div> <span>복용</span>
-              <div class="sideeffect"></div> <span>부작용</span>
-            </div>
-            <div class="manage_date">
-              {% for p in clickedpatient %}
-              <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
-                <span class="material-symbols-outlined">chevron_left</span>
-              </button>
-              {% for day in day_list %}
-                <span class="day">{{ day }}</span>
-              {% endfor %}
-              <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
-                <span class="material-symbols-outlined">chevron_right</span>
-              </button>
-              {% endfor %}
-            </div>
-            <div class="line_status"></div>
-            <div class="manage_status">
-              {% for result in mdresult %}
-                {% if not result.medication %}
-                <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
-                {% elif result.sideeffect %}
-                <div class="status">
-                  <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
-                  {% if result.sideeffect|length == 1 %}
-                  {{result.sideeffect | first}}
-                  {% else %}
-                  {{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건
-                  {% endif %}
-                </div>
-                {% else %}
-                <div class="status"><div class="success">{{result.medication}}/{{result.total}}</div></div>
-                {% endif %}
-              {% empty %}
-                {% for _ in ""|rjust:"7" %}
-                <div class="status"><div class="empty"></div></div>
+          <div class="bottom_container" >
+            <div class="bg_white_round item manage_current">
+              <h3>주간 관리</h3>
+              <div class="legend">
+                <div class="success"></div> <span>복용</span>
+                <div class="sideeffect"></div> <span>부작용</span>
+              </div>
+              <div class="manage_date">
+                {% for p in clickedpatient %}
+                <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
+                  <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                {% for day in day_list %}
+                  <span class="day">{{ day }}</span>
                 {% endfor %}
-              {% endfor %}
+                <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
+                  <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+                {% endfor %}
+              </div>
+              <div class="line_status"></div>
+              <div class="manage_status">
+                {% for result in mdresult %}
+                  {% if not result.medication %}
+                  <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
+                  {% elif result.sideeffect %}
+                  <div class="status">
+                    <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% if result.sideeffect|length == 1 %}
+                    {{result.sideeffect | first}}
+                    {% else %}
+                    {{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건
+                    {% endif %}
+                  </div>
+                  {% else %}
+                  <div class="status">
+                    {% if result.medication == result.total %}
+                    <div class="success">
+                    {% else %}
+                    <div class="unfinished">
+                    {% endif %}
+                      {{result.medication}}/{{result.total}}
+                    </div>
+                  </div>
+                  {% endif %}
+                {% empty %}
+                  {% for _ in ""|rjust:"7" %}
+                  <div class="status"><div class="empty"></div></div>
+                  {% endfor %}
+                {% endfor %}
+              </div>
             </div>
+            <div class="bottom_calendar bg_white_round">달력자리</div>
           </div>
         </div>
       </section>
