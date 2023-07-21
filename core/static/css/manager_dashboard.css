@@ -1,13 +1,15 @@
 @import "reset.css";
 
-html, body {
+html,
+body {
   min-width: 1440px;
   background: var(--bg-color-lightgray);
   overflow-y: hidden;
   overflow-x: auto;
 }
 
-h1, h2 {
+h1,
+h2 {
   margin: 20px 0;
 }
 
@@ -44,11 +46,7 @@ header {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
   margin-right: 3px;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 20
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 20;
 }
 
 #txt_logout {
@@ -79,11 +77,7 @@ nav {
   margin: 25px 0;
   padding: 5px;
   color: var(--bg-color-white);
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 32
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 32;
 }
 
 #icon_nav.active {
@@ -134,7 +128,7 @@ section > h2 {
 }
 
 #myUL {
-  height: 355px;
+  height: 600px;
   padding: 0;
   margin: 10px 0 0 0;
   overflow: auto;
@@ -161,7 +155,7 @@ section > h2 {
 }
 
 .li_patient {
-  list-style-type : none;
+  list-style-type: none;
   display: flex;
   padding: 10px;
   border-bottom: 1px solid var(--bg-color-gray);
@@ -271,7 +265,7 @@ section > h2 {
   position: absolute;
   top: 10px;
   left: 65px;
-  border: 18px solid #DCECFB;
+  border: 18px solid #dcecfb;
   border-radius: 50%;
 }
 
@@ -389,4 +383,8 @@ section > h2 {
   height: 21px;
   border-radius: 50%;
   border: 3px solid var(--txt-color-pink);
+}
+
+.search-sidebar {
+  grid-row: 1 / 3;
 }

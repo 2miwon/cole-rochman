@@ -33,7 +33,7 @@
           <h2>환자 복약 현황</h2>
         </div>
         <div class="grid_container">
-          <div class="item">
+          <div class="item search-sidebar">
             <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
@@ -103,15 +103,15 @@
             </div>
           </div>
   
-          <div class="bg_white_round item remain">
+          {% comment %} <div class="bg_white_round item remain">
             <h3>남은 복약 횟수</h3>
             {% for p in clickedpatient %}
             <h1> {{ remain }} / {{ p.daily_medication_count }}회</h1>
             {% endfor %}
-          </div>
+          </div> {% endcomment %}
   
           <div class="bg_white_round item manage_current">
-            <h3>관리 현황</h3>
+            <h3>주간 관리</h3>
             <div class="legend">
               <div class="success"></div> <span>복용</span>
               <div class="sideeffect"></div> <span>부작용</span>
