@@ -37,6 +37,7 @@ from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import os 
 from django.http import HttpResponseRedirect
+from core.day import *
 
 load_dotenv()
 
@@ -206,6 +207,7 @@ def patient_dashboard(request):
     year = int(datetime_list[0])
     month = int(datetime_list[1])
     day = [int(datetime_list[2])]
+    print(datetime_list)
     weekday = datetime.datetime.now().weekday()
     if weekday == 0:
         weekday = '월'
@@ -338,8 +340,8 @@ def patient_dashboard(request):
         
         
     
-    prev_year, prev_month = pre_month(int(year), int(month))
-    next_year, next_month = nex_month(int(year), int(month))
+    prev_year, prev_month = get_prev_month(month, year)
+    next_year, next_month = get_next_month(month, year)
 
 
 
@@ -616,10 +618,6 @@ def post_delete(request, post_id):
         post.delete()
     return redirect('community_main')
 
-def get_year_month_days():
-    day_list = str(datetime.datetime.now())[0:10].split('-')
-    return day_list
-
 def comment(request, post_id):
     comments = Comment.objects.filter(post = post_id)
     cnt = 0
@@ -890,8 +888,8 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
         
         
     #이전 월, 다음 월 달력
-    next_year, next_month = nex_month(year, month)
-    prev_year, prev_month = pre_month(year, month)
+    next_year, next_month = get_next_month(month, year)
+    prev_year, prev_month = get_prev_month(month, year)
     
 
     context = {
@@ -933,27 +931,6 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
 
     }
     return render(request, 'patient_dashboard2.html', context=context)
-
-def pre_month(y, m):
-    if m == 1:
-        pre_month = 12
-        prev_year = y - 1
-        return prev_year, pre_month
-    else:
-        pre_month = m - 1
-        year = y
-        return year, pre_month
-
-
-def nex_month(y, m):
-    if m == 12:
-        nex_month = 1
-        next_year = y + 1
-        return next_year, nex_month
-    else:
-        nex_month = m + 1
-        year = y
-        return year, nex_month
 
 @login_required(login_url = '/', redirect_field_name='next')
 def inspection_result(request):
