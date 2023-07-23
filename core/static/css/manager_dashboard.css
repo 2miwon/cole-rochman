@@ -127,8 +127,17 @@ section > h2 {
   outline: 1.5px solid var(--bg-color-blue);
 }
 
+#sort_button_wrapper {
+  margin: 10px 0px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+}
+
 #myUL {
-  height: 600px;
+  height: 685px;
   padding: 0;
   margin: 10px 0 0 0;
   overflow: auto;
@@ -334,6 +343,10 @@ section > h2 {
   height: 15px;
 }
 
+.week_status {
+  padding-top: 80px;
+}
+
 .line_status {
   position: relative;
   top: 23px;
@@ -416,16 +429,13 @@ section > h2 {
 
 #cure_manage_calendar {
   background-color: var(--bg-color-white);
-  border-radius: 10px;
-  box-shadow: 0 0 5px var(--bg-color-gray);
-  margin: 5px 10px;
-  padding: 10px;
+  margin-top: 15px;
 }
 
 #cure_manage_year {
   display: flex;
   flex-direction: row;
-  padding: 20px 10px;
+  padding: 10px;
   margin: 0;
   justify-content: space-between;
   align-items: center;
@@ -438,7 +448,7 @@ section > h2 {
 }
 
 #txt_cure_manage_year {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
 }
 
@@ -447,8 +457,7 @@ section > h2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0;
-  margin: 10px 20px 0 20px;
+  padding: 10px 15px;
 }
 
 #weekdays li {
@@ -459,7 +468,7 @@ section > h2 {
 
 /* Days (1-31) */
 #days {
-  margin: 5px;
+  margin: 0 5px;
 }
 
 #days ul {
@@ -470,7 +479,7 @@ section > h2 {
 }
 
 #days ul li {
-  line-height: 40px;
+  line-height: 20px;
   text-align: center;
   justify-items: center;
   padding: 5px;
@@ -485,11 +494,12 @@ section > h2 {
 
 #today {
   display: block;
-  background-color: var(--bg-color-blue);
-  color: var(--bg-color-white);
+  /* background-color: var(--bg-color-midblue); */
+  background-color: #2e65f380;
+  /* color: var(--bg-color-white); */
   border-radius: 50px;
-  width: 36px;
-  height: 36px;
+  width: 20px;
+  height: 20px;
   margin: auto;
 }
 

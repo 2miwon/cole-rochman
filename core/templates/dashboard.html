@@ -37,6 +37,10 @@
         <div class="grid_container">
           <div class="item search-sidebar">
             <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
+            <div id="sort_button_wrapper">
+              <button>이름순</button>
+              <button>번호순</button>
+            </div>
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
                 <li class="li_patient">
@@ -119,6 +123,8 @@
                 <div class="success"></div> <span>복용</span>
                 <div class="sideeffect"></div> <span>부작용</span>
               </div>
+
+              <div class="week_status">
               <div class="manage_date">
                 {% for p in clickedpatient %}
                 <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
@@ -164,6 +170,8 @@
                 {% endfor %}
               </div>
             </div>
+          </div>
+
             <div class="bottom_calendar bg_white_round">
               <h3>월간 관리</h3>
               <div class="monthly_icon_box legend">
@@ -174,17 +182,18 @@
                 <ul id="cure_manage_year">
                   <li class="prev">
                     {% comment %} <a href="{% url 'patient_dashboard_by_day' prev_year prev_month day %}"> {% endcomment %}
-                      <span class="material-symbols-outlined">arrow_back_ios</span>
-                    {% comment %} </a> {% endcomment %}
+                      <a href="">
+                      <span class="material-symbols-outlined">chevron_left</span>
+                    </a>
                   </li>
                   <li id="txt_cure_manage_year">
-                    {% comment %} {{year}}년 {{month}}월 {% endcomment %}
-                    2023년 7월
+                    {{year}}년 {{month}}월
                   </li>
                   <li class="next">
                     {% comment %} <a href="{% url 'patient_dashboard_by_day' next_year next_month day %}"> {% endcomment %}
-                      <span class="material-symbols-outlined">arrow_forward_ios</span>
-                    {% comment %} </a> {% endcomment %}
+                      <a href="">
+                      <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
                   </li>
                 </ul>
               
@@ -200,29 +209,29 @@
               
                 <div id="days">
                   <ul>
-                    {% comment %} {% for i in day_of_the_week_list%} {% endcomment %}
+                    {% for i in day_of_the_week_list%}
                     <li></li>
-                    {% comment %} {% endfor %} {% endcomment %}
-                    {% comment %} {% for day in day_list%} {% endcomment %}
+                    {% endfor %}
+                    {% for day in calendar_day_list%}
                     <li>
                       {% comment %} <a class="day_of_the_week" href="{% url 'patient_dashboard_by_day' year month day %}"> {% endcomment %}
-                        {% comment %} {% if day in today %} {% endcomment %}
+                        {% if day in today %}
                         <span id="today">{{day}}</span>
-                        {% comment %} {% else %} {% endcomment %}
+                        {% else %}
                         {{day}}
-                        {% comment %} {% endif %} {% endcomment %}
-                        {% comment %} {% if day in visit_list %} {% endcomment %}
+                        {% endif %}
+                        {% if day in visit_list %}
                         <div id="visit"></div>
-                        {% comment %} {% endif %} {% endcomment %}
-                        {% comment %} {% if day in md_success_list %} {% endcomment %}
+                        {% endif %}
+                        {% if day in md_success_list %}
                         <div id="success"></div>
-                        {% comment %} {% endif %} {% endcomment %}
-                        {% comment %} {% if day in md_side_effect_list %} {% endcomment %}
+                        {% endif %}
+                        {% if day in md_side_effect_list %}
                         <div id="sideeffect"></div>
-                        {% comment %} {% endif %} {% endcomment %}
+                        {% endif %}
                       {% comment %} </a>     {% endcomment %}
                     </li>
-                    {% comment %} {% endfor %} {% endcomment %}
+                    {% endfor %}
                   </ul>
                 </div>
               </div>
