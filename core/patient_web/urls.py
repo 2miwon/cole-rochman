@@ -11,6 +11,7 @@ urlpatterns = [
     path('dashboard/', views.patient_dashboard, name='patient_dashboard'),
     path('dashboard/<str:picked_year>/<str:picked_month>/<str:picked_day>',views.patient_dashboard_by_day, name = 'patient_dashboard_by_day'),
     path('password-reset/',views.password_reset, name='password_reset'),
+    #path('password_modify/',views.password_modify, name='password_reset_success'),
     path('change_password/',views.change_password , name = 'patient_change_password'),
     path('community/', views.post_list, name ='community_main'),
     path('community/create/', views.post, name='post_community'),
