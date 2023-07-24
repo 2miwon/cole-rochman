@@ -35,11 +35,15 @@
           <h2>환자 복약 현황</h2>
         </div>
         <div class="grid_container">
-          <div class="item">
+          <div class="item search-sidebar">
             <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
+            <div id="sort_button_wrapper">
+              <button id="sort_by_name_btn" name="name">이름순</button>
+              <button id="sort_by_code_btn" name="code" class="active">번호순</button>
+            </div>
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
-                <li class="li_patient">
+                <li class="li_patient" name={{patient.name}}>
                   <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
                     onclick="location.href='{% url 'patient_status' patient.id %}'"
                     {% if pid == patient.id %} checked {% endif %}>
@@ -62,7 +66,7 @@
                   <div id="myBar"></div>
                 </div>
                 <div class="item_progress">{{ p.treatment_started_date | date:"y.m.d" }} 치료 시작</div>
-                <div class="item_progress">{{ p.treatment_end_date | date:"y.m.d" }} 종료 예정</div>
+                <div class="item_progress">{{ p.treatment_end_date }}에 치료가 종료될 예정입니다.</div>
               {% endfor %}
             </div>
             <div class="bg_white_round item_status">
@@ -105,56 +109,132 @@
             </div>
           </div>
   
-          <div class="bg_white_round item remain">
+          {% comment %} <div class="bg_white_round item remain">
             <h3>남은 복약 횟수</h3>
             {% for p in clickedpatient %}
             <h1> {{ remain }} / {{ p.daily_medication_count }}회</h1>
             {% endfor %}
-          </div>
+          </div> {% endcomment %}
   
-          <div class="bg_white_round item manage_current">
-            <h3>관리 현황</h3>
-            <div class="legend">
-              <div class="success"></div> <span>복용</span>
-              <div class="sideeffect"></div> <span>부작용</span>
-            </div>
-            <div class="manage_date">
-              {% for p in clickedpatient %}
-              <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
-                <span class="material-symbols-outlined">chevron_left</span>
-              </button>
-              {% for day in day_list %}
-                <span class="day">{{ day }}</span>
-              {% endfor %}
-              <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
-                <span class="material-symbols-outlined">chevron_right</span>
-              </button>
-              {% endfor %}
-            </div>
-            <div class="line_status"></div>
-            <div class="manage_status">
-              {% for result in mdresult %}
-                {% if not result.medication %}
-                <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
-                {% elif result.sideeffect %}
-                <div class="status">
-                  <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
-                  {% if result.sideeffect|length == 1 %}
-                  {{result.sideeffect | first}}
-                  {% else %}
-                    {% for side in result.sideeffect %}
-                      {{side}}
-                    {% endfor %}
-                  {% endif %}
-                </div>
-                {% else %}
-                <div class="status"><div class="success">{{result.medication}}/{{result.total}}</div></div>
-                {% endif %}
-              {% empty %}
-                {% for _ in ""|rjust:"7" %}
-                <div class="status"><div class="empty"></div></div>
+          <div class="bottom_container" >
+            <div class="bg_white_round item manage_current">
+              <h3>주간 관리</h3>
+              <div class="legend">
+                <div class="success"></div> <span>복용</span>
+                <div class="sideeffect"></div> <span>부작용</span>
+              </div>
+
+              <div class="week_status">
+              <div class="manage_date">
+                {% for p in clickedpatient %}
+                <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ prev_week }}'">
+                  <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                {% for day in day_list %}
+                  <span class="day">{{ day }}</span>
                 {% endfor %}
-              {% endfor %}
+                <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
+                  <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+                {% endfor %}
+              </div>
+              <div class="line_status"></div>
+              <div class="manage_status">
+                {% for result in mdresult %}
+                  {% if not result.medication %}
+                  <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
+                  {% elif result.sideeffect %}
+                  <div class="status">
+                    <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% if result.sideeffect|length == 1 %}
+                    {{result.sideeffect | first}}
+                    {% else %}
+                    {{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건
+                    {% endif %}
+                  </div>
+                  {% else %}
+                  <div class="status">
+                    {% if result.medication == result.total %}
+                    <div class="success">
+                    {% else %}
+                    <div class="unfinished">
+                    {% endif %}
+                      {{result.medication}}/{{result.total}}
+                    </div>
+                  </div>
+                  {% endif %}
+                {% empty %}
+                  {% for _ in ""|rjust:"7" %}
+                  <div class="status"><div class="empty"></div></div>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+            <div class="bottom_calendar bg_white_round">
+              <h3>월간 관리</h3>
+              <div class="monthly_icon_box legend">
+                <div class="success"></div> <span>복용</span>
+                <div class="sideeffect"></div> <span>부작용</span>
+              </div>
+              <div id="cure_manage_calendar">
+                <ul id="cure_manage_year">
+                  <li class="prev">
+                    {% comment %} <a href="{% url 'patient_dashboard_by_day' prev_year prev_month day %}"> {% endcomment %}
+                      <a href="">
+                      <span class="material-symbols-outlined">chevron_left</span>
+                    </a>
+                  </li>
+                  <li id="txt_cure_manage_year">
+                    {{year}}년 {{month}}월
+                  </li>
+                  <li class="next">
+                    {% comment %} <a href="{% url 'patient_dashboard_by_day' next_year next_month day %}"> {% endcomment %}
+                      <a href="">
+                      <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
+                  </li>
+                </ul>
+              
+                <ul id="weekdays">
+                  <li>일</li>
+                  <li>월</li>
+                  <li>화</li>
+                  <li>수</li>
+                  <li>목</li>
+                  <li>금</li>
+                  <li>토</li>
+                </ul>
+              
+                <div id="days">
+                  <ul>
+                    {% for i in day_of_the_week_list%}
+                    <li></li>
+                    {% endfor %}
+                    {% for day in calendar_day_list%}
+                    <li>
+                      {% comment %} <a class="day_of_the_week" href="{% url 'patient_dashboard_by_day' year month day %}"> {% endcomment %}
+                        {% if day in today %}
+                        <span id="today">{{day}}</span>
+                        {% else %}
+                        {{day}}
+                        {% endif %}
+                        {% if day in visit_list %}
+                        <div id="visit"></div>
+                        {% endif %}
+                        {% if day in md_success_list %}
+                        <div id="success"></div>
+                        {% endif %}
+                        {% if day in md_side_effect_list %}
+                        <div id="sideeffect"></div>
+                        {% endif %}
+                      {% comment %} </a>     {% endcomment %}
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -202,11 +282,37 @@
         sessionStorage.setItem("search", name);
      }
 
+    
      // 환자 이름 필터링
      searchInput.addEventListener("keyup", (e) => patientFilter(e.target.value));
 
      document.getElementById("myBar").style.width = "{{p_str}}%";
      document.getElementById("myBar").style.width = "{{cure_progress}}%";
+
+     // 이름순 / 번호순 sort
+     const sortByNameBtn = document.querySelector("#sort_by_name_btn")
+     const sortByCodeBtn = document.querySelector("#sort_by_code_btn")
+     {% comment %} sessionStorage.setItem("sortBy", "code") {% endcomment %}
+     
+     function handleSortBtnClick(e) {
+        sortByNameBtn.classList = ""
+        sortByCodeBtn.classList = ""
+        e.target.classList.add("active")
+
+        const queryString = window.location.search;
+
+        if (!queryString) {
+          window.history.replaceState({}, '', `?sort=${e.target.name}`);
+        } else {
+          const updatedQueryString = queryString.replace(/sort=[^&]+/, `sort=${e.target.name}`);
+          window.history.replaceState({}, '', updatedQueryString);
+        }
+     }
+
+     sortByNameBtn.addEventListener("click", handleSortBtnClick)
+     sortByCodeBtn.addEventListener("click", handleSortBtnClick)
+
+
   
      // chart
      const medi = document.getElementById("myMedication");

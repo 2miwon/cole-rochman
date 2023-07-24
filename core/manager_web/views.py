@@ -8,6 +8,9 @@ import datetime
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from core.day import *
+import calendar # 달력에서 사용합니다
+
+
 
 
 # 환자 선택 전 환자관리 대시보드
@@ -84,6 +87,14 @@ def patient_status(request, pid):
         pid=pid,
         day_list=print_day_list(d),
         code_hyphen=clickedpatient.code_hyphen(),
+        # ! 달력에서 사용할 context들입니다. 여기서 선언만 한 뒤 아래에서 정제
+        day="",
+        month="",
+        year="",
+        # weekday="",
+        today = "",
+        day_of_the_week_list = "",
+        calendar_day_list = []
     )
 
     for date in Patient.objects.filter(
@@ -219,6 +230,57 @@ def patient_status(request, pid):
 
     # for i in mdresult:
     #    print(i)
+
+    # !! 달력 !!
+    # ! picked_year, picked_month, picked_day는 queryString으로 받는 게 맞다고 생각합니다.. 일단 더미
+    picked_year = "2023"
+    picked_month = str(datetime.date.today())[-5:-3]
+    picked_day=str(datetime.date.today())[-2:]
+
+    datetime_list = get_year_month_days()
+    year = int(picked_year)
+    month = int(picked_month)
+    day = [int(picked_day)]
+    print_year = int(picked_year[2:4])
+
+    date = datetime.datetime(year=year, month=month, day=1).date()
+    day_of_month = calendar.monthrange(date.year, date.month)[1]
+    day_list = []
+    for i in range(1, day_of_month+1):
+        day_list.append(i)
+    #날짜의 시작 날짜인 1일을 무슨 요일에 시작하는지를 계산하여 달력에 표시
+    day_of_the_week = datetime.date(year, month, 1).weekday() #weekday --> 날짜의 요일을 숫자로 출력
+    day_of_the_week_list = []
+    if day_of_the_week == 6:
+        pass
+    else:
+        for j in range(day_of_the_week+1):
+            day_of_the_week_list.append(' ')
+    
+    weekday = (day_of_the_week + int(picked_day) - 1) % 7
+    if weekday == 0:
+        weekday = '월'
+    elif weekday == 1:
+        weekday = '화'
+    elif weekday == 2:
+        weekday = '수'
+    elif weekday == 3:
+        weekday = '목'
+    elif weekday == 4:
+        weekday = '금'
+    elif weekday == 5:
+        weekday = '토'
+    else:
+        weekday = '일'
+
+    context["day"] = day
+    context["month"]=month
+    context["year"]=year
+    # context["weekday"]=weekday
+    context["today"] = day
+    context["day_of_the_week_list"] = day_of_the_week_list
+    context["calendar_day_list"] = day_list
+
     print(context)
     return render(request, "dashboard.html", context)
 
