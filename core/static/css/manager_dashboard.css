@@ -10,7 +10,7 @@ body {
 
 h1,
 h2 {
-  margin: 20px 0;
+  margin: 0 0 20px 0;
 }
 
 /* Header */
@@ -134,6 +134,10 @@ section > h2 {
   flex-direction: row;
   justify-content: end;
   gap: 10px;
+}
+
+.active {
+  color: var(--bg-color-blue);
 }
 
 #myUL {

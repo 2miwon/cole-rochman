@@ -38,12 +38,12 @@
           <div class="item search-sidebar">
             <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
             <div id="sort_button_wrapper">
-              <button>이름순</button>
-              <button>번호순</button>
+              <button id="sort_by_name_btn" name="name" class="active">이름순</button>
+              <button id="sort_by_num_btn" name="num">번호순</button>
             </div>
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
-                <li class="li_patient">
+                <li class="li_patient" name={{patient.name}}>
                   <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
                     onclick="location.href='{% url 'patient_status' patient.id %}'"
                     {% if pid == patient.id %} checked {% endif %}>
@@ -262,7 +262,7 @@
         const searchPatient = sessionStorage.getItem("search");
         if (searchPatient != null) {
           searchInput.value = searchPatient;
-          patientFilter(searchPatient);
+          patientFilxter(searchPatient);
         }
       });
 
@@ -287,6 +287,23 @@
 
      document.getElementById("myBar").style.width = "{{p_str}}%";
      document.getElementById("myBar").style.width = "{{cure_progress}}%";
+
+     // 이름순 / 번호순 sort
+     const sortByNameBtn = document.querySelector("#sort_by_name_btn")
+     const sortByNumBtn = document.querySelector("#sort_by_num_btn")
+     sessionStorage.setItem("sortBy", "name")
+     
+     function handleSortBtnClick(e) {
+        sortByNameBtn.classList = ""
+        sortByNumBtn.classList = ""
+        sessionStorage.setItem("sortBy", e.target.name)
+        e.target.classList.add("active")
+     }
+
+     sortByNameBtn.addEventListener("click", handleSortBtnClick)
+     sortByNumBtn.addEventListener("click", handleSortBtnClick)
+
+
   
      // chart
      const medi = document.getElementById("myMedication");
