@@ -39,7 +39,7 @@
             <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
             <div id="sort_button_wrapper">
               <button id="sort_by_name_btn" name="name">이름순</button>
-              <button id="sort_by_code_btn" name="code" class="active">번호순</button>
+              <button id="sort_by_code_btn" name="code" class="active">등록순</button>
             </div>
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
@@ -146,21 +146,27 @@
                   {% elif result.sideeffect %}
                   <div class="status">
                     <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% comment %} ! 도말/객담상자 {% endcomment %}
+                    <div class="sputum_box"> <span>1+</span></div>
                     {% if result.sideeffect|length == 1 %}
-                    {{result.sideeffect | first}}
+                    <span>{{result.sideeffect | first}}</span>
                     {% else %}
-                    {{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건
+                    <span>{{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건</span>
                     {% endif %}
                   </div>
                   {% else %}
                   <div class="status">
                     {% if result.medication == result.total %}
                     <div class="success">
+                    {% comment %} ! 도말/객담상자 {% endcomment %}
+                    <div class="sputum_box"> <span>음성</span></div>
                     {% else %}
                     <div class="unfinished">
-                    {% endif %}
+                      {% endif %}
                       {{result.medication}}/{{result.total}}
                     </div>
+                    {% comment %} ! 도말/객담상자 {% endcomment %}
+                  <div class="sputum_box"> <span>음성</span></div>
                   </div>
                   {% endif %}
                 {% empty %}
