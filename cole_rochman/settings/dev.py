@@ -4,7 +4,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["www.cole-rochman.co.kr", "localhost"]
 
 # 실제 데이터베이스가 아님
 DATABASES = {

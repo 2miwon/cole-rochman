@@ -423,7 +423,7 @@ section > h2 {
   width: 21px;
   height: 21px;
   border-radius: 50%;
-  border: 3px solid var(--txt-color-pink);
+  border: 3px solid var(--txt-color-red);
 }
 
 .sputum_box {
