@@ -145,7 +145,11 @@
                   <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
                   {% elif result.sideeffect %}
                   <div class="status">
-                    <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% if result.medication == result.total %}
+                      <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% else %}
+                      <div class="unfinished sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% endif %}
                     {% comment %} ! 도말/객담상자 {% endcomment %}
                     <div class="sputum_box"> <span>1+</span></div>
                     {% if result.sideeffect|length == 1 %}
@@ -158,11 +162,10 @@
                   <div class="status">
                     {% if result.medication == result.total %}
                     <div class="success">
-                    {% comment %} ! 도말/객담상자 {% endcomment %}
                     {% else %}
                     <div class="unfinished">
-                      {% endif %}
-                      {{result.medication}}/{{result.total}}
+                    {% endif %}
+                    {{result.medication | striptags}}/{{result.total | striptags}}
                     </div>
                     {% comment %} ! 도말/객담상자 {% endcomment %}
                   <div class="sputum_box"> <span>음성</span></div>
@@ -186,19 +189,17 @@
               <div id="cure_manage_calendar">
                 <ul id="cure_manage_year">
                   <li class="prev">
-                    {% comment %} <a href="{% url 'patient_dashboard_by_day' prev_year prev_month day %}"> {% endcomment %}
-                      <a href="">
+                    <button id="prev_month">
                       <span class="material-symbols-outlined">chevron_left</span>
-                    </a>
+                    </button>
                   </li>
                   <li id="txt_cure_manage_year">
                     {{year}}년 {{month}}월
                   </li>
                   <li class="next">
-                    {% comment %} <a href="{% url 'patient_dashboard_by_day' next_year next_month day %}"> {% endcomment %}
-                      <a href="">
-                      <span class="material-symbols-outlined">chevron_right</span>
-                    </a>
+                    <button id="next_month">
+                      <span class="material-symbols-outlined"> chevron_right</span>
+                    </button>
                   </li>
                 </ul>
               
@@ -269,6 +270,16 @@
           searchInput.value = searchPatient;
           patientFilter(searchPatient);
         }
+        
+        // 이름순 / 번호순 색깔넣는거도 세션스토리지에서 찾아와서...
+        const sortBy = sessionStorage.getItem("sortBy");
+        if (sortBy === null || sortBy === "code") {
+          document.querySelector(`#sort_by_code_btn`).classList = "active"
+          document.querySelector(`#sort_by_name_btn`).classList = ""
+        } else {
+          document.querySelector(`#sort_by_name_btn`).classList = "active"
+          document.querySelector(`#sort_by_code_btn`).classList = ""
+        }
       });
 
       function patientFilter(name) {
@@ -297,11 +308,11 @@
      // 이름순 / 번호순 sort
      const sortByNameBtn = document.querySelector("#sort_by_name_btn")
      const sortByCodeBtn = document.querySelector("#sort_by_code_btn")
-     {% comment %} sessionStorage.setItem("sortBy", "code") {% endcomment %}
-     
+
      function handleSortBtnClick(e) {
         sortByNameBtn.classList = ""
         sortByCodeBtn.classList = ""
+        sessionStorage.setItem("sortBy", e.target.name)
         e.target.classList.add("active")
 
         const queryString = window.location.search;
@@ -309,15 +320,55 @@
         if (!queryString) {
           window.history.replaceState({}, '', `?sort=${e.target.name}`);
         } else {
-          const updatedQueryString = queryString.replace(/sort=[^&]+/, `sort=${e.target.name}`);
-          window.history.replaceState({}, '', updatedQueryString);
+          const updatedQueryString = queryString.includes("sort=")
+              ? queryString.replace(/sort=[^&]+/, `sort=${e.target.name}`)
+              : `${queryString}&sort=${e.target.name}`;
+            window.history.replaceState({}, "", updatedQueryString);
         }
+        window.location.reload()
      }
 
      sortByNameBtn.addEventListener("click", handleSortBtnClick)
      sortByCodeBtn.addEventListener("click", handleSortBtnClick)
 
 
+     // 달력
+     const prevMonthBtn = document.querySelector("#prev_month")
+     const nextMonthBtn = document.querySelector("#next_month")
+
+
+     function handlePrevMonth(e) {
+        const queryString = window.location.search;
+        const currentMonth = document.querySelector("#txt_cure_manage_year").innerText.replace("년 ", ",").replace("월","")
+        const prevMonth = currentMonth.split(",")[1] - 1 === 0 ? `${currentMonth.split(",")[0] - 1},1` : `${currentMonth.split(",")[0]},${currentMonth.split(",")[1] - 1}`
+        if (!queryString) {
+          window.history.replaceState({}, '', `?month=${prevMonth}`);
+        } else {
+          const updatedQueryString = queryString.includes("month=")
+              ? queryString.replace(/month=[^&]+/, `month=${prevMonth}`)
+              : `${queryString}&month=${prevMonth}`;
+            window.history.replaceState({}, "", updatedQueryString);
+        }
+       window.location.reload()
+     }
+
+     function handleNextMonth(e) {
+        const queryString = window.location.search;
+        const currentMonth = document.querySelector("#txt_cure_manage_year").innerText.replace("년 ", ",").replace("월","")
+        const prevMonth = currentMonth.split(",")[1] === 12 ? `${currentMonth.split(",")[0]*1 + 1},1` : `${currentMonth.split(",")[0]},${currentMonth.split(",")[1]*1 + 1}`
+        if (!queryString) {
+          window.history.replaceState({}, '', `?month=${prevMonth}`);
+        } else {
+          const updatedQueryString = queryString.includes("month=")
+              ? queryString.replace(/month=[^&]+/, `month=${prevMonth}`)
+              : `${queryString}&month=${prevMonth}`;
+            window.history.replaceState({}, "", updatedQueryString);
+        }
+       window.location.reload()
+     }
+
+     prevMonthBtn.addEventListener("click", handlePrevMonth)
+     nextMonthBtn.addEventListener("click", handleNextMonth)
   
      // chart
      const medi = document.getElementById("myMedication");
