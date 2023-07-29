@@ -10,7 +10,7 @@ body {
 
 h1,
 h2 {
-  margin: 0 0 20px 0;
+  margin: 20px 0;
 }
 
 /* Header */
@@ -353,7 +353,7 @@ section > h2 {
 
 .line_status {
   position: relative;
-  top: 23px;
+  top: 24px;
   height: 10px;
   width: 80%;
   margin: 0 auto;
@@ -387,29 +387,35 @@ section > h2 {
 } */
 
 .empty {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: var(--bg-color-lightblue);
   font-size: 12px;
   font-weight: bold;
   line-height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .success {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: var(--bg-color-blue);
   font-size: 12px;
   font-weight: bold;
   line-height: 26px;
   color: var(--bg-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .unfinished {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: var(--bg-color-yellow);
   font-size: 12px;
@@ -417,13 +423,19 @@ section > h2 {
   line-height: 26px;
   color: var(--bg-color-white);
   margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sideeffect {
-  width: 21px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 3px solid var(--txt-color-pink);
+  border: 4px solid var(--txt-color-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sputum_box {
