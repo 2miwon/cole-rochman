@@ -83,7 +83,6 @@ def sign_in(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        print(user)
         if user is not None:
             login(request, user)
             return redirect('patient_dashboard')
@@ -516,7 +515,6 @@ def password_reset(request):
                 msg.append('인증번호가 다릅니다!')
                 return render(request, 'password_reset.html', {'errors':msg})
         elif 'modify' in request.POST:
-            print("MODI")
             password = request.POST['password']
             username = request.POST['username']
             user = User.objects.get(username=username)

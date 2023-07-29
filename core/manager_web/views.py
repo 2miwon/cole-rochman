@@ -33,8 +33,12 @@ def patient_status(request, pid):
     # 보고자 하는 일주일의 월요일 날짜가 출력됨
     # 예) 2023-01-30
     d = get_date(request.GET.get("week", None))
-    
-    sort_policy = request.GET.get('sort', 'id')
+    m = get_week(request.GET.get("month", None))
+
+    sort = request.GET.get('sort', '-id')
+    if(sort == 'id'):
+        sort = '-id'
+    sort_policy = sort
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
@@ -233,22 +237,26 @@ def patient_status(request, pid):
                 remain = mr.medication_time_num
     context["remain"] = clickedpatient.daily_medication_count - remain
 
-    # for i in mdresult:
-    #    print(i)
-
     # !! 달력 !!
     # ! picked_year, picked_month, picked_day는 queryString으로 받는 게 맞다고 생각합니다.. 일단 더미
-    picked_year = "2023"
-    picked_month = str(datetime.date.today())[-5:-3]
-    picked_day=str(datetime.date.today())[-2:]
+
+    if(m):
+        picked_year = m.year
+        picked_month = m.month
+        picked_day=str(datetime.date.today())[-2:]
+    else:
+        picked_year = str(datetime.date.today())[0:4]
+        picked_month = str(datetime.date.today())[5:7]
+        picked_day=str(datetime.date.today())[8:10]
 
     datetime_list = get_year_month_days()
     year = int(picked_year)
     month = int(picked_month)
     day = [int(picked_day)]
-    print_year = int(picked_year[2:4])
+    print_year = int(picked_year)
 
-    
+    prev_year, prev_month = get_prev_month(month, year)
+    next_year, next_month = get_next_month(month, year)
 
     date = datetime.datetime(year=year, month=month, day=1).date()
     day_of_month = calendar.monthrange(date.year, date.month)[1]
@@ -266,9 +274,6 @@ def patient_status(request, pid):
     
     weekday = weekInt_to_str((day_of_the_week + int(picked_day) - 1) % 7)
 
-    prev_year, prev_month = get_prev_month(month, year)
-    next_year, next_month = get_next_month(month, year)
-
     month_first_day = datetime.date(year, month, 1)
 
     week_date_list = []
@@ -280,11 +285,6 @@ def patient_status(request, pid):
 
     weekly_sputum = get_sputum_data(pid, week_date_list)
     monthly_sputum = get_sputum_data(pid, month_data_list)
-
-    #for i in week_date_list:
-    #    weekly_sputum.append(get_sputum_data(pid, i))
-    #for i in month_data_list:
-       # monthly_sputum.append(get_sputum_data(pid, i))
 
     context["day"]=day
     context["month"]=month
@@ -336,6 +336,12 @@ def get_date(req_day):
     if req_day:
         req_tuple = req_day.split(",")
         return datetime.date(int(req_tuple[0]), int(req_tuple[1]), int(req_tuple[2]))
+    return datetime.datetime.now()
+
+def get_week(req_mon):
+    if req_mon:
+        req_tuple = req_mon.split(",")
+        return datetime.date(int(req_tuple[0]), int(req_tuple[1]), 1)
     return datetime.datetime.now()
 
 def cal_start_end_day(dt, i):
