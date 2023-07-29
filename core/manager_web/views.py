@@ -16,11 +16,12 @@ import calendar # 달력에서 사용합니다
 # 환자 선택 전 환자관리 대시보드
 @login_required()
 def user_dashboard(request):
+    sort_policy = request.GET.get('sort', 'id')
     context = dict(
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
-        ).order_by("code"),
+        ).order_by(sort_policy),
     )
     pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
     return render(request, "dashboard.html", context)
@@ -34,7 +35,6 @@ def patient_status(request, pid):
     d = get_date(request.GET.get("week", None))
     
     sort_policy = request.GET.get('sort', 'id')
-    print("policy :",sort_policy)
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
@@ -266,6 +266,9 @@ def patient_status(request, pid):
     
     weekday = weekInt_to_str((day_of_the_week + int(picked_day) - 1) % 7)
 
+    prev_year, prev_month = get_prev_month(month, year)
+    next_year, next_month = get_next_month(month, year)
+
     context["day"]=day
     context["month"]=month
     context["year"]=year
@@ -273,12 +276,15 @@ def patient_status(request, pid):
     context["today"] = day
     context["day_of_the_week_list"] = day_of_the_week_list
     context["calendar_day_list"] = day_list
-    context["prev_year"]=get_prev_month(month, year)[0],
-    context["prev_month"]=get_prev_month(month, year)[1],
-    context["next_year"]=get_next_month(month, year)[0],
-    context["next_month"]=get_next_month(month, year)[1],
-    context["md_success_list"]=""
-    context["visit_list"]=""
+    context["prev_year"]=prev_year
+    context["prev_month"]=prev_month
+    context["next_year"]=next_year
+    context["next_month"]=next_month
+    context["md_success_list"]= monthly_list(clickedpatient)[0]
+    context["md_side_effect_list"]= monthly_list(clickedpatient)[1]
+    context["visit_list"]=monthly_list(clickedpatient)[2]
+    for i in context:
+        print(i,context[i])
     #print(context)
     return render(request, "dashboard.html", context)
 
@@ -327,6 +333,56 @@ def get_month_data(dt):
 def get_query_string():
     pass
 
+def monthly_list(patient):
+    datetime_list = get_year_month_days()
+    date = datetime.datetime(year=int(datetime_list[0]), month=int(datetime_list[1]), day=1).date()
+    day_of_month = calendar.monthrange(date.year, date.month)[1]
+    day_list = []
+    for i in range(1, day_of_month+1):
+        day_list.append(i)
+
+    visit_list = []
+    md_success_list = []
+    md_delayed_success_list = []
+    md_no_response_list = []
+    md_failed_list = []
+    md_side_effect_list = []
+    
+    for i in day_list:
+        date_str = ''
+        date_str+=str(date.year)
+        date_str+=','
+        date_str+=str(date.month)
+        date_str+=','
+        i = str(i)
+        date_str+=i
+        date_str = get_date(date_str)
+        dailyresult=MedicationResult.objects.filter(patient__code__contains=patient.code, date=date_str)
+        med_cnt = 0
+
+        if patient.next_visiting_date_time:
+            if patient.next_visiting_date_time.date() == date_str:
+                visit_list.append(int(i))
+
+        for r in dailyresult:
+            #복약 상태별 날짜의 일수들을 각각 상태 리스트에 분류하여 넣는다
+            print("RS",r.status)
+            if r.status == "SUCCESS":
+                med_cnt += 1
+                if patient.daily_medication_count == med_cnt:
+                    md_success_list.append(int(i))
+            elif r.status=='DELAYED_SUCCESS':
+                md_delayed_success_list.append(int(i))
+            elif r.status=='NO_RESPONSE':
+                md_no_response_list.append(int(i))
+            elif r.status=='FAILED':
+                md_failed_list.append(int(i))
+            elif r.status=='SIDE_EFFECT':
+                med_cnt += 1
+                md_side_effect_list.append(int(i))
+                if patient.daily_medication_count == med_cnt:
+                    md_success_list.append(int(i))
+    return md_success_list, md_side_effect_list, visit_list
 # @login_required()
 # def symptom(request, pid, sid):
 #    clickedpatient = Patient.objects.get(id=pid)

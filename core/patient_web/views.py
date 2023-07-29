@@ -207,22 +207,8 @@ def patient_dashboard(request):
     year = int(datetime_list[0])
     month = int(datetime_list[1])
     day = [int(datetime_list[2])]
-    print(datetime_list)
-    weekday = datetime.datetime.now().weekday()
-    if weekday == 0:
-        weekday = '월'
-    elif weekday == 1:
-        weekday = '화'
-    elif weekday == 2:
-        weekday = '수'
-    elif weekday == 3:
-        weekday = '목'
-    elif weekday == 4:
-        weekday = '금'
-    elif weekday == 5:
-        weekday = '토'
-    else:
-        weekday = '일'
+    weekday = weekInt_to_str(datetime.datetime.now().weekday())
+
     print_year = int(datetime_list[0][2:4])
 
     date = datetime.datetime(year=int(datetime_list[0]), month=int(datetime_list[1]), day=1).date()
@@ -259,6 +245,7 @@ def patient_dashboard(request):
         date_str = get_date(date_str)
         dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date=date_str)
         med_cnt = 0
+    
 
         if patient.next_visiting_date_time:
             if patient.next_visiting_date_time.date() == date_str:
@@ -281,6 +268,7 @@ def patient_dashboard(request):
                 md_side_effect_list.append(int(i))
                 if patient.daily_medication_count == med_cnt:
                     md_success_list.append(int(i))
+                    
     #오늘의 복약 정리
     dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date = str(datetime.date.today()))
     today_md_success_list = []
