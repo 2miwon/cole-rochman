@@ -268,7 +268,7 @@ def patient_dashboard(request):
                 md_side_effect_list.append(int(i))
                 if patient.daily_medication_count == med_cnt:
                     md_success_list.append(int(i))
-                    
+
     #오늘의 복약 정리
     dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date = str(datetime.date.today()))
     today_md_success_list = []
@@ -325,13 +325,8 @@ def patient_dashboard(request):
                 symptom_sev_list3.append('{}: {}'.format(str(question3),str(symptom_severity3s[i])))
                 symptoms = zip(symptom_name_list, symptom_time_list, symptom_sev_list1, symptom_sev_list2, symptom_sev_list3)
 
-        
-        
-    
     prev_year, prev_month = get_prev_month(month, year)
     next_year, next_month = get_next_month(month, year)
-
-
 
     context = {
         'nickname': nickname,

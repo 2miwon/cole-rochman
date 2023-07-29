@@ -166,6 +166,8 @@ class Sputum_Inspection(models.Model):
     CHOICE_CULTURE = ('검사중','검사중'),('양성','양성'),('음성','음성'),('오염','오염'),('미시행','미시행')
     culture_result =  models.CharField(verbose_name='배양검사 결과', max_length = 20, default = '미시행', choices = CHOICE_CULTURE)
 
+    def __str__(self):
+        return '%s/%s/%s/%s' % (self.method, self.th, self.smear_result, self.culture_result)
     class Meta:
         verbose_name = '도말, 배양 검사'
         verbose_name_plural = '도말, 배양 검사'

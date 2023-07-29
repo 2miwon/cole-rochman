@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from core.day import *
 import calendar # 달력에서 사용합니다
-
+from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
 
 
 
@@ -269,6 +269,23 @@ def patient_status(request, pid):
     prev_year, prev_month = get_prev_month(month, year)
     next_year, next_month = get_next_month(month, year)
 
+    month_first_day = datetime.date(year, month, 1)
+
+    week_date_list = []
+    month_data_list = []
+    for i in range(1,8):
+        week_date_list.append(cal_start_end_day(d,i))
+    for i in range(1,calendar.monthrange(d.year, d.month)[1]):
+        month_data_list.append(get_date(str(month_first_day.year) + ',' + str(month_first_day.month) + ',' + str(i)))
+
+    weekly_sputum = get_sputum_data(pid, week_date_list)
+    monthly_sputum = get_sputum_data(pid, month_data_list)
+
+    #for i in week_date_list:
+    #    weekly_sputum.append(get_sputum_data(pid, i))
+    #for i in month_data_list:
+       # monthly_sputum.append(get_sputum_data(pid, i))
+
     context["day"]=day
     context["month"]=month
     context["year"]=year
@@ -283,6 +300,9 @@ def patient_status(request, pid):
     context["md_success_list"]= monthly_list(clickedpatient)[0]
     context["md_side_effect_list"]= monthly_list(clickedpatient)[1]
     context["visit_list"]=monthly_list(clickedpatient)[2]
+    context["weekly_sputum"]=weekly_sputum
+    context["monthly_sputum"]=monthly_sputum
+
     for i in context:
         print(i,context[i])
     #print(context)
@@ -333,14 +353,10 @@ def get_month_data(dt):
 def get_query_string():
     pass
 
+# 나중에 정리할게요 코드 그대로 갖다썼는데 진짜 말도안되는 코드...
 def monthly_list(patient):
     datetime_list = get_year_month_days()
     date = datetime.datetime(year=int(datetime_list[0]), month=int(datetime_list[1]), day=1).date()
-    day_of_month = calendar.monthrange(date.year, date.month)[1]
-    day_list = []
-    for i in range(1, day_of_month+1):
-        day_list.append(i)
-
     visit_list = []
     md_success_list = []
     md_delayed_success_list = []
@@ -348,15 +364,8 @@ def monthly_list(patient):
     md_failed_list = []
     md_side_effect_list = []
     
-    for i in day_list:
-        date_str = ''
-        date_str+=str(date.year)
-        date_str+=','
-        date_str+=str(date.month)
-        date_str+=','
-        i = str(i)
-        date_str+=i
-        date_str = get_date(date_str)
+    for i in get_monthly_dayList_int(date):
+        date_str = get_date_str(date, i)
         dailyresult=MedicationResult.objects.filter(patient__code__contains=patient.code, date=date_str)
         med_cnt = 0
 
@@ -366,7 +375,6 @@ def monthly_list(patient):
 
         for r in dailyresult:
             #복약 상태별 날짜의 일수들을 각각 상태 리스트에 분류하여 넣는다
-            print("RS",r.status)
             if r.status == "SUCCESS":
                 med_cnt += 1
                 if patient.daily_medication_count == med_cnt:
@@ -383,6 +391,21 @@ def monthly_list(patient):
                 if patient.daily_medication_count == med_cnt:
                     md_success_list.append(int(i))
     return md_success_list, md_side_effect_list, visit_list
+
+def get_date_str(date: datetime.date, day: int):
+    return get_date(str(date.year) + ',' + str(date.month) + ',' + str(day))
+
+# 도말배양
+def get_sputum_data(patient_id, date):
+    return Sputum_Inspection.objects.filter(patient_set=patient_id, insp_date__in=date)
+
+def get_monthly_dayList_int(date):
+    day_of_month = calendar.monthrange(date.year, date.month)[1]
+    day_list = []
+    for i in range(1, day_of_month+1):
+        day_list.append(i)
+    return day_list
+
 # @login_required()
 # def symptom(request, pid, sid):
 #    clickedpatient = Patient.objects.get(id=pid)
