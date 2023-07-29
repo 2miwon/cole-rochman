@@ -32,6 +32,9 @@ def patient_status(request, pid):
     # 보고자 하는 일주일의 월요일 날짜가 출력됨
     # 예) 2023-01-30
     d = get_date(request.GET.get("week", None))
+    
+    sort_policy = request.GET.get('sort', 'id')
+    print("policy :",sort_policy)
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
@@ -76,16 +79,18 @@ def patient_status(request, pid):
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
-        ).order_by("code"),
+        ).order_by(sort_policy),
         a=MeasurementResult.objects.filter(
             patient__id__contains=pid,
             measured_at__gte=cal_start_end_day(d, 1),
             measured_at__lte=cal_start_end_day(d, 7),
         ),
+
         prev_week=prev_week(d),
         next_week=next_week(d),
+
         pid=pid,
-        day_list=print_day_list(d),
+        day_list=get_weekday_list(d),
         code_hyphen=clickedpatient.code_hyphen(),
         # ! 달력에서 사용할 context들입니다. 여기서 선언만 한 뒤 아래에서 정제
         day="",
@@ -210,7 +215,7 @@ def patient_status(request, pid):
     context["count_side"] = count_side
     context["per_side"] = int(100 * count_side / 30)
 
-    # 관리 현황 정렬
+    # 관리 현황 정렬    
     today_su_list = MedicationResult.objects.filter(
         patient__id__contains=pid, date=datetime.date.today(), status="SUCCESS"
     )
@@ -243,6 +248,8 @@ def patient_status(request, pid):
     day = [int(picked_day)]
     print_year = int(picked_year[2:4])
 
+    
+
     date = datetime.datetime(year=year, month=month, day=1).date()
     day_of_month = calendar.monthrange(date.year, date.month)[1]
     day_list = []
@@ -257,31 +264,22 @@ def patient_status(request, pid):
         for j in range(day_of_the_week+1):
             day_of_the_week_list.append(' ')
     
-    weekday = (day_of_the_week + int(picked_day) - 1) % 7
-    if weekday == 0:
-        weekday = '월'
-    elif weekday == 1:
-        weekday = '화'
-    elif weekday == 2:
-        weekday = '수'
-    elif weekday == 3:
-        weekday = '목'
-    elif weekday == 4:
-        weekday = '금'
-    elif weekday == 5:
-        weekday = '토'
-    else:
-        weekday = '일'
+    weekday = weekInt_to_str((day_of_the_week + int(picked_day) - 1) % 7)
 
-    context["day"] = day
+    context["day"]=day
     context["month"]=month
     context["year"]=year
     # context["weekday"]=weekday
     context["today"] = day
     context["day_of_the_week_list"] = day_of_the_week_list
     context["calendar_day_list"] = day_list
-
-    print(context)
+    context["prev_year"]=get_prev_month(month, year)[0],
+    context["prev_month"]=get_prev_month(month, year)[1],
+    context["next_year"]=get_next_month(month, year)[0],
+    context["next_month"]=get_next_month(month, year)[1],
+    context["md_success_list"]=""
+    context["visit_list"]=""
+    #print(context)
     return render(request, "dashboard.html", context)
 
 
@@ -314,34 +312,6 @@ def get_date(req_day):
         return datetime.date(int(req_tuple[0]), int(req_tuple[1]), int(req_tuple[2]))
     return datetime.datetime.now()
 
-
-def prev_week(d):
-    pre_day = d - datetime.timedelta(days=7)
-    return (
-        "week=" + str(pre_day.year) + "," + str(pre_day.month) + "," + str(pre_day.day)
-    )
-
-
-def next_week(d):
-    pre_day = d + datetime.timedelta(days=7)
-    return (
-        "week=" + str(pre_day.year) + "," + str(pre_day.month) + "," + str(pre_day.day)
-    )
-
-
-def iso_year_start(iso_year):
-    "The gregorian calendar date of the first day of the given ISO year"
-    fourth_jan = datetime.date(iso_year, 1, 4)
-    delta = datetime.timedelta(fourth_jan.isoweekday() - 1)
-    return fourth_jan - delta
-
-
-def iso_to_gregorian(iso_year, iso_week, iso_day):
-    "Gregorian calendar date for the given ISO year, week and day"
-    year_start = iso_year_start(iso_year)
-    return year_start + datetime.timedelta(days=iso_day - 1, weeks=iso_week - 1)
-
-
 def cal_start_end_day(dt, i):
     iso = dt.isocalendar()
     iso = list(iso)
@@ -349,44 +319,13 @@ def cal_start_end_day(dt, i):
     iso = tuple(iso)
     return iso_to_gregorian(*iso)
 
-
-def print_day_list(dt):
-    iso = dt.isocalendar()
-    li = list()
-    for i in range(1, 8):
-        iso = list(iso)
-        iso[2] = i
-        iso = tuple(iso)
-        yo = ""
-        if i == 1:
-            yo = "월"
-        elif i == 2:
-            yo = "화"
-        elif i == 3:
-            yo = "수"
-        elif i == 4:
-            yo = "목"
-        elif i == 5:
-            yo = "금"
-        elif i == 6:
-            yo = "토"
-        elif i == 7:
-            yo = "일"
-        li.append(
-            str(iso_to_gregorian(*iso).month).zfill(2)
-            + "."
-            + str(iso_to_gregorian(*iso).day).zfill(2)
-            + " "
-            + yo
-        )
-    return li
-
-
 def get_month_data(dt):
     pass
 
     # 추가
 
+def get_query_string():
+    pass
 
 # @login_required()
 # def symptom(request, pid, sid):

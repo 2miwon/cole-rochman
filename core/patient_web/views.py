@@ -435,15 +435,6 @@ def print_day_list(dt):
         li.append(str(iso_to_gregorian(*iso).month) + ' / ' + str(iso_to_gregorian(*iso).day) + ' ' + yo)
     return li
 
-def prev_week(d):
-    pre_day = d - datetime.timedelta(days=7)
-    return 'week=' + str(pre_day.year) + ',' + str(pre_day.month) + ',' + str(pre_day.day)
-
-
-def next_week(d):
-    pre_day = d + datetime.timedelta(days=7)
-    return 'week=' + str(pre_day.year) + ',' + str(pre_day.month) + ',' + str(pre_day.day)
-
 def certification_number():
     number = ''
     for i in range(4):
@@ -761,21 +752,7 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
         for j in range(day_of_the_week+1):
             day_of_the_week_list.append(' ')
     
-    weekday = (day_of_the_week + int(picked_day) - 1) % 7
-    if weekday == 0:
-        weekday = '월'
-    elif weekday == 1:
-        weekday = '화'
-    elif weekday == 2:
-        weekday = '수'
-    elif weekday == 3:
-        weekday = '목'
-    elif weekday == 4:
-        weekday = '금'
-    elif weekday == 5:
-        weekday = '토'
-    else:
-        weekday = '일'
+    weekday = weekInt_to_str((day_of_the_week + int(picked_day) - 1) % 7)
 
     # 내원 여부
     visit_list = []
