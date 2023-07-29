@@ -211,6 +211,8 @@ def patient_status(request, pid):
 
     month_mdresult = get_last_info_mdResult(30, pid)
 
+    context["side_effect_static"] = get_static_sideEffect(month_mdresult)
+
     count_succ = get_last_success(30, month_mdresult)
     context["count_succ"] = count_succ
     context["per_succ"] = int(100 * count_succ / 30)
@@ -273,6 +275,8 @@ def patient_status(request, pid):
             day_of_the_week_list.append(' ')
     
     weekday = weekInt_to_str((day_of_the_week + int(picked_day) - 1) % 7)
+    
+    MedicationResult.objects.filter(patient__id__contains=pid)
 
     month_first_day = datetime.date(year, month, 1)
 
@@ -411,6 +415,32 @@ def get_monthly_dayList_int(date):
     for i in range(1, day_of_month+1):
         day_list.append(i)
     return day_list
+
+def get_static_sideEffect(results: MedicationResult):
+    rst = {
+        "식욕 감소": 0, 
+        "메스꺼움": 0, 
+        "구토": 0, 
+        "속 쓰림": 0, 
+        "무른 변/설사": 0, 
+        "피부 발진": 0, 
+        "가려움증": 0, 
+        "시야장애": 0, 
+        "관절통": 0, 
+        "피로": 0, 
+        "기타": 0,
+    }
+    count = 0
+    for i in results:
+        if i.is_side_effect():
+            for j in i.get_sideEffect_type(): 
+                rst[j] += 1
+                count += 1
+    if(count):
+        for i in rst:
+            rst[i] = int(100 * rst[i] / count)
+    return rst
+    
 
 # @login_required()
 # def symptom(request, pid, sid):

@@ -149,3 +149,15 @@ class MedicationResult(models.Model):
     
     def is_side_effect(self):
         return self.get_status() == self.STATUS.SIDE_EFFECT
+    
+    def get_sideEffect_type(self):
+        rst = []
+        general = ["식욕 감소", "메스꺼움", "구토", "속 쓰림", "무른 변/설사", "피부 발진", "가려움증", "시야장애", "관절통", "피로"]
+        parsed = self.symptom_name.split(',')
+        for i in parsed:
+            if i in general:
+                rst.append(i)
+            else:
+                rst.append("기타")
+        return rst
+        
