@@ -97,13 +97,19 @@
             </div>
             <div class="bg_white_round item_status">
               <h3>부작용 종류</h3>
-              {% if pid %}
+              {% if pid and md_side_effect_list %}
               <div class="chart">
                 <div class="chart_title">
                   <p>주 부작용</p>
-                  <b>구토</b>
+                  <b id="chart_main_sideeffect"></b>
                 </div>
                 <canvas id="mySideEffectType"></canvas>
+              </div>
+              {% elif pid %}
+              <div class="chart">
+                <div class="chart_title">
+                  <p>부작용 없음</p>
+                </div>
               </div>
               {% endif %}
             </div>
@@ -399,6 +405,9 @@
       options: {
         cutout: '75%',
         responsive: false,
+        plugins: {
+          tooltip : false
+        }
       }
     });
   
@@ -421,6 +430,9 @@
       options: {
         cutout: '75%',
         responsive: false,
+        plugins: {
+          tooltip : false
+        }
       }
     });
   
@@ -472,6 +484,11 @@
         }
       }
     });
+
+    const mainSideEffectElement = document.getElementById("chart_main_sideeffect")
+    const modePercentOfSideEffect = sideEffectPercents.reduce((acc, curr)=> acc > curr ? acc : curr)
+    const modeSideEffect = sideEffectLabels[sideEffectPercents.indexOf(modePercentOfSideEffect)]
+    mainSideEffectElement.innerHTML = modeSideEffect
     </script>
   </body>
 </html>
