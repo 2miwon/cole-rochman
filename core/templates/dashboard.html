@@ -39,7 +39,7 @@
             <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
             <div id="sort_button_wrapper">
               <button id="sort_by_name_btn" name="name">이름순</button>
-              <button id="sort_by_code_btn" name="code" class="active">등록순</button>
+              <button id="sort_by_id_btn" name="id" class="active">등록순</button>
             </div>
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
@@ -97,13 +97,19 @@
             </div>
             <div class="bg_white_round item_status">
               <h3>부작용 종류</h3>
-              {% if pid %}
+              {% if pid and md_side_effect_list %}
               <div class="chart">
                 <div class="chart_title">
                   <p>주 부작용</p>
-                  <b>구토</b>
+                  <b id="chart_main_sideeffect"></b>
                 </div>
                 <canvas id="mySideEffectType"></canvas>
+              </div>
+              {% elif pid %}
+              <div class="chart">
+                <div class="chart_title">
+                  <p>부작용 없음</p>
+                </div>
               </div>
               {% endif %}
             </div>
@@ -227,13 +233,17 @@
                         {{day}}
                         {% endif %}
                         {% if day in visit_list %}
-                        <div id="visit"></div>
+                        <div class="visit"></div>
                         {% endif %}
                         {% if day in md_success_list %}
-                        <div id="success"></div>
-                        {% endif %}
-                        {% if day in md_side_effect_list %}
-                        <div id="sideeffect"></div>
+                        <div class="success_calendar">
+                        {{day}}
+                        </div>
+                      {% endif %}
+                      {% if day in md_side_effect_list %}
+                      <div class="sideeffect_calendar">
+                        {{day}}
+                        </div>
                         {% endif %}
                       {% comment %} </a>     {% endcomment %}
                     </li>
@@ -244,6 +254,9 @@
             </div>
           </div>
         </div>
+        {% for sputum in monthly_sputum %}
+        <div class="sputumsputum"> {{ sputum }} </div>
+        {% endfor %}
       </section>
     </main>
   
@@ -273,12 +286,12 @@
         
         // 이름순 / 번호순 색깔넣는거도 세션스토리지에서 찾아와서...
         const sortBy = sessionStorage.getItem("sortBy");
-        if (sortBy === null || sortBy === "code") {
-          document.querySelector(`#sort_by_code_btn`).classList = "active"
+        if (sortBy === null || sortBy === "id") {
+          document.querySelector(`#sort_by_id_btn`).classList = "active"
           document.querySelector(`#sort_by_name_btn`).classList = ""
         } else {
           document.querySelector(`#sort_by_name_btn`).classList = "active"
-          document.querySelector(`#sort_by_code_btn`).classList = ""
+          document.querySelector(`#sort_by_id_btn`).classList = ""
         }
       });
 
@@ -307,11 +320,11 @@
 
      // 이름순 / 번호순 sort
      const sortByNameBtn = document.querySelector("#sort_by_name_btn")
-     const sortByCodeBtn = document.querySelector("#sort_by_code_btn")
+     const sortByIdBtn = document.querySelector("#sort_by_id_btn")
 
      function handleSortBtnClick(e) {
         sortByNameBtn.classList = ""
-        sortByCodeBtn.classList = ""
+        sortByIdBtn.classList = ""
         sessionStorage.setItem("sortBy", e.target.name)
         e.target.classList.add("active")
 
@@ -329,7 +342,7 @@
      }
 
      sortByNameBtn.addEventListener("click", handleSortBtnClick)
-     sortByCodeBtn.addEventListener("click", handleSortBtnClick)
+     sortByIdBtn.addEventListener("click", handleSortBtnClick)
 
 
      // 달력
@@ -372,8 +385,14 @@
   
      // chart
      const medi = document.getElementById("myMedication");
-     const mediValue = {{ per_succ }};
-     var myMedication = new Chart(medi, {
+     
+     let mediValue = "";
+     if ( {{per_succ}} ) {
+      mediValue = {{ per_succ }};
+      }
+      console.log("mediValue", mediValue)
+     
+      var myMedication = new Chart(medi, {
       type: 'doughnut',
       data: {
         datasets: [{
@@ -386,11 +405,18 @@
       options: {
         cutout: '75%',
         responsive: false,
+        plugins: {
+          tooltip : false
+        }
       }
     });
   
     const sef = document.getElementById("mySideEffectFreq");
-    const sefValue = {{ per_side }};
+    let sefValue = ""
+    if ({{ per_side }}) {
+      sefValue =  {{ per_side }};
+    }
+
     var mySideEffectFreq = new Chart(sef, {
       type: 'doughnut',
       data: {
@@ -404,16 +430,38 @@
       options: {
         cutout: '75%',
         responsive: false,
+        plugins: {
+          tooltip : false
+        }
       }
     });
   
     const set = document.getElementById("mySideEffectType");
-    const setValue = [40, 20, 20, 20];
+    let setValue = {};
+
+    // if ( {{ side_effect_static }}) {
+      setValue = {{side_effect_static|safe}}
+    // }
+
+    let sideEffectLabels = [];
+    let sideEffectPercents = [];
+
+    for (const key in setValue) {
+      if (setValue[key] !== 0) {
+        sideEffectLabels.push(key);
+        sideEffectPercents.push(setValue[key]);
+      }
+    }
+
+    console.log("labels", sideEffectLabels, "percents", sideEffectPercents)
+
     var mySideEffectType = new Chart(set, {
       type: 'doughnut',
       data: {
+        labels: [...sideEffectLabels],
         datasets: [{
-          data: [...setValue],
+          labels: [...sideEffectLabels],
+          data: [...sideEffectPercents],
           backgroundColor: [
             '#2E65F3',
             '#2E65F3CC',
@@ -421,14 +469,26 @@
             '#DCECFB'
           ],
           borderWidth: 0,
+          borderRadius: 0,
           scaleBeginAtZero: true,
         }]
       },
       options: {
         cutout: '75%',
         responsive: false,
+        plugins: {
+          // tooltip : {enabled : false}
+          legend: {
+            display: false
+          }
+        }
       }
     });
+
+    const mainSideEffectElement = document.getElementById("chart_main_sideeffect")
+    const modePercentOfSideEffect = sideEffectPercents.reduce((acc, curr)=> acc > curr ? acc : curr)
+    const modeSideEffect = sideEffectLabels[sideEffectPercents.indexOf(modePercentOfSideEffect)]
+    mainSideEffectElement.innerHTML = modeSideEffect
     </script>
   </body>
 </html>
