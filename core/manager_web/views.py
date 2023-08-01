@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from core.day import *
 import calendar # 달력에서 사용합니다
 from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
+from django.core import serializers
 
 
 
@@ -407,7 +408,7 @@ def get_date_str(date: datetime.date, day: int):
 
 # 도말배양
 def get_sputum_data(patient_id, date):
-    return Sputum_Inspection.objects.filter(patient_set=patient_id, insp_date__in=date)
+    return serializers.serialize("json", Sputum_Inspection.objects.filter(patient_set=patient_id, insp_date__in=date))
 
 def get_monthly_dayList_int(date):
     day_of_month = calendar.monthrange(date.year, date.month)[1]

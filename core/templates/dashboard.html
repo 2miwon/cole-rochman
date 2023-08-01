@@ -86,7 +86,8 @@
               <h3>부작용 빈도</h3>
               {% if pid %}
               <div class="chart">
-                <div class="chart_title">
+                <div class="chart_title sideEffect_chart_title">
+                  {% comment %} <p>최근 30일 기준</p> {% endcomment %}
                   <p>부작용 빈도</p>
                   <b>{{ per_side }}%</b>
                 </div>
@@ -97,7 +98,7 @@
             </div>
             <div class="bg_white_round item_status">
               <h3>부작용 종류</h3>
-              {% if pid and md_side_effect_list %}
+              {% if pid and side_effect_static %}
               <div class="chart">
                 <div class="chart_title">
                   <p>주 부작용</p>
@@ -110,6 +111,7 @@
                 <div class="chart_title">
                   <p>부작용 없음</p>
                 </div>
+                <canvas id="mySideEffectType"></canvas>
               </div>
               {% endif %}
             </div>
@@ -137,7 +139,7 @@
                   <span class="material-symbols-outlined">chevron_left</span>
                 </button>
                 {% for day in day_list %}
-                  <span class="day">{{ day }}</span>
+                  <span class="day" id="{{ day|slice:":5" }}">{{ day }}</span>
                 {% endfor %}
                 <button class="btn_date" onclick="location.href='{% url 'patient_status' pid %}?{{ next_week }}'">
                   <span class="material-symbols-outlined">chevron_right</span>
@@ -157,7 +159,7 @@
                       <div class="unfinished sideeffect">{{result.medication}}/{{result.total}}</div>
                     {% endif %}
                     {% comment %} ! 도말/객담상자 {% endcomment %}
-                    <div class="sputum_box"> <span>1+</span></div>
+                      <div class="sputum_box"></div>
                     {% if result.sideeffect|length == 1 %}
                     <span>{{result.sideeffect | first}}</span>
                     {% else %}
@@ -174,7 +176,7 @@
                     {{result.medication | striptags}}/{{result.total | striptags}}
                     </div>
                     {% comment %} ! 도말/객담상자 {% endcomment %}
-                  <div class="sputum_box"> <span>음성</span></div>
+                  <div class="sputum_box"></div>
                   </div>
                   {% endif %}
                 {% empty %}
@@ -225,7 +227,7 @@
                     <li></li>
                     {% endfor %}
                     {% for day in calendar_day_list%}
-                    <li>
+                    <li id="{{ day }}">
                       {% comment %} <a class="day_of_the_week" href="{% url 'patient_dashboard_by_day' year month day %}"> {% endcomment %}
                         {% if day in today %}
                         <span id="today">{{day}}</span>
@@ -255,7 +257,7 @@
           </div>
         </div>
         {% for sputum in monthly_sputum %}
-        <div class="sputumsputum"> {{ sputum }} </div>
+        <div class="sputumsputum"> {{ sputum.insp_date }} </div>
         {% endfor %}
       </section>
     </main>
@@ -489,6 +491,21 @@
     const modePercentOfSideEffect = sideEffectPercents.reduce((acc, curr)=> acc > curr ? acc : curr)
     const modeSideEffect = sideEffectLabels[sideEffectPercents.indexOf(modePercentOfSideEffect)]
     mainSideEffectElement.innerHTML = modeSideEffect
+    // 차트끝
+
+    // 객담데이터
+    const monthlySputum = {{ monthly_sputum | safe }}
+    console.log("ms ", monthlySputum)
+    monthlySputum.map((sputum) => {
+      // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
+      // document.getElementById(sputum.fields.insp_date.slice(5).replace("-",".")).innerHTML = `<span>${sputum.fields.smear_result}</span>`
+      console.log(parseInt(sputum.fields.insp_date.slice(8)))
+      const sputumMonthBox = document.createElement("div")
+      sputumMonthBox.classList = "sputum_box_month"
+      sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
+      document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
+    })
+
     </script>
   </body>
 </html>
