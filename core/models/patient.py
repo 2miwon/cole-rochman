@@ -168,6 +168,9 @@ class Sputum_Inspection(models.Model):
 
     def __str__(self):
         return '%s/%s/%s/%s' % (self.method, self.th, self.smear_result, self.culture_result)
+    
+    def get_date(self):
+        return self.insp_date
     class Meta:
         verbose_name = '도말, 배양 검사'
         verbose_name_plural = '도말, 배양 검사'

@@ -309,7 +309,7 @@ def patient_status(request, pid):
 
     for i in context:
         print(i,context[i])
-    #print(context)
+        
     return render(request, "dashboard.html", context)
 
 
