@@ -267,6 +267,10 @@ section > h2 {
   left: 85px;
 }
 
+/* .sideEffect_chart_title {
+  top: 60px;
+} */
+
 .chart_title > p {
   font-size: 14px;
   margin-bottom: 5px;
@@ -444,6 +448,7 @@ section > h2 {
   border: 2px solid var(--bg-color-yellow);
   border-radius: 10px;
   display: grid;
+  visibility: hidden;
 }
 
 .sputum_box span {
@@ -573,4 +578,12 @@ section > h2 {
   top: 9px;
   left: calc(50% - 14px);
   z-index: -1;
+}
+
+.sputum_box_month {
+  width: 40px;
+  height: 1.2em;
+  border: 2px solid var(--bg-color-yellow);
+  border-radius: 10px;
+  display: grid;
 }
