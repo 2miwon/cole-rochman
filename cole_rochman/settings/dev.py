@@ -1,6 +1,8 @@
 # dev.py 파일은 서버에서 테스트해보는 코드
 
 from .base import *
+from dotenv import load_dotenv
+load_dotenv()
 
 DEBUG = True
 
@@ -10,10 +12,10 @@ ALLOWED_HOSTS = ["www.cole-rochman.co.kr", "localhost"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test_db1',
-        'USER': 'sean0921',
-        'PASSWORD': 'cjstmdqja',
-        'HOST': 'csbdb1.c3q5bv2ohcbc.ap-northeast-2.rds.amazonaws.com',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': 5432,
     },
 }

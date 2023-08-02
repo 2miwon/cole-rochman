@@ -98,7 +98,7 @@
             </div>
             <div class="bg_white_round item_status">
               <h3>부작용 종류</h3>
-              {% if pid and md_side_effect_list %}
+              {% if pid  %}
               <div class="chart">
                 <div class="chart_title">
                   <p>주 부작용</p>
@@ -106,13 +106,13 @@
                 </div>
                 <canvas id="mySideEffectType"></canvas>
               </div>
-              {% elif pid %}
+              {% comment %} {% elif pid %}
               <div class="chart">
                 <div class="chart_title">
                   <p>부작용 없음</p>
                 </div>
                 <canvas id="mySideEffectType"></canvas>
-              </div>
+              </div> {% endcomment %}
               {% endif %}
             </div>
           </div>
@@ -149,7 +149,7 @@
               <div class="line_status"></div>
               <div class="manage_status">
                 {% for result in mdresult %}
-                  {% if result.total == 0 %}
+                  {% if result.medication == 0 %}
                   <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
                   {% elif result.sideeffect %}
                   <div class="status">
