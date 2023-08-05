@@ -3,7 +3,7 @@ import os
 from celery import Celery
 from django.conf import settings
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cole_rochman.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cole_rochman.settings.prod')
 
 # Broker로 Redis를 사용
 app = Celery('cole_rochman',

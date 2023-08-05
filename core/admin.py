@@ -126,7 +126,7 @@ class MedicationResultAdmin(GuardedModelAdmin, ImportExportModelAdmin):
 @admin.register(NotificationRecord)
 class NotificationRecordAdmin(admin.ModelAdmin):
     list_display = [
-        'id', 'patient', 'medication_result', 'measurement_result', 'biz_message_type', 'noti_time_num', 'status',
+        'id', 'patient', 'medication_result', 'noti_time_num', 'status',
         'recipient_number', 'tries_left', 'send_at', 'delivered_at', 'status_updated_at', 'created_at', 'updated_at'
     ]
     search_fields = [
