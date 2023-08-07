@@ -83,7 +83,7 @@
               {% endif %}
             </div>
             <div class="bg_white_round item_status">
-              <h3>부작용 빈도</h3>
+              <h3>한달간 부작용 빈도</h3>
               {% if pid %}
               <div class="chart">
                 <div class="chart_title sideEffect_chart_title">
@@ -97,7 +97,7 @@
               {% endif %}
             </div>
             <div class="bg_white_round item_status">
-              <h3>부작용 종류</h3>
+              <h3>한달간 부작용 종류</h3>
               {% if pid  %}
               <div class="chart">
                 <div class="chart_title">
@@ -163,7 +163,14 @@
                     {% if result.sideeffect|length == 1 %}
                     <span>{{result.sideeffect | first}}</span>
                     {% else %}
-                    <span>{{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건</span>
+                    <span class="many_sideeffect">{{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건</span>
+                    <div class="hover_sideeffect_box">
+                      <ul>
+                        {% for s in result.sideeffect %}
+                        <li> {{forloop.counter}}차 {{s}} </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
                     {% endif %}
                   </div>
                   {% else %}

@@ -442,6 +442,31 @@ section > h2 {
   justify-content: center;
 }
 
+/* .many_sideeffect:hover + .hover_sideeffect_box {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2), 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+} */
+
+.status:hover .hover_sideeffect_box {
+  display: block;
+  position: absolute;
+  top: 40px;
+  padding: 20px;
+  background-color: var(--bg-color-white);
+  z-index: 1;
+  border-radius: 10%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 6px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  font-weight: 800;
+}
+
+.hover_sideeffect_box {
+  display: none;
+}
+
 .sputum_box {
   width: 40px;
   height: 1.2em;
