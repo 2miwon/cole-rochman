@@ -101,6 +101,7 @@ section > h2 {
   grid-template-columns: 256px auto;
   grid-template-rows: 400px auto;
   gap: 20px;
+  margin-bottom: 24px;
 }
 
 .bg_white_round {
@@ -351,6 +352,12 @@ section > h2 {
   height: 15px;
 }
 
+.legend > .unfinished {
+  width: 18px;
+  height: 18px;
+  margin-bottom: 0;
+}
+
 .week_status {
   padding-top: 80px;
 }
@@ -461,6 +468,7 @@ section > h2 {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 6px 12px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .hover_sideeffect_box {

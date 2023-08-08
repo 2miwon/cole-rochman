@@ -129,6 +129,7 @@
               <h3>주간 관리</h3>
               <div class="legend">
                 <div class="success"></div> <span>복용</span>
+                <div class="unfinished"></div> <span>복용 미달</span>
                 <div class="sideeffect"></div> <span>부작용</span>
               </div>
 
@@ -271,6 +272,20 @@
   
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script>
+
+      // 객담데이터
+      const monthlySputum = {{ monthly_sputum | safe }}
+      console.log("ms ", monthlySputum)
+      monthlySputum.map((sputum) => {
+        // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
+        // document.getElementById(sputum.fields.insp_date.slice(5).replace("-",".")).innerHTML = `<span>${sputum.fields.smear_result}</span>`
+        console.log(parseInt(sputum.fields.insp_date.slice(8)))
+        const sputumMonthBox = document.createElement("div")
+        sputumMonthBox.classList = "sputum_box_month"
+        sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
+        document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
+      })
+
       const searchInput = document.getElementById('myInput');
 
       // 환자 목록 위치 고정
@@ -497,21 +512,12 @@
     const mainSideEffectElement = document.getElementById("chart_main_sideeffect")
     const modePercentOfSideEffect = sideEffectPercents.reduce((acc, curr)=> acc > curr ? acc : curr)
     const modeSideEffect = sideEffectLabels[sideEffectPercents.indexOf(modePercentOfSideEffect)]
-    if (mainSideEffectElement) {mainSideEffectElement.innerHTML = modeSideEffect}
+    if (mainSideEffectElement) {
+      mainSideEffectElement.innerHTML = modeSideEffect
+    }
     // 차트끝
 
-    // 객담데이터
-    const monthlySputum = {{ monthly_sputum | safe }}
-    console.log("ms ", monthlySputum)
-    monthlySputum.map((sputum) => {
-      // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
-      // document.getElementById(sputum.fields.insp_date.slice(5).replace("-",".")).innerHTML = `<span>${sputum.fields.smear_result}</span>`
-      console.log(parseInt(sputum.fields.insp_date.slice(8)))
-      const sputumMonthBox = document.createElement("div")
-      sputumMonthBox.classList = "sputum_box_month"
-      sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
-      document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
-    })
+    
 
     </script>
   </body>
