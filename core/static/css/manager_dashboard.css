@@ -499,6 +499,30 @@ section > h2 {
   position: relative;
 }
 
+#calendar_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar_switch {
+  display: flex;
+  flex-direction: row;
+}
+
+.calendar_switch button {
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10%;
+  font-size: 13px;
+}
+
+.calendar_switch .active {
+  color: var(--bg-color-blue);
+  background-color: var(--bg-color-lightblue);
+}
+
 #cure_manage_calendar {
   background-color: var(--bg-color-white);
   margin-top: 15px;
@@ -553,10 +577,11 @@ section > h2 {
 #days ul li {
   line-height: 20px;
   text-align: center;
-  justify-items: center;
   padding: 5px;
   position: relative;
   z-index: 1;
+  display: grid;
+  place-self: center;
 }
 
 #days ul li a {

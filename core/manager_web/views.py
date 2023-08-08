@@ -252,7 +252,7 @@ def patient_status(request, pid):
         picked_month = str(datetime.date.today())[5:7]
         picked_day=str(datetime.date.today())[8:10]
 
-    datetime_list = get_year_month_days()
+    datetime_list = get_now_ymd_list()
     year = int(picked_year)
     month = int(picked_month)
     day = [int(picked_day)]
@@ -302,9 +302,9 @@ def patient_status(request, pid):
     context["prev_month"]=prev_month
     context["next_year"]=next_year
     context["next_month"]=next_month
-    context["md_success_list"]= monthly_list(clickedpatient)[0]
-    context["md_side_effect_list"]= monthly_list(clickedpatient)[1]
-    context["visit_list"]=monthly_list(clickedpatient)[2]
+    context["md_success_list"]= monthly_list(clickedpatient,year,month)[0]
+    context["md_side_effect_list"]= monthly_list(clickedpatient,year,month)[1]
+    context["visit_list"]=monthly_list(clickedpatient,year,month)[2]
     context["weekly_sputum"]=weekly_sputum
     context["monthly_sputum"]=monthly_sputum
 
@@ -365,9 +365,10 @@ def get_query_string():
     pass
 
 # 나중에 정리할게요 코드 그대로 갖다썼는데 진짜 말도안되는 코드...
-def monthly_list(patient):
-    datetime_list = get_year_month_days()
-    date = datetime.datetime(year=int(datetime_list[0]), month=int(datetime_list[1]), day=1).date()
+def monthly_list(patient, year, month):
+    #datetime_list = get_now_ymd_list()
+    date = datetime.datetime(year, month, day=1).date()
+    print(date)
     visit_list = []
     md_success_list = []
     md_delayed_success_list = []

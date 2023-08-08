@@ -159,8 +159,6 @@
                     {% else %}
                       <div class="unfinished sideeffect">{{result.medication}}/{{result.total}}</div>
                     {% endif %}
-                    {% comment %} ! 도말/객담상자 {% endcomment %}
-                      <div class="sputum_box"></div>
                     {% if result.sideeffect|length == 1 %}
                     <span>{{result.sideeffect | first}}</span>
                     {% else %}
@@ -183,8 +181,6 @@
                     {% endif %}
                     {{result.medication | striptags}}/{{result.total | striptags}}
                     </div>
-                    {% comment %} ! 도말/객담상자 {% endcomment %}
-                  <div class="sputum_box"></div>
                   </div>
                   {% endif %}
                 {% empty %}
@@ -197,10 +193,16 @@
           </div>
 
             <div class="bottom_calendar bg_white_round">
-              <h3>월간 관리</h3>
-              <div class="monthly_icon_box legend">
-                <div class="success"></div> <span>복용</span>
-                <div class="sideeffect"></div> <span>부작용</span>
+              <div id="calendar_title">
+                <h3>월간 관리</h3>
+                {% comment %} <div class="monthly_icon_box legend">
+                  <div class="success"></div> <span>복용</span>
+                  <div class="sideeffect"></div> <span>부작용</span>
+                </div> {% endcomment %}
+                <div class="calendar_switch">
+                  <button id="calendar_switch_button_sideeffect" class="active">부작용</button>
+                  <button id="calendar_switch_button_result">검사결과</button>
+                </div>
               </div>
               <div id="cure_manage_calendar">
                 <ul id="cure_manage_year">
@@ -264,9 +266,9 @@
             </div>
           </div>
         </div>
-        {% for sputum in monthly_sputum %}
+        {% comment %} {% for sputum in monthly_sputum %}
         <div class="sputumsputum"> {{ sputum.insp_date }} </div>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
       </section>
     </main>
   
@@ -286,9 +288,21 @@
         document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
       })
 
-      const searchInput = document.getElementById('myInput');
+      // 달력 버튼
+      const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
+      const calendarResultBtn = document.querySelector("#calendar_switch_button_result")
+      calendarSideEffectBtn.addEventListener("click", handleCalendarBtnClick)
+      calendarResultBtn.addEventListener("click", handleCalendarBtnClick)
+
+      function handleCalendarBtnClick(e) {
+        calendarSideEffectBtn.classList = ""
+        calendarResultBtn.classList = ""
+        e.target.classList.add("active")
+      }
+
 
       // 환자 목록 위치 고정
+      const searchInput = document.getElementById('myInput');
       const patientList = document.getElementById("myUL");
       function scrollFix() {
         const setScrollY = patientList.scrollTop;
@@ -517,7 +531,6 @@
     }
     // 차트끝
 
-    
 
     </script>
   </body>
