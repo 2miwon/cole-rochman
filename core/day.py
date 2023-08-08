@@ -29,18 +29,18 @@ def get_last_sideeffect(days, month_mdresult):
                 rst += 1
     return rst
 
-def get_year_month_days():
+def get_now_ymd_list():
     day_list = str(datetime.datetime.now())[0:10].split('-')
     return day_list
 
 def get_year():
-    return int(get_year_month_days()[0])
+    return int(get_now_ymd_list()[0])
 
 def get_month():
-    return int(get_year_month_days()[1])
+    return int(get_now_ymd_list()[1])
 
 def get_day():
-    return int(get_year_month_days()[2])
+    return int(get_now_ymd_list()[2])
 
 def get_prev_month(m, y):
     if m == 1:
