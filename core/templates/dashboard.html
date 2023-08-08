@@ -83,7 +83,7 @@
               {% endif %}
             </div>
             <div class="bg_white_round item_status">
-              <h3>부작용 빈도</h3>
+              <h3>한달간 부작용 빈도</h3>
               {% if pid %}
               <div class="chart">
                 <div class="chart_title sideEffect_chart_title">
@@ -97,7 +97,7 @@
               {% endif %}
             </div>
             <div class="bg_white_round item_status">
-              <h3>부작용 종류</h3>
+              <h3>한달간 부작용 종류</h3>
               {% if pid  %}
               <div class="chart">
                 <div class="chart_title">
@@ -129,6 +129,7 @@
               <h3>주간 관리</h3>
               <div class="legend">
                 <div class="success"></div> <span>복용</span>
+                <div class="unfinished"></div> <span>복용 미달</span>
                 <div class="sideeffect"></div> <span>부작용</span>
               </div>
 
@@ -158,12 +159,17 @@
                     {% else %}
                       <div class="unfinished sideeffect">{{result.medication}}/{{result.total}}</div>
                     {% endif %}
-                    {% comment %} ! 도말/객담상자 {% endcomment %}
-                      <div class="sputum_box"></div>
                     {% if result.sideeffect|length == 1 %}
                     <span>{{result.sideeffect | first}}</span>
                     {% else %}
-                    <span>{{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건</span>
+                    <span class="many_sideeffect">{{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건</span>
+                    <div class="hover_sideeffect_box">
+                      <ul>
+                        {% for s in result.sideeffect %}
+                        <li> {{forloop.counter}}차 {{s}} </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
                     {% endif %}
                   </div>
                   {% else %}
@@ -175,8 +181,6 @@
                     {% endif %}
                     {{result.medication | striptags}}/{{result.total | striptags}}
                     </div>
-                    {% comment %} ! 도말/객담상자 {% endcomment %}
-                  <div class="sputum_box"></div>
                   </div>
                   {% endif %}
                 {% empty %}
@@ -189,10 +193,16 @@
           </div>
 
             <div class="bottom_calendar bg_white_round">
-              <h3>월간 관리</h3>
-              <div class="monthly_icon_box legend">
-                <div class="success"></div> <span>복용</span>
-                <div class="sideeffect"></div> <span>부작용</span>
+              <div id="calendar_title">
+                <h3>월간 관리</h3>
+                {% comment %} <div class="monthly_icon_box legend">
+                  <div class="success"></div> <span>복용</span>
+                  <div class="sideeffect"></div> <span>부작용</span>
+                </div> {% endcomment %}
+                <div class="calendar_switch">
+                  <button id="calendar_switch_button_sideeffect" class="active">부작용</button>
+                  <button id="calendar_switch_button_result">검사결과</button>
+                </div>
               </div>
               <div id="cure_manage_calendar">
                 <ul id="cure_manage_year">
@@ -256,17 +266,43 @@
             </div>
           </div>
         </div>
-        {% for sputum in monthly_sputum %}
+        {% comment %} {% for sputum in monthly_sputum %}
         <div class="sputumsputum"> {{ sputum.insp_date }} </div>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
       </section>
     </main>
   
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script>
-      const searchInput = document.getElementById('myInput');
+
+      // 객담데이터
+      const monthlySputum = {{ monthly_sputum | safe }}
+      console.log("ms ", monthlySputum)
+      monthlySputum.map((sputum) => {
+        // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
+        // document.getElementById(sputum.fields.insp_date.slice(5).replace("-",".")).innerHTML = `<span>${sputum.fields.smear_result}</span>`
+        console.log(parseInt(sputum.fields.insp_date.slice(8)))
+        const sputumMonthBox = document.createElement("div")
+        sputumMonthBox.classList = "sputum_box_month"
+        sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
+        document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
+      })
+
+      // 달력 버튼
+      const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
+      const calendarResultBtn = document.querySelector("#calendar_switch_button_result")
+      calendarSideEffectBtn.addEventListener("click", handleCalendarBtnClick)
+      calendarResultBtn.addEventListener("click", handleCalendarBtnClick)
+
+      function handleCalendarBtnClick(e) {
+        calendarSideEffectBtn.classList = ""
+        calendarResultBtn.classList = ""
+        e.target.classList.add("active")
+      }
+
 
       // 환자 목록 위치 고정
+      const searchInput = document.getElementById('myInput');
       const patientList = document.getElementById("myUL");
       function scrollFix() {
         const setScrollY = patientList.scrollTop;
@@ -490,21 +526,11 @@
     const mainSideEffectElement = document.getElementById("chart_main_sideeffect")
     const modePercentOfSideEffect = sideEffectPercents.reduce((acc, curr)=> acc > curr ? acc : curr)
     const modeSideEffect = sideEffectLabels[sideEffectPercents.indexOf(modePercentOfSideEffect)]
-    if (mainSideEffectElement) {mainSideEffectElement.innerHTML = modeSideEffect}
+    if (mainSideEffectElement) {
+      mainSideEffectElement.innerHTML = modeSideEffect
+    }
     // 차트끝
 
-    // 객담데이터
-    const monthlySputum = {{ monthly_sputum | safe }}
-    console.log("ms ", monthlySputum)
-    monthlySputum.map((sputum) => {
-      // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
-      // document.getElementById(sputum.fields.insp_date.slice(5).replace("-",".")).innerHTML = `<span>${sputum.fields.smear_result}</span>`
-      console.log(parseInt(sputum.fields.insp_date.slice(8)))
-      const sputumMonthBox = document.createElement("div")
-      sputumMonthBox.classList = "sputum_box_month"
-      sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
-      document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
-    })
 
     </script>
   </body>
