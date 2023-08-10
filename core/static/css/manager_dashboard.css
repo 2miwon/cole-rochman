@@ -65,12 +65,26 @@ main {
 nav {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 0 15px;
   height: 440px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 600' fill='%23356CF9'%3E%3Cpath d='M0 0V599.946C3.3542 566.703 25.509 543.087 43.8332 533.331C55.268 526.089 83.7691 504.052 87.3139 475.515C87.9238 469.735 88.4383 213.352 87.3139 117.651C86.361 100.804 71.21 75.0604 55.6396 66.4649C37.487 56.1718 4.39285 34.4788 0 0Z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+nav button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--bg-color-white);
+}
+
+nav .icon_wrapper {
+  background-color: var(--bg-color-gray);
+  padding: 20%;
+  border-radius: 7px;
 }
 
 #icon_nav {
@@ -464,7 +478,7 @@ section > h2 {
   padding: 20px;
   background-color: var(--bg-color-white);
   z-index: 1;
-  border-radius: 10%;
+  border-radius: 30%;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 6px 12px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
   font-weight: 800;

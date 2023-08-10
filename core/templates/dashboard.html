@@ -26,7 +26,22 @@
     <main>
       <nav>
         <button onclick="location.href='{% url 'web_menu' %}'">
-          <span id="icon_nav" class="material-symbols-outlined active">home</span>
+          <div class="icon_wrapper active">
+          <img src={% static "media/icons/chart.png" %} alt="차트" />
+          </div>
+          <span>대시보드</span>
+        </button>
+        <button onclick="location.href='{% url 'web_menu' %}'">
+          <div class="icon_wrapper">
+          <img src={% static "media/icons/lungs.png" %} alt="폐" />
+          </div>
+          <span>도말배양</span>
+        </button>
+        <button onclick="location.href='{% url 'web_menu' %}'">
+          <div class="icon_wrapper">
+          <img src={% static "media/icons/left up.png" %} alt="돌아가기" />
+          </div>
+          <span>메뉴선택</span>
         </button>
       </nav>
   
