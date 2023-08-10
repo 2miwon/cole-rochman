@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="{% static 'css/manager_inspection.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <title>결핵 환자 정보 대쉬보드</title>
+  </head>
+
+  <body>
+    <header>
+      <img id="img_logo" src={% static 'media/images/logo_hospital.png' %}
+      alt="logo_hospital">
+      <div id="header_right">
+        {% if user.is_active %}
+        <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
+        <a id="btn_logout" href="{% url 'logout' %}">
+          <span id="icon_logout" class="material-symbols-outlined">logout</span>
+          <p id="txt_logout">로그아웃</p>
+        </a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main>
+      <nav>
+        <button onclick="location.href='{% url 'user_dashboard' %}'">
+          <div class="icon_wrapper">
+            <img class="nav_icon" src={% static "media/icons/chart.png" %}
+            alt="차트" />
+          </div>
+          <span>대시보드</span>
+        </button>
+        {% if pid|default_if_none:'' %}
+        <button onclick="location.href='{% url 'patient_inspection' pid %}'">
+          <div class="icon_wrapper active">
+            <img class="nav_icon" src={% static "media/icons/lungs_on.png" %}
+            alt="폐" />
+          </div>
+          <span>도말배양</span>
+        </button>
+        {% else %}
+        <button onclick="location.href='{% url 'inspection' %}'">
+          <div class="icon_wrapper active">
+            <img class="nav_icon" src={% static "media/icons/lungs_on.png" %}
+            alt="폐" />
+          </div>
+          <span>도말배양</span>
+        </button>
+        {% endif %}
+        <button onclick="location.href='{% url 'web_menu' %}'">
+          <div class="icon_wrapper">
+            <img class="nav_icon" src={% static "media/icons/left up.png" %}
+            alt="돌아가기" />
+          </div>
+          <span>메뉴선택</span>
+        </button>
+      </nav>
+
+      <section>
+        <div>
+          <h2>환자 복약 현황</h2>
+        </div>
+        <div class="grid_container">
+          <div class="item search-sidebar">
+            <input
+              type="text"
+              id="myInput"
+              class="bg_white_round"
+              placeholder="환자 이름 혹은 번호를 입력하세요."
+            />
+            <div id="sort_button_wrapper">
+              <button id="sort_by_name_btn" name="name">이름순</button>
+              <button id="sort_by_id_btn" name="id" class="active">
+                등록순
+              </button>
+            </div>
+            <ul id="myUL" class="bg_white_round">
+              {% for patient in patientlist %}
+              <li class="li_patient" name="{{patient.name}}">
+                <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} onclick="location.href='{% url 'patient_inspection' patient.id %}'" {% if pid == patient.id %} checked {% endif %}>
+                <a
+                  href="{% url 'patient_inspection' patient.id %}"
+                  id="btn_patient"
+                  for="radio_patient"
+                >
+                  <span class="txt_black">{{ patient.name }}</span>
+                  <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
+                  <span style="display: none">{{ patient.code }}</span>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div id="select_date" class="bg_white_round">
+            <h3>검사 결과 조회</h3>
+            <div class="date_and_button_wrapper">
+              <div class="date_input_wrapper">
+                <input />
+                <span>&nbsp;&nbsp;~&nbsp;&nbsp;</span>
+                <input />
+              </div>
+              <button id="select_date_button">조회</button>
+            </div>
+          </div>
+          <div id="inspection_main" class="bg_white_round">
+            {% if pid|default_if_none:''  %}
+            <div id="inspection_title">
+              {% for p in clickedpatient %}
+              <div>
+                <b>{{ p.name }} ({{p.code_hyphen}})</b> <span>님의 도말 배양 검사 총 <b>{{sputum|length}}</b> 건이 검색되었습니다.
+              </div>
+              {% endfor %}
+              <button id="add_inspection_button">검사 결과 추가</button>
+            </div>
+            <table id="inspection_table">
+              <thead>
+                <tr>
+                  <th>검사 날짜</th>
+                  <th>검체 종류</th>
+                  <th>검체 세부 분류</th>
+                  <th>도말검사 결과</th>
+                  <th>배양검사 결과</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for result in sputum %}
+                  <tr>
+                    <td>{{ result.insp_date }}</td>
+                    <td>{{ result.method }}</td>
+                    <td>{{ result.th }}</td>
+                    <td>{{ result.smear_result }}</td>
+                    <td>{{ result.culture_result }}</td>
+                    <td>
+                      <button id="update_button">수정</button>
+                      <button id="delete_button">삭제</button>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+             </table>
+             <div id="pagination_wrapper">
+              <ul id="pagination">
+                <li><span class="material-symbols-outlined">chevron_left</span></li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li><span class="material-symbols-outlined">chevron_right</span></li>
+              </ul>
+             </div>
+            {% else %}
+            <div> 환자를 선택해 주세요 </div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script>
+      // 환자 목록 위치 고정
+      const searchInput = document.getElementById("myInput");
+      const patientList = document.getElementById("myUL");
+      function scrollFix() {
+        const setScrollY = patientList.scrollTop;
+        sessionStorage.setItem("scrollY", setScrollY);
+      }
+
+      patientList.addEventListener("click", scrollFix);
+      document.addEventListener("DOMContentLoaded", () => {
+        const scrollY = parseInt(sessionStorage.getItem("scrollY"));
+        if (scrollY && scrollY > 0) {
+          patientList.scrollTo(0, scrollY);
+        }
+
+        const searchPatient = sessionStorage.getItem("search");
+        if (searchPatient != null) {
+          searchInput.value = searchPatient;
+          patientFilter(searchPatient);
+        }
+
+        // 이름순 / 번호순 색깔넣는거도 세션스토리지에서 찾아와서...
+        const sortBy = sessionStorage.getItem("sortBy");
+        if (sortBy === null || sortBy === "id") {
+          document.querySelector(`#sort_by_id_btn`).classList = "active";
+          document.querySelector(`#sort_by_name_btn`).classList = "";
+        } else {
+          document.querySelector(`#sort_by_name_btn`).classList = "active";
+          document.querySelector(`#sort_by_id_btn`).classList = "";
+        }
+      });
+
+      function patientFilter(name) {
+        var li = patientList.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+          const a = li[i].getElementsByTagName("a")[0];
+          const txtValue = a.textContent || a.innerText;
+          if (txtValue.indexOf(name) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+
+        scrollFix();
+        sessionStorage.setItem("search", name);
+      }
+
+      // 환자 이름 필터링
+      searchInput.addEventListener("keyup", (e) =>
+        patientFilter(e.target.value)
+      );
+
+      document.getElementById("myBar").style.width = "{{p_str}}%";
+      document.getElementById("myBar").style.width = "{{cure_progress}}%";
+
+      // 이름순 / 번호순 sort
+      const sortByNameBtn = document.querySelector("#sort_by_name_btn");
+      const sortByIdBtn = document.querySelector("#sort_by_id_btn");
+
+      function handleSortBtnClick(e) {
+        sortByNameBtn.classList = "";
+        sortByIdBtn.classList = "";
+        sessionStorage.setItem("sortBy", e.target.name);
+        e.target.classList.add("active");
+
+        const queryString = window.location.search;
+
+        if (!queryString) {
+          window.history.replaceState({}, "", `?sort=${e.target.name}`);
+        } else {
+          const updatedQueryString = queryString.includes("sort=")
+            ? queryString.replace(/sort=[^&]+/, `sort=${e.target.name}`)
+            : `${queryString}&sort=${e.target.name}`;
+          window.history.replaceState({}, "", updatedQueryString);
+        }
+        window.location.reload();
+      }
+
+      sortByNameBtn.addEventListener("click", handleSortBtnClick);
+      sortByIdBtn.addEventListener("click", handleSortBtnClick);
+    </script>
+  </body>
+</html>
