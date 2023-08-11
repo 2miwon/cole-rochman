@@ -32,7 +32,11 @@
 
     <main>
       <nav>
-        <button onclick="location.href='{% url 'user_dashboard' %}'">
+        {% if pid|default_if_none:'' %}
+        <button onclick="location.href='{% url 'patient_status' pid %}'">
+          {% else %}
+          <button onclick="location.href='{% url 'user_dashboard' %}'">
+        {% endif %}
           <div class="icon_wrapper">
             <img class="nav_icon" src={% static "media/icons/chart.png" %}
             alt="차트" />
@@ -104,9 +108,9 @@
             <h3>검사 결과 조회</h3>
             <div class="date_and_button_wrapper">
               <div class="date_input_wrapper">
-                <input />
+                <input class="input_date" type="date" data-placeholder="날짜 선택" />
                 <span>&nbsp;&nbsp;~&nbsp;&nbsp;</span>
-                <input />
+                <input class="input_date" type="date" data-placeholder="날짜 선택" />
               </div>
               <button id="select_date_button">조회</button>
             </div>
@@ -119,7 +123,7 @@
                 <b>{{ p.name }} ({{p.code_hyphen}})</b> <span>님의 도말 배양 검사 총 <b>{{sputum|length}}</b> 건이 검색되었습니다.
               </div>
               {% endfor %}
-              <button id="add_inspection_button">검사 결과 추가</button>
+              <button id="add_inspection_button" onclick="handleModalOpen()">검사 결과 추가</button>
             </div>
             <table id="inspection_table">
               <thead>
@@ -140,9 +144,11 @@
                     <td>{{ result.th }}</td>
                     <td>{{ result.smear_result }}</td>
                     <td>{{ result.culture_result }}</td>
-                    <td>
-                      <button id="update_button">수정</button>
-                      <button id="delete_button">삭제</button>
+                    <td class="td_btn_wrapper">
+                      <button class="update_button" onclick="handleModalOpen()">수정</button>
+                      <button class="delete_button" onclick="handleDeleteModalOpen()">
+                        <span class="material-symbols-outlined">delete</span>
+                      </button>
                     </td>
                   </tr>
                 {% endfor %}
@@ -165,6 +171,138 @@
           </div>
         </div>
       </section>
+      <dialog id="add_modal">
+        <div class="modal_title">
+          <h3>검사 결과 추가</h3>
+          <button>
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="modal_inner">
+          <div class="modal_row">
+            <h3 class="modal_left">검사 날짜</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" checked class="input_radio" name="insp_date" />
+                <span>오늘</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="insp_date" />
+                <input type="date" data-placeholder="날짜 선택" class="input_date" id="modal_date" name="insp_date" />
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">검사 종류</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" checked class="input_radio" name="method" />
+                <span>객담</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="method" />
+                <span>기관지 내시경 검체</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="method" />
+                <span>기타</span>
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">검사 세부 분류</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" checked class="input_radio" name="th" />
+                <span>1차</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="th" />
+                <span>2차</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="th" />
+                <span>3차</span>
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">도말검사 결과</h3>
+            <div class="modal_right">
+              <label>
+              <input type="radio" checked class="input_radio" name="smear" />
+                -
+                <span></span>
+              </label>
+              <label>
+              <input type="radio" class="input_radio" name="smear" />
+                +-
+                <span></span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="smear" />
+                <span>1+</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="smear" />
+                <span>2+</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="smear" />
+                <span>3+</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="smear" />
+                <span>4+</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="smear" />
+                <span>검사중</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="smear" />
+                <span>미시행</span>
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">배양검사 결과</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" checked class="input_radio" name="culture_result" />
+                <span>검사중</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="culture_result" />
+                <span>미시행</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="culture_result" />
+                <span>양성</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="culture_result" />
+                <span>음성</span>
+              </label>
+              <label>
+                <input type="radio" class="input_radio" name="culture_result" />
+                <span>오염</span>
+              </label>
+            </div>
+          </div>
+          </div>
+          <button id="modal_submit">추가하기</button>
+        </div>
+      </dialog>
+      <dialog id="delete_modal">
+        <div id="delete_modal_inner">
+          <h3>해당 검사 결과를 삭제하시겠습니까? </h3>
+          <div id="modal_btn_wrapper">
+            <button id="delete_confirm_button">삭제하겠습니다</button>
+            <button id="delete_cancel_button">삭제하지 않겠습니다</button>
+          </div>
+        </div>
+      </dialog>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
@@ -218,12 +356,7 @@
       }
 
       // 환자 이름 필터링
-      searchInput.addEventListener("keyup", (e) =>
-        patientFilter(e.target.value)
-      );
-
-      document.getElementById("myBar").style.width = "{{p_str}}%";
-      document.getElementById("myBar").style.width = "{{cure_progress}}%";
+      searchInput.addEventListener("keyup", (e) => patientFilter(e.target.value));
 
       // 이름순 / 번호순 sort
       const sortByNameBtn = document.querySelector("#sort_by_name_btn");
@@ -250,6 +383,53 @@
 
       sortByNameBtn.addEventListener("click", handleSortBtnClick);
       sortByIdBtn.addEventListener("click", handleSortBtnClick);
+
+
+      // 날짜 인풋
+      const dateInputs = document.querySelectorAll(".input_date")
+      const today = new Date()
+      dateInputs.value = today.toISOString().slice(0,10)
+
+      // 입력 모달 열기함수
+      const modal = document.querySelector("#add_modal")
+      function handleModalOpen() {
+        modal.showModal()
+      }
+            
+      // 모달밖 누르면 모달 close
+      modal.addEventListener('click', (e) => {
+        if(e.target === e.currentTarget) {
+          modal.close()
+        };
+      })
+
+      // X 버튼 눌러서 닫기
+      const closeBtn = document.querySelector(".modal_title>button")
+      closeBtn.addEventListener("click", handleModalClose)
+      function handleModalClose() {
+        modal.close()
+      }
+
+      // 삭제 모달 열기함수
+      const deleteModal = document.querySelector("#delete_modal")
+      function handleDeleteModalOpen() {
+        deleteModal.showModal()
+      }
+            
+      // 모달밖 누르면 모달 close
+      deleteModal.addEventListener('click', (e) => {
+        if(e.target === e.currentTarget) {
+          deleteModal.close()
+        };
+      })
+
+      const deleteConfirmBtn = document.querySelector("#delete_cancel_button")
+      deleteConfirmBtn.addEventListener("click", handleDeleteModalClose)
+      function handleDeleteModalClose() {
+        deleteModal.close()
+      }
+
+
     </script>
   </body>
 </html>

@@ -277,17 +277,24 @@ tbody {
   font-size: 0.8rem;
 }
 
-#update_button {
+.td_btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.update_button {
   padding: 5px 10px;
   border: 1px solid var(--bg-color-blue);
   border-radius: 5px;
   color: var(--bg-color-blue);
 }
-#delete_button {
-  padding: 5px 10px;
-  border: 1px solid var(--bg-color-gray);
-  border-radius: 5px;
-  color: var(--bg-color-gray);
+
+.delete_button {
+  /* color: var(--txt-color-placeholder); */
+  color: var(--txt-color-placeholder);
 }
 
 #pagination_wrapper {
@@ -307,4 +314,157 @@ tbody {
 #pagination > li {
   padding: 10px;
   margin: 5px;
+}
+
+#add_modal {
+  border: 0px solid black;
+  border-radius: 10px;
+  width: 800px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.modal_title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+.modal_title > button {
+  position: relative;
+  left: 300px;
+}
+
+.input_radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 50%;
+  border: 1px solid var(--bg-color-gray);
+  margin: auto 20px auto 5px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.input_radio:checked {
+  outline-offset: 2px;
+  outline: 2px solid var(--bg-color-blue);
+  background-color: var(--bg-color-blue);
+  margin: auto 23px auto 8px;
+  width: 16px;
+  height: 16px;
+}
+
+.modal_inner {
+  padding: 20px;
+}
+
+.modal_row {
+  margin: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 3rem;
+}
+
+.modal_left {
+  width: 20%;
+  margin-right: 30px;
+}
+
+.modal_right {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 60px;
+}
+
+#modal_submit {
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 5px;
+}
+/* 
+input[type="date"]::-webkit-datetime-edit-text {
+  -webkit-appearance: none;
+  display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field {
+  -webkit-appearance: none;
+  display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-day-field {
+  -webkit-appearance: none;
+  display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-year-field {
+  -webkit-appearance: none;
+  display: none;
+} 
+
+input[type="date"]::before {
+  font-size: 24px; 
+  padding-left: 30px;
+} */
+
+/* input[type="date"]::before {
+  color: lightgray;
+  content: attr(data-placeholder);
+} */
+
+#modal_date {
+  border-radius: 5px;
+  height: 30px;
+}
+
+#add_modal label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20px;
+}
+
+#delete_modal {
+  border: 0px solid black;
+  border-radius: 10px;
+  width: 500px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#delete_modal_inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modal_btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 30px;
+  width: 90%;
+  gap: 20px;
+}
+
+#modal_btn_wrapper button {
+  color: var(--bg-color-blue);
+  border: 1px solid var(--bg-color-blue);
+  padding: 5px 30px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+#delete_cancel_button {
+  color: var(--txt-color-placeholder) !important ;
+  border: 1px solid var(--txt-color-placeholder) !important ;
 }
