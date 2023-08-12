@@ -22,6 +22,8 @@ class Patient(models.Model):
         ]
 
     name = models.CharField(verbose_name='이름', max_length=10, default='', blank=True, null=True)
+    gender = models.CharField(verbose_name='성별', max_length=10, blank=True, null=True)
+    birth = models.DateField(verbose_name='생년월일', blank=True, null=True)
     phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='', blank=True, null=True)
     kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
     code = models.CharField(max_length=12, unique=True)
@@ -48,7 +50,9 @@ class Patient(models.Model):
     visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', blank=True, null=True, default=None)
     visit_notification_before = models.IntegerField(verbose_name='내원알림 시간', blank=True, null=True, default=None)
     display_dashboard = models.BooleanField(verbose_name='대쉬보드에서 보이기', default=True)
-    
+    end_date = models.DateField(verbose_name='치료 종료 일자', blank=True, null=True, default=None)
+
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -152,6 +156,12 @@ class Patient(models.Model):
     
     def code_hyphen(self):
         return self.code[:4] + '-' + self.code[4:]
+    
+    def get_age(self):
+        return datetime.datetime.today().year - self.birthdate.year
+    
+    def get_korean_age(self):
+        return datetime.datetime.today().year - self.birthdate.year + 1
 
 
 class Sputum_Inspection(models.Model):
