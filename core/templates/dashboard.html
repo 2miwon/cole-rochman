@@ -154,8 +154,12 @@
                   <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
                   {% elif result.sideeffect %}
                   <div class="status">
-                    {% if result.medication == result.total %}
-                      <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% if result.medication >= result.total %}
+                    <div class="success sideeffect">
+                      {% if result.medication == result.total %} {{ result.medication }}
+                      {% else %} {{ result.total }}
+                      {% endif %}
+                      / {{ result.total }} </div>
                     {% else %}
                       <div class="unfinished sideeffect">{{result.medication}}/{{result.total}}</div>
                     {% endif %}
