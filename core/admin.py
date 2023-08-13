@@ -37,7 +37,7 @@ class PatientAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     user_can_access_owned_objects_only = True
   
     list_display = (
-        'code', 'hospital', 'name', 'phone_number', 'display_dashboard','nickname', 'safeout', 'daily_medication_count',
+        'code', 'hospital', 'name', 'gender', 'birth', 'phone_number', 'display_dashboard', 'nickname', 'safeout', 'daily_medication_count',
         'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
         'medication_noti_time_5', 'next_visiting_date_time',
         'weight', 'vision_left', 'vision_right'

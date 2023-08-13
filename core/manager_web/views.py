@@ -22,7 +22,7 @@ def user_dashboard(request):
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
-            end_date = None,
+            treatment_end_date__gt=timezone.now(),  
         ).order_by(sort_policy),
     )
     pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
@@ -85,7 +85,7 @@ def patient_status(request, pid):
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
-            end_date = None,
+            treatment_end_date__gt=timezone.now(),  
         ).order_by(sort_policy),
         a=MeasurementResult.objects.filter(
             patient__id__contains=pid,

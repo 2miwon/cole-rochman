@@ -50,8 +50,6 @@ class Patient(models.Model):
     visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', blank=True, null=True, default=None)
     visit_notification_before = models.IntegerField(verbose_name='내원알림 시간', blank=True, null=True, default=None)
     display_dashboard = models.BooleanField(verbose_name='대쉬보드에서 보이기', default=True)
-    end_date = models.DateField(verbose_name='치료 종료 일자', blank=True, null=True, default=None)
-
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
