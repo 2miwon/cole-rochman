@@ -302,7 +302,7 @@
 
 
       // 객담데이터
-      const monthlySputum = {{ monthly_sputum | safe }}
+      {% comment %} const monthlySputum = {{ monthly_sputum | safe }}
       console.log("ms ", monthlySputum)
       monthlySputum.map((sputum) => {
         // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
@@ -312,7 +312,7 @@
         sputumMonthBox.classList = "sputum_box_month"
         sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
         document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
-      })
+      }) {% endcomment %}
 
       // 달력 버튼
       const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
