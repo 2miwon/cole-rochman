@@ -67,7 +67,10 @@
                     onclick="location.href='{% url 'patient_status' patient.id %}'"
                     {% if pid == patient.id %} checked {% endif %}>
                   <a href="{% url 'patient_status' patient.id %}" id="btn_patient" for="radio_patient">
-                    <span class="txt_black">{{ patient.name }}</span> 
+                    <div>
+                      <span class="txt_black">{{ patient.name }}</span>
+                      <span class="patient_meta">({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}</span>
+                    </div>
                     <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
                     <span style="display: none;">{{ patient.code }}</span>
                   </a>
@@ -175,25 +178,26 @@
                   <div class="status">
                     {% if result.medication >= result.total %}
                     <div class="success sideeffect">
-                      {% if result.medication == result.total %} {{ result.medication }}
-                      {% else %} {{ result.total }}
-                      {% endif %}
-                      / {{ result.total }} </div>
+                      {% if result.medication == result.total %}{{ result.medication }}{% else %}{{ result.total }}{% endif %}/{{ result.total }} </div>
                     {% else %}
                       <div class="unfinished sideeffect">{{result.medication}}/{{result.total}}</div>
                     {% endif %}
-                    {% if result.sideeffect|length == 1 %}
+                    {% comment %} {% if result.sideeffect|length == 1 %}
                     <span>{{result.sideeffect | first}}</span>
-                    {% else %}
+                    {% else %} 
                     <span class="many_sideeffect">{{result.sideeffect | first}} 외 {{result.sideeffect | length | add:-1}}건</span>
-                    <div class="hover_sideeffect_box">
+                    {% endcomment %}
+                    <div class="week_sideeffect_box">
+                      <img class="week_sideeffect_icon" src={% static "media/icons/info.png" %} />
+                      
                       <ul>
                         {% for s in result.sideeffect %}
-                        <li> {{forloop.counter}}차 {{s}} </li>
+                        {% comment %} <li> {{forloop.counter}}차 {{s}} </li> {% endcomment %}
+                        <li>{{s}} </li>
                         {% endfor %}
                       </ul>
                     </div>
-                    {% endif %}
+                    {% comment %} {% endif %} {% endcomment %}
                   </div>
                   {% else %}
                   <div class="status">
@@ -545,7 +549,13 @@
         cutout: '75%',
         responsive: false,
         plugins: {
-          // tooltip : {enabled : false}
+          tooltip : {
+            callbacks : {
+              label: function (context) {
+                return context.label + ': ' + context.parsed + '%';
+              }
+            }
+          },
           legend: {
             display: false
           }

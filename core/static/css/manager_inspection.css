@@ -65,7 +65,8 @@ main {
 nav {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 30px;
   padding: 0 15px;
   height: 500px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 600' fill='%23356CF9'%3E%3Cpath d='M0 0V599.946C3.3542 566.703 25.509 543.087 43.8332 533.331C55.268 526.089 83.7691 504.052 87.3139 475.515C87.9238 469.735 88.4383 213.352 87.3139 117.651C86.361 100.804 71.21 75.0604 55.6396 66.4649C37.487 56.1718 4.39285 34.4788 0 0Z'/%3E%3C/svg%3E");
@@ -82,7 +83,7 @@ nav button {
 }
 
 nav .icon_wrapper {
-  padding: 10%;
+  padding: 8px;
   margin-bottom: 5px;
   border-radius: 7px;
 }
@@ -92,8 +93,8 @@ nav .icon_wrapper {
   padding: 5px;
   color: var(--bg-color-white);
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 32; */
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 nav .active {
@@ -194,18 +195,26 @@ section > h2 {
 #btn_patient {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 14px;
   width: 80%;
 }
 
 .txt_black {
   color: var(--txt-color-black);
+  font-size: 14px;
 }
 
 .txt_lightgray {
   color: var(--txt-color-lightgray);
   margin-top: 5px;
+}
+
+.patient_meta {
+  color: #8193c3;
+  font-size: 11px;
+  margin-left: 10px;
+  font-weight: 600;
 }
 
 #select_date {
@@ -222,7 +231,9 @@ section > h2 {
   justify-content: space-between;
 }
 .date_and_button_wrapper input {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  height: 2rem;
+  width: 17rem;
   border-radius: 5px;
   border: 1px solid var(--bg-color-gray);
 }
