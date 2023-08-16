@@ -93,8 +93,8 @@
             {% if pid|default_if_none:'' %}
               <div class="chart">
                 <div class="chart_title">
-                  <p>최근 30회 기준</p>
-                  <b>총 {{ count_succ }}회 복용</b>
+                  <p>총 {{ total_medi }} 회 기준</p>
+                  <b>{{ count_succ }}회 복용</b>
                 </div>
                 <div class="chart_bg"></div>
                 <canvas id="myMedication"></canvas>
@@ -173,8 +173,12 @@
                   <div class="status"><div class="empty">{{result.medication}}/{{result.total}}</div></div>
                   {% elif result.sideeffect %}
                   <div class="status">
-                    {% if result.medication == result.total %}
-                      <div class="success sideeffect">{{result.medication}}/{{result.total}}</div>
+                    {% if result.medication >= result.total %}
+                    <div class="success sideeffect">
+                      {% if result.medication == result.total %} {{ result.medication }}
+                      {% else %} {{ result.total }}
+                      {% endif %}
+                      / {{ result.total }} </div>
                     {% else %}
                       <div class="unfinished sideeffect">{{result.medication}}/{{result.total}}</div>
                     {% endif %}

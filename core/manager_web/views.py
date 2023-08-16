@@ -22,6 +22,7 @@ def user_dashboard(request):
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
+            treatment_end_date__gt=timezone.now(),  
         ).order_by(sort_policy),
     )
     pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
@@ -84,6 +85,7 @@ def patient_status(request, pid):
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
+            treatment_end_date__gt=timezone.now(),  
         ).order_by(sort_policy),
         a=MeasurementResult.objects.filter(
             patient__id__contains=pid,
@@ -211,16 +213,22 @@ def patient_status(request, pid):
     context["mdresult"] = mdresult
 
     month_mdresult = get_last_info_mdResult(30, pid)
+    total_mdresult = get_total_info_mdResult(pid)
 
     context["side_effect_static"] = get_static_sideEffect(month_mdresult)
 
-    count_succ = get_last_success(30, month_mdresult)
+    #count_succ = get_last_success(30, month_mdresult)
+    count_succ = get_total_success(total_mdresult)
     context["count_succ"] = count_succ
-    context["per_succ"] = int(100 * count_succ / 30)
+    # context["per_succ"] = int(100 * count_succ / 30)
+    context["per_succ"] = int(100 * count_succ / len(total_mdresult))
+    context["total_medi"] = len(total_mdresult)
 
     count_side = get_last_sideeffect(30, month_mdresult)
+    # count_side = get_total_sideeffect(total_mdresult)
     context["count_side"] = count_side
     context["per_side"] = int(100 * count_side / 30)
+    # context["per_side"] = int(100 * count_side / len(total_mdresult))
 
     # 관리 현황 정렬    
     today_su_list = MedicationResult.objects.filter(
@@ -240,9 +248,7 @@ def patient_status(request, pid):
                 remain = mr.medication_time_num
     context["remain"] = clickedpatient.daily_medication_count - remain
 
-    # !! 달력 !!
-    # ! picked_year, picked_month, picked_day는 queryString으로 받는 게 맞다고 생각합니다.. 일단 더미
-
+    # 달력 
     if(m):
         picked_year = m.year
         picked_month = m.month
@@ -266,6 +272,7 @@ def patient_status(request, pid):
     day_list = []
     for i in range(1, day_of_month+1):
         day_list.append(i)
+
     #날짜의 시작 날짜인 1일을 무슨 요일에 시작하는지를 계산하여 달력에 표시
     day_of_the_week = datetime.date(year, month, 1).weekday() #weekday --> 날짜의 요일을 숫자로 출력
     day_of_the_week_list = []
