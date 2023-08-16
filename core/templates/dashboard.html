@@ -214,14 +214,14 @@
             <div class="bottom_calendar bg_white_round">
               <div id="calendar_title">
                 <h3>월간 관리</h3>
-                {% comment %} <div class="monthly_icon_box legend">
+                <div class="monthly_icon_box legend">
                   <div class="success"></div> <span>복용</span>
                   <div class="sideeffect"></div> <span>부작용</span>
-                </div> {% endcomment %}
-                <div class="calendar_switch">
+                </div>
+                {% comment %} <div class="calendar_switch">
                   <button id="calendar_switch_button_sideeffect" class="active">부작용</button>
                   <button id="calendar_switch_button_result">검사결과</button>
-                </div>
+                </div> {% endcomment %}
               </div>
               <div id="cure_manage_calendar">
                 <ul id="cure_manage_year">
@@ -300,8 +300,6 @@
         return;
       }
 
-      const notWorkingBtn = document.getElementById("not_working_btn")
-      notWorkingBtn.addEventListener("click", noPatientException)
 
       // 객담데이터
       const monthlySputum = {{ monthly_sputum | safe }}
