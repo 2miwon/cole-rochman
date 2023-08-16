@@ -319,16 +319,16 @@
       }) {% endcomment %}
 
       // 달력 버튼
-      const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
+      {% comment %} const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
       const calendarResultBtn = document.querySelector("#calendar_switch_button_result")
       calendarSideEffectBtn.addEventListener("click", handleCalendarBtnClick)
-      calendarResultBtn.addEventListener("click", handleCalendarBtnClick)
-
+      calendarResultBtn.addEventListener("click", handleCalendarBtnClick) 
       function handleCalendarBtnClick(e) {
         calendarSideEffectBtn.classList = ""
         calendarResultBtn.classList = ""
         e.target.classList.add("active")
       }
+      {% endcomment %}
 
 
       // 환자 목록 위치 고정
