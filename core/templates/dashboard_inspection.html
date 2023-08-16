@@ -83,24 +83,23 @@
             />
             <div id="sort_button_wrapper">
               <button id="sort_by_name_btn" name="name">이름순</button>
-              <button id="sort_by_id_btn" name="id" class="active">
-                등록순
-              </button>
+              <button id="sort_by_id_btn" name="id" class="active">등록순</button>
             </div>
             <ul id="myUL" class="bg_white_round">
               {% for patient in patientlist %}
-              <li class="li_patient" name="{{patient.name}}">
-                <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} onclick="location.href='{% url 'patient_inspection' patient.id %}'" {% if pid == patient.id %} checked {% endif %}>
-                <a
-                  href="{% url 'patient_inspection' patient.id %}"
-                  id="btn_patient"
-                  for="radio_patient"
-                >
-                  <span class="txt_black">{{ patient.name }}</span>
-                  <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
-                  <span style="display: none">{{ patient.code }}</span>
-                </a>
-              </li>
+                <li class="li_patient" name={{patient.name}}>
+                  <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
+                    onclick="location.href='{% url 'patient_status' patient.id %}'"
+                    {% if pid == patient.id %} checked {% endif %}>
+                  <a href="{% url 'patient_status' patient.id %}" id="btn_patient" for="radio_patient">
+                    <div>
+                      <span class="txt_black">{{ patient.name }}</span>
+                      <span class="patient_meta">({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}</span>
+                    </div>
+                    <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
+                    <span style="display: none;">{{ patient.code }}</span>
+                  </a>
+                </li>
               {% endfor %}
             </ul>
           </div>
