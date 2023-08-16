@@ -601,8 +601,8 @@ section > h2 {
   padding: 5px;
   position: relative;
   z-index: 1;
-  display: grid;
-  place-content: center;
+  /* display: grid;
+  place-content: center; */
 }
 
 #days ul li a {

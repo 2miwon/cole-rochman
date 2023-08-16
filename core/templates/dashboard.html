@@ -549,7 +549,13 @@
         cutout: '75%',
         responsive: false,
         plugins: {
-          // tooltip : {enabled : false}
+          tooltip : {
+            callbacks : {
+              label: function (context) {
+                return context.label + ': ' + context.parsed + '%';
+              }
+            }
+          },
           legend: {
             display: false
           }

@@ -89,9 +89,9 @@
               {% for patient in patientlist %}
                 <li class="li_patient" name={{patient.name}}>
                   <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
-                    onclick="location.href='{% url 'patient_status' patient.id %}'"
+                    onclick="location.href='{% url 'patient_inspection' patient.id %}'"
                     {% if pid == patient.id %} checked {% endif %}>
-                  <a href="{% url 'patient_status' patient.id %}" id="btn_patient" for="radio_patient">
+                  <a href="{% url 'patient_inspection' patient.id %}" id="btn_patient" for="radio_patient">
                     <div>
                       <span class="txt_black">{{ patient.name }}</span>
                       <span class="patient_meta">({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}</span>
