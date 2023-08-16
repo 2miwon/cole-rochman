@@ -321,6 +321,96 @@ def patient_status(request, pid):
     return render(request, "dashboard.html", context)
 
 
+# 환자 선택 전 [도말배양]
+@login_required()
+def inspection(request):
+    sort_policy = request.GET.get('sort', 'id')
+    context = dict(
+        patientlist=Patient.objects.filter(
+            hospital__id__contains=request.user.profile.hospital.id,
+            display_dashboard=True,
+        ).order_by(sort_policy),
+    )
+    pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
+    return render(request, "dashboard_inspection.html", context)
+
+# 환자 선택 후 [도말배양]
+@login_required()
+def patient_inspection(request, pid):
+
+    # 클릭한 환자
+    clickedpatient = Patient.objects.get(id=pid)
+
+    sort_policy = request.GET.get('sort', 'id')
+
+    daily_hour_list = list()
+
+
+    try:
+        if clickedpatient.daily_medication_count:
+            if clickedpatient.daily_medication_count >= 1:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_1.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_1.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 2:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_2.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_2.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 3:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_3.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_3.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 4:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_4.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_4.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 5:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_5.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_5.minute).zfill(2),
+                    )
+                )
+
+    except AttributeError:
+        daily_hour_list = ["재설정 필요"]
+    
+    context = dict(
+        clickedpatient=Patient.objects.filter(id=pid),
+        patientlist=Patient.objects.filter(
+            hospital__id__contains=request.user.profile.hospital.id,
+            display_dashboard=True,
+        ).order_by(sort_policy),
+        a=MeasurementResult.objects.filter(
+            patient__id__contains=pid,
+            # measured_at__gte=cal_start_end_day(d, 1),
+            # measured_at__lte=cal_start_end_day(d, 7),
+        ),
+        pid=pid,
+        code_hyphen=clickedpatient.code_hyphen(),
+        daily_hour_list=daily_hour_list,
+        sputum=Sputum_Inspection.objects.filter(patient_set=pid)
+    )
+
+    return render(request, "dashboard_inspection.html", context)
+
+
 def sign_in(request):
     msg = []
     if request.method == "POST":

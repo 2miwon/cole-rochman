@@ -25,8 +25,27 @@
     
     <main>
       <nav>
+        <button onclick="location.href='{% url 'user_dashboard' %}'">
+          <div class="icon_wrapper active">
+          <img class="nav_icon" src={% static "media/icons/chart_on.png" %} alt="차트" />
+          </div>
+          <span>대시보드</span>
+        </button>
+        {% if pid is None %}
+          <button onclick="location.href='{% url 'inspection' %}'">
+        {% else %}
+          <button onclick="location.href='{% url 'patient_inspection' pid%}'">
+        {% endif %}
+            <div class="icon_wrapper">
+            <img class="nav_icon" src={% static "media/icons/lungs.png" %} alt="폐" />
+            </div>
+            <span>도말배양</span>
+          </button>
         <button onclick="location.href='{% url 'web_menu' %}'">
-          <span id="icon_nav" class="material-symbols-outlined active">home</span>
+          <div class="icon_wrapper">
+          <img class="nav_icon" src={% static "media/icons/left up.png" %} alt="돌아가기" />
+          </div>
+          <span>메뉴선택</span>
         </button>
       </nav>
   
@@ -71,7 +90,7 @@
             </div>
             <div class="bg_white_round item_status">
               <h3>복약 빈도</h3>
-              {% if pid %}
+            {% if pid|default_if_none:'' %}
               <div class="chart">
                 <div class="chart_title">
                   <p>총 {{ total_medi }} 회 기준</p>
@@ -84,7 +103,7 @@
             </div>
             <div class="bg_white_round item_status">
               <h3>한달간 부작용 빈도</h3>
-              {% if pid %}
+            {% if pid|default_if_none:'' %}
               <div class="chart">
                 <div class="chart_title sideEffect_chart_title">
                   {% comment %} <p>최근 30일 기준</p> {% endcomment %}
@@ -199,14 +218,14 @@
             <div class="bottom_calendar bg_white_round">
               <div id="calendar_title">
                 <h3>월간 관리</h3>
-                {% comment %} <div class="monthly_icon_box legend">
+                <div class="monthly_icon_box legend">
                   <div class="success"></div> <span>복용</span>
                   <div class="sideeffect"></div> <span>부작용</span>
-                </div> {% endcomment %}
-                <div class="calendar_switch">
+                </div>
+                {% comment %} <div class="calendar_switch">
                   <button id="calendar_switch_button_sideeffect" class="active">부작용</button>
                   <button id="calendar_switch_button_result">검사결과</button>
-                </div>
+                </div> {% endcomment %}
               </div>
               <div id="cure_manage_calendar">
                 <ul id="cure_manage_year">
@@ -279,8 +298,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script>
 
+      // nav 바에서 환자 선택이 안된 채로 도말배양 메뉴 클릭 시 예외처리 함수 --> 작동이안됨!@!
+      function noPatientException() {
+        alert("환자를 먼저 선택해주세요")
+        return;
+      }
+
+
       // 객담데이터
-      const monthlySputum = {{ monthly_sputum | safe }}
+      {% comment %} const monthlySputum = {{ monthly_sputum | safe }}
       console.log("ms ", monthlySputum)
       monthlySputum.map((sputum) => {
         // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
@@ -290,19 +316,19 @@
         sputumMonthBox.classList = "sputum_box_month"
         sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
         document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
-      })
+      }) {% endcomment %}
 
       // 달력 버튼
-      const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
+      {% comment %} const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
       const calendarResultBtn = document.querySelector("#calendar_switch_button_result")
       calendarSideEffectBtn.addEventListener("click", handleCalendarBtnClick)
-      calendarResultBtn.addEventListener("click", handleCalendarBtnClick)
-
+      calendarResultBtn.addEventListener("click", handleCalendarBtnClick) 
       function handleCalendarBtnClick(e) {
         calendarSideEffectBtn.classList = ""
         calendarResultBtn.classList = ""
         e.target.classList.add("active")
       }
+      {% endcomment %}
 
 
       // 환자 목록 위치 고정
@@ -430,7 +456,7 @@
      
      let mediValue = "";
      if ( {{per_succ}} ) {
-      mediValue = {{ per_succ }};
+      mediValue = {{per_succ}};
       }
       console.log("mediValue", mediValue)
      
