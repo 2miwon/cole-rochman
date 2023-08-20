@@ -37,7 +37,7 @@ class PatientAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     user_can_access_owned_objects_only = True
   
     list_display = (
-        'code', 'hospital', 'name', 'phone_number', 'kakao_user_id', 'nickname', 'safeout', 'daily_medication_count',
+        'code', 'hospital', 'name', 'gender', 'birth', 'phone_number', 'display_dashboard', 'nickname', 'safeout', 'daily_medication_count',
         'medication_noti_time_1', 'medication_noti_time_2', 'medication_noti_time_3', 'medication_noti_time_4',
         'medication_noti_time_5', 'next_visiting_date_time',
         'weight', 'vision_left', 'vision_right'
@@ -126,7 +126,7 @@ class MedicationResultAdmin(GuardedModelAdmin, ImportExportModelAdmin):
 @admin.register(NotificationRecord)
 class NotificationRecordAdmin(admin.ModelAdmin):
     list_display = [
-        'id', 'patient', 'medication_result', 'measurement_result', 'biz_message_type', 'noti_time_num', 'status',
+        'id', 'patient', 'medication_result', 'noti_time_num', 'status',
         'recipient_number', 'tries_left', 'send_at', 'delivered_at', 'status_updated_at', 'created_at', 'updated_at'
     ]
     search_fields = [
@@ -148,13 +148,13 @@ class NotificationRecordAdmin(admin.ModelAdmin):
 class GuardianAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    pass
+#@admin.register(Post)
+#class PostAdmin(admin.ModelAdmin):
+#    pass
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    pass
+#@admin.register(Comment)
+#class CommentAdmin(admin.ModelAdmin):
+#    pass
 
 
 @admin.register(Sputum_Inspection)
@@ -168,7 +168,7 @@ class PcrAdmin(admin.ModelAdmin):
     search_fields = ['patient_set__code','patient_set__nickname']
 
 
-@admin.register(Certificaion)
-class Certificationadmin(admin.ModelAdmin):
-    pass
+#@admin.register(Certificaion)
+#class Certificationadmin(admin.ModelAdmin):
+#    pass
 

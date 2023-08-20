@@ -9,11 +9,12 @@ from core.api.views.medications_notification import PastMedicationSuccess, PastM
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_measurements_notification import ValidateMeasurementResultOxygenSaturation
-from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientName, ValidatePatientPhone, ValidatePatientCode, ValidatePatientPassword, ValidatePatientWeight, ValidatePatientVision
+from core.api.views.validation_patients import ValidatePatientNickname, ValidatePatientName, ValidatePatientPhone, ValidatePatientCode, ValidatePatientPassword, ValidatePatientWeight, ValidatePatientVision, ValidatePatientBirth, ValidatePatientGender
 from core.api.views.patients import PatientCreateStart, PatientCreate, PatientUpdate, PatientInfo, PatientSafeOut, PatientWeight, PatientVision, PatientCodePrint
 from core.api.views.validation_visits import ValidateTimeBefore
 from core.api.views.visits import PatientVisitDateSet, PatientVisitNotiTimeBefore, PatientVisitStart, PatientVisitRestart
 from core.api.views.guardian import GuardianCreateStart, GuardianCreate, GuardianPhone, GuardianCheckPatientMedication
+
 
 urlpatterns = [
     path('patients/create/start/', PatientCreateStart.as_view(), name='patient-create-start'),
@@ -77,6 +78,8 @@ urlpatterns = [
     path('patients/code/print/', PatientCodePrint.as_view(), name='patient-code-print'),
     path('temp/patient/delete/', TempPatientDestroy.as_view(), name='temp-patient-destroy'),
     path('validate/patient/name/', ValidatePatientName.as_view(), name='validate-patient-name'),
+    path('validate/patient/birth/', ValidatePatientBirth.as_view(), name='validate-patient-birth'),
+    path('validate/patient/gender', ValidatePatientGender.as_view(), name='validate-patient-gender'),
     path('validate/patient/code/', ValidatePatientCode.as_view(), name='validate-patient-code'),
     path('validate/patient/nickname/', ValidatePatientNickname.as_view(), name='validate-patient-nickname'),
     path('validate/patient/phone/', ValidatePatientPhone.as_view(), name='validate-patient-phone'),

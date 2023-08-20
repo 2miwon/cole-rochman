@@ -1,13 +1,15 @@
 @import "reset.css";
 
-html, body {
+html,
+body {
   min-width: 1440px;
   background: var(--bg-color-lightgray);
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   overflow-x: auto;
 }
 
-h1, h2 {
+h1,
+h2 {
   margin: 20px 0;
 }
 
@@ -44,11 +46,7 @@ header {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
   margin-right: 3px;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 20
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 20;
 }
 
 #txt_logout {
@@ -68,25 +66,38 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 30px;
   padding: 0 15px;
-  height: 440px;
+  height: 500px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 600' fill='%23356CF9'%3E%3Cpath d='M0 0V599.946C3.3542 566.703 25.509 543.087 43.8332 533.331C55.268 526.089 83.7691 504.052 87.3139 475.515C87.9238 469.735 88.4383 213.352 87.3139 117.651C86.361 100.804 71.21 75.0604 55.6396 66.4649C37.487 56.1718 4.39285 34.4788 0 0Z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-size: cover;
+  /* background-size: cover; */
 }
 
-#icon_nav {
-  margin: 25px 0;
+nav button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--bg-color-white);
+}
+
+nav .icon_wrapper {
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 7px;
+}
+
+.nav_icon {
+  /* margin: 25px 0;
   padding: 5px;
   color: var(--bg-color-white);
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 32
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 32; */
+  width: 24px;
+  height: 24px;
 }
 
-#icon_nav.active {
+nav .active {
   border-radius: 10px;
   color: var(--bg-color-blue);
   background-color: var(--bg-color-white);
@@ -107,6 +118,7 @@ section > h2 {
   grid-template-columns: 256px auto;
   grid-template-rows: 400px auto;
   gap: 20px;
+  margin-bottom: 24px;
 }
 
 .bg_white_round {
@@ -133,8 +145,21 @@ section > h2 {
   outline: 1.5px solid var(--bg-color-blue);
 }
 
+#sort_button_wrapper {
+  margin: 10px 0px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+}
+
+.active {
+  color: var(--bg-color-blue);
+}
+
 #myUL {
-  height: 355px;
+  height: 685px;
   padding: 0;
   margin: 10px 0 0 0;
   overflow: auto;
@@ -161,7 +186,7 @@ section > h2 {
 }
 
 .li_patient {
-  list-style-type : none;
+  list-style-type: none;
   display: flex;
   padding: 10px;
   border-bottom: 1px solid var(--bg-color-gray);
@@ -170,18 +195,26 @@ section > h2 {
 #btn_patient {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 14px;
   width: 80%;
 }
 
 .txt_black {
   color: var(--txt-color-black);
+  font-size: 14px;
 }
 
 .txt_lightgray {
   color: var(--txt-color-lightgray);
   margin-top: 5px;
+}
+
+.patient_meta {
+  color: #8193c3;
+  font-size: 11px;
+  margin-left: 10px;
+  font-weight: 600;
 }
 
 /* Patient Progress */
@@ -260,6 +293,10 @@ section > h2 {
   left: 85px;
 }
 
+/* .sideEffect_chart_title {
+  top: 60px;
+} */
+
 .chart_title > p {
   font-size: 14px;
   margin-bottom: 5px;
@@ -271,7 +308,7 @@ section > h2 {
   position: absolute;
   top: 10px;
   left: 65px;
-  border: 18px solid #DCECFB;
+  border: 18px solid #dcecfb;
   border-radius: 50%;
 }
 
@@ -281,11 +318,19 @@ section > h2 {
 }
 
 /* Bottom */
+
+.bottom_container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .remain,
 .manage_current {
   padding: 25px;
-  height: 150px;
+  /* height: 150px; */
   position: relative;
+  grid-column: 1/3;
 }
 
 /* Manage Current */
@@ -314,7 +359,7 @@ section > h2 {
 }
 
 .legend > div {
-  margin-left: 2vw;
+  margin-left: 1.5vw;
 }
 
 .legend > span {
@@ -332,9 +377,19 @@ section > h2 {
   height: 15px;
 }
 
+.legend > .unfinished {
+  width: 18px;
+  height: 18px;
+  margin-bottom: 0;
+}
+
+.week_status {
+  padding-top: 80px;
+}
+
 .line_status {
   position: relative;
-  top: 23px;
+  top: 24px;
   height: 10px;
   width: 80%;
   margin: 0 auto;
@@ -357,29 +412,257 @@ section > h2 {
   text-align: center;
   vertical-align: top;
   word-break: keep-all;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
-.status > div {
+/* .status > div {
   margin: auto auto 10px auto;
-}
+} */
 
 .empty {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: var(--bg-color-lightblue);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .success {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: var(--bg-color-blue);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
+  color: var(--bg-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unfinished {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--bg-color-yellow);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
+  color: var(--bg-color-white);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sideeffect {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 4px solid var(--txt-color-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .many_sideeffect:hover + .hover_sideeffect_box {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2), 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+} */
+
+.week_sideeffect_box {
+  display: block;
+  padding: 5px 5px;
+  background-color: var(--bg-color-lightblue);
+  font-size: 9px;
+  width: 65px;
+  border-radius: 5px;
+  /* white-space: nowrap; */
+}
+
+.week_sideeffect_icon {
+  margin-bottom: 0.25rem;
+}
+
+.sputum_box {
+  width: 40px;
+  height: 1.2em;
+  border: 2px solid var(--bg-color-yellow);
+  border-radius: 10px;
+  display: grid;
+  visibility: hidden;
+}
+
+.sputum_box span {
+  place-self: center;
+  font-weight: bold;
+}
+
+.search-sidebar {
+  grid-row: 1 / 3;
+}
+
+/* ! 달력 */
+.bottom_calendar {
+  padding: 25px;
+  position: relative;
+}
+
+#calendar_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar_switch {
+  display: flex;
+  flex-direction: row;
+}
+
+.calendar_switch button {
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10%;
+  font-size: 13px;
+}
+
+.calendar_switch .active {
+  color: var(--bg-color-blue);
+  background-color: var(--bg-color-lightblue);
+}
+
+#cure_manage_calendar {
+  background-color: var(--bg-color-white);
+  margin-top: 15px;
+}
+
+#cure_manage_year {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#cure_manage_year a,
+#cure_manage_year a:visited {
+  color: var(--bg-color-blue);
+  line-height: 20px;
+}
+
+#txt_cure_manage_year {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* Weekdays (Mon-Sun) */
+#weekdays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+
+#weekdays li {
+  color: var(--txt-color-placeholder);
+  text-align: center;
+  margin: 0;
+}
+
+/* Days (1-31) */
+#days {
+  margin: 0 5px;
+}
+
+#days ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+#days ul li {
+  line-height: 20px;
+  text-align: center;
+  padding: 5px;
+  position: relative;
+  z-index: 1;
+  /* display: grid;
+  place-content: center; */
+}
+
+#days ul li a {
+  text-decoration: none;
+  color: var(--txt-color-black);
+}
+
+#today {
+  /* display: block;
+  background-color: #2e65f380;
+  border-radius: 50px;
+  width: 20px;
+  height: 20px;
+  margin: auto; */
+}
+
+.success_calendar {
+  position: absolute;
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  top: 1px;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sideeffect_calendar {
+  position: absolute;
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  border: 4px solid var(--bg-color-red);
+  border-radius: 50px;
   width: 21px;
   height: 21px;
-  border-radius: 50%;
-  border: 3px solid var(--txt-color-pink);
+  top: -2px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#visit {
+  position: absolute;
+  background-color: var(--bg-color-lightyellow);
+  border-radius: 50px;
+  width: 28px;
+  height: 28px;
+  top: 9px;
+  left: calc(50% - 14px);
+  z-index: -1;
+}
+
+.sputum_box_month {
+  width: 40px;
+  height: 1.2em;
+  border: 2px solid var(--bg-color-yellow);
+  border-radius: 10px;
+  display: grid;
 }

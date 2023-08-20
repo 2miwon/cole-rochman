@@ -22,6 +22,8 @@ class Patient(models.Model):
         ]
 
     name = models.CharField(verbose_name='이름', max_length=10, default='', blank=True, null=True)
+    gender = models.CharField(verbose_name='성별', max_length=10, blank=True, null=True)
+    birth = models.DateField(verbose_name='생년월일', blank=True, null=True)
     phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='', blank=True, null=True)
     kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
     code = models.CharField(max_length=12, unique=True)
@@ -47,8 +49,7 @@ class Patient(models.Model):
     next_visiting_date_time = models.DateTimeField(verbose_name='다음 내원일', blank=True, null=True, default=None)
     visit_notification_flag = models.NullBooleanField(verbose_name='내원알림 여부', blank=True, null=True, default=None)
     visit_notification_before = models.IntegerField(verbose_name='내원알림 시간', blank=True, null=True, default=None)
-
-    
+    display_dashboard = models.BooleanField(verbose_name='대쉬보드에서 보이기', default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -117,7 +118,7 @@ class Patient(models.Model):
 
     def set_default_end_date(self):
         if self.treatment_started_date and self.treatment_end_date is None or self.treatment_end_date == '':
-            self.treatment_end_date = self.treatment_started_date + timedelta(days=900)
+            self.treatment_end_date = self.treatment_started_date + timedelta(days=183)
 
     def next_visiting_date_time_str(self):
         dt = self.next_visiting_date_time.astimezone().strftime('%Y년 %m월 %d일 %p %I시 %M분')
@@ -150,6 +151,15 @@ class Patient(models.Model):
         serializer = MedicationResultSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         return serializer.save()
+    
+    def code_hyphen(self):
+        return self.code[:4] + '-' + self.code[4:]
+    
+    def get_age(self):
+        return datetime.datetime.today().year - self.birthdate.year
+    
+    def get_korean_age(self):
+        return datetime.datetime.today().year - self.birthdate.year + 1
 
 
 class Sputum_Inspection(models.Model):
@@ -164,6 +174,11 @@ class Sputum_Inspection(models.Model):
     CHOICE_CULTURE = ('검사중','검사중'),('양성','양성'),('음성','음성'),('오염','오염'),('미시행','미시행')
     culture_result =  models.CharField(verbose_name='배양검사 결과', max_length = 20, default = '미시행', choices = CHOICE_CULTURE)
 
+    def __str__(self):
+        return '%s/%s/%s/%s' % (self.method, self.th, self.smear_result, self.culture_result)
+    
+    def get_date(self):
+        return self.insp_date
     class Meta:
         verbose_name = '도말, 배양 검사'
         verbose_name_plural = '도말, 배양 검사'

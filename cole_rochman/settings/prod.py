@@ -9,7 +9,7 @@ DEBUG = True
 ALLOWED_HOSTS = secrets.get('ALLOWED_HOST')
 
 DATABASES = {
-    'default': secrets.get('DB_SETTINGS')
+    'default': secrets.get('DB_SETTINGS')#.get('TEST')
 }
 
 # noinspection PyUnresolvedReferences

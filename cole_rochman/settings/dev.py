@@ -4,24 +4,25 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["www.cole-rochman.co.kr", "localhost"]
 
 # 실제 데이터베이스가 아님
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'colerochman_dev',
-        'USER': 'colerochman',
-        'PASSWORD': 'colerochman',
-        'PORT': 5432,
-        'TEST': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'colerochman_test',
-            'USER': 'colerochman',
-            'PASSWORD': 'colerochman',
-            'PORT': 5432,
-        },
-    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'colerochman_dev',
+    #     'USER': 'colerochman',
+    #     'PASSWORD': 'colerochman',
+    #     'PORT': 5432,
+    #     'TEST': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'NAME': 'colerochman_test',
+    #         'USER': 'colerochman',
+    #         'PASSWORD': 'colerochman',
+    #         'PORT': 5432,
+    #     },
+    # },
+    'default': secrets.get('DB_SETTINGS')
 }
 
 LOGGING = {

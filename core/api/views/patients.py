@@ -71,6 +71,8 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         hospital_code = self.patient_code[:4]
         self.data['hospital'] = hospital_code
         name = self.data.get('name')
+        birth = self.data.get('birth')
+        gender = self.data.get('gender')
         phone_number = self.data.get('phone_number')
         patient_code = self.data.get('patient_code')
         password = self.data.get('password')
@@ -203,6 +205,12 @@ class PatientUpdate(KakaoResponseAPI):
         if self.data.get('phone_number'):
             data['phone_number'] = self.data.get('phone_number')
         
+        if self.data.get('birth'):
+            data['birth'] = self.data.get('birth')
+
+        if self.data.get('gender'):
+            data['gender'] = self.data.get('gender')
+
         serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

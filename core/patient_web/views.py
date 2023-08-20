@@ -31,6 +31,15 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Q
 from core.models.certification import Certificaion
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
+import os 
+from django.http import HttpResponseRedirect
+from core.day import *
+
+load_dotenv()
 
 def sign_up(request):
     msg = []
@@ -63,7 +72,7 @@ def sign_up(request):
     return render(request,'signup.html',{'errors': msg})
 
 def sign_in(request):
-    try:
+    try: 
         patient = Patient.objects.get(code = request.user.username)
         if patient:
             return redirect("patient_dashboard")
@@ -74,7 +83,6 @@ def sign_in(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        print(user)
         if user is not None:
             login(request, user)
             return redirect('patient_dashboard')
@@ -198,21 +206,8 @@ def patient_dashboard(request):
     year = int(datetime_list[0])
     month = int(datetime_list[1])
     day = [int(datetime_list[2])]
-    weekday = datetime.datetime.now().weekday()
-    if weekday == 0:
-        weekday = '월'
-    elif weekday == 1:
-        weekday = '화'
-    elif weekday == 2:
-        weekday = '수'
-    elif weekday == 3:
-        weekday = '목'
-    elif weekday == 4:
-        weekday = '금'
-    elif weekday == 5:
-        weekday = '토'
-    else:
-        weekday = '일'
+    weekday = weekInt_to_str(datetime.datetime.now().weekday())
+
     print_year = int(datetime_list[0][2:4])
 
     date = datetime.datetime(year=int(datetime_list[0]), month=int(datetime_list[1]), day=1).date()
@@ -249,6 +244,7 @@ def patient_dashboard(request):
         date_str = get_date(date_str)
         dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date=date_str)
         med_cnt = 0
+    
 
         if patient.next_visiting_date_time:
             if patient.next_visiting_date_time.date() == date_str:
@@ -271,6 +267,7 @@ def patient_dashboard(request):
                 md_side_effect_list.append(int(i))
                 if patient.daily_medication_count == med_cnt:
                     md_success_list.append(int(i))
+
     #오늘의 복약 정리
     dailyresult=MedicationResult.objects.filter(patient__code__contains=request.user.username, date = str(datetime.date.today()))
     today_md_success_list = []
@@ -327,13 +324,8 @@ def patient_dashboard(request):
                 symptom_sev_list3.append('{}: {}'.format(str(question3),str(symptom_severity3s[i])))
                 symptoms = zip(symptom_name_list, symptom_time_list, symptom_sev_list1, symptom_sev_list2, symptom_sev_list3)
 
-        
-        
-    
-    prev_year, prev_month = pre_month(int(year), int(month))
-    next_year, next_month = nex_month(int(year), int(month))
-
-
+    prev_year, prev_month = get_prev_month(month, year)
+    next_year, next_month = get_next_month(month, year)
 
     context = {
         'nickname': nickname,
@@ -425,15 +417,6 @@ def print_day_list(dt):
         li.append(str(iso_to_gregorian(*iso).month) + ' / ' + str(iso_to_gregorian(*iso).day) + ' ' + yo)
     return li
 
-def prev_week(d):
-    pre_day = d - datetime.timedelta(days=7)
-    return 'week=' + str(pre_day.year) + ',' + str(pre_day.month) + ',' + str(pre_day.day)
-
-
-def next_week(d):
-    pre_day = d + datetime.timedelta(days=7)
-    return 'week=' + str(pre_day.year) + ',' + str(pre_day.month) + ',' + str(pre_day.day)
-
 def certification_number():
     number = ''
     for i in range(4):
@@ -453,38 +436,29 @@ def temporary_password():
 def password_reset(request):
     msg = []
     if request.method == "POST":
-        username = request.POST['username']
-        email = request.POST['email']
-        certificate_number = str(certification_number())
+        print("request status",request.POST)
+        if 'modify' not in request.POST:
+            username = request.POST['username']
+            email = request.POST['email']
+            certificate_number = str(certification_number())
         if 'certification' in request.POST:
             print("hello certification")
             print(User.objects.all().filter(username=username))
             for i in User.objects.all().filter(username = username):
-                print(i)
-                print("환자 통과")
                 if i.email == email:
-                    print("201")
-                    sender = settings.EMAIL_SENDER
-                    reciever = i.email
-                    print("hello")
-                    message = Mail( from_email=sender,
-                                    to_emails=reciever,
-                                    subject='cole-rochman 인증번호입니다',
-                                    html_content='<h1>[결핵챗봇 콜로그만] 인증번호입니다 </h1><hr> <br><br><h2> 안녕하세요 '+ username+ '님! <br> 결핵챗봇 콜로크만 비밀 번호 찾기를 위한<br> 인증번호입니다!</h2> <br><h2>고객님의 인증번호: <strong>'+ certificate_number+ '<strong></h2>')
-                    print("1-1")
-                    try:
-                        
-                        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-                        print("hello")
-                        
-                        response = sg.send(message)
-                        print(message)
 
-                        print(response.status_code)
-                        print(response.body)
-                        print(response.headers)
+                    try:
+                        print("Certification Number:", certificate_number)
+                        contents = MIMEText('<h1>[결핵챗봇 콜로그만] 인증번호입니다 </h1><hr> <br><br><h2> 안녕하세요 ' 
+                                       + username+ '님! <br> 결핵챗봇 콜로크만 비밀 번호 찾기를 위한<br> 인증번호입니다!</h2> <br><h2>고객님의 인증번호: <strong>'
+                                       + certificate_number+ '<strong></h2>', 'html')
+                        message = MIMEMultipart()
+                        message['Subject'] = 'cole-rochman 인증번호입니다.' # 제목
+                        message['From'] = os.environ.get('EMAIL_SENDER') # 보내는이
+                        message['To'] = i.email # 받는이
+                        message.attach(contents)
+                        mailSend(message)
                         try:
-                            print("try문")
                             certification = Certificaion.objects.get(user__username = username)
                             print("certifiaction exist")
                         except:
@@ -493,7 +467,6 @@ def password_reset(request):
                             certification.number = int(certificate_number)
                             certification.save()
                             
-                        
                         if certification:
                             print("if certification")
                             certification.number = int(certificate_number)
@@ -509,41 +482,59 @@ def password_reset(request):
                     print("success")
                 else:
                     msg.append('등록된 이메일과 다릅니다!')
-            context = {'username':username, 'email':email, 'msg':msg}
+            context = {'username':username, 'email':email, 'msg':msg }
             return render(request,'password_reset.html',context)
-        elif 'submit' in request.POST:
+        elif 'user_certificate_number' in request.POST:
             certification = Certificaion.objects.get(user__username=username)
-            print("인증번호: ",certification.number)
-            print(request.POST['user_certificate_number'])
             if certification.number == int(request.POST['user_certificate_number']):
-                certification.number = int(certification_number())
+                
+                """certification.number = int(certification_number())
                 certification.save()
                 user = User.objects.get(username = username)
+                # Random PW
                 password = temporary_password()
                 user.set_password(password)
                 user.save()
-                sender = settings.EMAIL_SENDER
-                reciever = user.email
-                message = Mail( from_email=sender,
-                                to_emails=reciever,
-                                subject='cole-rochman 임시 비밀번호입니다',
-                                html_content='<h1>[결핵챗봇 콜로크만] 임시비밀번호입니다 </h1><hr> <br><br><h2> 안녕하세요 '+ username+ '님! <br> 결핵챗봇 콜로크만 환자용 대쉬보드를 위한<br> 비밀번호를 안내해 드립니다.</h2> <br><h2>고객님의 임시비밀번호: <strong>'+ password + '<strong></h2>')
-                try:
-                    sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-                    response = sg.send(message)
-                    print(response.status_code)
-                    print(response.body)
-                    print(response.headers)
-                except Exception as e:
-                    print(e.message)
+
+                contents = MIMEText('<h1>[결핵챗봇 콜로크만] 임시비밀번호입니다 </h1><hr> <br><br><h2> 안녕하세요 '
+                                    + username+ '님! <br> 결핵챗봇 콜로크만 환자용 대쉬보드를 위한<br> 비밀번호를 안내해 드립니다.</h2> <br><h2>고객님의 임시비밀번호: <strong>'
+                                    + password + '<strong></h2>', 'html')
+                message = MIMEMultipart()
+                message['Subject'] = 'cole-rochman 임시 비밀번호입니다' # 제목
+                message['From'] = os.environ.get('EMAIL_SENDER') # 보내는이
+                message['To'] = user.email # 받는이
+                message.attach(contents)
+                mailSend(message)
+                
                 print("success")
-                return render(request, "password_reset_success.html")
+                """
+                context = {'username':username, }
+                return render(request, "password_reset_success.html", context)
+                
             else:
                 msg.append('인증번호가 다릅니다!')
                 return render(request, 'password_reset.html', {'errors':msg})
+        elif 'modify' in request.POST:
+            password = request.POST['password']
+            username = request.POST['username']
+            user = User.objects.get(username=username)
+            user.set_password(password)
+            user.save()
+            return HttpResponseRedirect('/')
     else:
         msg.append('')
         return render(request, 'password_reset.html')
+
+def password_modify(request):
+    username = request.POST['username']
+    if 'modify' in request.POST:
+            print("MODI")
+            password = request.POST['PW']
+            user = User.objects.get(username = username)
+            user.set_password(password)
+            user.save()
+    else:
+        return render(request, 'password_reset_success.html')
 
 def post_list(request):
     posts = Post.objects.order_by('-created_at')
@@ -598,10 +589,6 @@ def post_delete(request, post_id):
     if post.writer == request.user:
         post.delete()
     return redirect('community_main')
-
-def get_year_month_days():
-    day_list = str(datetime.datetime.now())[0:10].split('-')
-    return day_list
 
 def comment(request, post_id):
     comments = Comment.objects.filter(post = post_id)
@@ -746,21 +733,7 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
         for j in range(day_of_the_week+1):
             day_of_the_week_list.append(' ')
     
-    weekday = (day_of_the_week + int(picked_day) - 1) % 7
-    if weekday == 0:
-        weekday = '월'
-    elif weekday == 1:
-        weekday = '화'
-    elif weekday == 2:
-        weekday = '수'
-    elif weekday == 3:
-        weekday = '목'
-    elif weekday == 4:
-        weekday = '금'
-    elif weekday == 5:
-        weekday = '토'
-    else:
-        weekday = '일'
+    weekday = weekInt_to_str((day_of_the_week + int(picked_day) - 1) % 7)
 
     # 내원 여부
     visit_list = []
@@ -873,8 +846,8 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
         
         
     #이전 월, 다음 월 달력
-    next_year, next_month = nex_month(year, month)
-    prev_year, prev_month = pre_month(year, month)
+    next_year, next_month = get_next_month(month, year)
+    prev_year, prev_month = get_prev_month(month, year)
     
 
     context = {
@@ -917,27 +890,6 @@ def patient_dashboard_by_day(request,picked_year, picked_month = str(datetime.da
     }
     return render(request, 'patient_dashboard2.html', context=context)
 
-def pre_month(y, m):
-    if m == 1:
-        pre_month = 12
-        prev_year = y - 1
-        return prev_year, pre_month
-    else:
-        pre_month = m - 1
-        year = y
-        return year, pre_month
-
-
-def nex_month(y, m):
-    if m == 12:
-        nex_month = 1
-        next_year = y + 1
-        return next_year, nex_month
-    else:
-        nex_month = m + 1
-        year = y
-        return year, nex_month
-
 @login_required(login_url = '/', redirect_field_name='next')
 def inspection_result(request):
     date_list = []
@@ -968,26 +920,22 @@ def inspection_result(request):
             res_list.append(insp.culture_result)
     
     insp_zip = zip(date_list, type_list, th_list, res_list)
-#    inspection_list = []
-#    inspections = list(Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username)) + list(Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username))
-#    inspections.sort(key=lambda x: x.date_time, reverse=True)
-#    for insp in inspections:
-#        insp.date = "{}.{}.{}".format(str(insp.date.year)[2:4], str(insp.date.month).zfill(2), str(insp.date.day).zfill(2))
-#        insp.save()
-#    pcr_inspections = Pcr_Inspection.objects.filter(patient_set__code__contains = request.user.username)
-#    sputum_inspections = Sputum_Inspection.objects.filter(patient_set__code__contains = request.user.username)
-#    for pcr in pcr_inspections:
-#        pcr.pcr_date = "{}.{}.{}".format(str(pcr.date.year)[2:4], str(pcr.date.month).zfill(2), str(pcr.date.day).zfill(2))
-#        pcr.save()
-#        inspection_list.append(pcr)
-#    for sputum in sputum_inspections:
-#        sputum.sputum_date = "{}.{}.{}".format(str(sputum.date.year)[2:4], str(sputum.date.month).zfill(2), str(sputum.date.day).zfill(2))
-#        sputum.save()
-#        inspection_list.append(sputum)
 
     context = {'insp_zip':insp_zip}
-#    context = {'pcr_inspections':pcr_inspections, 'sputum_inspections':sputum_inspections}
     return render(request, 'patient_inspection.html', context=context)
 
 def inspection_detail(request):
     return render(request, 'inspection_detail.html')
+
+def mailSend(msg): # 메일전송 함수
+    smtp_server = smtplib.SMTP(
+        host='smtp.office365.com',
+        port=587
+    )
+    smtp_server.ehlo()
+    smtp_server.starttls() 
+    smtp_server.ehlo()
+    smtp_server.login(os.environ.get('EMAIL_SENDER'), os.environ.get('PW_SENDER'))
+    
+    smtp_server.send_message(msg) # 메세지 전송
+    smtp_server.quit() # stmp 종료

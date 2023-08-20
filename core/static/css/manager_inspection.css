@@ -1,0 +1,481 @@
+@import "reset.css";
+
+html,
+body {
+  min-width: 1440px;
+  background: var(--bg-color-lightgray);
+  /* overflow-y: hidden; */
+  overflow-x: auto;
+}
+
+h1,
+h2 {
+  margin: 20px 0;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: var(--bg-color-white);
+}
+
+#img_logo {
+  width: 116px;
+  height: 20px;
+  margin: 5px 0;
+}
+
+#header_right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+#btn_logout {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  color: var(--txt-color-lightgray);
+}
+
+#icon_logout {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  margin-right: 3px;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 20;
+}
+
+#txt_logout {
+  font-size: 14px;
+}
+
+/* Manager Dashboard */
+main {
+  width: 100%;
+  height: calc(100% - 50px);
+  display: flex;
+  align-items: center;
+}
+
+/* Left Navigation Bar */
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 15px;
+  height: 500px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 600' fill='%23356CF9'%3E%3Cpath d='M0 0V599.946C3.3542 566.703 25.509 543.087 43.8332 533.331C55.268 526.089 83.7691 504.052 87.3139 475.515C87.9238 469.735 88.4383 213.352 87.3139 117.651C86.361 100.804 71.21 75.0604 55.6396 66.4649C37.487 56.1718 4.39285 34.4788 0 0Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+}
+
+nav button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--bg-color-white);
+}
+
+nav .icon_wrapper {
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 7px;
+}
+
+.nav_icon {
+  /* margin: 25px 0;
+  padding: 5px;
+  color: var(--bg-color-white);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 32; */
+  width: 24px;
+  height: 24px;
+}
+
+nav .active {
+  border-radius: 10px;
+  color: var(--bg-color-blue);
+  background-color: var(--bg-color-white);
+}
+
+/* Patient Status Section */
+section {
+  margin: auto;
+  width: 1280px;
+}
+
+section > h2 {
+  margin-top: 0;
+}
+
+.grid_container {
+  display: grid;
+  grid-template-columns: 256px auto;
+  grid-template-rows: 128px auto;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.bg_white_round {
+  background-color: var(--bg-color-white);
+  border-radius: 7px;
+  border: 0px;
+}
+
+/* Search Patient */
+#myInput {
+  width: 216px;
+  padding: 10px 10px 10px 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48' viewBox='0 96 960 960' width='48'%3E%3Cpath d='M796 935 533 672q-30 26-69.959 40.5T378 727q-108.162 0-183.081-75Q120 577 120 471t75-181q75-75 181.5-75t181 75Q632 365 632 471.15 632 514 618 554q-14 40-42 75l264 262-44 44ZM377 667q81.25 0 138.125-57.5T572 471q0-81-56.875-138.5T377 275q-82.083 0-139.542 57.5Q180 390 180 471t57.458 138.5Q294.917 667 377 667Z' fill='%23919BA7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 5px center;
+}
+
+#myInput::placeholder {
+  color: var(--txt-color-placeholder);
+}
+
+#myInput:focus {
+  outline: 1.5px solid var(--bg-color-blue);
+}
+
+#sort_button_wrapper {
+  margin: 10px 0px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+}
+
+.active {
+  color: var(--bg-color-blue);
+}
+
+#myUL {
+  height: 685px;
+  padding: 0;
+  margin: 10px 0 0 0;
+  overflow: auto;
+}
+
+#radio_patient {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 50%;
+  border: 1px solid var(--bg-color-gray);
+  margin: auto 20px auto 5px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+#radio_patient:checked {
+  outline-offset: 2px;
+  outline: 2px solid var(--bg-color-blue);
+  background-color: var(--bg-color-blue);
+  margin: auto 23px auto 8px;
+  width: 16px;
+  height: 16px;
+}
+
+.li_patient {
+  list-style-type: none;
+  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+#btn_patient {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  line-height: 14px;
+  width: 80%;
+}
+
+.txt_black {
+  color: var(--txt-color-black);
+  font-size: 14px;
+}
+
+.txt_lightgray {
+  color: var(--txt-color-lightgray);
+  margin-top: 5px;
+}
+
+.patient_meta {
+  color: #8193c3;
+  font-size: 11px;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+#select_date {
+  padding: 30px 50px;
+}
+
+#select_date h3 {
+  margin-bottom: 20px;
+}
+
+.date_and_button_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.date_and_button_wrapper input {
+  font-size: 1.2rem;
+  height: 2rem;
+  width: 17rem;
+  border-radius: 5px;
+  border: 1px solid var(--bg-color-gray);
+}
+
+#select_date_button {
+  color: var(--bg-color-blue);
+  border: 1px solid var(--bg-color-blue);
+  padding: 5px 30px;
+  border-radius: 5px;
+}
+
+#inspection_main {
+  grid-column: 2/3;
+  height: 550px;
+  padding: 30px 50px;
+}
+
+#inspection_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#add_inspection_button {
+  color: var(--bg-color-white);
+  background-color: var(--bg-color-blue);
+  padding: 10px 40px;
+  border-radius: 5px;
+}
+
+#inspection_table {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+tr {
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+th,
+td {
+  padding: 10px 0;
+}
+
+thead {
+  border-bottom: 2px solid var(--bg-color-blue);
+}
+
+tbody {
+  font-size: 0.8rem;
+}
+
+.td_btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.update_button {
+  padding: 5px 10px;
+  border: 1px solid var(--bg-color-blue);
+  border-radius: 5px;
+  color: var(--bg-color-blue);
+}
+
+.delete_button {
+  /* color: var(--txt-color-placeholder); */
+  color: var(--txt-color-placeholder);
+}
+
+#pagination_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pagination {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#pagination > li {
+  padding: 10px;
+  margin: 5px;
+}
+
+#add_modal {
+  border: 0px solid black;
+  border-radius: 10px;
+  width: 800px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.modal_title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid var(--bg-color-gray);
+}
+
+.modal_title > button {
+  position: relative;
+  left: 300px;
+}
+
+.input_radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 50%;
+  border: 1px solid var(--bg-color-gray);
+  margin: auto 20px auto 5px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.input_radio:checked {
+  outline-offset: 2px;
+  outline: 2px solid var(--bg-color-blue);
+  background-color: var(--bg-color-blue);
+  margin: auto 23px auto 8px;
+  width: 16px;
+  height: 16px;
+}
+
+.modal_inner {
+  padding: 20px;
+}
+
+.modal_row {
+  margin: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 3rem;
+}
+
+.modal_left {
+  width: 20%;
+  margin-right: 30px;
+}
+
+.modal_right {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 60px;
+}
+
+#modal_submit {
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 5px;
+}
+/* 
+input[type="date"]::-webkit-datetime-edit-text {
+  -webkit-appearance: none;
+  display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field {
+  -webkit-appearance: none;
+  display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-day-field {
+  -webkit-appearance: none;
+  display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-year-field {
+  -webkit-appearance: none;
+  display: none;
+} 
+
+input[type="date"]::before {
+  font-size: 24px; 
+  padding-left: 30px;
+} */
+
+/* input[type="date"]::before {
+  color: lightgray;
+  content: attr(data-placeholder);
+} */
+
+#modal_date {
+  border-radius: 5px;
+  height: 30px;
+}
+
+#add_modal label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20px;
+}
+
+#delete_modal {
+  border: 0px solid black;
+  border-radius: 10px;
+  width: 500px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#delete_modal_inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modal_btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 30px;
+  width: 90%;
+  gap: 20px;
+}
+
+#modal_btn_wrapper button {
+  color: var(--bg-color-blue);
+  border: 1px solid var(--bg-color-blue);
+  padding: 5px 30px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+#delete_cancel_button {
+  color: var(--txt-color-placeholder) !important ;
+  border: 1px solid var(--txt-color-placeholder) !important ;
+}
