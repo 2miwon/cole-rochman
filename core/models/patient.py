@@ -160,7 +160,20 @@ class Patient(models.Model):
     
     def get_korean_age(self):
         return datetime.datetime.today().year - self.birthdate.year + 1
-
+    
+    def get_noti_time_by_num(self, i: int):
+        if i == 0:
+            return self.medication_noti_time_1
+        elif i == 1:
+            return self.medication_noti_time_2
+        elif i == 2:
+            return self.medication_noti_time_3
+        elif i == 3:
+            return self.medication_noti_time_4
+        elif i == 4:
+            return self.medication_noti_time_5
+        else: 
+            return None
 
 class Sputum_Inspection(models.Model):
     patient_set = models.ForeignKey(Patient, on_delete = models.CASCADE)

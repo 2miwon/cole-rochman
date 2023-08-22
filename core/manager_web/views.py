@@ -3,12 +3,12 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from core.models import Patient, MeasurementResult, MedicationResult
+from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
 from datetime import timedelta
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from core.day import *
-import calendar # 달력에서 사용합니다
-from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
+import calendar
 from django.core import serializers
 import datetime
 
@@ -25,63 +25,34 @@ def user_dashboard(request):
             treatment_end_date__gt=timezone.now(),  
         ).order_by(sort_policy),
     )
-    pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
     return render(request, "dashboard.html", context)
-
 
 # 환자 선택 후 환자관리 대시보드
 @login_required()
 def patient_status(request, pid):
-    # 보고자 하는 일주일의 월요일 날짜가 출력됨
-    # 예) 2023-01-30
-    d = get_date(request.GET.get("week", None))
-    m = get_week(request.GET.get("month", None))
-
-    sort = request.GET.get('sort', '-id')
-    if(sort == 'id'):
-        sort = '-id'
-    sort_policy = sort
+    ## 주간관리용 - 선택 날짜
+    week_date = get_date(request.GET.get("week", None))
+    ## 월간 관리용 한 달의 첫번째 날짜 (1일)
+    month_date = get_month_first_date(request.GET.get("month", None))
+    sort_policy = request.GET.get('sort', '-id')
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
-    # 결핵치료과정 퍼센트 계산
-    if clickedpatient.treatment_started_date:
-        if clickedpatient.treatment_end_date:
-            diff1 = (
-                clickedpatient.treatment_end_date
-                - clickedpatient.treatment_started_date
-            )
-            diff2 = (
-                datetime.datetime.now().date() - clickedpatient.treatment_started_date
-            )
-        else:
-            clickedpatient.set_default_end_date()
-            clickedpatient.save()
-            diff1 = (
-                clickedpatient.treatment_end_date
-                - clickedpatient.treatment_started_date
-            )
-            diff2 = (
-                datetime.datetime.now().date() - clickedpatient.treatment_started_date
-            )
 
-        if diff1.total_seconds() == 0:
-            percent = 1
-        else:
-            if diff2.total_seconds() < 0:
-                diff2 = diff1
-            percent = diff2.total_seconds() / diff1.total_seconds()
-            if percent > 1:
-                percent = 1
+    # 복약 기록
+    month_mdresult = get_last_info_mdResult(30, pid)
+    total_mdresult = get_total_info_mdResult(pid)
+    count_succ = get_total_success(pid)
+    count_side = get_last_sideeffect(30, month_mdresult)
 
-    else:
-        percent = 1
-
-    p_str = "{0:.0%}".format(percent).rstrip("%")
+    progerss_percent = calculate_persentage(clickedpatient.treatment_started_date, clickedpatient.treatment_end_date)
+    p_str = "{0:.0%}".format(progerss_percent).rstrip("%")
 
     context = dict(
         p_str=p_str,
-        clickedpatient=Patient.objects.filter(id=pid),
+        pid=pid,
+        clickedpatient=clickedpatient,
+
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
@@ -89,16 +60,24 @@ def patient_status(request, pid):
         ).order_by(sort_policy),
         a=MeasurementResult.objects.filter(
             patient__id__contains=pid,
-            measured_at__gte=cal_start_end_day(d, 1),
-            measured_at__lte=cal_start_end_day(d, 7),
+            measured_at__gte=cal_start_end_day(week_date, 1),
+            measured_at__lte=cal_start_end_day(week_date, 7),
         ),
 
-        prev_week=prev_week(d),
-        next_week=next_week(d),
+        prev_week=prev_week(week_date),
+        next_week=next_week(week_date),
 
-        pid=pid,
-        day_list=get_weekday_list(d),
-        code_hyphen=clickedpatient.code_hyphen(),
+        day_list=get_weekday_list(week_date),
+        # code_hyphen=clickedpatient.code_hyphen(),
+        
+        # 복약 결과, 도말배양 관련
+        total_medi = len(total_mdresult),
+        count_succ = count_succ,
+        per_succ = int(100 * count_succ / len(total_mdresult)),
+        count_side = count_side,
+        per_side = int(100 * count_side / 30),
+        side_effect_static = get_static_sideEffect(month_mdresult),
+
         # ! 달력에서 사용할 context들입니다. 여기서 선언만 한 뒤 아래에서 정제
         day="",
         month="",
@@ -111,68 +90,22 @@ def patient_status(request, pid):
 
     for date in Patient.objects.filter(
         id__contains=pid,
-        next_visiting_date_time__gte=cal_start_end_day(d, 1),
-        next_visiting_date_time__lte=cal_start_end_day(d, 7),
+        next_visiting_date_time__gte=cal_start_end_day(week_date, 1),
+        next_visiting_date_time__lte=cal_start_end_day(week_date, 7),
     ):
         context["visiting_num"] = (
             int(date.next_visiting_date_time.isocalendar()[2] - 1) * 9.5 + 2
         )
     #        context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 56
-    #        context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 140
-    daily_hour_list = list()
+    #        context['visiting_num'] = (int(date.next_visiting_date_time.isocalendar()[2]) - 1) * 144 + 140    
 
-    try:
-        if clickedpatient.daily_medication_count:
-            if clickedpatient.daily_medication_count >= 1:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_1.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_1.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 2:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_2.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_2.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 3:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_3.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_3.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 4:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_4.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_4.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 5:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_5.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_5.minute).zfill(2),
-                    )
-                )
-
-    except AttributeError:
-        daily_hour_list = ["재설정 필요"]
-
-    context["daily_hour_list"] = daily_hour_list
+    # context["daily_hour_list"] = daily_hour_list
 
     mdresult = [dict() for _ in range(7)]
 
     for i in range(1, 8):
         dailyresult = MedicationResult.objects.filter(
-            patient__id__contains=pid, date=cal_start_end_day(d, i)
+            patient__id__contains=pid, date=cal_start_end_day(week_date, i)
         )
         sideeffect = []
         succ_count = 0
@@ -212,24 +145,6 @@ def patient_status(request, pid):
         mdresult[i - 1]["sideeffect"] = sideeffect
     context["mdresult"] = mdresult
 
-    month_mdresult = get_last_info_mdResult(30, pid)
-    total_mdresult = get_total_info_mdResult(pid)
-
-    context["side_effect_static"] = get_static_sideEffect(month_mdresult)
-
-    #count_succ = get_last_success(30, month_mdresult)
-    count_succ = get_total_success(total_mdresult)
-    context["count_succ"] = count_succ
-    # context["per_succ"] = int(100 * count_succ / 30)
-    context["per_succ"] = int(100 * count_succ / len(total_mdresult))
-    context["total_medi"] = len(total_mdresult)
-
-    count_side = get_last_sideeffect(30, month_mdresult)
-    # count_side = get_total_sideeffect(total_mdresult)
-    context["count_side"] = count_side
-    context["per_side"] = int(100 * count_side / 30)
-    # context["per_side"] = int(100 * count_side / len(total_mdresult))
-
     # 관리 현황 정렬    
     today_su_list = MedicationResult.objects.filter(
         patient__id__contains=pid, date=datetime.date.today(), status="SUCCESS"
@@ -249,9 +164,9 @@ def patient_status(request, pid):
     context["remain"] = clickedpatient.daily_medication_count - remain
 
     # 달력 
-    if(m):
-        picked_year = m.year
-        picked_month = m.month
+    if month_date:
+        picked_year = month_date.year
+        picked_month = month_date.month
         picked_day=str(datetime.date.today())[-2:]
     else:
         picked_year = str(datetime.date.today())[0:4]
@@ -291,8 +206,8 @@ def patient_status(request, pid):
     week_date_list = []
     month_data_list = []
     for i in range(1,8):
-        week_date_list.append(cal_start_end_day(d,i))
-    for i in range(1,calendar.monthrange(d.year, d.month)[1]):
+        week_date_list.append(cal_start_end_day(week_date,i))
+    for i in range(1,calendar.monthrange(week_date.year, week_date.month)[1]):
         month_data_list.append(get_date(str(month_first_day.year) + ',' + str(month_first_day.month) + ',' + str(i)))
 
     weekly_sputum = get_sputum_data(pid, week_date_list)
@@ -319,7 +234,6 @@ def patient_status(request, pid):
         print(i,context[i])
         
     return render(request, "dashboard.html", context)
-
 
 # 환자 선택 전 [도말배양]
 @login_required()
@@ -406,7 +320,7 @@ def patient_inspection(request, pid):
         ),
         pid=pid,
         code_hyphen=clickedpatient.code_hyphen(),
-        daily_hour_list=daily_hour_list,
+        daily_hour_list=get_daily_noti_time_list(clickedpatient),
         sputum=Sputum_Inspection.objects.filter(patient_set=pid),
         today=today
     )
@@ -498,7 +412,6 @@ def patient_inspection_update(request, pid, sputum_id):
 
     return render(request, "dashboard_inspection_update.html", context)
 
-
 def sign_in(request):
     msg = []
     if request.method == "POST":
@@ -536,9 +449,10 @@ def get_week(req_mon):
 
 def cal_start_end_day(dt, i):
     iso = dt.isocalendar()
-    iso = list(iso)
-    iso[2] = i
-    iso = tuple(iso)
+    # iso = list(iso)
+    # iso[2] = i
+    iso.day = i
+    # iso = tuple(iso)
     return iso_to_gregorian(*iso)
 
 def get_month_data(dt):
@@ -593,8 +507,8 @@ def get_date_str(date: datetime.date, day: int):
     return get_date(str(date.year) + ',' + str(date.month) + ',' + str(day))
 
 # 도말배양
-def get_sputum_data(patient_id, date):
-    return serializers.serialize("json", Sputum_Inspection.objects.filter(patient_set=patient_id, insp_date__in=date))
+def get_sputum_data(pid: int, date):
+    return serializers.serialize("json", Sputum_Inspection.objects.filter(patient_set=pid, insp_date__in=date))
 
 def get_monthly_dayList_int(date):
     day_of_month = calendar.monthrange(date.year, date.month)[1]
@@ -628,6 +542,23 @@ def get_static_sideEffect(results: MedicationResult):
             rst[i] = int(100 * rst[i] / count)
     return rst
     
+def calculate_persentage(start_date: datetime.date, end_date: datetime.date):
+    if start_date and end_date:
+        total = end_date - start_date
+        progress = datetime.datetime.now().date() - start_date
+        if total.total_seconds <= 0 or progress.total_seconds() <= 0:
+            return 0
+        return min(progress.total_seconds() / total.total_seconds(), 1)
+    return 1
+
+def get_daily_noti_time_list(patient: Patient):
+    rst = list()
+    try:
+        for i in range(0, patient.daily_medication_count):
+            rst.append(time_formatiing(patient.get_noti_time_by_num))
+        return rst
+    except AttributeError:
+        return ["재설정 필요"]
 
 # @login_required()
 # def symptom(request, pid, sid):

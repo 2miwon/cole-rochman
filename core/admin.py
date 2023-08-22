@@ -45,10 +45,14 @@ class PatientAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     search_fields = (
         'patient__code',
         'patient__kakao_user_id',
+        'name',
+        'phone_number'
     )
     list_filter = [
         'hospital', 'medication_manage_flag', 'visit_manage_flag',
-        'medication_noti_flag', 'visit_notification_flag'
+        'medication_noti_flag', 'visit_notification_flag',
+        'display_dashboard',
+        'safeout',
     ]
 
 

@@ -162,7 +162,7 @@ def deploy(skip_migrations=False):
     try:
         #_send_deploy_message(message='*Deploy has been started.*')
         _get_latest_source()
-        _upload_secrets_file()
+        # _upload_secrets_file()
         _update_settings()
         _update_virtualenv()
         _update_static_files()
