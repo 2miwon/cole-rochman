@@ -4,13 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from core.models import Patient, MeasurementResult, MedicationResult
 from datetime import timedelta
-import datetime
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from core.day import *
 import calendar # 달력에서 사용합니다
 from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
 from django.core import serializers
+from datetime import datetime
 
 
 
@@ -390,6 +390,8 @@ def patient_inspection(request, pid):
 
     except AttributeError:
         daily_hour_list = ["재설정 필요"]
+
+    today = datetime.today().strftime('%Y-%m-%d')
     
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
@@ -405,7 +407,8 @@ def patient_inspection(request, pid):
         pid=pid,
         code_hyphen=clickedpatient.code_hyphen(),
         daily_hour_list=daily_hour_list,
-        sputum=Sputum_Inspection.objects.filter(patient_set=pid)
+        sputum=Sputum_Inspection.objects.filter(patient_set=pid),
+        today=today
     )
 
     return render(request, "dashboard_inspection.html", context)
@@ -469,6 +472,10 @@ def patient_inspection_update(request, pid, sputum_id):
     except AttributeError:
         daily_hour_list = ["재설정 필요"]
     
+
+    formatted_insp_date = clickedSputum.insp_date.strftime("%Y-%m-%d")
+    today = datetime.today().strftime('%Y-%m-%d')
+
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
         patientlist=Patient.objects.filter(
@@ -484,7 +491,9 @@ def patient_inspection_update(request, pid, sputum_id):
         code_hyphen=clickedpatient.code_hyphen(),
         daily_hour_list=daily_hour_list,
         sputum=Sputum_Inspection.objects.filter(id=pid),
-        clicked_sputum = clickedSputum
+        clicked_sputum = clickedSputum,
+        formatted_insp_date=formatted_insp_date,
+        today=today
     )
 
     return render(request, "dashboard_inspection_update.html", context)

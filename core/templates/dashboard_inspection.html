@@ -183,12 +183,12 @@
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
-        <div class="modal_inner">
+        <form class="modal_inner" method="POST">
           <div class="modal_row">
             <h3 class="modal_left">검사 날짜</h3>
             <div class="modal_right">
               <label>
-                <input type="radio" checked class="input_radio" name="insp_date" />
+                <input type="radio" checked class="input_radio" name="insp_date" value={{ today }} />
                 <span>오늘</span>
               </label>
               <label>
@@ -201,15 +201,15 @@
             <h3 class="modal_left">검사 종류</h3>
             <div class="modal_right">
               <label>
-                <input type="radio" checked class="input_radio" name="method" />
+                <input type="radio" value="객담" checked class="input_radio" name="method" />
                 <span>객담</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="method" />
+                <input type="radio" value="기관지내시경 검체" class="input_radio" name="method" />
                 <span>기관지내시경 검체</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="method" />
+                <input type="radio" value="기타" class="input_radio" name="method" />
                 <span>기타</span>
               </label>
             </div>
@@ -218,15 +218,15 @@
             <h3 class="modal_left">검사 세부 분류</h3>
             <div class="modal_right">
               <label>
-                <input type="radio" checked class="input_radio" name="th" />
+                <input type="radio" value="1차" checked class="input_radio" name="th" />
                 <span>1차</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="th" />
+                <input type="radio" value="2차" class="input_radio" name="th" />
                 <span>2차</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="th" />
+                <input type="radio" value="3차" class="input_radio" name="th" />
                 <span>3차</span>
               </label>
             </div>
@@ -235,37 +235,35 @@
             <h3 class="modal_left">도말검사 결과</h3>
             <div class="modal_right">
               <label>
-              <input type="radio" checked class="input_radio" name="smear" />
-                -
-                <span></span>
+              <input type="radio" value="-" checked class="input_radio" name="smear_result" />
+                <span>-</span>
               </label>
               <label>
-              <input type="radio" class="input_radio" name="smear" />
-                +-
-                <span></span>
+              <input type="radio" value="+-" class="input_radio" name="smear_result" />
+                <span>+-</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="smear" />
+                <input type="radio" value="1+" class="input_radio" name="smear_result" />
                 <span>1+</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="smear" />
+                <input type="radio" value="2+" class="input_radio" name="smear_result" />
                 <span>2+</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="smear" />
+                <input type="radio" value="3+" class="input_radio" name="smear_result" />
                 <span>3+</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="smear" />
+                <input type="radio" value="4+" class="input_radio" name="smear_result" />
                 <span>4+</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="smear" />
+                <input type="radio" value="검사중" class="input_radio" name="smear_result" />
                 <span>검사중</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="smear" />
+                <input type="radio" value="미시행" class="input_radio" name="smear_result" />
                 <span>미시행</span>
               </label>
             </div>
@@ -274,29 +272,29 @@
             <h3 class="modal_left">배양검사 결과</h3>
             <div class="modal_right">
               <label>
-                <input type="radio" checked class="input_radio" name="culture_result" />
+                <input type="radio" value="검사중" checked class="input_radio" name="culture_result" />
                 <span>검사중</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="culture_result" />
+                <input type="radio" value="미시행" class="input_radio" name="culture_result" />
                 <span>미시행</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="culture_result" />
+                <input type="radio" value="양성" class="input_radio" name="culture_result" />
                 <span>양성</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="culture_result" />
+                <input type="radio" value="음성" class="input_radio" name="culture_result" />
                 <span>음성</span>
               </label>
               <label>
-                <input type="radio" class="input_radio" name="culture_result" />
+                <input type="radio" value="오염" class="input_radio" name="culture_result" />
                 <span>오염</span>
               </label>
             </div>
           </div>
-          </div>
-          <button id="modal_submit">추가하기</button>
+          </form>
+          <input type="submit" id="modal_submit" value="추가하기" />
         </div>
       </dialog>
       <dialog id="delete_modal">

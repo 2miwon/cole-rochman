@@ -141,7 +141,7 @@
                     <td>{{ result.insp_date }}</td>
                     <td>{{ result.method }}</td>
                     <td>{{ result.th }}</td>
-                    <td>{{ result.smear_result_result }}</td>
+                    <td>{{ result.smear_result }}</td>
                     <td>{{ result.culture_result }}</td>
                     <td class="td_btn_wrapper">
                       <button class="update_button" >수정</button>
@@ -179,7 +179,7 @@
             </a>
           </button>
         </div>
-        <div class="modal_inner">
+        <form class="modal_inner" method="PUT">
           <div class="modal_row">
             <h3 class="modal_left">검사 날짜</h3>
             <div class="modal_right">
@@ -188,7 +188,8 @@
                 {% if clicked_sputum.insp_date == "오늘" %}
                 checked
                 {% endif %}
-                class="input_radio" name="insp_date" />
+                class="input_radio" name="insp_date"
+                value={{ today }} />
                 <span>오늘</span>
               </label>
               <label>
@@ -197,7 +198,7 @@
                 checked
                 {% endif %}
                 class="input_radio" name="insp_date" />
-                <input type="date" value="{{ clicked_sputum.insp_date }}" data-placeholder="날짜 선택" class="input_date" id="modal_date" name="insp_date" />
+                <input type="date" value="{{ formatted_insp_date }}" data-placeholder="날짜 선택" class="input_date" id="modal_date" name="insp_date" />
               </label>
             </div>
           </div>
@@ -373,8 +374,8 @@
               </label>
             </div>
           </div>
-          </div>
-          <button id="modal_submit">추가하기</button>
+          </form>
+          <input type="submit" id="modal_submit" value="수정하기" />
         </div>
       </dialog>
       
@@ -382,8 +383,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script>
-      
-
 
     </script>
   </body>

@@ -408,6 +408,7 @@ tbody {
   width: 100%;
   padding: 12px 0;
   border-radius: 5px;
+  border: 0;
 }
 /* 
 input[type="date"]::-webkit-datetime-edit-text {
