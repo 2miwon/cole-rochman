@@ -105,14 +105,16 @@
           </div>
           <div id="select_date" class="bg_white_round">
             <h3>검사 결과 조회</h3>
-            <div class="date_and_button_wrapper">
-              <div class="date_input_wrapper">
-                <input class="input_date" type="date" data-placeholder="날짜 선택" />
-                <span>&nbsp;&nbsp;~&nbsp;&nbsp;</span>
-                <input class="input_date" type="date" data-placeholder="날짜 선택" />
+            <form class="date_input_wrapper" method="GET">
+              <div class="date_and_button_wrapper">
+                <div>
+                  <input class="input_date" type="date" data-placeholder="날짜 선택" name="start_date" />
+                  <span>&nbsp;&nbsp;~&nbsp;&nbsp;</span>
+                  <input class="input_date" type="date" data-placeholder="날짜 선택" name="end_date" />
+                </div>
+                <button id="select_date_button">조회</button>
               </div>
-              <button id="select_date_button">조회</button>
-            </div>
+            </form>
           </div>
           <div id="inspection_main" class="bg_white_round">
             {% if pid|default_if_none:''  %}

@@ -10,7 +10,7 @@ from core.day import *
 import calendar # 달력에서 사용합니다
 from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
 from django.core import serializers
-from datetime import datetime
+import datetime
 
 
 
@@ -391,7 +391,7 @@ def patient_inspection(request, pid):
     except AttributeError:
         daily_hour_list = ["재설정 필요"]
 
-    today = datetime.today().strftime('%Y-%m-%d')
+    today = datetime.date.today().strftime('%Y-%m-%d')
     
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
@@ -474,7 +474,7 @@ def patient_inspection_update(request, pid, sputum_id):
     
 
     formatted_insp_date = clickedSputum.insp_date.strftime("%Y-%m-%d")
-    today = datetime.today().strftime('%Y-%m-%d')
+    today = datetime.date.today().strftime('%Y-%m-%d')
 
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
