@@ -410,6 +410,85 @@ def patient_inspection(request, pid):
 
     return render(request, "dashboard_inspection.html", context)
 
+# 도말배양 - 검사결과 업데이트 모달
+@login_required()
+def patient_inspection_update(request, pid, sputum_id):
+
+    # 클릭한 환자
+    clickedpatient = Patient.objects.get(id=pid)
+
+    # 클릭한 검사결과 id
+    clickedSputum = Sputum_Inspection.objects.get(id=sputum_id)
+
+
+    daily_hour_list = list()
+
+
+    try:
+        if clickedpatient.daily_medication_count:
+            if clickedpatient.daily_medication_count >= 1:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_1.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_1.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 2:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_2.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_2.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 3:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_3.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_3.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 4:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_4.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_4.minute).zfill(2),
+                    )
+                )
+
+            if clickedpatient.daily_medication_count >= 5:
+                daily_hour_list.append(
+                    "{}:{}".format(
+                        str(clickedpatient.medication_noti_time_5.hour).zfill(2),
+                        str(clickedpatient.medication_noti_time_5.minute).zfill(2),
+                    )
+                )
+
+    except AttributeError:
+        daily_hour_list = ["재설정 필요"]
+    
+    context = dict(
+        clickedpatient=Patient.objects.filter(id=pid),
+        patientlist=Patient.objects.filter(
+            hospital__id__contains=request.user.profile.hospital.id,
+            display_dashboard=True,
+        ),
+        a=MeasurementResult.objects.filter(
+            patient__id__contains=pid,
+            # measured_at__gte=cal_start_end_day(d, 1),
+            # measured_at__lte=cal_start_end_day(d, 7),
+        ),
+        pid=pid,
+        code_hyphen=clickedpatient.code_hyphen(),
+        daily_hour_list=daily_hour_list,
+        sputum=Sputum_Inspection.objects.filter(id=pid),
+        clicked_sputum = clickedSputum
+    )
+
+    return render(request, "dashboard_inspection_update.html", context)
+
 
 def sign_in(request):
     msg = []

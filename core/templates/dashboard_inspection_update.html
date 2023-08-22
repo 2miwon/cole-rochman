@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="{% static 'css/manager_inspection.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <title>결핵 환자 정보 대쉬보드</title>
+  </head>
+
+  <body>
+    <header>
+      <img id="img_logo" src={% static 'media/images/logo_hospital.png' %}
+      alt="logo_hospital">
+      <div id="header_right">
+        {% if user.is_active %}
+        <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
+        <a id="btn_logout" href="{% url 'logout' %}">
+          <span id="icon_logout" class="material-symbols-outlined">logout</span>
+          <p id="txt_logout">로그아웃</p>
+        </a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main>
+      <nav>
+        {% if pid|default_if_none:'' %}
+        <button onclick="location.href='{% url 'patient_status' pid %}'">
+          {% else %}
+          <button onclick="location.href='{% url 'user_dashboard' %}'">
+        {% endif %}
+          <div class="icon_wrapper">
+            <img class="nav_icon" src={% static "media/icons/chart.png" %}
+            alt="차트" />
+          </div>
+          <span>대시보드</span>
+        </button>
+        {% if pid|default_if_none:'' %}
+        <button onclick="location.href='{% url 'patient_inspection' pid %}'">
+          <div class="icon_wrapper active">
+            <img class="nav_icon" src={% static "media/icons/lungs_on.png" %}
+            alt="폐" />
+          </div>
+          <span>도말배양</span>
+        </button>
+        {% else %}
+        <button onclick="location.href='{% url 'inspection' %}'">
+          <div class="icon_wrapper active">
+            <img class="nav_icon" src={% static "media/icons/lungs_on.png" %}
+            alt="폐" />
+          </div>
+          <span>도말배양</span>
+        </button>
+        {% endif %}
+        <button onclick="location.href='{% url 'web_menu' %}'">
+          <div class="icon_wrapper">
+            <img class="nav_icon" src={% static "media/icons/left up.png" %}
+            alt="돌아가기" />
+          </div>
+          <span>메뉴선택</span>
+        </button>
+      </nav>
+
+      <section>
+        <div>
+          <h2>환자 복약 현황</h2>
+        </div>
+        <div class="grid_container">
+          <div class="item search-sidebar">
+            <input
+              type="text"
+              id="myInput"
+              class="bg_white_round"
+              placeholder="환자 이름 혹은 번호를 입력하세요."
+            />
+            <div id="sort_button_wrapper">
+              <button id="sort_by_name_btn" name="name">이름순</button>
+              <button id="sort_by_id_btn" name="id" class="active">등록순</button>
+            </div>
+            <ul id="myUL" class="bg_white_round">
+              {% for patient in patientlist %}
+                <li class="li_patient" name={{patient.name}}>
+                  <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
+                    onclick="location.href='{% url 'patient_inspection' patient.id %}'"
+                    {% if pid == patient.id %} {% endif %}>
+                  <a href="{% url 'patient_inspection' patient.id %}" id="btn_patient" for="radio_patient">
+                    <div>
+                      <span class="txt_black">{{ patient.name }}</span>
+                      <span class="patient_meta">({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}</span>
+                    </div>
+                    <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
+                    <span style="display: none;">{{ patient.code }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div id="select_date" class="bg_white_round">
+            <h3>검사 결과 조회</h3>
+            <div class="date_and_button_wrapper">
+              <div class="date_input_wrapper">
+                <input class="input_date" type="date" data-placeholder="날짜 선택" />
+                <span>&nbsp;&nbsp;~&nbsp;&nbsp;</span>
+                <input class="input_date" type="date" data-placeholder="날짜 선택" />
+              </div>
+              <button id="select_date_button">조회</button>
+            </div>
+          </div>
+          <div id="inspection_main" class="bg_white_round">
+            {% if pid|default_if_none:''  %}
+            <div id="inspection_title">
+              {% for p in clickedpatient %}
+              <div>
+                <b>{{ p.name }} ({{p.code_hyphen}})</b> <span>님의 도말 배양 검사 총 <b>{{sputum|length}}</b> 건이 검색되었습니다.
+              </div>
+              {% endfor %}
+              <button id="add_inspection_button" onclick="handleModalOpen()">검사 결과 추가</button>
+            </div>
+            <table id="inspection_table">
+              <thead>
+                <tr>
+                  <th>검사 날짜</th>
+                  <th>검체 종류</th>
+                  <th>검체 세부 분류</th>
+                  <th>도말검사 결과</th>
+                  <th>배양검사 결과</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for result in sputum %}
+                  <tr>
+                    <td>{{ result.insp_date }}</td>
+                    <td>{{ result.method }}</td>
+                    <td>{{ result.th }}</td>
+                    <td>{{ result.smear_result_result }}</td>
+                    <td>{{ result.culture_result }}</td>
+                    <td class="td_btn_wrapper">
+                      <button class="update_button" >수정</button>
+                      <button class="delete_button" onclick="handleDeleteModalOpen()">
+                        <span class="material-symbols-outlined">delete</span>
+                      </button>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+             </table>
+             <div id="pagination_wrapper">
+              <ul id="pagination">
+                <li><span class="material-symbols-outlined">chevron_left</span></li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li><span class="material-symbols-outlined">chevron_right</span></li>
+              </ul>
+             </div>
+            {% else %}
+            <div> 환자를 선택해 주세요 </div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <dialog id="update_modal" open >
+        <div class="modal_title">
+          <h3>검사 결과 수정</h3>
+          <button>
+            <a href="{% url 'patient_inspection' pid %}">
+              <span class="material-symbols-outlined">close</span>
+            </a>
+          </button>
+        </div>
+        <div class="modal_inner">
+          <div class="modal_row">
+            <h3 class="modal_left">검사 날짜</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.insp_date == "오늘" %}
+                checked
+                {% endif %}
+                class="input_radio" name="insp_date" />
+                <span>오늘</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.insp_date != "오늘" %}
+                checked
+                {% endif %}
+                class="input_radio" name="insp_date" />
+                <input type="date" value="{{ clicked_sputum.insp_date }}" data-placeholder="날짜 선택" class="input_date" id="modal_date" name="insp_date" />
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">검사 종류</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.method == "객담" %}
+                checked
+                {% endif %}
+                class="input_radio" name="method" />
+                <span>객담</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.method == "기관지내시경 검체" %}
+                checked
+                {% endif %}
+                class="input_radio" name="method" />
+                <span>기관지내시경 검체</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.method == "기타" %}
+                checked
+                {% endif %}
+                class="input_radio" name="method" />
+                <span>기타</span>
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">검사 세부 분류</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.th == "1차" %}
+                checked
+                {% endif %}
+                class="input_radio" name="th" />
+                <span>1차</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.th == "2차" %}
+                checked
+                {% endif %}
+                class="input_radio" name="th" />
+                <span>2차</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.th == "3차" %}
+                checked
+                {% endif %}
+                class="input_radio" name="th" />
+                <span>3차</span>
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">도말검사 결과</h3>
+            <div class="modal_right">
+              <label>
+              <input type="radio" 
+              {% if clicked_sputum.smear_result == "-" %}
+              checked
+              {% endif %}
+              class="input_radio" name="smear_result" />
+                <span>-</span>
+              </label>
+              <label>
+              <input type="radio" 
+              {% if clicked_sputum.smear == "+-" %}
+              checked
+              {% endif %}
+              class="input_radio" name="smear_result" />
+                <span>+-</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.smear == "1+" %}
+                checked
+                {% endif %}
+                class="input_radio" name="smear_result" />
+                <span>1+</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.smear == "2+" %}
+                checked
+                {% endif %}
+                class="input_radio" name="smear_result" />
+                <span>2+</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.smear == "3+" %}
+                checked
+                {% endif %}
+                class="input_radio" name="smear_result" />
+                <span>3+</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.smear == "4+" %}
+                checked
+                {% endif %}
+                class="input_radio" name="smear_result" />
+                <span>4+</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.smear == "검사중" %}
+                checked
+                {% endif %}
+                class="input_radio" name="smear_result" />
+                <span>검사중</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.smear == "미시행" %}
+                checked
+                {% endif %}
+                class="input_radio" name="smear_result" />
+                <span>미시행</span>
+              </label>
+            </div>
+          </div>
+          <div class="modal_row">
+            <h3 class="modal_left">배양검사 결과</h3>
+            <div class="modal_right">
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.culture_result == "검사중" %}
+                checked
+                {% endif %}
+                class="input_radio" name="culture_result" />
+                <span>검사중</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.culture_result == "미시행" %}
+                checked
+                {% endif %}
+                class="input_radio" name="culture_result" />
+                <span>미시행</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.culture_result == "양성" %}
+                checked
+                {% endif %}
+                class="input_radio" name="culture_result" />
+                <span>양성</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.culture_result == "음성" %}
+                checked
+                {% endif %}
+                class="input_radio" name="culture_result" />
+                <span>음성</span>
+              </label>
+              <label>
+                <input type="radio" 
+                {% if clicked_sputum.culture_result == "오염" %}
+                checked
+                {% endif %}
+                class="input_radio" name="culture_result" />
+                <span>오염</span>
+              </label>
+            </div>
+          </div>
+          </div>
+          <button id="modal_submit">추가하기</button>
+        </div>
+      </dialog>
+      
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script>
+      
+
+
+    </script>
+  </body>
+</html>

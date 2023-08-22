@@ -144,7 +144,13 @@
                     <td>{{ result.smear_result }}</td>
                     <td>{{ result.culture_result }}</td>
                     <td class="td_btn_wrapper">
-                      <button class="update_button" onclick="handleModalOpen()">수정</button>
+                      {% comment %} <button class="update_button"> {% endcomment %}
+                        <a href="{% url 'patient_inspection_update' pid result.id %}" >
+                          <button class="update_button">
+                            수정
+                          </button>
+                          </a>
+                      {% comment %} </button> {% endcomment %}
                       <button class="delete_button" onclick="handleDeleteModalOpen()">
                         <span class="material-symbols-outlined">delete</span>
                       </button>
@@ -200,7 +206,7 @@
               </label>
               <label>
                 <input type="radio" class="input_radio" name="method" />
-                <span>기관지 내시경 검체</span>
+                <span>기관지내시경 검체</span>
               </label>
               <label>
                 <input type="radio" class="input_radio" name="method" />
