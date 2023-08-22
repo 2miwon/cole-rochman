@@ -51,7 +51,7 @@ def patient_status(request, pid):
     context = dict(
         p_str=p_str,
         pid=pid,
-        clickedpatient=clickedpatient,
+        clickedpatient=Patient.objects.filter(id=pid), # 여기 좀 손봐야됨 (dashboard.html 에서 무지성 for 문)
 
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
@@ -251,59 +251,14 @@ def inspection(request):
 # 환자 선택 후 [도말배양]
 @login_required()
 def patient_inspection(request, pid):
+    # 기본 정렬 기준
+    sort_policy = request.GET.get('sort', '-id')
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
 
-    sort_policy = request.GET.get('sort', 'id')
-
-    daily_hour_list = list()
-
-
-    try:
-        if clickedpatient.daily_medication_count:
-            if clickedpatient.daily_medication_count >= 1:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_1.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_1.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 2:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_2.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_2.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 3:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_3.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_3.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 4:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_4.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_4.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 5:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_5.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_5.minute).zfill(2),
-                    )
-                )
-
-    except AttributeError:
-        daily_hour_list = ["재설정 필요"]
+    print("DSS", request)
+    print("WWW")
 
     today = datetime.date.today().strftime('%Y-%m-%d')
     
@@ -330,62 +285,14 @@ def patient_inspection(request, pid):
 # 도말배양 - 검사결과 업데이트 모달
 @login_required()
 def patient_inspection_update(request, pid, sputum_id):
+    # 기본 정렬 기준
+    sort_policy = request.GET.get('sort', '-id')
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
 
     # 클릭한 검사결과 id
     clickedSputum = Sputum_Inspection.objects.get(id=sputum_id)
-
-
-    daily_hour_list = list()
-
-
-    try:
-        if clickedpatient.daily_medication_count:
-            if clickedpatient.daily_medication_count >= 1:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_1.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_1.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 2:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_2.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_2.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 3:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_3.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_3.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 4:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_4.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_4.minute).zfill(2),
-                    )
-                )
-
-            if clickedpatient.daily_medication_count >= 5:
-                daily_hour_list.append(
-                    "{}:{}".format(
-                        str(clickedpatient.medication_noti_time_5.hour).zfill(2),
-                        str(clickedpatient.medication_noti_time_5.minute).zfill(2),
-                    )
-                )
-
-    except AttributeError:
-        daily_hour_list = ["재설정 필요"]
-    
 
     formatted_insp_date = clickedSputum.insp_date.strftime("%Y-%m-%d")
     today = datetime.date.today().strftime('%Y-%m-%d')
@@ -403,7 +310,7 @@ def patient_inspection_update(request, pid, sputum_id):
         ),
         pid=pid,
         code_hyphen=clickedpatient.code_hyphen(),
-        daily_hour_list=daily_hour_list,
+        daily_hour_list=get_daily_noti_time_list(clickedpatient),
         sputum=Sputum_Inspection.objects.filter(id=pid),
         clicked_sputum = clickedSputum,
         formatted_insp_date=formatted_insp_date,
@@ -449,10 +356,9 @@ def get_week(req_mon):
 
 def cal_start_end_day(dt, i):
     iso = dt.isocalendar()
-    # iso = list(iso)
-    # iso[2] = i
-    iso.day = i
-    # iso = tuple(iso)
+    iso = list(iso)
+    iso[2] = i
+    iso = tuple(iso)
     return iso_to_gregorian(*iso)
 
 def get_month_data(dt):
@@ -546,7 +452,7 @@ def calculate_persentage(start_date: datetime.date, end_date: datetime.date):
     if start_date and end_date:
         total = end_date - start_date
         progress = datetime.datetime.now().date() - start_date
-        if total.total_seconds <= 0 or progress.total_seconds() <= 0:
+        if total.total_seconds() <= 0 or progress.total_seconds() <= 0:
             return 0
         return min(progress.total_seconds() / total.total_seconds(), 1)
     return 1
