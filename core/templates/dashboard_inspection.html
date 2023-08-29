@@ -158,17 +158,17 @@
                       </button>
                     </td>
                   </tr>
+                {% empty %}
+                  <tr class="no_result" rowspan="10"><td colspan="5" >검사 결과가 없습니다</td></tr>
                 {% endfor %}
               </tbody>
              </table>
              <div id="pagination_wrapper">
               <ul id="pagination">
                 <li><span class="material-symbols-outlined">chevron_left</span></li>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
+                {% for i in sputum_pagination %}
+                  <li>{{ forloop.counter }}</li>
+                {% endfor %}
                 <li><span class="material-symbols-outlined">chevron_right</span></li>
               </ul>
              </div>

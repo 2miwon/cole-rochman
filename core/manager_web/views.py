@@ -261,7 +261,11 @@ def patient_inspection(request, pid):
     print("WWW")
 
     today = datetime.date.today().strftime('%Y-%m-%d')
+
+    sputum = Sputum_Inspection.objects.filter(patient_set=pid)
     
+    sputum_pagination = list(range(len(sputum)//10 + 1))
+
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
         patientlist=Patient.objects.filter(
@@ -276,8 +280,10 @@ def patient_inspection(request, pid):
         pid=pid,
         code_hyphen=clickedpatient.code_hyphen(),
         daily_hour_list=get_daily_noti_time_list(clickedpatient),
-        sputum=Sputum_Inspection.objects.filter(patient_set=pid),
-        today=today
+        sputum=sputum,
+        sputum_pagination = sputum_pagination,
+        today=today,
+        range_ten = list(range(10))
     )
 
     return render(request, "dashboard_inspection.html", context)

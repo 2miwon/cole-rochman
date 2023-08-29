@@ -288,6 +288,10 @@ tbody {
   font-size: 0.8rem;
 }
 
+.no_result {
+  height: 200px;
+}
+
 .td_btn_wrapper {
   display: flex;
   flex-direction: row;
