@@ -309,7 +309,7 @@ tbody {
 
 .delete_button {
   /* color: var(--txt-color-placeholder); */
-  color: var(--txt-color-placeholder);
+  color: var(--bg-color-red);
 }
 
 #pagination_wrapper {
@@ -481,8 +481,8 @@ input[type="date"]::before {
 }
 
 #modal_btn_wrapper button {
-  color: var(--bg-color-blue);
-  border: 1px solid var(--bg-color-blue);
+  color: var(--bg-color-red);
+  border: 1px solid var(--bg-color-red);
   padding: 5px 30px;
   border-radius: 5px;
   width: 100%;

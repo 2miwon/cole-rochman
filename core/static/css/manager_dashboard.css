@@ -13,6 +13,10 @@ h2 {
   margin: 20px 0;
 }
 
+h3 {
+  font-size: 20px;
+}
+
 /* Header */
 header {
   display: flex;
@@ -117,7 +121,7 @@ section > h2 {
   display: grid;
   grid-template-columns: 256px auto;
   grid-template-rows: 400px auto;
-  gap: 20px;
+  gap: 29px;
   margin-bottom: 24px;
 }
 
@@ -222,7 +226,7 @@ section > h2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 145px auto;
-  gap: 20px;
+  gap: 29px;
   justify-items: stretch;
   align-items: stretch;
 }
@@ -236,7 +240,7 @@ section > h2 {
 
 .item_progress:nth-child(1) {
   margin: 0px;
-  font-size: 18px;
+  font-size: 24px;
 }
 .item_progress:nth-child(2) {
   text-align: end;
@@ -321,7 +325,7 @@ section > h2 {
 
 .bottom_container {
   display: grid;
-  gap: 20px;
+  gap: 29px;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -486,10 +490,10 @@ section > h2 {
   display: block;
   padding: 5px 5px;
   background-color: var(--bg-color-lightblue);
-  font-size: 9px;
+  font-size: 10px;
   width: 65px;
   border-radius: 5px;
-  /* white-space: nowrap; */
+  letter-spacing: -1px;
 }
 
 .week_sideeffect_icon {
