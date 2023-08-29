@@ -67,7 +67,7 @@ class PastMedicationEntrance(KakaoResponseAPI):
                 all([True if x is None else False for x in patient.medication_noti_time_list()])):
             response.add_simple_text(text='설정된 복약 알림이 없습니다.')
         else:
-            response.add_simple_text(text='잘하셨습니다!👍\n오늘 복약 후에 몸에 이상 반응이 있었나요?')
+            response.add_simple_text(text='잘하셨습니다!👍\n지난번 복약 후에 몸에 이상 반응이 있었나요?')
             response.set_quick_replies_yes_or_no(
                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
                 block_id_for_no='5dd43c5a92690d000194d94c',  # (블록) 지난복약체크_탈출

@@ -1,3 +1,4 @@
+git pull origin master
 sudo service nginx restart
 sudo service uwsgi restart
 python3 manage.py migrate
