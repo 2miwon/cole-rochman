@@ -66,29 +66,37 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
 
         self.preprocess(request)
         self.parse_kakao_user_id()
-        self.parse_patient_code()
+        self.parse_patient_code()        
+        # self.parse_detail_params(self)
 
-        hospital_code = self.patient_code[:4]
+        if request.query_params.get('test'):
+            hospital_code = "001"
+        else:
+            hospital_code = self.patient_code[:4]
+
         self.data['hospital'] = hospital_code
         name = self.data.get('name')
         birth = self.data.get('birth')
         gender = self.data.get('gender')
         phone_number = self.data.get('phone_number')
+        nick_name = self.data.get('nickname')
         patient_code = self.data.get('patient_code')
+        self.data['code'] = patient_code
         password = self.data.get('password')
         email = self.data.get('email')
-        #user, _ = User.objects.get_or_create(username=patient_code, password=password, email=email)
+        # user, _ = User.objects.get_or_create(username=patient_code, password=password, email=email)
         user = User.objects.create_user(patient_code,email,password)
-        
+
         nickname = self.data.get('nickname')
         profile = Profile()
         profile.user = user
         profile.nickname = nickname
         profile.save()
 
-
         self.data['user'] = user.pk
         
+                        
+
         serializer = self.get_serializer(data=self.data)
         if not serializer.is_valid():
             if any([error_detail.code == 'unique' for error_detail in serializer.errors.get('code') or []]):
@@ -99,6 +107,7 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
                 )
                 return response.get_response_200()
 
+            print(serializer.errors)
             response.add_simple_text(text='알 수 없는 오류가 발생했습니다.')
             response.set_quick_replies_yes_or_no()
             return response.get_response_200()

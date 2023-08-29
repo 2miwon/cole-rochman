@@ -22,7 +22,7 @@ class Patient(models.Model):
         ]
 
     name = models.CharField(verbose_name='이름', max_length=10, default='', blank=True, null=True)
-    gender = models.CharField(verbose_name='성별', max_length=10, blank=True, null=True)
+    gender = models.CharField(verbose_name='성별', max_length=10, default='', blank=True, null=True)
     birth = models.DateField(verbose_name='생년월일', blank=True, null=True)
     phone_number = models.CharField(verbose_name='전화번호', max_length=20, default='', blank=True, null=True)
     kakao_user_id = models.CharField(max_length=150, unique=True, null=True, blank=True)
