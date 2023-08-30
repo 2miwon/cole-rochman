@@ -94,7 +94,9 @@
                   <a href="{% url 'patient_inspection' patient.id %}" id="btn_patient" for="radio_patient">
                     <div>
                       <span class="txt_black">{{ patient.name }}</span>
-                      <span class="patient_meta">({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}</span>
+                      <span class="patient_meta {% if patient.gender == '남성' %}male{% elif patient.gender == '여성' %}female{% endif %}">
+                        ({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}
+                      </span>
                     </div>
                     <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
                     <span style="display: none;">{{ patient.code }}</span>
@@ -179,11 +181,11 @@
             </a>
           </button>
         </div>
-        <form class="modal_inner" method="PUT">
+        <form class="modal_inner" method="POST">
           <div class="modal_row">
             <h3 class="modal_left">검사 날짜</h3>
             <div class="modal_right">
-              <label>
+              {% comment %} <label>
                 <input type="radio" 
                 {% if clicked_sputum.insp_date == "오늘" %}
                 checked
@@ -191,12 +193,12 @@
                 class="input_radio" name="insp_date"
                 value={{ today }} />
                 <span>오늘</span>
-              </label>
+              </label> {% endcomment %}
               <label>
-                <input type="radio" 
-                {% if clicked_sputum.insp_date != "오늘" %}
+                <input type="radio" checked
+                {% comment %} {% if clicked_sputum.insp_date != "오늘" %}
                 checked
-                {% endif %}
+                {% endif %} {% endcomment %}
                 class="input_radio" name="insp_date" />
                 <input type="date" value="{{ formatted_insp_date }}" data-placeholder="날짜 선택" class="input_date" id="modal_date" name="insp_date" />
               </label>
@@ -206,7 +208,7 @@
             <h3 class="modal_left">검사 종류</h3>
             <div class="modal_right">
               <label>
-                <input type="radio" 
+                <input type="radio" value="객담" 
                 {% if clicked_sputum.method == "객담" %}
                 checked
                 {% endif %}
@@ -214,7 +216,7 @@
                 <span>객담</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="기관지내시경 검체"
                 {% if clicked_sputum.method == "기관지내시경 검체" %}
                 checked
                 {% endif %}
@@ -222,7 +224,7 @@
                 <span>기관지내시경 검체</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="기타" 
                 {% if clicked_sputum.method == "기타" %}
                 checked
                 {% endif %}
@@ -235,7 +237,7 @@
             <h3 class="modal_left">검사 세부 분류</h3>
             <div class="modal_right">
               <label>
-                <input type="radio" 
+                <input type="radio" value="1차"
                 {% if clicked_sputum.th == "1차" %}
                 checked
                 {% endif %}
@@ -243,7 +245,7 @@
                 <span>1차</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="2차"
                 {% if clicked_sputum.th == "2차" %}
                 checked
                 {% endif %}
@@ -251,7 +253,7 @@
                 <span>2차</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="3차"
                 {% if clicked_sputum.th == "3차" %}
                 checked
                 {% endif %}
@@ -262,9 +264,10 @@
           </div>
           <div class="modal_row">
             <h3 class="modal_left">도말검사 결과</h3>
+            {{ clicked_sputum.smear_result }}
             <div class="modal_right">
               <label>
-              <input type="radio" 
+              <input type="radio" value="-"
               {% if clicked_sputum.smear_result == "-" %}
               checked
               {% endif %}
@@ -272,56 +275,56 @@
                 <span>-</span>
               </label>
               <label>
-              <input type="radio" 
-              {% if clicked_sputum.smear == "+-" %}
+              <input type="radio" value="+-"
+              {% if clicked_sputum.smear_result == "+-" %}
               checked
               {% endif %}
               class="input_radio" name="smear_result" />
                 <span>+-</span>
               </label>
               <label>
-                <input type="radio" 
-                {% if clicked_sputum.smear == "1+" %}
+                <input type="radio" value="1+"
+                {% if clicked_sputum.smear_result == "1+" %}
                 checked
                 {% endif %}
                 class="input_radio" name="smear_result" />
                 <span>1+</span>
               </label>
               <label>
-                <input type="radio" 
-                {% if clicked_sputum.smear == "2+" %}
+                <input type="radio" value="2+"
+                {% if clicked_sputum.smear_result == "2+" %}
                 checked
                 {% endif %}
                 class="input_radio" name="smear_result" />
                 <span>2+</span>
               </label>
               <label>
-                <input type="radio" 
-                {% if clicked_sputum.smear == "3+" %}
+                <input type="radio" value="3+"
+                {% if clicked_sputum.smear_result == "3+" %}
                 checked
                 {% endif %}
                 class="input_radio" name="smear_result" />
                 <span>3+</span>
               </label>
               <label>
-                <input type="radio" 
-                {% if clicked_sputum.smear == "4+" %}
+                <input type="radio" value="4+"
+                {% if clicked_sputum.smear_result == "4+" %}
                 checked
                 {% endif %}
                 class="input_radio" name="smear_result" />
                 <span>4+</span>
               </label>
               <label>
-                <input type="radio" 
-                {% if clicked_sputum.smear == "검사중" %}
+                <input type="radio" value="검사중"
+                {% if clicked_sputum.smear_result == "검사중" %}
                 checked
                 {% endif %}
                 class="input_radio" name="smear_result" />
                 <span>검사중</span>
               </label>
               <label>
-                <input type="radio" 
-                {% if clicked_sputum.smear == "미시행" %}
+                <input type="radio" value="미시행"
+                {% if clicked_sputum.smear_result == "미시행" %}
                 checked
                 {% endif %}
                 class="input_radio" name="smear_result" />
@@ -333,7 +336,7 @@
             <h3 class="modal_left">배양검사 결과</h3>
             <div class="modal_right">
               <label>
-                <input type="radio" 
+                <input type="radio" value="검사중"
                 {% if clicked_sputum.culture_result == "검사중" %}
                 checked
                 {% endif %}
@@ -341,7 +344,7 @@
                 <span>검사중</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="미시행"
                 {% if clicked_sputum.culture_result == "미시행" %}
                 checked
                 {% endif %}
@@ -349,7 +352,7 @@
                 <span>미시행</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="양성"
                 {% if clicked_sputum.culture_result == "양성" %}
                 checked
                 {% endif %}
@@ -357,7 +360,7 @@
                 <span>양성</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="음성"
                 {% if clicked_sputum.culture_result == "음성" %}
                 checked
                 {% endif %}
@@ -365,7 +368,7 @@
                 <span>음성</span>
               </label>
               <label>
-                <input type="radio" 
+                <input type="radio" value="오염"
                 {% if clicked_sputum.culture_result == "오염" %}
                 checked
                 {% endif %}
@@ -374,8 +377,9 @@
               </label>
             </div>
           </div>
+          {% csrf_token %}
+          <button type="submit" id="modal_submit">수정하기</button>
           </form>
-          <input type="submit" id="modal_submit" value="수정하기" />
         </div>
       </dialog>
       
@@ -387,3 +391,15 @@
     </script>
   </body>
 </html>
+
+<style>
+  .male {
+    color: blue;
+    /* 남성일 때 글자 색상을 파란색으로 지정 */
+  }
+
+  .female {
+    color: pink;
+    /* 여성일 때 글자 색상을 분홍색으로 지정 */
+  }
+</style>

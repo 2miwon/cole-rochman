@@ -11,7 +11,7 @@ from core.day import *
 import calendar
 from django.core import serializers
 import datetime
-
+from .forms import InspectionForm
 
 
 # 환자 선택 전 환자관리 대시보드
@@ -44,10 +44,15 @@ def patient_status(request, pid):
     total_mdresult = get_total_info_mdResult(pid)
     count_succ = get_total_success(pid)
     count_side = get_last_sideeffect(30, month_mdresult)
+    if len(total_mdresult) != 0:
+        per_succ = int(100 * count_succ / len(total_mdresult))
+    else:
+        per_succ = 0
+    per_side = int(100 * count_side / 30)
 
     progerss_percent = calculate_persentage(clickedpatient.treatment_started_date, clickedpatient.treatment_end_date)
     p_str = "{0:.0%}".format(progerss_percent).rstrip("%")
-
+    
     context = dict(
         p_str=p_str,
         pid=pid,
@@ -73,9 +78,9 @@ def patient_status(request, pid):
         # 복약 결과, 도말배양 관련
         total_medi = len(total_mdresult),
         count_succ = count_succ,
-        per_succ = int(100 * count_succ / len(total_mdresult)),
+        per_succ = per_succ,   
         count_side = count_side,
-        per_side = int(100 * count_side / 30),
+        per_side = per_side,
         side_effect_static = get_static_sideEffect(month_mdresult),
 
         # ! 달력에서 사용할 context들입니다. 여기서 선언만 한 뒤 아래에서 정제
@@ -251,14 +256,23 @@ def inspection(request):
 # 환자 선택 후 [도말배양]
 @login_required()
 def patient_inspection(request, pid):
+    if request.method == "POST":
+        form = InspectionForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.patient_set = Patient.objects.get(id=pid)
+            data.save()
+        else:
+            print(form.errors)
+    if request.method == "delete":
+        print(request.DELETE)
+        Sputum_Inspection.objects.filter(id=request.POST.get('sputum_id')).delete()
+
     # 기본 정렬 기준
     sort_policy = request.GET.get('sort', '-id')
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
-
-    print("DSS", request)
-    print("WWW")
 
     today = datetime.date.today().strftime('%Y-%m-%d')
 
@@ -278,7 +292,7 @@ def patient_inspection(request, pid):
             # measured_at__lte=cal_start_end_day(d, 7),
         ),
         pid=pid,
-        code_hyphen=clickedpatient.code_hyphen(),
+        # code_hyphen=clickedpatient.code_hyphen(),
         daily_hour_list=get_daily_noti_time_list(clickedpatient),
         sputum=sputum,
         sputum_pagination = sputum_pagination,
@@ -288,9 +302,27 @@ def patient_inspection(request, pid):
 
     return render(request, "dashboard_inspection.html", context)
 
+# def patient_inspection_create(request, pid):    
+#     return patient_inspection(request, pid)
+
 # 도말배양 - 검사결과 업데이트 모달
 @login_required()
 def patient_inspection_update(request, pid, sputum_id):
+    if request.method == "POST":
+        form = InspectionForm(request.POST)
+        if form.is_valid():
+            Sputum_Inspection.objects.filter(id=sputum_id).update(
+                insp_date=request.POST.get('insp_date'),
+                method=request.POST.get('method'),
+                th=request.POST.get('th'),
+                smear_result=request.POST.get('smear_result'),
+                culture_result=request.POST.get('culture_result')
+            )
+        else:
+            print(form.errors)
+        redirect("patient_inspection", pid=pid)
+        return HttpResponseRedirect(request.path_info)
+
     # 기본 정렬 기준
     sort_policy = request.GET.get('sort', '-id')
 
@@ -322,7 +354,7 @@ def patient_inspection_update(request, pid, sputum_id):
         formatted_insp_date=formatted_insp_date,
         today=today
     )
-
+        
     return render(request, "dashboard_inspection_update.html", context)
 
 def sign_in(request):
