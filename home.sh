@@ -1,2 +1,2 @@
-deactivate
+source deactivate
 cd ~

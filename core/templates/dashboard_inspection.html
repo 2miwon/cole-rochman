@@ -94,7 +94,9 @@
                   <a href="{% url 'patient_inspection' patient.id %}" id="btn_patient" for="radio_patient">
                     <div>
                       <span class="txt_black">{{ patient.name }}</span>
-                      <span class="patient_meta">({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}</span>
+                      <span class="patient_meta {% if patient.gender == '남성' %}male{% elif patient.gender == '여성' %}female{% endif %}">
+                        ({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}
+                      </span>
                     </div>
                     <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
                     <span style="display: none;">{{ patient.code }}</span>
@@ -124,6 +126,7 @@
                 <b>{{ p.name }} ({{p.code_hyphen}})</b> <span>님의 도말 배양 검사 총 <b>{{sputum|length}}</b> 건이 검색되었습니다.
               </div>
               {% endfor %}
+              {% csrf_token %}
               <button id="add_inspection_button" onclick="handleModalOpen()">검사 결과 추가</button>
             </div>
             <table id="inspection_table">
@@ -153,7 +156,7 @@
                           </button>
                           </a>
                       {% comment %} </button> {% endcomment %}
-                      <button class="delete_button" onclick="handleDeleteModalOpen()">
+                      <button class="delete_button" onclick="handleDeleteModalOpen({{result.id}})">
                         <span class="material-symbols-outlined">delete</span>
                       </button>
                     </td>
@@ -185,17 +188,18 @@
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
+        {% comment %} <form action="{% url 'patient_inspection_create' pid=pid %}" class="modal_inner" method="POST"> {% endcomment %}
         <form class="modal_inner" method="POST">
           <div class="modal_row">
             <h3 class="modal_left">검사 날짜</h3>
             <div class="modal_right">
-              <label>
+              {% comment %} <label>
                 <input type="radio" checked class="input_radio" name="insp_date" value={{ today }} />
                 <span>오늘</span>
-              </label>
+              </label> {% endcomment %}
               <label>
-                <input type="radio" class="input_radio" name="insp_date" />
-                <input type="date" data-placeholder="날짜 선택" class="input_date" id="modal_date" name="insp_date" />
+                <input type="radio" class="input_radio" name="insp_date" checked/>
+                <input type="date" data-placeholder="날짜 선택" class="input_date" id="modal_date" value={{ today }} name="insp_date" />
               </label>
             </div>
           </div>
@@ -295,18 +299,23 @@
               </label>
             </div>
           </div>
+          {% csrf_token %}
           <button type="submit" id="modal_submit">추가하기</button>
           </form>
         </div>
       </dialog>
       <dialog id="delete_modal">
+        <form method="POST">
+        <input type="hidden" name="sputum_id" value="">
         <div id="delete_modal_inner">
+          {% csrf_token %}
           <h3>해당 검사 결과를 삭제하시겠습니까? </h3>
-          <div id="modal_btn_wrapper">
-            <button id="delete_confirm_button">삭제하겠습니다</button>
-            <button id="delete_cancel_button">삭제하지 않겠습니다</button>
+            <div id="modal_btn_wrapper">
+              <button onclick="deleteInspection()" id="delete_confirm_button">삭제하겠습니다</button>
+              <button id="delete_cancel_button">삭제하지 않겠습니다</button>
+            </div>
           </div>
-        </div>
+        </form>
       </dialog>
     </main>
 
@@ -417,8 +426,26 @@
 
       // 삭제 모달 열기함수
       const deleteModal = document.querySelector("#delete_modal")
-      function handleDeleteModalOpen() {
+      function handleDeleteModalOpen(sputumId) {
+        const sputumIdInput = deleteModal.querySelector("button[input[name='sputum_id']");
+        sputumIdInput.value = sputumId;
         deleteModal.showModal()
+      }
+
+      function deleteInspection(sputumId) {
+        fetch(`/your/delete/url/${sputumId}/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'), // CSRF 토큰 추가
+            },
+        }).then(response => {
+            if (response.ok) {
+                // 삭제 성공 시 동작
+            } else {
+                // 삭제 실패 시 동작
+            }
+            deleteModal.close(); // 모달 닫기
+        });
       }
             
       // 모달밖 누르면 모달 close
@@ -438,3 +465,14 @@
     </script>
   </body>
 </html>
+
+<style>
+  .male {
+    color: blue;
+    /* 남성일 때 글자 색상을 파란색으로 지정 */
+  }
+  .female {
+    color: pink;
+    /* 여성일 때 글자 색상을 분홍색으로 지정 */
+  }
+</style>

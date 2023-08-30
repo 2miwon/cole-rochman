@@ -69,7 +69,9 @@
                   <a href="{% url 'patient_status' patient.id %}" id="btn_patient" for="radio_patient">
                     <div>
                       <span class="txt_black">{{ patient.name }}</span>
-                      <span class="patient_meta">({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}</span>
+                      <span class="patient_meta {% if patient.gender == '남성' %}male{% elif patient.gender == '여성' %}female{% endif %}">
+                        ({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}
+                      </span>
                     </div>
                     <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
                     <span style="display: none;">{{ patient.code }}</span>
@@ -577,3 +579,15 @@
     </script>
   </body>
 </html>
+
+<style>
+  .male {
+    color: blue;
+    /* 남성일 때 글자 색상을 파란색으로 지정 */
+  }
+
+  .female {
+    color: pink;
+    /* 여성일 때 글자 색상을 분홍색으로 지정 */
+  }
+</style>

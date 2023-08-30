@@ -19,6 +19,10 @@ def get_month_first_date(req_day) -> datetime:
         return datetime.date(int(req_tuple[0]), int(req_tuple[1]), 1)
     return datetime.datetime.now()
 
+# 오늘 날짜를 "yyyy-mm-dd" 형식으로 반환
+def get_today() -> datetime:
+    return datetime.date.today().strftime('%Y-%m-%d')
+
 # hh:mm
 def time_formatiing(time) -> str:
     return "{}:{}".format(str(time.hour).zfill(2), str(time.minute).zfill(2))

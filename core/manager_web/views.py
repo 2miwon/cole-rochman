@@ -11,7 +11,7 @@ from core.day import *
 import calendar
 from django.core import serializers
 import datetime
-
+from .forms import InspectionForm
 
 
 # 환자 선택 전 환자관리 대시보드
@@ -251,16 +251,23 @@ def inspection(request):
 # 환자 선택 후 [도말배양]
 @login_required()
 def patient_inspection(request, pid):
+    if request.method == "POST":
+        form = InspectionForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.patient_set = Patient.objects.get(id=pid)
+            data.save()
+        else:
+            print(form.errors)
+    if request.method == "delete":
+        print(request.DELETE)
+        Sputum_Inspection.objects.filter(id=request.POST.get('sputum_id')).delete()
+
     # 기본 정렬 기준
     sort_policy = request.GET.get('sort', '-id')
 
     # 클릭한 환자
     clickedpatient = Patient.objects.get(id=pid)
-
-    print("DSS", request)
-    print("WWW")
-
-    today = datetime.date.today().strftime('%Y-%m-%d')
     
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
@@ -274,17 +281,35 @@ def patient_inspection(request, pid):
             # measured_at__lte=cal_start_end_day(d, 7),
         ),
         pid=pid,
-        code_hyphen=clickedpatient.code_hyphen(),
+        # code_hyphen=clickedpatient.code_hyphen(),
         daily_hour_list=get_daily_noti_time_list(clickedpatient),
         sputum=Sputum_Inspection.objects.filter(patient_set=pid),
-        today=today
+        today=get_today()
     )
 
     return render(request, "dashboard_inspection.html", context)
 
+# def patient_inspection_create(request, pid):    
+#     return patient_inspection(request, pid)
+
 # 도말배양 - 검사결과 업데이트 모달
 @login_required()
 def patient_inspection_update(request, pid, sputum_id):
+    if request.method == "POST":
+        form = InspectionForm(request.POST)
+        if form.is_valid():
+            Sputum_Inspection.objects.filter(id=sputum_id).update(
+                insp_date=request.POST.get('insp_date'),
+                method=request.POST.get('method'),
+                th=request.POST.get('th'),
+                smear_result=request.POST.get('smear_result'),
+                culture_result=request.POST.get('culture_result')
+            )
+        else:
+            print(form.errors)
+        redirect("patient_inspection", pid=pid)
+        return HttpResponseRedirect(request.path_info)
+
     # 기본 정렬 기준
     sort_policy = request.GET.get('sort', '-id')
 
@@ -316,7 +341,7 @@ def patient_inspection_update(request, pid, sputum_id):
         formatted_insp_date=formatted_insp_date,
         today=today
     )
-
+        
     return render(request, "dashboard_inspection_update.html", context)
 
 def sign_in(request):
