@@ -44,10 +44,15 @@ def patient_status(request, pid):
     total_mdresult = get_total_info_mdResult(pid)
     count_succ = get_total_success(pid)
     count_side = get_last_sideeffect(30, month_mdresult)
+    if not len(total_mdresult):
+        per_succ = int(100 * count_succ / len(total_mdresult))
+    else:
+        per_succ = 0
+    per_side = int(100 * count_side / 30)
 
     progerss_percent = calculate_persentage(clickedpatient.treatment_started_date, clickedpatient.treatment_end_date)
     p_str = "{0:.0%}".format(progerss_percent).rstrip("%")
-
+    
     context = dict(
         p_str=p_str,
         pid=pid,
@@ -73,9 +78,9 @@ def patient_status(request, pid):
         # 복약 결과, 도말배양 관련
         total_medi = len(total_mdresult),
         count_succ = count_succ,
-        per_succ = int(100 * count_succ / len(total_mdresult)),
+        per_succ = per_succ,   
         count_side = count_side,
-        per_side = int(100 * count_side / 30),
+        per_side = per_side,
         side_effect_static = get_static_sideEffect(month_mdresult),
 
         # ! 달력에서 사용할 context들입니다. 여기서 선언만 한 뒤 아래에서 정제
