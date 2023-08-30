@@ -389,7 +389,7 @@
      // 환자 이름 필터링
      searchInput.addEventListener("keyup", (e) => patientFilter(e.target.value));
 
-    {% if p_str and cure_progress %}
+    {% if p_str %}
      document.getElementById("myBar").style.width = "{{p_str}}%";
      document.getElementById("myBar").style.width = "{{cure_progress}}%";
     {% endif %}
@@ -462,16 +462,16 @@
      // chart
      const medi = document.getElementById("myMedication");
      
-     let mediValue = "";
+     let mediValue;
       {% if per_succ %}
-        mediValue = "{{ per_succ|escapejs }}";  // Django 변수를 JavaScript 문자열로 설정
+        mediValue = {{ per_succ|escapejs }};  // Django 변수를 JavaScript 문자열로 설정
       {% endif %}
      
       var myMedication = new Chart(medi, {
       type: 'doughnut',
       data: {
         datasets: [{
-          data: [mediValue, 100-mediValue],
+          data: [mediValue, 100 - mediValue],
           backgroundColor: ['#2E65F3', '#DCECFB00'],
           borderWidth: 0,
           borderRadius: 10,
@@ -487,9 +487,9 @@
     });
   
     const sef = document.getElementById("mySideEffectFreq");
-    let sefValue = ""
-    {% if sefValue %} {
-      sefValue =  {{ per_side | escapejs }};
+    let sefValue;
+    {% if per_side %} {
+      sefValue =  {{ per_side|escapejs }};
     }
     {% endif %}
 
@@ -497,7 +497,7 @@
       type: 'doughnut',
       data: {
         datasets: [{
-          data: [sefValue, 100-sefValue],
+          data: [sefValue, 100 - sefValue],
           backgroundColor: ['#2E65F3', '#DCECFB00'],
           borderWidth: 0,
           borderRadius: 30,
