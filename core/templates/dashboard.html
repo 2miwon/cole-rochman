@@ -84,7 +84,7 @@
           <div class="item status_container">
             <div class="bg_white_round item_status grid_progress">
               {% for p in clickedpatient %}
-                <h3 class="item_progress">{{ p.name }}({{ p.code_hyphen }})님</h3>
+                <h2 class="item_progress">{{ p.name }}({{ p.code_hyphen }})님</h2>
                 <div class="item_progress">다음 내원 예정일 : {{ p.next_visiting_date_time | date:"y.m.d" }}</div>
                 <div id="myProgress" class="item_progress">
                   <div id="myBar"></div>
