@@ -44,7 +44,7 @@ def patient_status(request, pid):
     total_mdresult = get_total_info_mdResult(pid)
     count_succ = get_total_success(pid)
     count_side = get_last_sideeffect(30, month_mdresult)
-    if not len(total_mdresult):
+    if len(total_mdresult) != 0:
         per_succ = int(100 * count_succ / len(total_mdresult))
     else:
         per_succ = 0
