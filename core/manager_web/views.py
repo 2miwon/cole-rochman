@@ -17,7 +17,7 @@ from .forms import InspectionForm
 # 환자 선택 전 환자관리 대시보드
 @login_required()
 def user_dashboard(request):
-    sort_policy = request.GET.get('sort', 'id')
+    sort_policy = request.GET.get('sort', '-id')
     context = dict(
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
@@ -243,7 +243,7 @@ def patient_status(request, pid):
 # 환자 선택 전 [도말배양]
 @login_required()
 def inspection(request):
-    sort_policy = request.GET.get('sort', 'id')
+    sort_policy = request.GET.get('sort', '-id')
     context = dict(
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,

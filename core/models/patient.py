@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import F
 from datetime import timedelta
 
 from core.models.medication_result import MedicationResult
@@ -35,7 +36,7 @@ class Patient(models.Model):
     vision_left = models.DecimalField(verbose_name='왼쪽 시력', blank=True, null=True, max_digits=2, decimal_places=1)
     vision_right = models.DecimalField(verbose_name=' 오른쪽 시력', blank=True, null=True, max_digits=2, decimal_places=1)
     treatment_started_date = models.DateField(verbose_name='치료 시작일', blank=True, null=True)
-    treatment_end_date = models.DateField(verbose_name='치료 종료일', blank=True, null=True)
+    treatment_end_date = models.DateField(verbose_name='치료 종료일', blank=False, null=False, default=F('treatment_started_date') + timedelta(days=183))
     register_completed_flag = models.BooleanField(verbose_name='계정 등록 완료 여부', default=False)
     medication_manage_flag = models.NullBooleanField(verbose_name='복약관리 여부', blank=True, null=True, default=None)
     daily_medication_count = models.IntegerField(verbose_name='하루 복약 횟수', default=0)
