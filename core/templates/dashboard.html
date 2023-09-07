@@ -123,8 +123,8 @@
             <div class="bg_white_round item_status">
               <h3>한달간 부작용 종류</h3>
               {% if pid  %}
-              <div class="chart">
-                <div class="chart_title">
+              <div class="chart" id="chart_mySideEffectType">
+                <div class="chart_title" id="title_mySideEffectType">
                   <p>주 부작용</p>
                   <b id="chart_main_sideeffect"></b>
                 </div>
@@ -516,13 +516,14 @@
     let setValue = {};
 
      {% if side_effect_static %}
-      setValue = {{side_effect_static|safe}}
+      setValue = {{ side_effect_static|safe }}
      {% endif %}
 
     let sideEffectLabels = [];
     let sideEffectPercents = [];
 
     for (const key in setValue) {
+      console.log("key", key)
       if (setValue[key] !== 0) {
         sideEffectLabels.push(key);
         sideEffectPercents.push(setValue[key]);
@@ -537,7 +538,7 @@
         labels: [...sideEffectLabels],
         datasets: [{
           labels: [...sideEffectLabels],
-          data: [...sideEffectPercents],
+          data: sideEffectPercents.length > 0 ? [...sideEffectPercents] : [0,0,0,100],
           backgroundColor: [
             '#2E65F3',
             '#2E65F3CC',
@@ -567,12 +568,17 @@
       }
     });
 
+
     const mainSideEffectElement = document.getElementById("chart_main_sideeffect")
-    const modePercentOfSideEffect = sideEffectPercents.reduce((acc, curr)=> acc > curr ? acc : curr)
-    const modeSideEffect = sideEffectLabels[sideEffectPercents.indexOf(modePercentOfSideEffect)]
-    if (mainSideEffectElement) {
-      mainSideEffectElement.innerHTML = modeSideEffect
+    
+    if (sideEffectPercents.length > 0) {
+      const modePercentOfSideEffect = sideEffectPercents.reduce((acc, curr)=> acc > curr ? acc : curr)
+      const modeSideEffect = sideEffectLabels[sideEffectPercents.indexOf(modePercentOfSideEffect)]
+        mainSideEffectElement.innerHTML = modeSideEffect
+    } else {
+      mainSideEffectElement.innerHTML = "부작용 없음"
     }
+
     // 차트끝
 
 

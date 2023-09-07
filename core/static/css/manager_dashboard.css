@@ -321,6 +321,15 @@ section > h2 {
   position: relative;
 }
 
+#chart_mySideEffectType {
+  top: 10px;
+}
+
+#title_mySideEffectType {
+  top: 60px;
+  left: 80px;
+}
+
 /* Bottom */
 
 .bottom_container {
