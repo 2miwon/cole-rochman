@@ -73,6 +73,8 @@ def sign_up(request):
 
 def sign_in(request):
     try: 
+        if(request.user.is_superuser):
+            return redirect('/manager/menu')
         patient = Patient.objects.get(code = request.user.username)
         if patient:
             return redirect("patient_dashboard")
@@ -85,7 +87,11 @@ def sign_in(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('patient_dashboard')
+            if(request.user.is_superuser):
+                print("DSDS")
+                return redirect('/manager/menu')
+            else:
+                return redirect('patient_dashboard')
         else:
             msg.append('존재하는 아이디가 없거나 비밀번호가 일치하지 않습니다!')
     else:
@@ -202,7 +208,7 @@ def patient_dashboard(request):
 
     
     #달력
-    datetime_list = get_year_month_days()
+    datetime_list = get_now_ymd_list()
     year = int(datetime_list[0])
     month = int(datetime_list[1])
     day = [int(datetime_list[2])]

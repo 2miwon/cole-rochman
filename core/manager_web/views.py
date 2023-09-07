@@ -372,12 +372,9 @@ def sign_in(request):
 
     return render(request, "login.html", {"errors": msg})
 
-
 @login_required()
 def web_menu(request):
     return render(request, "web_menu.html")
-
-
 
 def cal_start_end_day(dt, i):
     iso = dt.isocalendar()

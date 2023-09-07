@@ -169,22 +169,14 @@ def get_weekday_list(dt: datetime.datetime):
     return li
 
 def weekInt_to_str(weekday: int):
-    if weekday == 0:
-        return '월'
-    elif weekday == 1:
-        return '화'
-    elif weekday == 2:
-        return '수'
-    elif weekday == 3:
-        return '목'
-    elif weekday == 4:
-        return '금'
-    elif weekday == 5:
-        return '토'
-    elif weekday == 6:
-        return '일'
-    else:
-        return 'error'
+    if weekday == 0: return '월'
+    elif weekday == 1: return '화'
+    elif weekday == 2: return '수'
+    elif weekday == 3: return '목'
+    elif weekday == 4: return '금'
+    elif weekday == 5: return '토'
+    elif weekday == 6: return '일'
+    else: return 'error'
 
 def iso_year_start(iso_year):
     "The gregorian calendar date of the first day of the given ISO year"

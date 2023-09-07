@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls ,name='admin'),
     path('api/v1/', include('core.api.urls')),
     path('api/v1/docs/', schema_view),
-    path('manager/', include('core.manager_web.urls')),
+    path('manager/', include('core.manager_web.urls'), name='manager'),
     path('', include('core.patient_web.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
