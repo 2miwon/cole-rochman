@@ -296,6 +296,7 @@ def patient_inspection(request, pid):
         sputum_pagination = sputum_pagination,
         today=today,
         range_ten = list(range(10)),
+        paginator=paginator
     )
 
     return render(request, "dashboard_inspection.html", context)

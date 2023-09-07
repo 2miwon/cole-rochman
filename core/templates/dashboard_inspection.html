@@ -123,7 +123,7 @@
             <div id="inspection_title">
               {% for p in clickedpatient %}
               <div>
-                <b>{{ p.name }} ({{p.code_hyphen}})</b> <span>님의 도말 배양 검사 총 <b>{{sputum|length}}</b> 건이 검색되었습니다.
+                <b>{{ p.name }} ({{p.code_hyphen}})</b> <span>님의 도말 배양 검사 총 <b>{{paginator.count}}</b> 건이 검색되었습니다.
               </div>
               {% endfor %}
               {% csrf_token %}
@@ -167,13 +167,29 @@
               </tbody>
              </table>
              <div id="pagination_wrapper">
-              <ul id="pagination">
-                <li><span class="material-symbols-outlined">chevron_left</span></li>
-                {% for i in sputum_pagination %}
-                  <li>{{ forloop.counter }}</li>
+              <form id="pagination">
+                {% if sputum.has_previous %}
+                  <button name="page" value="{{ sputum.previous_page_number }}">
+                {% else %}
+                  <button name="page" value="{{ 1 }}">
+                {% endif %}
+
+                    <span class="material-symbols-outlined">chevron_left</span>
+                  </button>
+                {% for i in paginator.page_range %}
+                    <button name="page" value="{{ i }}">
+                      {{ i }}
+                    </button>
                 {% endfor %}
-                <li><span class="material-symbols-outlined">chevron_right</span></li>
-              </ul>
+
+                {% if sputum.has_next %}
+                  <button name="page" value="{{ sputum.next_page_number }}">
+                {% else %}
+                  <button name="page" value="{{ paginator.page_range|last }}">
+                {% endif %}
+                    <span class="material-symbols-outlined">chevron_right</span>
+                  </button>
+              </form>
              </div>
             {% else %}
             <div> 환자를 선택해 주세요 </div>
@@ -460,6 +476,11 @@
       function handleDeleteModalClose() {
         deleteModal.close()
       }
+
+      {% comment %} function handlePageChange(page) {
+        window.history.replaceState({}, '', `&date=${page}`)
+        window.location.reload()
+      } {% endcomment %}
 
 
     </script>
