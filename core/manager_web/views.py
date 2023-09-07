@@ -12,19 +12,12 @@ import calendar
 from django.core import serializers
 import datetime
 from .forms import InspectionForm
-
+from django.core.paginator import Paginator
 
 # 환자 선택 전 환자관리 대시보드
 @login_required()
 def user_dashboard(request):
-    sort_policy = request.GET.get('sort', '-id')
-    context = dict(
-        patientlist=Patient.objects.filter(
-            hospital__id__contains=request.user.profile.hospital.id,
-            display_dashboard=True,
-            treatment_end_date__gt=timezone.now(),  
-        ).order_by(sort_policy),
-    )
+    context = set_default_context(request)
     return render(request, "dashboard.html", context)
 
 # 환자 선택 후 환자관리 대시보드
@@ -250,7 +243,6 @@ def inspection(request):
             display_dashboard=True,
         ).order_by(sort_policy),
     )
-    pl = Patient.objects.filter(hospital__id__contains=request.user.profile.hospital.id)
     return render(request, "dashboard_inspection.html", context)
 
 # 환자 선택 후 [도말배양]
@@ -267,21 +259,28 @@ def patient_inspection(request, pid):
     if request.method == "delete":
         print(request.DELETE)
         Sputum_Inspection.objects.filter(id=request.POST.get('sputum_id')).delete()
+    
+    today = datetime.date.today().strftime('%Y-%m-%d')
 
+    start_date = request.GET.get("start_date", None)
+    end_date = request.GET.get("end_date", today)
+    page = request.GET.get('page', 1)
     # 기본 정렬 기준
     sort_policy = request.GET.get('sort', '-id')
 
-    # 클릭한 환자
-    clickedpatient = Patient.objects.get(id=pid)
+    clickedpatient=Patient.objects.filter(id=pid)
 
-    today = datetime.date.today().strftime('%Y-%m-%d')
-
-    sputum = Sputum_Inspection.objects.filter(patient_set=pid)
-    
+    if(start_date and end_date):
+        sputum = Sputum_Inspection.objects.filter(patient_set=pid, insp_date__gte=start_date, insp_date__lte=end_date).order_by('-id')
+    else:
+        sputum = Sputum_Inspection.objects.filter(patient_set=pid).order_by('-id')
     sputum_pagination = list(range(len(sputum)//10 + 1))
 
+    paginator = Paginator(sputum, 10)
+    page_obj = paginator.get_page(page)
+
     context = dict(
-        clickedpatient=Patient.objects.filter(id=pid),
+        clickedpatient=clickedpatient,
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
@@ -292,12 +291,11 @@ def patient_inspection(request, pid):
             # measured_at__lte=cal_start_end_day(d, 7),
         ),
         pid=pid,
-        # code_hyphen=clickedpatient.code_hyphen(),
         daily_hour_list=get_daily_noti_time_list(clickedpatient),
-        sputum=sputum,
+        sputum=page_obj,
         sputum_pagination = sputum_pagination,
         today=today,
-        range_ten = list(range(10))
+        range_ten = list(range(10)),
     )
 
     return render(request, "dashboard_inspection.html", context)
@@ -380,17 +378,6 @@ def web_menu(request):
     return render(request, "web_menu.html")
 
 
-def get_date(req_day):
-    if req_day:
-        req_tuple = req_day.split(",")
-        return datetime.date(int(req_tuple[0]), int(req_tuple[1]), int(req_tuple[2]))
-    return datetime.datetime.now()
-
-def get_week(req_mon):
-    if req_mon:
-        req_tuple = req_mon.split(",")
-        return datetime.date(int(req_tuple[0]), int(req_tuple[1]), 1)
-    return datetime.datetime.now()
 
 def cal_start_end_day(dt, i):
     iso = dt.isocalendar()
@@ -485,7 +472,8 @@ def get_static_sideEffect(results: MedicationResult):
         for i in rst:
             rst[i] = int(100 * rst[i] / count)
     return rst
-    
+
+# start_date ~ end_date -> 0~1 사이의 실수로 반환
 def calculate_persentage(start_date: datetime.date, end_date: datetime.date):
     if start_date and end_date:
         total = end_date - start_date
@@ -503,6 +491,20 @@ def get_daily_noti_time_list(patient: Patient):
         return rst
     except AttributeError:
         return ["재설정 필요"]
+
+def set_default_context(request):
+    if(len(request.GET) == 0):
+        pass
+    sort_policy = request.GET.get('sort', '-id')
+    if(sort_policy == 'id'): sort_policy = '-id'
+    rst = dict(
+        patientlist=Patient.objects.filter(
+            hospital__id__contains=request.user.profile.hospital.id,
+            display_dashboard=True,
+            treatment_end_date__gt=timezone.now(),  
+        ).order_by(sort_policy),
+    )
+    return rst
 
 # @login_required()
 # def symptom(request, pid, sid):
