@@ -110,9 +110,9 @@
             <form class="date_input_wrapper" method="GET">
               <div class="date_and_button_wrapper">
                 <div>
-                  <input class="input_date" type="date" data-placeholder="날짜 선택" name="start_date" />
+                  <input class="input_date" type="date" data-placeholder="날짜 선택" name="start_date" id="start_date" />
                   <span>&nbsp;&nbsp;~&nbsp;&nbsp;</span>
-                  <input class="input_date" type="date" data-placeholder="날짜 선택" name="end_date" />
+                  <input class="input_date" type="date" data-placeholder="날짜 선택" name="end_date" id="end_date" />
                 </div>
                 <button id="select_date_button">조회</button>
               </div>
@@ -420,6 +420,14 @@
       const today = new Date()
       dateInputs.value = today.toISOString().slice(0,10)
 
+      // 리렌더링 시 날짜 인풋 채워넣기
+      const urlStartDate = (new URLSearchParams(location.search).get("start_date"));
+      const urlEndDate = (new URLSearchParams(location.search).get("end_date"));
+      const startInput = document.getElementById("start_date")
+      startInput.value=urlStartDate
+      const endInput = document.getElementById("end_date")
+      endInput.value=urlEndDate
+
       // 입력 모달 열기함수
       const modal = document.querySelector("#add_modal")
       function handleModalOpen() {
@@ -476,11 +484,6 @@
       function handleDeleteModalClose() {
         deleteModal.close()
       }
-
-      {% comment %} function handlePageChange(page) {
-        window.history.replaceState({}, '', `&date=${page}`)
-        window.location.reload()
-      } {% endcomment %}
 
 
     </script>
