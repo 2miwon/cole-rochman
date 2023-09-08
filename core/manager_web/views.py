@@ -357,6 +357,8 @@ def patient_inspection_update(request, pid, sputum_id):
     return render(request, "dashboard_inspection_update.html", context)
 
 def sign_in(request):
+    return redirect("/login")
+
     msg = []
     if request.method == "POST":
         username = request.POST["username"]
