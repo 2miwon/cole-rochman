@@ -68,7 +68,6 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         self.parse_kakao_user_id()
         self.parse_patient_code()        
         # self.parse_detail_params(self)
-
         if request.query_params.get('test'):
             hospital_code = "001"
         else:
@@ -84,19 +83,17 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
         self.data['code'] = patient_code
         password = self.data.get('password')
         email = self.data.get('email')
-        # user, _ = User.objects.get_or_create(username=patient_code, password=password, email=email)
-        user = User.objects.create_user(patient_code,email,password)
-
         nickname = self.data.get('nickname')
-        profile = Profile()
-        profile.user = user
-        profile.nickname = nickname
-        profile.save()
+        # user, _ = User.objects.get_or_create(username=patient_code, password=password, email=email)
+        if not request.query_params.get('test'):
+            user = User.objects.create_user(patient_code,email,password)
+            self.data['user'] = user.pk
 
-        self.data['user'] = user.pk
+            profile = Profile()
+            profile.user = user
+            profile.nickname = nickname
+            profile.save()
         
-                        
-
         serializer = self.get_serializer(data=self.data)
         if not serializer.is_valid():
             if any([error_detail.code == 'unique' for error_detail in serializer.errors.get('code') or []]):
@@ -113,7 +110,7 @@ class PatientCreate(KakaoResponseAPI, CreateAPIView):
             return response.get_response_200()
 
         if not request.query_params.get('test'):
-            serializer.save()
+            serializer.save()            
 
         response.add_simple_text(text='결핵 치료 시작 날짜를 알고 계신가요?')
         response.set_quick_replies_yes_or_no(
@@ -133,6 +130,7 @@ class PatientUpdate(KakaoResponseAPI):
     def post(self, request, format='json', *args, **kwargs):
         self.preprocess(request)
         data = self.data
+        print(data)
         try:
             patient = self.get_object_by_kakao_user_id()
         except Http404:

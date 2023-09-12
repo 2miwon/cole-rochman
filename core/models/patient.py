@@ -35,8 +35,8 @@ class Patient(models.Model):
     weight = models.DecimalField(verbose_name='몸무게', blank=True, null=True, max_digits=5, decimal_places=2)
     vision_left = models.DecimalField(verbose_name='왼쪽 시력', blank=True, null=True, max_digits=2, decimal_places=1)
     vision_right = models.DecimalField(verbose_name=' 오른쪽 시력', blank=True, null=True, max_digits=2, decimal_places=1)
-    treatment_started_date = models.DateField(verbose_name='치료 시작일', blank=True, null=True)
-    treatment_end_date = models.DateField(verbose_name='치료 종료일', blank=False, null=False, default=F('treatment_started_date') + timedelta(days=183))
+    treatment_started_date = models.DateField(verbose_name='치료 시작일', blank=False, null=True)
+    treatment_end_date = models.DateField(verbose_name='치료 종료일', blank=False, null=True)
     register_completed_flag = models.BooleanField(verbose_name='계정 등록 완료 여부', default=False)
     medication_manage_flag = models.NullBooleanField(verbose_name='복약관리 여부', blank=True, null=True, default=None)
     daily_medication_count = models.IntegerField(verbose_name='하루 복약 횟수', default=0)
@@ -62,6 +62,12 @@ class Patient(models.Model):
     def __str__(self):
         return '%s/%s' % (self.code, self.name)
         #return '%s/%s' % (self.code, self.name or self.nickname)
+
+    def save(self, *args, **kwargs):
+        # Calculate treatment_end_date based on treatment_started_date
+        if self.treatment_started_date and not self.treatment_end_date:
+            self.treatment_end_date = self.treatment_started_date + timedelta(days=183)
+        super().save(*args, **kwargs)
 
     def medication_noti_time_list_to_str(self):
         noti_list = [x for x in self.medication_noti_time_list() if x is not None]
@@ -193,6 +199,7 @@ class Sputum_Inspection(models.Model):
     
     def get_date(self):
         return self.insp_date
+    
     class Meta:
         verbose_name = '도말, 배양 검사'
         verbose_name_plural = '도말, 배양 검사'

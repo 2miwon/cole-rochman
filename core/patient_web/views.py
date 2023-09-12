@@ -37,7 +37,7 @@ from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import os 
 from django.http import HttpResponseRedirect
-from core.day import *
+from core.dayModule import *
 
 load_dotenv()
 
