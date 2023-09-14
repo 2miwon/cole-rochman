@@ -321,7 +321,7 @@
         </div>
       </dialog>
       <dialog id="delete_modal">
-        <form method="POST">
+        {% comment %} <form method="POST"> {% endcomment %}
         <input type="hidden" name="sputum_id" value="">
         <div id="delete_modal_inner">
           {% csrf_token %}
@@ -331,7 +331,7 @@
               <button id="delete_cancel_button">삭제하지 않겠습니다</button>
             </div>
           </div>
-        </form>
+        {% comment %} </form> {% endcomment %}
       </dialog>
     </main>
 
@@ -451,13 +451,19 @@
       // 삭제 모달 열기함수
       const deleteModal = document.querySelector("#delete_modal")
       function handleDeleteModalOpen(sputumId) {
-        const sputumIdInput = deleteModal.querySelector("button[input[name='sputum_id']");
+        const sputumIdInput = deleteModal.querySelector("input[name='sputum_id']");
         sputumIdInput.value = sputumId;
+        console.log(sputumIdInput, "삭제모달!")
         deleteModal.showModal()
       }
 
-      function deleteInspection(sputumId) {
-        fetch(`/your/delete/url/${sputumId}/`, {
+      function getCookie() {
+        return document.cookie.split('=')[1]
+      }
+
+      function deleteInspection() {
+        const sputumId = document.querySelector("#delete_modal input[name='sputum_id']").value
+        fetch(`/manager/dashboard/inspection/${sputumId}/`, {
             method: 'DELETE',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'), // CSRF 토큰 추가
@@ -465,8 +471,10 @@
         }).then(response => {
             if (response.ok) {
                 // 삭제 성공 시 동작
+                console.log(response)
             } else {
                 // 삭제 실패 시 동작
+                console.log(response)
             }
             deleteModal.close(); // 모달 닫기
         });
@@ -479,8 +487,8 @@
         };
       })
 
-      const deleteConfirmBtn = document.querySelector("#delete_cancel_button")
-      deleteConfirmBtn.addEventListener("click", handleDeleteModalClose)
+      const deleteCancelBtn = document.querySelector("#delete_cancel_button")
+      deleteCancelBtn.addEventListener("click", handleDeleteModalClose)
       function handleDeleteModalClose() {
         deleteModal.close()
       }

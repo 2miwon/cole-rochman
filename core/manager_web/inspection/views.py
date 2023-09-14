@@ -37,7 +37,7 @@ def patient_inspection(request, pid):
             data.save()
         else:
             print(form.errors)
-    if request.method == "delete":
+    if request.method == "DELETE":
         print(request.DELETE)
         Sputum_Inspection.objects.filter(id=request.POST.get('sputum_id')).delete()
     
