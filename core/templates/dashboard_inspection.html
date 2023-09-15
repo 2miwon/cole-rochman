@@ -328,6 +328,7 @@
           <h3>해당 검사 결과를 삭제하시겠습니까? </h3>
             <div id="modal_btn_wrapper">
               <button onclick="deleteInspection()" id="delete_confirm_button">삭제하겠습니다</button>
+              {% comment %} <button href="{% url 'patient_inspection_delete' %}" id="delete_confirm_button">삭제하겠습니다</button> {% endcomment %}
               <button id="delete_cancel_button">삭제하지 않겠습니다</button>
             </div>
           </div>
@@ -463,7 +464,7 @@
 
       function deleteInspection() {
         const sputumId = document.querySelector("#delete_modal input[name='sputum_id']").value
-        fetch(`/manager/dashboard/inspection/${sputumId}/`, {
+        fetch(`/manager/dashboard/inspection/${sputumId}/delete`, {
             method: 'DELETE',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'), // CSRF 토큰 추가
@@ -477,6 +478,7 @@
                 console.log(response)
             }
             deleteModal.close(); // 모달 닫기
+            window.location.href = "{% url 'patient_inspection' pid %}";
         });
       }
             

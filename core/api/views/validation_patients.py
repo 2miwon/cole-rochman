@@ -64,7 +64,6 @@ class ValidatePatientGender(CreateAPIView):
             male = ["남성", "남자", "남", "male", "boy"]
             female = ["여성", "여자", "여", "female", "girl"]
             allowed = male + female
-            print(value)
             if(value not in allowed):
                 response.set_validation_fail(message='성별은 남성 또는 여성으로 입력해주세요.')
                 return response.get_response_400()

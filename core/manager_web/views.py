@@ -6,7 +6,7 @@ from core.models import Patient, MeasurementResult, MedicationResult
 from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
 from datetime import timedelta
 from django.utils import timezone
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from core.dayModule import *
 from core.resultModule import *
 import calendar
@@ -14,6 +14,7 @@ from django.core import serializers
 import datetime
 from .forms import InspectionForm
 from django.core.paginator import Paginator
+from django.urls import reverse
 
 # 환자 선택 전 환자관리 대시보드
 @login_required()
@@ -257,9 +258,6 @@ def patient_inspection(request, pid):
             data.save()
         else:
             print(form.errors)
-    if request.method == "delete":
-        print(request.DELETE)
-        Sputum_Inspection.objects.filter(id=request.POST.get('sputum_id')).delete()
     
     today = datetime.date.today().strftime('%Y-%m-%d')
 
@@ -272,9 +270,9 @@ def patient_inspection(request, pid):
     clickedpatient=Patient.objects.filter(id=pid)
 
     if(start_date and end_date):
-        sputum = Sputum_Inspection.objects.filter(patient_set=pid, insp_date__gte=start_date, insp_date__lte=end_date).order_by('-id')
+        sputum = Sputum_Inspection.objects.filter(patient_set=pid, deleted=False, insp_date__gte=start_date, insp_date__lte=end_date).order_by('-id')
     else:
-        sputum = Sputum_Inspection.objects.filter(patient_set=pid).order_by('-id')
+        sputum = Sputum_Inspection.objects.filter(patient_set=pid, deleted=False).order_by('-id')
     sputum_pagination = list(range(len(sputum)//10 + 1))
 
     paginator = Paginator(sputum, 10)
@@ -304,6 +302,16 @@ def patient_inspection(request, pid):
 
 # def patient_inspection_create(request, pid):    
 #     return patient_inspection(request, pid)
+
+def inspection_delete(request, sputum_id):
+    if request.method == "DELETE":
+        Sputum_Inspection.objects.filter(id=sputum_id).update(deleted=True)
+        return JsonResponse({"message": "Sputum result ${sputum_id} deleted successfully."})
+    else:
+        return JsonResponse({"error": "Invalid request method."}, status=400)
+    
+    # return redirect(reverse("patient_inspection", args=[pid]))
+
 
 # 도말배양 - 검사결과 업데이트 모달
 @login_required()
@@ -359,22 +367,6 @@ def patient_inspection_update(request, pid, sputum_id):
 
 def sign_in(request):
     return redirect("/login")
-
-    msg = []
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("web_menu")
-
-        else:
-            msg.append("아이디 또는 비밀번호 오류입니다.")
-    else:
-        msg.append("")
-
-    return render(request, "login.html", {"errors": msg})
 
 @login_required()
 def web_menu(request):

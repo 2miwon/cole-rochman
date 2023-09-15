@@ -217,7 +217,7 @@ class PatientUpdate(KakaoResponseAPI):
 
         if self.data.get('gender'):
             data['gender'] = self.data.get('gender')
-
+        
         serializer = self.get_serializer(patient, data=data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

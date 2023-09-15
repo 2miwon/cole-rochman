@@ -193,7 +193,8 @@ class Sputum_Inspection(models.Model):
     smear_result = models.CharField(verbose_name = '도말검사 결과', max_length = 20, default = '미시행', choices = CHOICE_SMEAR)
     CHOICE_CULTURE = ('검사중','검사중'),('양성','양성'),('음성','음성'),('오염','오염'),('미시행','미시행')
     culture_result =  models.CharField(verbose_name='배양검사 결과', max_length = 20, default = '미시행', choices = CHOICE_CULTURE)
-
+    deleted = models.BooleanField(verbose_name='삭제 여부', default=False)
+    
     def __str__(self):
         return '%s/%s/%s/%s' % (self.method, self.th, self.smear_result, self.culture_result)
     
