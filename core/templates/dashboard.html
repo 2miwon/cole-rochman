@@ -472,7 +472,7 @@
       data: {
         datasets: [{
           data: [mediValue, 100 - mediValue],
-          backgroundColor: ['#2E65F3', '#DCECFB00'],
+          backgroundColor: ['#2E65F3', '#DCECFB'],
           borderWidth: 0,
           borderRadius: 10,
         }]
@@ -498,7 +498,7 @@
       data: {
         datasets: [{
           data: [sefValue, 100 - sefValue],
-          backgroundColor: ['#2E65F3', '#DCECFB00'],
+          backgroundColor: ['#2E65F3', '#DCECFB'],
           borderWidth: 0,
           borderRadius: 30,
         }]
@@ -558,7 +558,14 @@
             callbacks : {
               label: function (context) {
                 return context.label + ': ' + context.parsed + '%';
+              },
+              labelTextColor: function (tooltipItem, chart) {
+                return 'rgba(255,255,255,1)'
               }
+            },
+            backgroundColor: 'rgb(0,0,0)',
+            bodyFont: {
+              size: 13
             }
           },
           legend: {

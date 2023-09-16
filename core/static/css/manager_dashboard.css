@@ -293,8 +293,8 @@ section > h2 {
   text-align: center;
   width: 105px;
   position: absolute;
-  top: 65px;
-  left: 85px;
+  top: 70px;
+  left: 80px;
 }
 
 /* .sideEffect_chart_title {
@@ -311,7 +311,7 @@ section > h2 {
   height: 105px;
   position: absolute;
   top: 10px;
-  left: 65px;
+  left: 60px;
   border: 18px solid #dcecfb;
   border-radius: 50%;
 }
@@ -323,11 +323,13 @@ section > h2 {
 
 #chart_mySideEffectType {
   top: 10px;
+  z-index: 1;
 }
 
 #title_mySideEffectType {
   top: 60px;
   left: 80px;
+  z-index: -1;
 }
 
 /* Bottom */

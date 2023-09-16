@@ -22,7 +22,7 @@ DATABASES = {
     #         'PORT': 5432,
     #     },
     # },
-    'default': secrets.get('DB_SETTINGS')
+    'default': secrets.get('DB_SETTINGS')["TEST"]
 }
 
 LOGGING = {

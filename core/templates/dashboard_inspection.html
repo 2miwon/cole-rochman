@@ -478,7 +478,9 @@
                 console.log(response)
             }
             deleteModal.close(); // 모달 닫기
-            window.location.href = "{% url 'patient_inspection' pid %}";
+            {% if pid %}
+              window.location.href = "{% url 'patient_inspection' pid %}";
+            {% endif %}
         });
       }
             
