@@ -60,6 +60,16 @@
           <span>도말배양</span>
         </button>
         {% endif %}
+        {% if pid is None %}
+          <button onclick="location.href='{% url 'severity' %}'">
+        {% else %}
+          <button onclick="location.href='{% url 'patient_severity' pid %}'">
+        {% endif %}
+          <div class="icon_wrapper">
+          <img class="nav_icon" src={% static "media/icons/left up.png" %} alt="돌아가기" />
+        </div>
+        <span>부작용 결과</span>
+      </button>
         <button onclick="location.href='{% url 'web_menu' %}'">
           <div class="icon_wrapper">
             <img class="nav_icon" src={% static "media/icons/left up.png" %}
