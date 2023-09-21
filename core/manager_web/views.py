@@ -372,6 +372,58 @@ def sign_in(request):
 def web_menu(request):
     return render(request, "web_menu.html")
 
+@login_required()
+def severity(request):
+    context = dict(
+        patientlist=Patient.objects.filter(
+            hospital__id__contains=request.user.profile.hospital.id,
+            display_dashboard=True,
+        ),
+        a=MeasurementResult.objects.filter(
+            # measured_at__gte=cal_start_end_day(d, 1),
+            # measured_at__lte=cal_start_end_day(d, 7),
+        ),
+    )
+    return render(request, "dashboard_severity.html", context)
+
+@login_required()
+def patient_severity(request, pid):
+
+    # 복약 chart
+    month_mdresult = get_last_info_mdResult(30, pid)
+    total_mdresult = get_total_info_mdResult(pid)
+    count_succ = get_total_success(pid)
+    count_side = get_last_sideeffect(30, month_mdresult)
+    if len(total_mdresult) != 0:
+        per_succ = int(100 * count_succ / len(total_mdresult))
+    else:
+        per_succ = 0
+    per_side = int(100 * count_side / 30)
+
+    context = dict(
+        clickedpatient=Patient.objects.filter(id=pid),
+        patientlist=Patient.objects.filter(
+            hospital__id__contains=request.user.profile.hospital.id,
+            display_dashboard=True,
+        ),
+        a=MeasurementResult.objects.filter(
+            patient__id__contains=pid,
+            # measured_at__gte=cal_start_end_day(d, 1),
+            # measured_at__lte=cal_start_end_day(d, 7),
+        ),
+        pid=pid,
+
+         # 복약 결과, 도말배양 관련
+        total_medi = len(total_mdresult),
+        count_succ = count_succ,
+        per_succ = per_succ,   
+        count_side = count_side,
+        per_side = per_side,
+        side_effect_static = get_static_sideEffect(month_mdresult),
+
+    )
+    return render(request, "dashboard_severity.html", context)
+
 def cal_start_end_day(dt, i):
     iso = dt.isocalendar()
     iso = list(iso)
