@@ -47,7 +47,7 @@
           </button>
           <button onclick="location.href='{% url 'severity' %}'">
             <div class="icon_wrapper active">
-            <img class="nav_icon" src={% static "media/icons/left up.png" %} alt="돌아가기" />
+              <img class="nav_icon" src={% static "media/icons/pill_icon.png" %} alt="돌아가기" />
             </div>
             <span>부작용 결과</span>
           </button>
@@ -112,22 +112,9 @@
 
           <div class="status_container">
             <div class="bg_white_round item_status">
-              <h3>복약 빈도</h3>
-            {% if pid|default_if_none:'' %}
-              <div class="chart">
-                <div class="chart_title">
-                  <p>총 {{ total_medi }} 회 기준</p>
-                  <b>{{ count_succ }}회 복용</b>
-                </div>
-                <div class="chart_bg"></div>
-                <canvas id="myMedication"></canvas>
-              </div>
-              {% endif %}
-            </div>
-            <div class="bg_white_round item_status">
               <h3>한달간 부작용 빈도</h3>
             {% if pid|default_if_none:'' %}
-              <div class="chart">
+              <div class="pie_chart">
                 <div class="chart_title sideEffect_chart_title">
                   <p>부작용 빈도</p>
                   <b>{{ per_side }}%</b>
@@ -140,7 +127,7 @@
             <div class="bg_white_round item_status">
               <h3>한달간 부작용 종류</h3>
               {% if pid  %}
-              <div class="chart" id="chart_mySideEffectType">
+              <div class="pie_chart" id="chart_mySideEffectType">
                 <div class="chart_title" id="title_mySideEffectType">
                   <p>주 부작용</p>
                   <b id="chart_main_sideeffect"></b>
@@ -154,12 +141,15 @@
         <div class="severity_area">
           <div class="severity_box bg_white_round">
             <h3> 각 부작용 강도 </h3>
+            <div class="bar_chart">
+              <canvas id="mySeverityChart"></canvas>
+            </div>
           </div>
           <div class="severity_box bg_white_round">
-            <h3> 각 부작용 강도 </h3>
-          </div>
-          <div class="severity_box bg_white_round">
-            <h3> 각 부작용 강도 </h3>
+            <h3> 각 부작용 빈도 </h3>
+            <div class="bar_chart">
+              <canvas id="myFrequencyChart"></canvas>
+            </div>
           </div>
         </div>
 
@@ -260,31 +250,6 @@
 
 
      // chart
-     const medi = document.getElementById("myMedication");
-     
-     let mediValue;
-      {% if per_succ %}
-        mediValue = {{ per_succ|escapejs }};  // Django 변수를 JavaScript 문자열로 설정
-      {% endif %}
-     
-      var myMedication = new Chart(medi, {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [mediValue, 100 - mediValue],
-          backgroundColor: ['#2E65F3', '#DCECFB'],
-          borderWidth: 0,
-          borderRadius: 10,
-        }]
-      },
-      options: {
-        cutout: '75%',
-        responsive: false,
-        plugins: {
-          tooltip : false
-        }
-      }
-    });
   
     const sef = document.getElementById("mySideEffectFreq");
     let sefValue;
@@ -329,8 +294,6 @@
         sideEffectPercents.push(setValue[key]);
       }
     }
-
-    console.log("labels", sideEffectLabels, "percents", sideEffectPercents)
 
     var mySideEffectType = new Chart(set, {
       type: 'doughnut',
@@ -386,7 +349,109 @@
       mainSideEffectElement.innerHTML = "부작용 없음"
     }
 
-    // 차트끝
+    // 도넛 차트끝
+
+    // 바 차트
+
+    const severity = document.getElementById("mySeverityChart");
+
+    var mySideEffectType = new Chart(severity, {
+      type: 'bar',
+      data: {
+        labels: ['23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10','23.08.10'],
+        datasets: [{
+          data: [0, 2, 3, 1, 4, 5, 2],
+          backgroundColor: [
+            '#2E65F3',
+            '#2E65F3CC',
+            '#2E65F380',
+            '#DCECFB'
+          ],
+          borderWidth: 0,
+          borderRadius: 0,
+          scaleBeginAtZero: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            ticks: {
+              stepSize: 1
+            }
+          }
+        },
+        plugins: {
+          tooltip : {
+            callbacks : {
+              label: function (context) {
+                return context
+              },
+              labelTextColor: function (tooltipItem, chart) {
+                return 'rgba(255,255,255,1)'
+              }
+            },
+            backgroundColor: 'rgb(0,0,0)',
+            bodyFont: {
+              size: 13
+            }
+          },
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+
+    const frequency = document.getElementById("myFrequencyChart");
+
+    var mySideEffectType = new Chart(frequency, {
+      type: 'bar',
+      data: {
+        labels: ['23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10','23.08.10'],
+        datasets: [{
+          data: [0, 2, 3, 1, 4, 5, 2],
+          backgroundColor: [
+            '#2E65F3',
+            '#2E65F3CC',
+            '#2E65F380',
+            '#DCECFB'
+          ],
+          borderWidth: 0,
+          borderRadius: 0,
+          scaleBeginAtZero: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            ticks: {
+              stepSize: 1
+            }
+          }
+        },
+        plugins: {
+          tooltip : {
+            callbacks : {
+              label: function (context) {
+                return context
+              },
+              labelTextColor: function (tooltipItem, chart) {
+                return 'rgba(255,255,255,1)'
+              }
+            },
+            backgroundColor: 'rgb(0,0,0)',
+            bodyFont: {
+              size: 13
+            }
+          },
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
 
 
     </script>
