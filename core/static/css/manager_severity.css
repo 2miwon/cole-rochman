@@ -298,14 +298,16 @@ section > h2 {
 
 .item_status {
   padding: 25px;
+  height: 300px;
 }
 
-.chart {
+.pie_chart {
   position: relative;
   margin: auto;
+  top: 25%;
 }
 
-.chart > canvas {
+.pie_chart > canvas {
   margin: auto;
   width: 150px;
 }
@@ -343,7 +345,7 @@ section > h2 {
 }
 
 #chart_mySideEffectType {
-  top: 10px;
+  /* top: 10px; */
   z-index: 1;
 }
 
@@ -366,6 +368,10 @@ section > h2 {
 }
 
 .severity_box {
-  height: 200px;
+  height: 250px;
   padding: 25px;
+}
+
+.bar_chart {
+  width: 500px;
 }
