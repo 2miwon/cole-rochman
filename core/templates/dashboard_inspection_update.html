@@ -1,110 +1,19 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+{% block style %}
     <link rel="stylesheet" href="{% static 'css/manager_inspection.css' %}" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <title>결핵 환자 정보 대쉬보드</title>
-  </head>
-
-  <body>
-    <header>
-      <img id="img_logo" src={% static 'media/images/logo_hospital.png' %}
-      alt="logo_hospital">
-      <div id="header_right">
-        {% if user.is_active %}
-        <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
-        <a id="btn_logout" href="{% url 'logout' %}">
-          <span id="icon_logout" class="material-symbols-outlined">logout</span>
-          <p id="txt_logout">로그아웃</p>
-        </a>
-        {% endif %}
-      </div>
-    </header>
-
+{% endblock %}
+{% block content %}
     <main>
-      <nav>
-        {% if pid|default_if_none:'' %}
-        <button onclick="location.href='{% url 'patient_status' pid %}'">
-          {% else %}
-          <button onclick="location.href='{% url 'user_dashboard' %}'">
-        {% endif %}
-          <div class="icon_wrapper">
-            <img class="nav_icon" src={% static "media/icons/chart.png" %}
-            alt="차트" />
-          </div>
-          <span>대시보드</span>
-        </button>
-        {% if pid|default_if_none:'' %}
-        <button onclick="location.href='{% url 'patient_inspection' pid %}'">
-          <div class="icon_wrapper active">
-            <img class="nav_icon" src={% static "media/icons/lungs_on.png" %}
-            alt="폐" />
-          </div>
-          <span>도말배양</span>
-        </button>
-        {% else %}
-        <button onclick="location.href='{% url 'inspection' %}'">
-          <div class="icon_wrapper active">
-            <img class="nav_icon" src={% static "media/icons/lungs_on.png" %}
-            alt="폐" />
-          </div>
-          <span>도말배양</span>
-        </button>
-        {% endif %}
-        <button onclick="location.href='{% url 'web_menu' %}'">
-          <div class="icon_wrapper">
-            <img class="nav_icon" src={% static "media/icons/left up.png" %}
-            alt="돌아가기" />
-          </div>
-          <span>메뉴선택</span>
-        </button>
-      </nav>
-
+      {% include 'admin_navbar.html' %}
       <section>
         <div>
-          <h2>환자 복약 현황</h2>
+          <h2>환자 도말배양 검사 현황</h2>
         </div>
         <div class="grid_container">
-          <div class="item search-sidebar">
-            <input
-              type="text"
-              id="myInput"
-              class="bg_white_round"
-              placeholder="환자 이름 혹은 번호를 입력하세요."
-            />
-            <div id="sort_button_wrapper">
-              <button id="sort_by_name_btn" name="name">이름순</button>
-              <button id="sort_by_id_btn" name="id" class="active">등록순</button>
-            </div>
-            <ul id="myUL" class="bg_white_round">
-              {% for patient in patientlist %}
-                <li class="li_patient" name={{patient.name}}>
-                  <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
-                    onclick="location.href='{% url 'patient_inspection' patient.id %}'"
-                    {% if pid == patient.id %} {% endif %}>
-                  <a href="{% url 'patient_inspection' patient.id %}" id="btn_patient" for="radio_patient">
-                    <div>
-                      <span class="txt_black">{{ patient.name }}</span>
-                      <span class="patient_meta {% if patient.gender == '남성' %}male{% elif patient.gender == '여성' %}female{% endif %}">
-                        ({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}
-                      </span>
-                    </div>
-                    <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
-                    <span style="display: none;">{{ patient.code }}</span>
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
+          {% with origin="patient_inspection" %}
+            {% include 'admin_patient_list.html'%}
+          {% endwith %}
           <div id="select_date" class="bg_white_round">
             <h3>검사 결과 조회</h3>
             <div class="date_and_button_wrapper">
@@ -386,11 +295,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <script>
-
-    </script>
-  </body>
-</html>
+{% endblock %}
 
 <style>
   .male {

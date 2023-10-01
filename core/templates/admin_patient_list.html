@@ -1,0 +1,37 @@
+<div class="item search-sidebar">
+  <input type="text" id="myInput" class="bg_white_round" placeholder="환자 이름 혹은 번호를 입력하세요.">
+  <div id="sort_button_wrapper">
+    <button id="sort_by_name_btn" name="name">이름순</button>
+    <button id="sort_by_id_btn" name="id" class="active">등록순</button>
+  </div>
+  <ul id="myUL" class="bg_white_round">
+    {% for patient in patientlist %}
+      <li class="li_patient" name={{patient.name}}>
+        <input id="radio_patient" type="radio" name="radio" value={{ patient.id }} 
+          onclick="location.href='{% url origin patient.id %}'"
+          {% if pid == patient.id %} checked {% endif %}>
+        <a href="{% url origin patient.id %}" id="btn_patient" for="radio_patient">
+          <div>
+            <span class="txt_black">{{ patient.name }}</span>
+            <span class="patient_meta {% if patient.gender == '남성' %}male{% elif patient.gender == '여성' %}female{% endif %}">
+              ({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}
+            </span>
+          </div>
+          <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
+          <span style="display: none;">{{ patient.code }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<style>
+  .male {
+    color: blue;
+    /* 남성일 때 글자 색상을 파란색으로 지정 */
+  }
+  .female {
+    color: pink;
+    /* 여성일 때 글자 색상을 분홍색으로 지정 */
+  }
+</style>

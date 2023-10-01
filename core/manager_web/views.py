@@ -566,16 +566,10 @@ def make_likert(db_val: str) -> int:
         return 0
 
 def make_likert_list(sev_dict: list) -> dict:
-    if not sev_dict:
-        return {
-            "frequency": 0,
-            "intensity": 0,
-            "daily_trouble": 0,
-        }
     return {
-        "frequency": make_likert(sev_dict[0]),
-        "intensity": make_likert(sev_dict[1]),
-        "daily_trouble": make_likert(sev_dict[2]),
+        "frequency": make_likert(sev_dict[0]) if sev_dict else 0,
+        "intensity": make_likert(sev_dict[1]) if sev_dict else 0,
+        "daily_trouble": make_likert(sev_dict[2]) if sev_dict else 0,
     }
 
 def transform_likert(symptom_list: dict) -> dict:

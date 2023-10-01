@@ -1,0 +1,53 @@
+{% load static %}
+<nav>
+  {% if pid is None %}
+    <button onclick="location.href='{% url 'user_dashboard' %}'">
+  {% else %}
+    <button onclick="location.href='{% url 'patient_status' pid %}'">
+  {% endif %}
+      <div class="icon_wrapper {% if request.resolver_match.url_name == 'user_dashboard' or request.resolver_match.url_name == 'patient_status' %}active{% endif %}">
+        {% if request.resolver_match.url_name == 'user_dashboard' or request.resolver_match.url_name == 'patient_status' %}
+          <img class="nav_icon" src={% static "media/icons/chart_on.png" %} alt="차트" />
+        {% else %}
+          <img class="nav_icon" src={% static "media/icons/chart.png" %} alt="차트" />
+        {% endif %}
+      </div>
+      <span>대시보드</span>
+    </button>
+  {% if pid is None %}
+    <button onclick="location.href='{% url 'inspection' %}'">
+  {% else %}
+    <button onclick="location.href='{% url 'patient_inspection' pid%}'">
+  {% endif %}
+      <div class="icon_wrapper {% if request.resolver_match.url_name == 'inspection' or request.resolver_match.url_name == 'patient_inspection' %}active{% endif %}">
+        {% if request.resolver_match.url_name == 'inspection' or request.resolver_match.url_name == 'patient_inspection' %}
+          <img class="nav_icon" src={% static "media/icons/lungs_on.png" %} alt="폐" />
+        {% else %}
+          <img class="nav_icon" src={% static "media/icons/lungs.png" %} alt="폐" />
+        {% endif %}
+      </div>
+      <span>도말배양</span>
+  </button>
+  <button onclick="location.href='{% url 'severity' %}'">
+      <div class="icon_wrapper {% if request.resolver_match.url_name == 'severity' or request.resolver_match.url_name == 'patient_severity' %}active{% endif %}">
+        {% if request.resolver_match.url_name == 'severity' or request.resolver_match.url_name == 'patient_severity'%}
+          <img class="nav_icon" src={% static "media/icons/pill_icon.png" %} alt="돌아가기" />
+        {% else %}
+          <img class="nav_icon" src={% static "media/icons/pill_icon_off.png" %} alt="돌아가기" />
+        {% endif %}
+      </div>
+    <span>부작용 결과</span>
+  </button>
+  <button onclick="location.href='{% url 'web_menu' %}'">
+      <div class="icon_wrapper">
+      <img class="nav_icon" src={% static "media/icons/left up.png" %} alt="돌아가기" />
+      </div>
+      <span>메뉴선택</span>
+  </button>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+  }
+</style>
