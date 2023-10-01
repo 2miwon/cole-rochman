@@ -19,7 +19,8 @@ from django.urls import reverse
 # 환자 선택 전 환자관리 대시보드
 @login_required()
 def user_dashboard(request):
-    context = set_default_context(request)
+    context = set_default_context(request, False)
+    print(context)
     return render(request, "dashboard.html", context)
 
 # 환자 선택 후 환자관리 대시보드
@@ -60,10 +61,9 @@ def patient_status(request, pid):
         ).order_by(sort_policy),
         a=MeasurementResult.objects.filter(
             patient__id__contains=pid,
-            measured_at__gte=cal_start_end_day(week_date, 1),
-            measured_at__lte=cal_start_end_day(week_date, 7),
+            measured_at__gte=get_date_by_weekday(week_date, 1),
+            measured_at__lte=get_date_by_weekday(week_date, 7),
         ),
-
         prev_week=prev_week(week_date),
         next_week=next_week(week_date),
 
@@ -90,8 +90,8 @@ def patient_status(request, pid):
 
     for date in Patient.objects.filter(
         id__contains=pid,
-        next_visiting_date_time__gte=cal_start_end_day(week_date, 1),
-        next_visiting_date_time__lte=cal_start_end_day(week_date, 7),
+        next_visiting_date_time__gte=get_date_by_weekday(week_date, 1),
+        next_visiting_date_time__lte=get_date_by_weekday(week_date, 7),
     ):
         context["visiting_num"] = (
             int(date.next_visiting_date_time.isocalendar()[2] - 1) * 9.5 + 2
@@ -105,7 +105,7 @@ def patient_status(request, pid):
 
     for i in range(1, 8):
         dailyresult = MedicationResult.objects.filter(
-            patient__id__contains=pid, date=cal_start_end_day(week_date, i)
+            patient__id__contains=pid, date=get_date_by_weekday(week_date, i)
         )
         sideeffect = []
         succ_count = 0
@@ -206,7 +206,7 @@ def patient_status(request, pid):
     week_date_list = []
     month_data_list = []
     for i in range(1,8):
-        week_date_list.append(cal_start_end_day(week_date,i))
+        week_date_list.append(get_date_by_weekday(week_date,i))
     for i in range(1,calendar.monthrange(week_date.year, week_date.month)[1]):
         month_data_list.append(get_date(str(month_first_day.year) + ',' + str(month_first_day.month) + ',' + str(i)))
 
@@ -230,8 +230,7 @@ def patient_status(request, pid):
     context["weekly_sputum"]=weekly_sputum
     context["monthly_sputum"]=monthly_sputum
 
-    for i in context:
-        print(i,context[i])
+
         
     return render(request, "dashboard.html", context)
 
@@ -284,11 +283,7 @@ def patient_inspection(request, pid):
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
         ).order_by(sort_policy),
-        a=MeasurementResult.objects.filter(
-            patient__id__contains=pid,
-            # measured_at__gte=cal_start_end_day(d, 1),
-            # measured_at__lte=cal_start_end_day(d, 7),
-        ),
+        a=MeasurementResult.objects.filter(patient__id__contains=pid),
         pid=pid,
         daily_hour_list=get_daily_noti_time_list(clickedpatient),
         sputum=page_obj,
@@ -374,21 +369,12 @@ def web_menu(request):
 
 @login_required()
 def severity(request):
-    context = dict(
-        patientlist=Patient.objects.filter(
-            hospital__id__contains=request.user.profile.hospital.id,
-            display_dashboard=True,
-        ),
-        a=MeasurementResult.objects.filter(
-            # measured_at__gte=cal_start_end_day(d, 1),
-            # measured_at__lte=cal_start_end_day(d, 7),
-        ),
-    )
+    context = set_default_context(request, False)
     return render(request, "dashboard_severity.html", context)
 
 @login_required()
 def patient_severity(request, pid):
-
+    # context = set_default_context(request, pid)
     # 복약 chart
     month_mdresult = get_last_info_mdResult(30, pid)
     total_mdresult = get_total_info_mdResult(pid)
@@ -399,6 +385,15 @@ def patient_severity(request, pid):
     else:
         per_succ = 0
     per_side = int(100 * count_side / 30)
+    week_date = get_date(request.GET.get("week", None))
+
+    weekly_side_effect = MedicationResult.objects.filter(
+            patient__id__contains=pid,
+            date__gte=get_date_by_weekday(week_date, 1),
+            date__lte=get_date_by_weekday(week_date, 7),
+        ).only("symptom_severity1", "symptom_severity2", "symptom_severity3")
+
+    print("DSD", weekly_side_effect.symptom_severity1)
 
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
@@ -406,11 +401,7 @@ def patient_severity(request, pid):
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
         ),
-        a=MeasurementResult.objects.filter(
-            patient__id__contains=pid,
-            # measured_at__gte=cal_start_end_day(d, 1),
-            # measured_at__lte=cal_start_end_day(d, 7),
-        ),
+        
         pid=pid,
 
          # 복약 결과, 도말배양 관련
@@ -420,20 +411,19 @@ def patient_severity(request, pid):
         count_side = count_side,
         per_side = per_side,
         side_effect_static = get_static_sideEffect(month_mdresult),
-
     )
+    debug_context(context)
     return render(request, "dashboard_severity.html", context)
 
-def cal_start_end_day(dt, i):
-    iso = dt.isocalendar()
-    iso = list(iso)
-    iso[2] = i
-    iso = tuple(iso)
-    return iso_to_gregorian(*iso)
-
-def get_month_data(dt):
+def get_month_data(dt) -> dict:
     pass
-
+    # 딕셔너리 안에 딕셔너리
+    # { ... 
+    #   monthly_data : {
+    #      1 : { ... },
+    #      2 : { ... },
+    #   },
+    #   ... }
     # 추가
 
 def get_query_string():
@@ -537,7 +527,7 @@ def get_daily_noti_time_list(patient: Patient):
     except AttributeError:
         return ["재설정 필요"]
 
-def set_default_context(request):
+def set_default_context(request, pid):
     if(len(request.GET) == 0):
         pass
     sort_policy = request.GET.get('sort', '-id')
@@ -549,7 +539,27 @@ def set_default_context(request):
             treatment_end_date__gt=timezone.now(),  
         ).order_by(sort_policy),
     )
+    if(pid):
+        rst['clickedpatient'] = Patient.objects.filter(id=pid)
+    # rst.update(get_query_sting())
     return rst
+
+# 증상의 빈도, 증상의 강도, 일상생활 지장 정도
+def make_likert(db_val: str) -> int:
+    if db_val in ["드물게 있다", "약간 있다", "약간 주었다"]:
+        return 1
+    elif db_val in ["가끔 있다", "보통이다", "다소 주었다"]:
+        return 2
+    elif db_val in ["자주 있다", "심하다", "많이 주었다"]:
+        return 3
+    elif db_val in ["거의 항상 있다", "매우 심하다", "매우 많이 주었다"]:
+        return 4
+    else:
+        return 0
+
+def debug_context(context: dict):
+    for i in context:
+        print(i,context[i])
 
 # @login_required()
 # def symptom(request, pid, sid):

@@ -4,22 +4,32 @@ import datetime
 from enum import Enum
 from calendar import monthrange
 
-# "yyyy,mm,dd" -> date(년,월,일)
 def get_date(req_day) -> datetime:
+    """
+    req_day : "yyyy,mm,dd" 
+    output : date(년,월,일)
+    default : today
+    """
     if req_day:
         req_tuple = req_day.split(",")
         return datetime.date(int(req_tuple[0]), int(req_tuple[1]), int(req_tuple[2]))
     return datetime.datetime.now()
 
-# "yyyy,mm,dd" -> date(년,월, 1일)
 def get_month_first_date(req_day) -> datetime:
+    """
+    req_day : "yyyy,mm,dd" 
+    output : date(년,월, 1일)
+    default : today
+    """
     if req_day:
         req_tuple = req_day.split(",")
         return datetime.date(int(req_tuple[0]), int(req_tuple[1]), 1)
     return datetime.datetime.now()
 
-# 오늘 날짜를 "yyyy-mm-dd" 형식으로 반환
 def get_today() -> datetime:
+    """
+    output : datetime (오늘 날짜를 "yyyy-mm-dd" 형식으로 반환)
+    """
     return datetime.date.today().strftime('%Y-%m-%d')
 
 # hh:mm
@@ -77,8 +87,11 @@ def get_next_month(m: int, y:int):
     else:
         return y, m + 1
     
-# offset -1 이면 이전달, 2이면 다다음달
 def navigate_month(m: int, y: int, offset: int):
+    """
+    offset -1 이면 이전달, 2이면 다다음달
+    output : (year, month)
+    """
     y += (m + offset - 1) // 12
     m = (m + offset - 1) % 12 + 1
     return y, m
@@ -128,6 +141,16 @@ def iso_to_gregorian(iso_year, iso_week, iso_day):
     "Gregorian calendar date for the given ISO year, week and day"
     year_start = iso_year_start(iso_year)
     return year_start + datetime.timedelta(days=iso_day - 1, weeks=iso_week - 1)
+
+def get_date_by_weekday(date: datetime.date, weekday: int):
+    """
+    date : 해당 날짜
+    weekday : 1=monday ~ 7=sunday
+    output : 해당 날짜의 주의 weekday번째 날짜
+    """
+    iso = list(date.isocalendar())
+    iso[2] = weekday # 
+    return iso_to_gregorian(*iso)
 
 class Weekday(Enum):
     MON = 0
