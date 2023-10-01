@@ -230,7 +230,7 @@ def patient_status(request, pid):
     context["weekly_sputum"]=weekly_sputum
     context["monthly_sputum"]=monthly_sputum
 
-
+    debug_context(context)
         
     return render(request, "dashboard.html", context)
 
@@ -387,13 +387,15 @@ def patient_severity(request, pid):
     per_side = int(100 * count_side / 30)
     week_date = get_date(request.GET.get("week", None))
 
-    weekly_side_effect = MedicationResult.objects.filter(
+    symptom_db = MedicationResult.objects.filter(
             patient__id__contains=pid,
             date__gte=get_date_by_weekday(week_date, 1),
             date__lte=get_date_by_weekday(week_date, 7),
         ).only("symptom_severity1", "symptom_severity2", "symptom_severity3")
 
-    print("DSD", weekly_side_effect.symptom_severity1)
+    weekly_severity = dict()
+    for i in symptom_db:
+        weekly_severity[get_date_text_simple(i.date, True)] = transform_likert(i.get_symptom_severity_list())
 
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
@@ -403,7 +405,6 @@ def patient_severity(request, pid):
         ),
         
         pid=pid,
-
          # 복약 결과, 도말배양 관련
         total_medi = len(total_mdresult),
         count_succ = count_succ,
@@ -411,6 +412,11 @@ def patient_severity(request, pid):
         count_side = count_side,
         per_side = per_side,
         side_effect_static = get_static_sideEffect(month_mdresult),
+
+        prev_week=prev_week(week_date),
+        next_week=next_week(week_date),
+        weekday_list = get_weekday_list(week_date),
+        weekly_severity = weekly_severity,
     )
     debug_context(context)
     return render(request, "dashboard_severity.html", context)
@@ -544,8 +550,10 @@ def set_default_context(request, pid):
     # rst.update(get_query_sting())
     return rst
 
-# 증상의 빈도, 증상의 강도, 일상생활 지장 정도
 def make_likert(db_val: str) -> int:
+    """ 
+    증상의 빈도, 증상의 강도, 일상생활 지장 정도
+    """
     if db_val in ["드물게 있다", "약간 있다", "약간 주었다"]:
         return 1
     elif db_val in ["가끔 있다", "보통이다", "다소 주었다"]:
@@ -556,6 +564,22 @@ def make_likert(db_val: str) -> int:
         return 4
     else:
         return 0
+
+def make_likert_list(sev_dict: list) -> dict:
+    if not sev_dict:
+        return {
+            "frequency": 0,
+            "intensity": 0,
+            "daily_trouble": 0,
+        }
+    return {
+        "frequency": make_likert(sev_dict[0]),
+        "intensity": make_likert(sev_dict[1]),
+        "daily_trouble": make_likert(sev_dict[2]),
+    }
+
+def transform_likert(symptom_list: dict) -> dict:
+    return {i: make_likert_list(symptom_list[i]) for i in symptom_list}
 
 def debug_context(context: dict):
     for i in context:

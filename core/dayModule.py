@@ -32,6 +32,35 @@ def get_today() -> datetime:
     """
     return datetime.date.today().strftime('%Y-%m-%d')
 
+def get_date_text_kor(date: datetime.date, short_year: bool) -> str:
+    """
+    date : 해당 날짜 
+    short_year : True일 시 년도를 yy로 표시 (20yy)
+    output: "yyyy년 mm월 dd일"
+    default : today
+    """
+    y_indicator = '%Y'
+    if short_year:
+        y_indicator = '%y'
+    if date:
+        return date.strftime(y_indicator + '년 %m월 %d일')
+    return datetime.date.today().strftime('%Y년 %m월 %d일')
+
+def get_date_text_simple(date: datetime.date, short_year: bool) -> str:
+    """
+    date : 해당 날짜 
+    short_year : True일 시 년도를 yy로 표시 (20yy)
+    output : "yyyy.mm.dd"
+    default : today
+    """
+    y_indicator = '%Y'
+    if short_year:
+        y_indicator = '%y'
+    if date:
+        return date.strftime(y_indicator + '.%m.%d')
+    return datetime.date.today().strftime(y_indicator + '.%m.%d')
+
+
 # hh:mm
 def time_formatiing(time) -> str:
     return "{}:{}".format(str(time.hour).zfill(2), str(time.minute).zfill(2))
@@ -105,6 +134,10 @@ def next_week(d: datetime.datetime):
     return 'week=' + str(pre_day.year) + ',' + str(pre_day.month) + ',' + str(pre_day.day)
 
 def get_weekday_list(dt: datetime.datetime):
+    """
+    dt : 해당 날짜
+    output : 해당 날짜의 주의 요일 리스트 [09.25 월, 09.26 화, ...]
+    """
     iso = dt.isocalendar()
     li = list()
     for i in range(0, 7):

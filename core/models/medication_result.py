@@ -67,12 +67,6 @@ class MedicationResult(models.Model):
             self.status = self.STATUS.SUCCESS.value
         else:
             print("2")
-#        self.status_info = ''
-#        self.severity = None
-#        self.symptom_name = ''
-#        self.symptom_severity1 = ''
-#        self.symptom_severity2 = ''
-#        self.symptom_severity3 = ''
         self.checked_at = datetime.datetime.now().astimezone()
 
     def set_failed(self):
@@ -159,5 +153,16 @@ class MedicationResult(models.Model):
                 rst.append(i)
             else:
                 rst.append("기타")
+        return rst
+    
+    def get_symptom_severity_list(self) -> dict:
+        rst = {}
+        if(self.is_side_effect()):
+            symptom_name = self.symptom_name.split(',')
+            parsed1 = self.symptom_severity1.split(',')
+            parsed2 = self.symptom_severity2.split(',')
+            parsed3 = self.symptom_severity3.split(',')
+            for i in range(len(symptom_name)):
+                rst[symptom_name[i]] = [parsed1[i], parsed2[i], parsed3[i]]
         return rst
         
