@@ -60,10 +60,14 @@
         <div class="severity_area">
           <form id="side_effect_boxes" method="GET">
             {% for se in side_effect_static %}
-              <input type="submit" name="side_effect" value="{{ se }}"
-                class="
-                {% if se == side_effect %} active {% endif %}
-                bg_white_round side_effect_box" />
+              <input type="submit" name="side_effect" id="btn_{{ se }}" value="{{ se }}"
+                class="bg_white_round side_effect_box
+                {% if se == side_effect %} active {% endif %}" />
+              {% if se == side_effect %}
+                <label for="btn_{{ se }}"><img src={% static "media/icons/chart.png" %} /></label>
+              {% else %}
+                <label for="btn_{{ se }}"><img src={% static "media/icons/chart_on.png" %} /></label>
+              {% endif %}
             {% endfor %}
           </form>
 
