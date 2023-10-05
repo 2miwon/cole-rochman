@@ -58,16 +58,27 @@
           </div>
 
         <div class="severity_area">
-          <div class="severity_box bg_white_round">
-            <h3> 각 부작용 강도 </h3>
-            <div class="bar_chart">
-              <canvas id="mySeverityChart"></canvas>
+          <form id="side_effect_boxes" method="GET">
+            {% for se in side_effect_static %}
+              <input type="submit" name="side_effect" value="{{ se }}"
+                class="
+                {% if se == side_effect %} active {% endif %}
+                bg_white_round side_effect_box" />
+            {% endfor %}
+          </form>
+
+          <div id="bar_charts">
+            <div class="severity_box bg_white_round">
+              <h3> 각 부작용 강도 </h3>
+              <div class="bar_chart">
+                <canvas id="mySeverityChart"></canvas>
+              </div>
             </div>
-          </div>
-          <div class="severity_box bg_white_round">
-            <h3> 각 부작용 빈도 </h3>
-            <div class="bar_chart">
-              <canvas id="myFrequencyChart"></canvas>
+            <div class="severity_box bg_white_round">
+              <h3> 각 부작용 빈도 </h3>
+              <div class="bar_chart">
+                <canvas id="myFrequencyChart"></canvas>
+              </div>
             </div>
           </div>
         </div>

@@ -363,6 +363,35 @@ section > h2 {
 
 .severity_area {
   display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+#side_effect_boxes {
+  width: 150px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.side_effect_box {
+  height: 42px;
+  font-weight: 400;
+  color: var(--txt-color-lightgray);
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.severity_area .active {
+  background-color: var(--bg-color-blue);
+  color: var(--bg-color-white);
+}
+
+#bar_charts {
+  display: flex;
   flex-direction: column;
   gap: 29px;
 }

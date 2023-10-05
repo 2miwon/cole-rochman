@@ -397,6 +397,9 @@ def patient_severity(request, pid):
     for i in symptom_db:
         weekly_severity[get_date_text_simple(i.date, True)] = transform_likert(i.get_symptom_severity_list())
 
+    # queryString 추출
+    side_effect = request.GET.get("side_effect")
+
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
         patientlist=Patient.objects.filter(
@@ -417,6 +420,7 @@ def patient_severity(request, pid):
         next_week=next_week(week_date),
         weekday_list = get_weekday_list(week_date),
         weekly_severity = weekly_severity,
+        side_effect = side_effect
     )
     debug_context(context)
     return render(request, "dashboard_severity.html", context)
