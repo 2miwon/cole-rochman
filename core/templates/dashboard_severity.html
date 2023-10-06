@@ -64,9 +64,9 @@
                 class="bg_white_round side_effect_box
                 {% if se == side_effect %} active {% endif %}" />
               {% if se == side_effect %}
-                <label for="btn_{{ se }}"><img src={% static "media/icons/chart.png" %} /></label>
+                <label for="btn_{{ se }}"><img src="{% static 'media/icons/side_effect_' %}{{ forloop.counter }}_on.png" /></label>
               {% else %}
-                <label for="btn_{{ se }}"><img src={% static "media/icons/chart_on.png" %} /></label>
+                <label for="btn_{{ se }}"><img src="{% static 'media/icons/side_effect_' %}{{ forloop.counter }}.png" /></label>
               {% endif %}
             {% endfor %}
           </form>
