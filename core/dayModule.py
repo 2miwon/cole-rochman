@@ -133,6 +133,13 @@ def next_week(d: datetime.datetime):
     pre_day = d + datetime.timedelta(days=7)
     return 'week=' + str(pre_day.year) + ',' + str(pre_day.month) + ',' + str(pre_day.day)
 
+def navigete_week(d: datetime.datetime, offset: int) -> datetime.datetime:
+    """
+    offset -1 이면 이전주, 2이면 다다음주
+    output : datetime.datetime
+    """
+    return d + datetime.timedelta(days=7 * offset)
+
 def get_weekday_list(dt: datetime.datetime):
     """
     dt : 해당 날짜

@@ -389,16 +389,12 @@ def patient_severity(request, pid):
 
     symptom_db = MedicationResult.objects.filter(
             patient__id__contains=pid,
-            date__gte=get_date_by_weekday(week_date, 1),
+            date__gte=get_date_by_weekday(navigete_week(week_date, -3), 1),
             date__lte=get_date_by_weekday(week_date, 7),
         ).only("symptom_severity1", "symptom_severity2", "symptom_severity3")
 
-    weekly_severity = dict()
-    for i in symptom_db:
-        weekly_severity[get_date_text_simple(i.date, True)] = transform_likert(i.get_symptom_severity_list())
-
     # queryString 추출
-    side_effect = request.GET.get("side_effect")
+    side_effect = request.GET.get("side_effect", "식욕 감소")
 
     context = dict(
         clickedpatient=Patient.objects.filter(id=pid),
@@ -419,7 +415,7 @@ def patient_severity(request, pid):
         prev_week=prev_week(week_date),
         next_week=next_week(week_date),
         weekday_list = get_weekday_list(week_date),
-        weekly_severity = weekly_severity,
+        monthly_severity = get_likert_score_by_symptom(symptom_db, side_effect),
         side_effect = side_effect
     )
     debug_context(context)
@@ -568,20 +564,32 @@ def make_likert(db_val: str) -> int:
         return 4
     else:
         return 0
+    
+def transform_likert(symptom_list: dict, symptom_name: str) -> dict:
+    # return {i: make_likert_list(symptom_list[i]) for i in symptom_list}
+    if(symptom_name in symptom_list):
+        return {
+            "frequency": make_likert(symptom_list[symptom_name][0]) if symptom_list[symptom_name] else 0,
+            "intensity": make_likert(symptom_list[symptom_name][1]) if symptom_list[symptom_name] else 0,
+            # "daily_trouble": make_likert(sev_list[2]) if sev_list else 0,
+        }
+    else:
+        return {
+            "frequency": 0,
+            "intensity": 0,
+            # "daily_trouble": 0,
+        }   
 
-def make_likert_list(sev_dict: list) -> dict:
-    return {
-        "frequency": make_likert(sev_dict[0]) if sev_dict else 0,
-        "intensity": make_likert(sev_dict[1]) if sev_dict else 0,
-        "daily_trouble": make_likert(sev_dict[2]) if sev_dict else 0,
-    }
-
-def transform_likert(symptom_list: dict) -> dict:
-    return {i: make_likert_list(symptom_list[i]) for i in symptom_list}
+def get_likert_score_by_symptom(symptom_db: str, symptom_name: str) -> dict:
+    rst = dict()
+    if(symptom_name):
+        for i in symptom_db:
+            rst[get_date_text_simple(i.date, True)] = transform_likert(i.get_symptom_severity_list(), symptom_name)         
+    return rst
 
 def debug_context(context: dict):
     for i in context:
-        print(i,context[i])
+        print(i,':',context[i])
 
 # @login_required()
 # def symptom(request, pid, sid):
