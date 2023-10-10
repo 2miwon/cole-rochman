@@ -59,15 +59,20 @@
 
         <div class="severity_area">
           <form id="side_effect_boxes" method="GET">
-            {% for se in side_effect_static %}
-              <input type="submit" name="side_effect" id="btn_{{ se }}" value="{{ se }}"
-                class="bg_white_round side_effect_box
-                {% if se == side_effect %} active {% endif %}" />
-              {% if se == side_effect %}
-                <label for="btn_{{ se }}"><img src="{% static 'media/icons/side_effect_' %}{{ forloop.counter }}_on.png" /></label>
-              {% else %}
-                <label for="btn_{{ se }}"><img src="{% static 'media/icons/side_effect_' %}{{ forloop.counter }}.png" /></label>
-              {% endif %}
+            {% for se in side_effect_static.items %}
+              <div class="side_effect_wrapper">
+                <input type="submit" name="side_effect" id="btn_{{ se.0 }}" value="{{ se.0 }}"
+                  class="bg_white_round side_effect_box
+                  {% if se.0 == side_effect %} active {% endif %}" />
+                {% if se.0 == side_effect %}
+                  <label for="btn_{{ se.0 }}"><img src="{% static 'media/icons/side_effect_' %}{{ forloop.counter }}_on.png" /></label>
+                {% else %}
+                  <label for="btn_{{ se.0 }}"><img src="{% static 'media/icons/side_effect_' %}{{ forloop.counter }}.png" /></label>
+                {% endif %}
+                {% if se.1 != 0 %}
+                  <div class="blue_dot"> </div>
+                {% endif %}
+              </div>
             {% endfor %}
           </form>
 
@@ -320,13 +325,18 @@
     severity_d_btn.addEventListener("click", handleRangeBtnClick)
 
     // 바 차트
+
+    const monthlySeverity = {{ monthly_severity|safe }}
+
+    const dataSet = Object.entries(monthlySeverity)
+
     const severity = document.getElementById("mySeverityChart");
     var mySideEffectType = new Chart(severity, {
       type: 'bar',
       data: {
-        labels: ['23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10','23.08.10'],
+        labels: dataSet.map(([day,value]) => day),
         datasets: [{
-          data: [0, 2, 3, 1, 4, 5, 2],
+          data: dataSet.map(([day,value])=> value?.frequency),
           backgroundColor: [
             '#2E65F3',
             '#2E65F3CC',
@@ -350,9 +360,9 @@
         plugins: {
           tooltip : {
             callbacks : {
-              label: function (context) {
-                return context
-              },
+              //label: function (context) {
+              //  return context.toString()
+              // },
               labelTextColor: function (tooltipItem, chart) {
                 return 'rgba(255,255,255,1)'
               }
@@ -373,9 +383,9 @@
     var mySideEffectType = new Chart(frequency, {
       type: 'bar',
       data: {
-        labels: ['23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10', '23.08.10','23.08.10'],
+        labels: dataSet.map(([day,value]) => day),
         datasets: [{
-          data: [0, 2, 3, 1, 4, 5, 2],
+          data: dataSet.map(([day,value])=> value?.intensity),
           backgroundColor: [
             '#2E65F3',
             '#2E65F3CC',
@@ -399,9 +409,9 @@
         plugins: {
           tooltip : {
             callbacks : {
-              label: function (context) {
-                return context
-              },
+              //label: function (context) {
+              //  return context.toString()
+              // },
               labelTextColor: function (tooltipItem, chart) {
                 return 'rgba(255,255,255,1)'
               }

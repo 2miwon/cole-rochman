@@ -336,14 +336,30 @@ section > h2 {
   gap: 3px;
 }
 
+.side_effect_wrapper {
+  position: relative;
+  height: 55px;
+}
+
 .side_effect_box {
   height: 42px;
+  width: 100%;
   font-weight: 400;
   color: var(--txt-color-lightgray);
   display: flex;
   align-items: center;
   padding-left: 40px;
   cursor: pointer;
+}
+
+.blue_dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--bg-color-blue);
+  border-radius: 50%;
+  position: relative;
+  bottom: 50px;
+  left: 130px;
 }
 
 .severity_area .active {
