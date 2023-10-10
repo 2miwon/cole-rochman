@@ -73,14 +73,28 @@
 
           <div id="bar_charts">
             <div class="severity_box bg_white_round">
-              <h3> 각 부작용 강도 </h3>
+              <div class="bar_chart_header">
+                <h3> 각 부작용 강도 </h3>
+                <div class="bar_chart_buttons">
+                  <button id="severity_btn_weekly" name="weekly" class="bar_chart_button_weekly btn_active">주간</button>
+                  <button id="severity_btn_daily" name="daily" class="bar_chart_button_daily">일간</button>
+                </div>
+              </div>
               <div class="bar_chart">
+                
                 <canvas id="mySeverityChart"></canvas>
               </div>
             </div>
             <div class="severity_box bg_white_round">
-              <h3> 각 부작용 빈도 </h3>
+              <div class="bar_chart_header">
+                <h3> 각 부작용 빈도 </h3>
+                <div class="bar_chart_buttons">
+                  <button id="frequency_btn_weekly" name="weekly" class="bar_chart_button_weekly btn_active">주간</button>
+                  <button id="frequency_btn_daily" name="daily"  class="bar_chart_button_daily">일간</button>
+                </div>
+              </div>
               <div class="bar_chart">
+                
                 <canvas id="myFrequencyChart"></canvas>
               </div>
             </div>
@@ -151,11 +165,6 @@
      // 환자 이름 필터링
      searchInput.addEventListener("keyup", (e) => patientFilter(e.target.value));
 
-    {% if p_str %}
-     document.getElementById("myBar").style.width = "{{p_str}}%";
-     document.getElementById("myBar").style.width = "{{cure_progress}}%";
-    {% endif %}
-
      // 이름순 / 번호순 sort
      const sortByNameBtn = document.querySelector("#sort_by_name_btn")
      const sortByIdBtn = document.querySelector("#sort_by_id_btn")
@@ -183,7 +192,7 @@
      sortByIdBtn.addEventListener("click", handleSortBtnClick)
 
 
-     // chart
+    // 도넛 차트
   
     const sef = document.getElementById("mySideEffectFreq");
     let sefValue;
@@ -285,10 +294,33 @@
 
     // 도넛 차트끝
 
+    // 주간 / 일간 버튼 --> 세션스토리지에 저장 / 가져오기
+    const chartRange = sessionStorage.getItem("chartRange")
+
+    const severity_w_btn = document.querySelector(`#severity_btn_weekly`)
+    const severity_d_btn = document.querySelector(`#severity_btn_daily`)
+
+       // 초기에는 세션에 저장안돼있음 = default로 주간
+    if (chartRange === null || chartRange === "weekly") {
+      severity_w_btn.classList = "btn_active"
+      severity_d_btn.classList = ""
+    } else {
+      severity_d_btn.classList = "btn_active"
+      severity_w_btn.classList = ""
+    }
+
+    function handleRangeBtnClick(e) {
+      severity_w_btn.classList = ""
+      severity_d_btn.classList = ""
+      sessionStorage.setItem("chartRange", e.target.name)
+      e.target.classList.add("btn_active")
+    }
+
+    severity_w_btn.addEventListener("click", handleRangeBtnClick)
+    severity_d_btn.addEventListener("click", handleRangeBtnClick)
+
     // 바 차트
-
     const severity = document.getElementById("mySeverityChart");
-
     var mySideEffectType = new Chart(severity, {
       type: 'bar',
       data: {
@@ -338,7 +370,6 @@
     });
 
     const frequency = document.getElementById("myFrequencyChart");
-
     var mySideEffectType = new Chart(frequency, {
       type: 'bar',
       data: {

@@ -257,45 +257,6 @@ section > h2 {
   align-items: stretch;
 }
 
-.grid_progress {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 20px);
-  gap: 15px;
-}
-
-.item_progress:nth-child(1) {
-  margin: 0px;
-  font-size: 24px;
-}
-.item_progress:nth-child(2) {
-  text-align: end;
-  font-size: 16px;
-}
-.item_progress:nth-child(3) {
-  grid-column: 1 / span 2;
-}
-.item_progress:nth-child(4) {
-  font-size: 13px;
-}
-.item_progress:nth-child(5) {
-  text-align: end;
-  font-size: 13px;
-}
-
-#myProgress {
-  height: 20px;
-  width: 100%;
-  background-color: var(--bg-color-lightblue);
-  border-radius: 34px;
-}
-
-#myBar {
-  height: 20px;
-  background-color: var(--bg-color-blue);
-  border-radius: 34px;
-}
-
 .item_status {
   padding: 25px;
   height: 300px;
@@ -411,4 +372,21 @@ section > h2 {
 
 .bar_chart {
   width: 500px;
+}
+
+.bar_chart_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btn_active {
+  color: var(--bg-color-blue) !important ;
+  border-bottom: 2px solid var(--bg-color-blue) !important ;
+}
+
+.bar_chart_buttons button {
+  color: var(--bg-color-gray);
+  width: 3rem;
+  border-bottom: 2px solid var(--bg-color-gray);
 }
