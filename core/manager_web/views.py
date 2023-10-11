@@ -343,7 +343,7 @@ def patient_inspection_update(request, pid, sputum_id):
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
-        ),
+        ).order_by(sort_policy),
         a=MeasurementResult.objects.filter(
             patient__id__contains=pid,
             # measured_at__gte=cal_start_end_day(d, 1),
@@ -376,10 +376,11 @@ def severity(request):
 def patient_severity(request, pid):
     # context = set_default_context(request, pid)
     # 복약 chart
-    month_mdresult = get_last_info_mdResult(30, pid)
+    sort_policy = request.GET.get('sort', '-id')
+    month_mdresult = get_last_info_mdResult(21, pid) 
     total_mdresult = get_total_info_mdResult(pid)
     count_succ = get_total_success(pid)
-    count_side = get_last_sideeffect(30, month_mdresult)
+    count_side = get_last_sideeffect(21, month_mdresult)
     if len(total_mdresult) != 0:
         per_succ = int(100 * count_succ / len(total_mdresult))
     else:
@@ -401,7 +402,7 @@ def patient_severity(request, pid):
         patientlist=Patient.objects.filter(
             hospital__id__contains=request.user.profile.hospital.id,
             display_dashboard=True,
-        ),
+        ).order_by(sort_policy),
         
         pid=pid,
          # 복약 결과, 도말배양 관련
@@ -490,6 +491,10 @@ def get_monthly_dayList_int(date):
     return day_list
 
 def get_static_sideEffect(results: MedicationResult):
+    """
+    input : medication result Queryset
+    output : 퍼센테이지 값 List
+    """
     rst = {
         "식욕 감소": 0, 
         "메스꺼움": 0, 

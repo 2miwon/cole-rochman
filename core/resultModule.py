@@ -20,7 +20,7 @@ def get_last_info_mdResult(days: int, pid: int):
     tday = timezone.now()
     thirty_days_ago = tday - timedelta(days)
     return MedicationResult.objects.filter(patient__id__contains=pid, 
-                                           date__range=(thirty_days_ago, tday)).order_by('-medication_time')[:days]
+                                           date__range=(thirty_days_ago, tday)).order_by('-date')[:days]
 
 def get_total_success(pid: int):
     """
