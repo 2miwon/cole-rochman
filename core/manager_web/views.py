@@ -406,16 +406,11 @@ def patient_severity(request, pid):
         
         pid=pid,
          # 복약 결과, 도말배양 관련
-        total_medi = len(total_mdresult),
         count_succ = count_succ,
         per_succ = per_succ,   
         count_side = count_side,
         per_side = per_side,
         side_effect_static = get_static_sideEffect(month_mdresult),
-
-        prev_week=prev_week(week_date),
-        next_week=next_week(week_date),
-        weekday_list = get_weekday_list(week_date),
         monthly_severity = get_likert_score_by_symptom(symptom_db, side_effect),
         side_effect = side_effect
     )
