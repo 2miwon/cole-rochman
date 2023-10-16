@@ -28,7 +28,11 @@
       </div>
       <span>도말배양</span>
   </button>
-  <button onclick="location.href='{% url 'severity' %}'">
+  {% if pid is None %}
+    <button onclick="location.href='{% url 'severity' %}'">
+  {% else %}
+    <button onclick="location.href='{% url 'patient_severity' pid %}'">
+  {% endif %}
       <div class="icon_wrapper {% if request.resolver_match.url_name == 'severity' or request.resolver_match.url_name == 'patient_severity' %}active{% endif %}">
         {% if request.resolver_match.url_name == 'severity' or request.resolver_match.url_name == 'patient_severity'%}
           <img class="nav_icon" src={% static "media/icons/pill_icon.png" %} alt="돌아가기" />

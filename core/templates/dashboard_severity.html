@@ -339,9 +339,6 @@
           data: dataSet.map(([day,value])=> value?.frequency),
           backgroundColor: [
             '#2E65F3',
-            '#2E65F3CC',
-            '#2E65F380',
-            '#DCECFB'
           ],
           borderWidth: 0,
           borderRadius: 0,
@@ -360,9 +357,6 @@
         plugins: {
           tooltip : {
             callbacks : {
-              //label: function (context) {
-              //  return context.toString()
-              // },
               labelTextColor: function (tooltipItem, chart) {
                 return 'rgba(255,255,255,1)'
               }
@@ -388,9 +382,6 @@
           data: dataSet.map(([day,value])=> value?.intensity),
           backgroundColor: [
             '#2E65F3',
-            '#2E65F3CC',
-            '#2E65F380',
-            '#DCECFB'
           ],
           borderWidth: 0,
           borderRadius: 0,
