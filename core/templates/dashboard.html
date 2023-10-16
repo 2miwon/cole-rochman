@@ -244,32 +244,6 @@
       }
 
 
-      // 객담데이터
-      {% comment %} const monthlySputum = {{ monthly_sputum | safe }}
-      console.log("ms ", monthlySputum)
-      monthlySputum.map((sputum) => {
-        // console.log(sputum.fields.insp_date.slice(5).replace("-","."))
-        // document.getElementById(sputum.fields.insp_date.slice(5).replace("-",".")).innerHTML = `<span>${sputum.fields.smear_result}</span>`
-        console.log(parseInt(sputum.fields.insp_date.slice(8)))
-        const sputumMonthBox = document.createElement("div")
-        sputumMonthBox.classList = "sputum_box_month"
-        sputumMonthBox.innerHTML = `<span>${sputum.fields.smear_result}</span>`
-        document.getElementById(parseInt(sputum.fields.insp_date.slice(8))).appendChild(sputumMonthBox)
-      }) {% endcomment %}
-
-      // 달력 버튼
-      {% comment %} const calendarSideEffectBtn = document.querySelector("#calendar_switch_button_sideeffect")
-      const calendarResultBtn = document.querySelector("#calendar_switch_button_result")
-      calendarSideEffectBtn.addEventListener("click", handleCalendarBtnClick)
-      calendarResultBtn.addEventListener("click", handleCalendarBtnClick) 
-      function handleCalendarBtnClick(e) {
-        calendarSideEffectBtn.classList = ""
-        calendarResultBtn.classList = ""
-        e.target.classList.add("active")
-      }
-      {% endcomment %}
-
-
       // 환자 목록 위치 고정
       const searchInput = document.getElementById('myInput');
       const patientList = document.getElementById("myUL");
@@ -456,14 +430,12 @@
     let sideEffectPercents = [];
 
     for (const key in setValue) {
-      console.log("key", key)
       if (setValue[key] !== 0) {
         sideEffectLabels.push(key);
         sideEffectPercents.push(setValue[key]);
       }
     }
 
-    console.log("labels", sideEffectLabels, "percents", sideEffectPercents)
 
     var mySideEffectType = new Chart(set, {
       type: 'doughnut',
