@@ -378,10 +378,10 @@ def patient_severity(request, pid):
     # 복약 chart
     context = set_default_context(request, pid)
 
-    month_mdresult = get_last_info_mdResult(21, pid) 
+    month_mdresult = get_last_info_mdResult(28, pid) 
     total_mdresult = get_total_info_mdResult(pid)
     count_succ = get_total_success(pid)
-    count_side = get_last_sideeffect(21, month_mdresult)
+    count_side = get_last_sideeffect(28, month_mdresult)
     if len(total_mdresult) != 0:
         per_succ = int(100 * count_succ / len(total_mdresult))
     else:
