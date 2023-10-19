@@ -376,7 +376,8 @@ def severity(request):
 def patient_severity(request, pid):
     # context = set_default_context(request, pid)
     # 복약 chart
-    sort_policy = request.GET.get('sort', '-id')
+    context = set_default_context(request, pid)
+
     month_mdresult = get_last_info_mdResult(21, pid) 
     total_mdresult = get_total_info_mdResult(pid)
     count_succ = get_total_success(pid)
@@ -397,13 +398,7 @@ def patient_severity(request, pid):
     # queryString 추출
     side_effect = request.GET.get("side_effect", "식욕 감소")
 
-    context = dict(
-        clickedpatient=Patient.objects.filter(id=pid),
-        patientlist=Patient.objects.filter(
-            hospital__id__contains=request.user.profile.hospital.id,
-            display_dashboard=True,
-        ).order_by(sort_policy),
-        
+    context.update(dict(
         pid=pid,
          # 복약 결과, 도말배양 관련
         count_succ = count_succ,
@@ -413,7 +408,7 @@ def patient_severity(request, pid):
         side_effect_static = get_static_sideEffect(month_mdresult),
         monthly_severity = get_likert_score_by_symptom(symptom_db, side_effect),
         side_effect = side_effect
-    )
+    ))
     debug_context(context)
     return render(request, "dashboard_severity.html", context)
 
@@ -563,7 +558,7 @@ def make_likert(db_val: str) -> int:
     elif db_val in ["거의 항상 있다", "매우 심하다", "매우 많이 주었다"]:
         return 4
     else:
-        return 0
+        return 0.1
     
 def transform_likert(symptom_list: dict, symptom_name: str) -> dict:
     # return {i: make_likert_list(symptom_list[i]) for i in symptom_list}
