@@ -388,7 +388,6 @@ def patient_severity(request, pid):
         per_succ = 0
     per_side = int(100 * count_side / 30)
     week_date = get_date(request.GET.get("week", None))
-
     symptom_db = MedicationResult.objects.filter(
             patient__id__contains=pid,
             date__gte=get_date_by_weekday(navigete_week(week_date, -3), 1),
@@ -558,7 +557,7 @@ def make_likert(db_val: str) -> int:
     elif db_val in ["거의 항상 있다", "매우 심하다", "매우 많이 주었다"]:
         return 4
     else:
-        return 0.1
+        return 0.2
     
 def transform_likert(symptom_list: dict, symptom_name: str) -> dict:
     # return {i: make_likert_list(symptom_list[i]) for i in symptom_list}
@@ -570,8 +569,8 @@ def transform_likert(symptom_list: dict, symptom_name: str) -> dict:
         }
     else:
         return {
-            "frequency": 0,
-            "intensity": 0,
+            "frequency": 0.1,
+            "intensity": 0.1,
             # "daily_trouble": 0,
         }   
 
