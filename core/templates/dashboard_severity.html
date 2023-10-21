@@ -295,28 +295,39 @@
     const monthlySeverity = {{ monthly_severity|safe }}
 
     const dataSet = Object.entries(monthlySeverity)
-    dataSet.pop()
-    // console.log(dataSet)
-    // [ 
-    // ["23.10.01", {frequency: 0, intensity: 2}], 
-    // ['23.09.30', {frequency: 0, intensity: 0}],
-    // ['23.09.29', {frequency: 0, intensity: 0}],
-    // ['23.09.28', {frequency: 0, intensity: 2}],
-    // ['23.09.27', {frequency: 0, intensity: 2}],
-    // ] 
+    dataSet.sort((a,b) => parseInt(a[0].replaceAll(".", "")) - parseInt(b[0].replaceAll(".","")))
+    console.log("sorted dataSet", dataSet)
 
-    // console.log("0", dataSet.map(([day, value], index)=> {if (index % 7 == 0) {return value.frequency}}).filter(i=> i !== undefined ))
-    // console.log("1", dataSet.map(([day, value], index)=> {if (index % 7 == 1) {return value.frequency}}).filter(i=> i !== undefined ))
-    // console.log("2", dataSet.map(([day, value], index)=> {if (index % 7 == 2) {return value.frequency}}).filter(i=> i !== undefined ))
-    // console.log("3", dataSet.map(([day, value], index)=> {if (index % 7 == 3) {return value.frequency}}).filter(i=> i !== undefined ))
-    // console.log("4", dataSet.map(([day, value], index)=> {if (index % 7 == 4) {return value.frequency}}).filter(i=> i !== undefined ))
-    // console.log("5", dataSet.map(([day, value], index)=> {if (index % 7 == 5) {return value.frequency}}).filter(i=> i !== undefined ))
-    // console.log("6", dataSet.map(([day, value], index)=> {if (index % 7 == 6) {return value.frequency}}).filter(i=> i !== undefined ))
 
 
     const dayOne = dataSet.map((item, idx) => idx % 7 == 0 ? item[0] + " ~ " : false).filter(item=> item !== false)
-    const daySix = dataSet.map((item, idx)=> idx % 7 == 6 ? item[0] : false).filter(i => i !== false)
-    const labels = dayOne.map((item, idx)=> item + daySix[idx])
+    const daySeven = dataSet.map((item, idx)=> idx % 7 == 6 ? item[0] : false).filter(i => i !== false)
+
+    if (daySeven.length === 3) {
+      daySeven.push(dataSet[dataSet.length - 1][0])
+    }
+
+    const labels = dayOne.map((item, idx)=> item + daySeven[idx])
+
+    const mondays = []
+    const tuesdays = []
+    const wednesdays = []
+    const thursdays = []
+    const fridays = []
+    const saturdays = []
+    const sundays = []
+
+    dataSet.map(([day, value], index)=> {if (index % 7 == 0) {mondays.push(value)}
+                                         else if (index  % 7 == 1) {tuesdays.push(value)} 
+                                         else if (index  % 7 == 2) {wednesdays.push(value)} 
+                                         else if (index  % 7 == 3) {thursdays.push(value)} 
+                                         else if (index  % 7 == 4) {fridays.push(value)} 
+                                         else if (index  % 7 == 5) {saturdays.push(value)} 
+                                         else if (index  % 7 == 6) {sundays.push(value)}})
+
+    const severityColors = ['#DADADA', '#ECDAC0', '#E3AD96', '#CF4545']
+    const frequencyColors = ['#DADADA', '#AABCE9', '#5E85E9', '#083098']
+
 
     const severity = document.getElementById("mySeverityChart");
     var mySideEffectType = new Chart(severity, {
@@ -326,59 +337,52 @@
         datasets: [
         {
           label: 'monday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 0) {return value.intensity}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#DADADA'
-          ],
+          data: mondays.map(e => e.intensity),
+          backgroundColor: mondays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '0',
+          borderRadius: 10
         },
         {
           label: 'tuesday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 1) {return value.intensity}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#ECDAC0',
-          ],
+          data: tuesdays.map(e => e.intensity),
+          backgroundColor: tuesdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '1',
+          borderRadius: 10
         },
         {
           label: 'wednesday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 2) {return value.intensity}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#E3AD96'
-          ],
+          data: wednesdays.map(e => e.intensity),
+          backgroundColor: wednesdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '2',
+          borderRadius: 10
         },
         {
           label: 'thursday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 3) {return value.intensity}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#CF4545'
-          ],
+          data: thursdays.map(e => e.intensity),
+          backgroundColor: thursdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '3',
+          borderRadius: 10
         },
         {
           label: 'friday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 4) {return value.intensity}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#DADADA'
-          ],
+          data: fridays.map(e => e.intensity),
+          backgroundColor: fridays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '4',
+          borderRadius: 10
         },
         {
           label: 'saturday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 5) {return value.intensity}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#ECDAC0',
-          ],
+          data: saturdays.map(e => e.intensity),
+          backgroundColor: saturdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '5',
+          borderRadius: 10
         },
         {
           label: 'sunday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 6) {return value.intensity}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#E3AD96',
-          ],
+          data: sundays.map(e => e.intensity),
+          backgroundColor: sundays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '6',
+          borderRadius: 10
         },
         ]
       },
@@ -420,59 +424,52 @@
         datasets: [
         {
           label: 'monday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 0) {return value.frequency}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#2E65F3'
-          ],
+          data: mondays.map(e=> e.frequency),
+          backgroundColor: mondays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '0',
+          borderRadius: 10
         },
         {
           label: 'tuesday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 1) {return value.frequency}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#2E65F3CC',
-          ],
+          data: tuesdays.map(e=> e.frequency),
+          backgroundColor: tuesdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '1',
+          borderRadius: 10
         },
         {
           label: 'wednesday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 2) {return value.frequency}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#2E65F380'
-          ],
+          data: wednesdays.map(e=> e.frequency),
+          backgroundColor: wednesdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '2',
+          borderRadius: 10
         },
         {
           label: 'thursday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 3) {return value.frequency}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#DCECFB'
-          ],
+          data: thursdays.map(e=> e.frequency),
+          backgroundColor: thursdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '3',
+          borderRadius: 10
         },
         {
           label: 'friday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 4) {return value.frequency}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#2E65F3'
-          ],
+          data: fridays.map(e=> e.frequency),
+          backgroundColor: fridays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '4',
+          borderRadius: 10
         },
         {
           label: 'saturday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 5) {return value.frequency}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#2E65F3CC',
-          ],
+          data: saturdays.map(e=> e.frequency),
+          backgroundColor: saturdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '5',
+          borderRadius: 10
         },
         {
           label: 'sunday',
-          data: dataSet.map(([day, value], index)=> {if (index % 7 == 6) {return value.frequency}}).filter(i => i !== undefined),
-          backgroundColor: [
-            '#2E65F380',
-          ],
+          data: sundays.map(e=> e.frequency),
+          backgroundColor: sundays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '6',
+          borderRadius: 10
         },
         ]
       },
