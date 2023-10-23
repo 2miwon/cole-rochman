@@ -1,1 +1,1 @@
-python3 manage.py runserver 0.0.0.0:8080 --settings=cole_rochman.settings.dev(alarm_venv)
+python3 manage.py runserver 0.0.0.0:8080 --settings=cole_rochman.settings.dev
