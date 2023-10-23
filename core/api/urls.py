@@ -5,7 +5,7 @@ from core.api.views.general import ResponseAlwaysOK
 from core.api.views.measurements import PatientMeasurementEntrance, PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime, PatientMeasurementRestart, PatientMeasurementNotiReset
 from core.api.views.measurements_notification import MeasurementResultCheck, MeasurementResultCheckFromNotification
 from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart
-from core.api.views.medications_notification import PastMedicationSuccess, PastMedicationFailed, PastMedicationEntrance, PastMedicationSelect, PastMedicationSideEffect, PastMedicationSideEffect_N01, PastMedicationSideEffect_N02, PastMedicationSideEffect_N03, PastMedicationSideEffect_N04, PastMedicationSideEffect_N05, PastMedicationSideEffect_N06, PastMedicationSideEffect_N07, PastMedicationSideEffect_N08, PastMedicationSideEffect_N09, PastMedicationSideEffect_N10, PastMedicationSideEffect_N11 
+from core.api.views.medications_notification import PastMedicationSuccess, PastMedicationFailed, PastMedicationEntrance, PastMedicationSideEffect, PastMedicationSideEffect_N01, PastMedicationSideEffect_N02, PastMedicationSideEffect_N03, PastMedicationSideEffect_N04, PastMedicationSideEffect_N05, PastMedicationSideEffect_N06, PastMedicationSideEffect_N07, PastMedicationSideEffect_N08, PastMedicationSideEffect_N09, PastMedicationSideEffect_N10, PastMedicationSideEffect_N11 
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_measurements_notification import ValidateMeasurementResultOxygenSaturation
@@ -37,8 +37,6 @@ urlpatterns = [
      path('patients/medication/past-check/failed/', PastMedicationFailed.as_view(),
           name='patients-medication-past-check-failed'),
      
-     path('patients/medication/past-check/select/', PastMedicationSelect.as_view(),
-          name='patients-medication-past-check-select'),
      path('patients/medication/past-check/side-effect/', PastMedicationSideEffect.as_view(),
           name='patients-medication-past-check-side-effect'),
      path('patients/medication/past-check/side-effect_N01/', PastMedicationSideEffect_N01.as_view(),

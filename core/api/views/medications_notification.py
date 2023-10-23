@@ -123,30 +123,6 @@ class PastMedicationFailed(KakaoResponseAPI):
         )
         return response.get_response_200()
 
-class PastMedicationSelect(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-
-        severity_name = self.data.get('severity_name')
-
-        response.add_simple_text(text='%s 부작용이 맞나요?' % severity_name)
-        response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6536cf0d38847e467d0c81d2', # 부작용 정도
-                block_id_for_no='6536e131be6c65335ac4b798', # 부작용 카테고리
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        # response.add_quick_reply(
-        #     action='block', label='부작용 확인',
-        #     block_id='6536ceea570ff703f08b5ff8'  # (블록) Generic_시작하기 처음으로
-        # )
-        return response.get_response_200()
-
 class PastMedicationSideEffect(KakaoResponseAPI):
     serializer_class = PatientUpdateSerializer
     model_class = serializer_class.Meta.model
