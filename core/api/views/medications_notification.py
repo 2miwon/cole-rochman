@@ -112,7 +112,7 @@ class PastMedicationFailed(KakaoResponseAPI):
             patient = self.get_object_by_kakao_user_id()
         except Http404:
             return self.build_response_fallback_404()
-
+        
         recent_medication_result = get_recent_medication_result(patient)
         recent_medication_result.set_failed()
         recent_medication_result.save()
@@ -132,11 +132,19 @@ class PastMedicationSelect(KakaoResponseAPI):
         self.preprocess(request)
         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
-        # response.add_simple_text(text='%s님, 다음 회차에는 꼭 복약하셔야합니다. 제가 늘 응원하고 있습니다!👍' % patient.nickname)
-        response.add_quick_reply(
-            action='block', label='부작용 카테고리',
-            block_id='5f1fc0b81e753d00010430f2'  # (블록) Generic_시작하기 처음으로
-        )
+        severity_name = self.data.get('severity_name')
+
+        response.add_simple_text(text='%s 부작용이 맞나요?' % severity_name)
+        response.set_quick_replies_yes_or_no(
+                block_id_for_yes='6536cf0d38847e467d0c81d2', # 부작용 정도
+                block_id_for_no='6536e131be6c65335ac4b798', # 부작용 카테고리
+                message_text_for_yes='예',
+                message_text_for_no='아니요'
+            )
+        # response.add_quick_reply(
+        #     action='block', label='부작용 확인',
+        #     block_id='6536ceea570ff703f08b5ff8'  # (블록) Generic_시작하기 처음으로
+        # )
         return response.get_response_200()
 
 class PastMedicationSideEffect(KakaoResponseAPI):
