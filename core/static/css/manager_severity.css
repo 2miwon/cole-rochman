@@ -158,6 +158,10 @@ section > h2 {
   gap: 10px;
 }
 
+#sort_button_wrapper button {
+  font-weight: 600;
+}
+
 .active {
   color: var(--bg-color-blue);
 }
@@ -236,10 +240,11 @@ section > h2 {
   justify-content: space-between;
 }
 .date_and_button_wrapper input {
-  font-size: 1.2rem;
+  width: 200px;
   padding: 5px;
   border-radius: 5px;
   border: 1px solid var(--bg-color-gray);
+  font-family: "Noto Sans KR";
 }
 
 #select_date_button {
@@ -395,6 +400,28 @@ section > h2 {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.bar_chart_legend {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 0.7em;
+  align-items: center;
+}
+
+.bar_chart_legend > div {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: center;
+}
+
+.legend_color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #8193c3;
 }
 
 .btn_active {

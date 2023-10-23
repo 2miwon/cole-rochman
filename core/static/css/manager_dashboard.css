@@ -158,6 +158,10 @@ section > h2 {
   gap: 10px;
 }
 
+#sort_button_wrapper button {
+  font-weight: 600;
+}
+
 .active {
   color: var(--bg-color-blue);
 }

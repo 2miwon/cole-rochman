@@ -80,6 +80,28 @@
             <div class="severity_box bg_white_round">
               <div class="bar_chart_header">
                 <h3> 각 부작용 강도 </h3>
+                <div class="bar_chart_legend">
+                  <div>
+                    <div style="background-color:#CF4545" class="legend_color"></div>
+                    <span>매우 심함</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#E3AD96" class="legend_color"></div>
+                    <span>심함</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#ECDAC0" class="legend_color"></div>
+                    <span>보통</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#DADADA" class="legend_color"></div>
+                    <span>약간 있음</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#DADADA" class="legend_color"></div>
+                    <span>없음</span>
+                  </div>
+                </div>
               </div>
               <div class="bar_chart">
                 
@@ -89,6 +111,28 @@
             <div class="severity_box bg_white_round">
               <div class="bar_chart_header">
                 <h3> 각 부작용 빈도 </h3>
+                <div class="bar_chart_legend">
+                  <div>
+                    <div style="background-color:#083098" class="legend_color"></div>
+                    <span>거의 항상</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#5E85E9" class="legend_color"></div>
+                    <span>자주</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#AABCE9" class="legend_color"></div>
+                    <span>가끔</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#DADADA" class="legend_color"></div>
+                    <span>드물음</span>
+                  </div>
+                  <div>
+                    <div style="background-color:#DADADA" class="legend_color"></div>
+                    <span>없음</span>
+                  </div>
+                </div>
               </div>
               <div class="bar_chart">
                 
@@ -326,8 +370,8 @@
                                          else if (index  % 7 == 5) {saturdays.push(value)} 
                                          else if (index  % 7 == 6) {sundays.push(value)}})
 
-    const severityColors = ['#DADADA', '#ECDAC0', '#E3AD96', '#CF4545']
-    const frequencyColors = ['#DADADA', '#AABCE9', '#5E85E9', '#083098']
+    const severityColors = ['#DADADA', '#DADADA', '#ECDAC0', '#E3AD96', '#CF4545']
+    const frequencyColors = ['#DADADA', '#DADADA', '#AABCE9', '#5E85E9', '#083098']
 
 
     const severity = document.getElementById("mySeverityChart");
@@ -341,61 +385,80 @@
           data: mondays.map(e => e.intensity),
           backgroundColor: mondays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '0',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '화요일',
           data: tuesdays.map(e => e.intensity),
           backgroundColor: tuesdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '1',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '수요일',
           data: wednesdays.map(e => e.intensity),
           backgroundColor: wednesdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '2',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '목요일',
           data: thursdays.map(e => e.intensity),
           backgroundColor: thursdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '3',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '금요일',
           data: fridays.map(e => e.intensity),
           backgroundColor: fridays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '4',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '토요일',
           data: saturdays.map(e => e.intensity),
           backgroundColor: saturdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '5',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '일요일',
           data: sundays.map(e => e.intensity),
           backgroundColor: sundays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '6',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         ]
       },
       options: {
         responsive: true,
         scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
           y: {
             ticks: {
               stepSize: 1
             },
             min: 0,
-            max : 3
+            max: 4
           }
         },
         plugins: {
@@ -428,61 +491,80 @@
           data: mondays.map(e=> e.frequency),
           backgroundColor: mondays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '0',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '화요일',
           data: tuesdays.map(e=> e.frequency),
           backgroundColor: tuesdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '1',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '수요일',
           data: wednesdays.map(e=> e.frequency),
           backgroundColor: wednesdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '2',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '목요일',
           data: thursdays.map(e=> e.frequency),
           backgroundColor: thursdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '3',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '금요일',
           data: fridays.map(e=> e.frequency),
           backgroundColor: fridays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '4',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '토요일',
           data: saturdays.map(e=> e.frequency),
           backgroundColor: saturdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '5',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         {
           label: '일요일',
           data: sundays.map(e=> e.frequency),
           backgroundColor: sundays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '6',
-          // borderRadius: 10
+          borderRadius: 10,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7
         },
         ]
       },
       options: {
         responsive: true,
         scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
           y: {
             ticks: {
               stepSize: 1,
             },
             min: 0,
-            max: 3
+            max: 4
           }
         },
         plugins: {
