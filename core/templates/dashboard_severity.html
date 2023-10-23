@@ -205,7 +205,7 @@
           data: [sefValue, 100 - sefValue],
           backgroundColor: ['#2E65F3', '#DCECFB'],
           borderWidth: 0,
-          borderRadius: 30,
+          // borderRadius: 30,
         }]
       },
       options: {
@@ -248,7 +248,7 @@
             '#DCECFB'
           ],
           borderWidth: 0,
-          borderRadius: 0,
+          // borderRadius: 0,
           scaleBeginAtZero: true,
         }]
       },
@@ -302,10 +302,11 @@
 
     const dayOne = dataSet.map((item, idx) => idx % 7 == 0 ? item[0] + " ~ " : false).filter(item=> item !== false)
     const daySeven = dataSet.map((item, idx)=> idx % 7 == 6 ? item[0] : false).filter(i => i !== false)
-
-    if (daySeven.length === 3) {
+    console.log("daySeven",daySeven)
+    if (daySeven.length < 4) {
       daySeven.push(dataSet[dataSet.length - 1][0])
     }
+    console.log("daySeven",daySeven)
 
     const labels = dayOne.map((item, idx)=> item + daySeven[idx])
 
@@ -336,53 +337,53 @@
         labels: labels,
         datasets: [
         {
-          label: 'monday',
+          label: '월요일',
           data: mondays.map(e => e.intensity),
-          backgroundColor: mondays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
+          backgroundColor: mondays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '0',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'tuesday',
+          label: '화요일',
           data: tuesdays.map(e => e.intensity),
-          backgroundColor: tuesdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
+          backgroundColor: tuesdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '1',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'wednesday',
+          label: '수요일',
           data: wednesdays.map(e => e.intensity),
-          backgroundColor: wednesdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
+          backgroundColor: wednesdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '2',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'thursday',
+          label: '목요일',
           data: thursdays.map(e => e.intensity),
-          backgroundColor: thursdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
+          backgroundColor: thursdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '3',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'friday',
+          label: '금요일',
           data: fridays.map(e => e.intensity),
-          backgroundColor: fridays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
+          backgroundColor: fridays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '4',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'saturday',
+          label: '토요일',
           data: saturdays.map(e => e.intensity),
-          backgroundColor: saturdays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
+          backgroundColor: saturdays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '5',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'sunday',
+          label: '일요일',
           data: sundays.map(e => e.intensity),
-          backgroundColor: sundays.map(e=> {return (e.intensity == 0.1) ? severityColors[0] : severityColors[e.intensity]}),
+          backgroundColor: sundays.map(e=> {return (e.intensity < 1) ? severityColors[0] : severityColors[e.intensity]}),
           stack: '6',
-          borderRadius: 10
+          // borderRadius: 10
         },
         ]
       },
@@ -423,53 +424,53 @@
         labels: labels,
         datasets: [
         {
-          label: 'monday',
+          label: '월요일',
           data: mondays.map(e=> e.frequency),
-          backgroundColor: mondays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
+          backgroundColor: mondays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '0',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'tuesday',
+          label: '화요일',
           data: tuesdays.map(e=> e.frequency),
-          backgroundColor: tuesdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
+          backgroundColor: tuesdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '1',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'wednesday',
+          label: '수요일',
           data: wednesdays.map(e=> e.frequency),
-          backgroundColor: wednesdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
+          backgroundColor: wednesdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '2',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'thursday',
+          label: '목요일',
           data: thursdays.map(e=> e.frequency),
-          backgroundColor: thursdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
+          backgroundColor: thursdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '3',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'friday',
+          label: '금요일',
           data: fridays.map(e=> e.frequency),
-          backgroundColor: fridays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
+          backgroundColor: fridays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '4',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'saturday',
+          label: '토요일',
           data: saturdays.map(e=> e.frequency),
-          backgroundColor: saturdays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
+          backgroundColor: saturdays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '5',
-          borderRadius: 10
+          // borderRadius: 10
         },
         {
-          label: 'sunday',
+          label: '일요일',
           data: sundays.map(e=> e.frequency),
-          backgroundColor: sundays.map(e=> {return (e.frequency == 0.1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
+          backgroundColor: sundays.map(e=> {return (e.frequency < 1) ? frequencyColors[0] : frequencyColors[e.frequency]}),
           stack: '6',
-          borderRadius: 10
+          // borderRadius: 10
         },
         ]
       },
