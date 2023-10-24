@@ -180,586 +180,586 @@ class PastMedicationSideEffect(KakaoResponseAPI):
 
 
 # 복약부작용 체크 (기본으로 주는 보기 10개 + 기타까지 11개의 함수가 있음)
-class PastMedicationSideEffect_N01(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
+# class PastMedicationSideEffect_N01(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
         
-        recent_medication_result = get_recent_medication_result(patient)
+#         recent_medication_result = get_recent_medication_result(patient)
         
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='식욕 감소', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='식욕 감소', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='식욕 감소', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='식욕 감소', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
 
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
 
-class PastMedicationSideEffect_N02(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
+# class PastMedicationSideEffect_N02(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
         
-        recent_medication_result = get_recent_medication_result(patient)
+#         recent_medication_result = get_recent_medication_result(patient)
         
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='메스꺼움', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='메스꺼움', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
-
-        
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
-
-class PastMedicationSideEffect_N03(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
-        
-        recent_medication_result = get_recent_medication_result(patient)
-        
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='구토', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='구토', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='메스꺼움', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='메스꺼움', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
 
         
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
 
-class PastMedicationSideEffect_N04(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
+# class PastMedicationSideEffect_N03(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
         
-        recent_medication_result = get_recent_medication_result(patient)
+#         recent_medication_result = get_recent_medication_result(patient)
         
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='속 쓰림', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='속 쓰림', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
-
-        
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
-
-class PastMedicationSideEffect_N05(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
-        
-        recent_medication_result = get_recent_medication_result(patient)
-        
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='무른 변/설사', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='무른 변/설사', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='구토', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='구토', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
 
         
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
 
-class PastMedicationSideEffect_N06(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
+# class PastMedicationSideEffect_N04(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
         
-        recent_medication_result = get_recent_medication_result(patient)
+#         recent_medication_result = get_recent_medication_result(patient)
         
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='피부 발진', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='피부 발진', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
-
-        
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
-
-class PastMedicationSideEffect_N07(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
-        
-        recent_medication_result = get_recent_medication_result(patient)
-        
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='가려움증', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='가려움증', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='속 쓰림', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='속 쓰림', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
 
         
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
 
-class PastMedicationSideEffect_N08(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
+# class PastMedicationSideEffect_N05(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
         
-        recent_medication_result = get_recent_medication_result(patient)
+#         recent_medication_result = get_recent_medication_result(patient)
         
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='시야장애', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='시야장애', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
-
-        
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
-
-class PastMedicationSideEffect_N09(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
-        
-        recent_medication_result = get_recent_medication_result(patient)
-        
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='관절통', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='관절통', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='무른 변/설사', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='무른 변/설사', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
 
         
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
 
-class PastMedicationSideEffect_N10(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
+# class PastMedicationSideEffect_N06(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
 
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
 
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
         
-        recent_medication_result = get_recent_medication_result(patient)
+#         recent_medication_result = get_recent_medication_result(patient)
         
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name='피로', severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name='피로', severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
-
-        
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
-
-class PastMedicationSideEffect_N11(KakaoResponseAPI):
-    serializer_class = PatientUpdateSerializer
-    model_class = serializer_class.Meta.model
-    queryset = model_class.objects.all()
-
-    def post(self, request, format='json', *args, **kwargs):
-        self.preprocess(request)
-        response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
-
-        try:
-            patient = self.get_object_by_kakao_user_id()
-        except Http404:
-            return self.build_response_fallback_404()
-        
-        recent_medication_result = get_recent_medication_result(patient)
-        
-        name = self.data.get('symptom_name')
-        if self.data.get('symptom_severity1'):
-            severity1 = self.data.get('symptom_severity1')
-        else:
-            severity1 = '선택 없음'
-        if self.data.get('symptom_severity2'):
-            severity2 = self.data.get('symptom_severity2')
-        else:
-            severity2 = '선택 없음'
-        if self.data.get('symptom_severity3'):
-            severity3 = self.data.get('symptom_severity3')
-        else:
-            severity3 = '선택 없음'
-        if recent_medication_result.symptom_name:
-            recent_medication_result.add_side_effect(name=name, severity1=severity1, severity2=severity2, severity3=severity3)
-        else:
-            recent_medication_result.set_side_effect(name=name, severity1=severity1, severity2=severity2, severity3=severity3)
-        recent_medication_result.save()
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='피부 발진', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='피부 발진', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
 
         
-        if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
-            response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
-                block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
-                message_text_for_yes='예',
-                message_text_for_no='아니요'
-            )
-        else:
-            response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
-            response.set_quick_replies_yes_or_no(
-                block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
-                block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
-                message_text_for_yes='예(부작용 카테고리로)',
-                message_text_for_no='아니요(처음으로)'
-            )
-        return response.get_response_200()
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
+
+# class PastMedicationSideEffect_N07(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
+
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
+        
+#         recent_medication_result = get_recent_medication_result(patient)
+        
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='가려움증', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='가려움증', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
+
+        
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
+
+# class PastMedicationSideEffect_N08(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
+
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
+        
+#         recent_medication_result = get_recent_medication_result(patient)
+        
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='시야장애', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='시야장애', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
+
+        
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
+
+# class PastMedicationSideEffect_N09(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
+
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
+        
+#         recent_medication_result = get_recent_medication_result(patient)
+        
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='관절통', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='관절통', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
+
+        
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
+
+# class PastMedicationSideEffect_N10(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
+
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
+        
+#         recent_medication_result = get_recent_medication_result(patient)
+        
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name='피로', severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name='피로', severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
+
+        
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
+
+# class PastMedicationSideEffect_N11(KakaoResponseAPI):
+#     serializer_class = PatientUpdateSerializer
+#     model_class = serializer_class.Meta.model
+#     queryset = model_class.objects.all()
+
+#     def post(self, request, format='json', *args, **kwargs):
+#         self.preprocess(request)
+#         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
+
+#         try:
+#             patient = self.get_object_by_kakao_user_id()
+#         except Http404:
+#             return self.build_response_fallback_404()
+        
+#         recent_medication_result = get_recent_medication_result(patient)
+        
+#         name = self.data.get('symptom_name')
+#         if self.data.get('symptom_severity1'):
+#             severity1 = self.data.get('symptom_severity1')
+#         else:
+#             severity1 = '선택 없음'
+#         if self.data.get('symptom_severity2'):
+#             severity2 = self.data.get('symptom_severity2')
+#         else:
+#             severity2 = '선택 없음'
+#         if self.data.get('symptom_severity3'):
+#             severity3 = self.data.get('symptom_severity3')
+#         else:
+#             severity3 = '선택 없음'
+#         if recent_medication_result.symptom_name:
+#             recent_medication_result.add_side_effect(name=name, severity1=severity1, severity2=severity2, severity3=severity3)
+#         else:
+#             recent_medication_result.set_side_effect(name=name, severity1=severity1, severity2=severity2, severity3=severity3)
+#         recent_medication_result.save()
+
+        
+#         if (severity2=='매우 심하다' or severity3=='매우 많이 주었다'):
+#             response.add_simple_text(text='혹시 해당 부작용과 관련하여 상담원 연결을 원하십니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='6309bb67afbe4b38b58c1609', # (블록) 상담원 연결
+#                 block_id_for_no='62fe8a908a1240569898eb17', # (블록) 부작용 기록 완료
+#                 message_text_for_yes='예',
+#                 message_text_for_no='아니요'
+#             )
+#         else:
+#             response.add_simple_text(text='부작용 기록을 완료했습니다.\n다른 부작용을 추가로 기록하시겠습니까?')
+#             response.set_quick_replies_yes_or_no(
+#                 block_id_for_yes='63057f66afbe4b38b58bceac',  # (블록) 부작용 카테고리
+#                 block_id_for_no='5d732d1b92690d0001813d45',  # (블록) Generic_시작하기 처음으로
+#                 message_text_for_yes='예(부작용 카테고리로)',
+#                 message_text_for_no='아니요(처음으로)'
+#             )
+#         return response.get_response_200()
 
 
