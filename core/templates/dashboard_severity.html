@@ -97,10 +97,10 @@
                     <div style="background-color:#DADADA" class="legend_color"></div>
                     <span>약간 있음</span>
                   </div>
-                  <div>
+                  {% comment %} <div>
                     <div style="background-color:#DADADA" class="legend_color"></div>
                     <span>없음</span>
-                  </div>
+                  </div> {% endcomment %}
                 </div>
               </div>
               <div class="bar_chart">
@@ -128,10 +128,10 @@
                     <div style="background-color:#DADADA" class="legend_color"></div>
                     <span>드물음</span>
                   </div>
-                  <div>
+                  {% comment %} <div>
                     <div style="background-color:#DADADA" class="legend_color"></div>
                     <span>없음</span>
-                  </div>
+                  </div> {% endcomment %}
                 </div>
               </div>
               <div class="bar_chart">
@@ -370,8 +370,8 @@
                                          else if (index  % 7 == 5) {saturdays.push(value)} 
                                          else if (index  % 7 == 6) {sundays.push(value)}})
 
-    const severityColors = ['#DADADA', '#DADADA', '#ECDAC0', '#E3AD96', '#CF4545']
-    const frequencyColors = ['#DADADA', '#DADADA', '#AABCE9', '#5E85E9', '#083098']
+    const severityColors = ['#EFEFEF', '#DADADA', '#ECDAC0', '#E3AD96', '#CF4545']
+    const frequencyColors = ['#EFEFEF', '#DADADA', '#AABCE9', '#5E85E9', '#083098']
 
 
     const severity = document.getElementById("mySeverityChart");
