@@ -464,6 +464,15 @@
         plugins: {
           tooltip : {
             callbacks : {
+              label: function (context) {
+                console.log(context)
+                if (context.formattedValue < 1) {
+                  return context.dataset.label + ": " + "없음"
+                } else {
+                  return context.dataset.label + ": " + context.formattedValue
+                }
+              },
+              
               labelTextColor: function (tooltipItem, chart) {
                 return 'rgba(255,255,255,1)'
               }
@@ -570,6 +579,14 @@
         plugins: {
           tooltip : {
             callbacks : {
+              label: function (context) {
+                console.log(context)
+                if (context.formattedValue < 1) {
+                  return context.dataset.label + ": " + "없음"
+                } else { 
+                  return context.dataset.label + ": " + context.formattedValue
+                }
+              },
               
               labelTextColor: function (tooltipItem, chart) {
                 return 'rgba(255,255,255,1)'
