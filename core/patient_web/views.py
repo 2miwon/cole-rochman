@@ -88,7 +88,6 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             if(request.user.is_superuser):
-                print("DSDS")
                 return redirect('/manager/menu')
             else:
                 return redirect('patient_dashboard')
