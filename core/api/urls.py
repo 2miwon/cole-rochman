@@ -5,7 +5,7 @@ from core.api.views.general import ResponseAlwaysOK
 from core.api.views.measurements import PatientMeasurementEntrance, PatientMeasurementNotiTimeQuestion, PatientMeasurementNotiSetTime, PatientMeasurementRestart, PatientMeasurementNotiReset
 from core.api.views.measurements_notification import MeasurementResultCheck, MeasurementResultCheckFromNotification
 from core.api.views.medications import PatientMedicationNotiTimeQuestion, PatientMedicationNotiSetTime, PatientMedicationNotiReset, PatientMedicationEntrance, PatientMedicationRestart
-from core.api.views.medications_notification import PastMedicationSuccess, PastMedicationFailed, PastMedicationEntrance, PastMedicationSideEffect#, PastMedicationSideEffect_N01, PastMedicationSideEffect_N02, PastMedicationSideEffect_N03, PastMedicationSideEffect_N04, PastMedicationSideEffect_N05, PastMedicationSideEffect_N06, PastMedicationSideEffect_N07, PastMedicationSideEffect_N08, PastMedicationSideEffect_N09, PastMedicationSideEffect_N10, PastMedicationSideEffect_N11 
+from core.api.views.medications_notification import PastMedicationSuccess, PastMedicationFailed, PastMedicationEntrance, PastMedicationSideEffect
 from core.api.views.temp import TempPatientDestroy
 from core.api.views.validation_hospitals import ValidateHospitalCode
 from core.api.views.validation_measurements_notification import ValidateMeasurementResultOxygenSaturation
@@ -39,28 +39,6 @@ urlpatterns = [
      
      path('patients/medication/past-check/side-effect/', PastMedicationSideEffect.as_view(),
           name='patients-medication-past-check-side-effect'),
-     # path('patients/medication/past-check/side-effect_N01/', PastMedicationSideEffect_N01.as_view(),
-     #      name='patients-medication-past-check-side-effect-n01'),
-     # path('patients/medication/past-check/side-effect_N02/', PastMedicationSideEffect_N02.as_view(),
-     #      name='patients-medication-past-check-side-effect-n02'),
-     # path('patients/medication/past-check/side-effect_N03/', PastMedicationSideEffect_N03.as_view(),
-     #      name='patients-medication-past-check-side-effect-n03'),
-     # path('patients/medication/past-check/side-effect_N04/', PastMedicationSideEffect_N04.as_view(),
-     #      name='patients-medication-past-check-side-effect-n04'),
-     # path('patients/medication/past-check/side-effect_N05/', PastMedicationSideEffect_N05.as_view(),
-     #     name='patients-medication-past-check-side-effect-n05'),
-     # path('patients/medication/past-check/side-effect_N06/', PastMedicationSideEffect_N06.as_view(),
-     #      name='patients-medication-past-check-side-effect-n06'),
-     # path('patients/medication/past-check/side-effect_N07/', PastMedicationSideEffect_N07.as_view(),
-     #      name='patients-medication-past-check-side-effect-n07'),
-     # path('patients/medication/past-check/side-effect_N08/', PastMedicationSideEffect_N08.as_view(),
-     #      name='patients-medication-past-check-side-effect-n08'),
-     # path('patients/medication/past-check/side-effect_N09/', PastMedicationSideEffect_N09.as_view(),
-     #      name='patients-medication-past-check-side-effect-n09'),
-     # path('patients/medication/past-check/side-effect_N10/', PastMedicationSideEffect_N10.as_view(),
-     #      name='patients-medication-past-check-side-effect-n10'),
-     # path('patients/medication/past-check/side-effect_N11/', PastMedicationSideEffect_N11.as_view(),
-     #      name='patients-medication-past-check-side-effect-n11'),
      
      path('patients/visit/start/', PatientVisitStart.as_view(), name='patient-visit-start'),
      path('patients/visit/date/set/', PatientVisitDateSet.as_view(), name='patient-visit-date-set'),

@@ -179,12 +179,12 @@ class PastMedicationSideEffect(KakaoResponseAPI):
         return response.get_response_200()
 
 
-# 복약부작용 체크 (기본으로 주는 보기 10개 + 기타까지 11개의 함수가 있음)
+# >  체크 (기본으로 주는 보기 10개 + 기타까지 11개의 함수가 있음)
 # class PastMedicationSideEffect_N01(KakaoResponseAPI):
 #     serializer_class = PatientUpdateSerializer
 #     model_class = serializer_class.Meta.model
 #     queryset = model_class.objects.all()
-
+복약부작용
 #     def post(self, request, format='json', *args, **kwargs):
 #         self.preprocess(request)
 #         response = self.build_response(response_type=KakaoResponseAPI.RESPONSE_SKILL)
