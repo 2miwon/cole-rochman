@@ -10,7 +10,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <title>결핵 환자 정보 대쉬보드</title> v
+    <title>결핵 박사 콜로크만</title>
     {% comment %} favicon {% endcomment %}
     <link rel="shortcut icon" type="image/png" href="{% static 'media/favicon/favicon.png' %}"/>
     <link rel="apple-touch-icon" sizes="180x180" href={% static "media/favicon/apple-touch-icon.png" %}>
@@ -22,19 +22,6 @@
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-    <header>
-      <img id="img_logo" src={% static 'media/images/logo_hospital.png' %}
-      alt="logo_hospital">
-      <div id="header_right">
-        {% if user.is_active %}
-        <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
-        <a id="btn_logout" href="{% url 'logout' %}">
-          <span id="icon_logout" class="material-symbols-outlined">logout</span>
-          <p id="txt_logout">로그아웃</p>
-        </a>
-        {% endif %}
-      </div>
-    </header>
     {% block content %}
     {% endblock %}
   </body>

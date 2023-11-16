@@ -1,0 +1,14 @@
+{% load static %}
+<header>
+    <img id="img_logo" src={% static 'media/images/logo_hospital.png' %}
+    alt="logo_hospital">
+    <div id="header_right">
+      {% if user.is_active %}
+      <p>{{ user.profile.nickname }}({{ user.profile.hospital.code }})</p>
+      <a id="btn_logout" href="{% url 'logout' %}">
+        <span id="icon_logout" class="material-symbols-outlined">logout</span>
+        <p id="txt_logout">로그아웃</p>
+      </a>
+      {% endif %}
+    </div>
+</header>

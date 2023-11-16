@@ -20,7 +20,6 @@ from django.urls import reverse
 @login_required()
 def user_dashboard(request):
     context = set_default_context(request, False)
-    print(context)
     return render(request, "dashboard.html", context)
 
 # 환자 선택 후 환자관리 대시보드

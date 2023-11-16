@@ -1,15 +1,9 @@
-<!doctype html>
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block style %}
     <link rel="stylesheet" href="{% static 'css/manager_login.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>결핵 환자 정보 대쉬보드</title>
-  </head>
-
-  <body>
+{% endblock %}
+{% block content %}
     <main class="col_center">
       <img id="img_cole_rochman" src={% static 'media/images/cole_rochman.png' %} alt="cole-rochman">
       <p class="txt_center">안녕하세요! 결핵 환자 관리 챗봇<br><b>결핵 박사 콜로크만</b> 관리자 사이트 입니다.</p>
@@ -28,11 +22,9 @@
           {% endif %}
         {% endfor %}
         <button type="submit" id="btn_login">로그인</button>
-        
       </form>
-  
       <p class="txt_center">연세대학교 결핵챗봇 연구팀</p>
       <img id="img_logo" src={% static 'media/images/logo_hospital.png' %} alt="logo_hospital">
     </main>
-  </body>
-</html>
+{% endblock %}
+
