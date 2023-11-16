@@ -7,8 +7,8 @@ from core.models.patient import Patient , Pcr_Inspection, Sputum_Inspection
 from datetime import timedelta
 from django.utils import timezone
 from django.http import HttpResponseRedirect, JsonResponse
-from core.dayModule import *
-from core.resultModule import *
+from core.util.dayModule import *
+from core.util.resultModule import *
 import calendar
 from django.core import serializers
 import datetime
@@ -230,7 +230,7 @@ def patient_status(request, pid):
     context["weekly_sputum"]=weekly_sputum
     context["monthly_sputum"]=monthly_sputum
 
-    debug_context(context)
+    # debug_context(context)
         
     return render(request, "dashboard.html", context)
 
@@ -408,7 +408,7 @@ def patient_severity(request, pid):
         monthly_severity = get_likert_score_by_symptom(symptom_db, side_effect),
         side_effect = side_effect
     ))
-    debug_context(context)
+    # debug_context(context)
     return render(request, "dashboard_severity.html", context)
 
 def get_month_data(dt) -> dict:
@@ -429,7 +429,6 @@ def get_query_string():
 def monthly_list(patient, year, month):
     #datetime_list = get_now_ymd_list()
     date = datetime.datetime(year, month, day=1).date()
-    print(date)
     visit_list = []
     md_success_list = []
     md_delayed_success_list = []
