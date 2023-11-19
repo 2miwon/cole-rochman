@@ -22,31 +22,29 @@ DATABASES = {
     #         'PORT': 5432,
     #     },
     # },
-    'default': secrets.get('DB_SETTINGS')["TEST"]
+    "default": secrets.get("DB_SETTINGS")["TEST"]
 }
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(PROJECT_DIR, 'settings/debug.log'),
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(PROJECT_DIR, "settings/debug.log"),
         },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
         },
     },
 }
 
 
+BROKER_URL = "redis://localhost:6380/0"
 
-BROKER_URL = 'redis://localhost:6380/0'
-
-AUTO_SEND_NOTIFICAITON = True 
-
+AUTO_SEND_NOTIFICAITON = True

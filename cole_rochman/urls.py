@@ -18,16 +18,21 @@ from django.urls import path, include
 from rest_framework_swagger.views import get_swagger_view
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler400, handler404, handler500
 
-schema_view = get_swagger_view(title='Coleroch-man API')
+handler400 = "core.views.error400"
+handler404 = "core.views.error404"
+handler500 = "core.views.error500"
+
+schema_view = get_swagger_view(title="Coleroch-man API")
 
 urlpatterns = [
-    path('admin/', admin.site.urls ,name='admin'),
-    path('api/v1/', include('core.api.urls')),
-    path('api/v1/docs/', schema_view),
-    path('manager/', include('core.manager_web.urls'), name='manager'),
-    path('', include('core.patient_web.urls')),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path("admin/", admin.site.urls, name="admin"),
+    path("api/v1/", include("core.api.urls")),
+    path("api/v1/docs/", schema_view),
+    path("manager/", include("core.manager_web.urls"), name="manager"),
+    path("", include("core.patient_web.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "Cole-rochman Admin"
 admin.site.site_title = "Cole-rochman Admin"
