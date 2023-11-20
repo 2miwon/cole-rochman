@@ -69,13 +69,16 @@ def get_date_text_simple(date: datetime.date, short_year: bool) -> str:
     return datetime.date.today().strftime(y_indicator + ".%m.%d")
 
 
-# hh:mm
 def time_formatiing(time) -> str:
+    """
+    hh:mm
+    """
     return "{}:{}".format(str(time.hour).zfill(2), str(time.minute).zfill(2))
 
 
 def week_first_day(date):
-    pass
+    
+    return date - timedelta(days=date.weekday())
 
 
 def week_last_day(date):
@@ -103,8 +106,8 @@ def get_now_time():
     return datetime.datetime.now().time()
 
 
-def get_now_date():
-    pass
+def get_now_date() -> datetime.date:
+    return datetime.datetime.now().date()
 
 
 def get_now_ymd_list() -> list[str]:
