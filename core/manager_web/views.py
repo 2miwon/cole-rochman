@@ -406,7 +406,7 @@ def patient_severity(request, pid):
     # 복약 chart
     context = set_default_context(request, pid)
 
-    month_mdresult = get_last_info_mdResult(28, pid)
+    month_mdresult = get_last_info_mdResult(get_visible_days(), pid)
     total_mdresult = get_total_info_mdResult(pid)
     count_succ = get_total_success(pid)
     count_side = get_last_sideeffect(get_visible_days(), month_mdresult)
@@ -639,12 +639,14 @@ def debug_context(context: dict):
     for i in context:
         print(i, ":", context[i])
 
+
 def get_visible_days() -> int:
     """
     환자 부작용 파트에서 4주간 부작용 종류와 부작용 빈도의 싱크를 맞추기위한 함수
     output: 3주전 월요일 - 이번주일요일 까지의 총 날짜를 반환
     """
     return 21 + 1 + int(get_now_date().weekday())
+
 
 # @login_required()
 # def symptom(request, pid, sid):
