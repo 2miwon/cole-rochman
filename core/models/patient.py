@@ -94,6 +94,9 @@ class Patient(models.Model):
         verbose_name="내원알림 시간", blank=True, null=True, default=None
     )
     display_dashboard = models.BooleanField(verbose_name="대쉬보드에서 보이기", default=True)
+    remind_time = models.TimeField(
+        verbose_name="리마인드 시간", blank=True, null=True
+    )  # 나중에 notification timetable로 이동
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

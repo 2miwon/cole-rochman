@@ -12,24 +12,42 @@ class NotificationRecord(models.Model):
     MAX_TRY_COUNT = 3
 
     class STATUS(EnumField):
-        PENDING = 'PENDING'
-        SENDING = 'SENDING'
-        RETRY = 'RETRY'
-        RESERVED = 'RESERVED'
-        DELIVERED = 'DELIVERED'
-        SUSPENDED = 'SUSPENDED'
-        FAILED = 'FAILED'
-        CANCELED = 'CANCELED'
+        PENDING = "PENDING"
+        SENDING = "SENDING"
+        RETRY = "RETRY"
+        RESERVED = "RESERVED"
+        DELIVERED = "DELIVERED"
+        SUSPENDED = "SUSPENDED"
+        FAILED = "FAILED"
+        CANCELED = "CANCELED"
 
-    patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='notification_records')
-    medication_result = models.ForeignKey('MedicationResult', blank=True, null=True, default=None,
-                                          on_delete=models.SET_NULL, related_name='notification_records')
-    measurement_result = models.ForeignKey('MeasurementResult', blank=True, null=True, default=None,
-                                           on_delete=models.SET_NULL, related_name='notification_records')
-    biz_message_type = models.CharField(max_length=50, blank=True, null=True, default=None)
+    patient = models.ForeignKey(
+        "Patient", on_delete=models.CASCADE, related_name="notification_records"
+    )
+    medication_result = models.ForeignKey(
+        "MedicationResult",
+        blank=True,
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="notification_records",
+    )
+    measurement_result = models.ForeignKey(
+        "MeasurementResult",
+        blank=True,
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="notification_records",
+    )
+    biz_message_type = models.CharField(
+        max_length=50, blank=True, null=True, default=None
+    )
     noti_time_num = models.IntegerField(null=True, blank=True, default=None)
-    status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value)
-    recipient_number = models.CharField(max_length=50, verbose_name='수신인 번호')
+    status = models.CharField(
+        max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value
+    )
+    recipient_number = models.CharField(max_length=50, verbose_name="수신인 번호")
     payload = JSONField(blank=True, null=True)
     result = JSONField(blank=True, null=True)
     tries_left = models.IntegerField(default=MAX_TRY_COUNT)
@@ -43,13 +61,15 @@ class NotificationRecord(models.Model):
     def get_status(self):
         if type(self.status) is str:
             return self.STATUS(self.status)
-
         return self.status
 
     def is_sendable(self):
-        return self.tries_left > 0 and \
-               self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED, self.STATUS.RETRY] and \
-               self.payload != {}
+        return (
+            self.tries_left > 0
+            and self.get_status()
+            in [self.STATUS.PENDING, self.STATUS.SUSPENDED, self.STATUS.RETRY]
+            and self.payload != {}
+        )
 
     def send(self) -> bool:
         import traceback
@@ -64,8 +84,12 @@ class NotificationRecord(models.Model):
             return False
 
         if not self.is_sendable():
-            if self.get_status() in [self.STATUS.PENDING, self.STATUS.SUSPENDED, self.STATUS.RETRY]:
-                self.result = self.result or 'NOT SENDABLE'
+            if self.get_status() in [
+                self.STATUS.PENDING,
+                self.STATUS.SUSPENDED,
+                self.STATUS.RETRY,
+            ]:
+                self.result = self.result or "NOT SENDABLE"
                 self.set_failed()
                 self.save()
             return False
@@ -107,7 +131,6 @@ class NotificationRecord(models.Model):
         self.save()
 
     # def suspend(self):
-    # TODO not specified yet.
 
     def set_failed(self):
         self.status = self.STATUS.FAILED.value
@@ -117,11 +140,12 @@ class NotificationRecord(models.Model):
 
     def build_biz_message_request(self):
         from core.tasks.util.biz_message import BizMessageBuilder
-#        print('alarm printed')
+
+        #        print('alarm printed')
         biz_message = BizMessageBuilder(
             message_type=self.biz_message_type,
             patient=self.patient,
             date=TODAY,
-            noti_time_num=self.noti_time_num
+            noti_time_num=self.noti_time_num,
         )
         self.payload = biz_message.to_dict()

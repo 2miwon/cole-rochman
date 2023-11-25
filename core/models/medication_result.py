@@ -7,35 +7,52 @@ from core.models.helper.helper import EnumField
 
 class MedicationResult(models.Model):
     class STATUS(EnumField):
-        PENDING = 'PENDING'  # before notification sent
-        NO_RESPONSE = 'NO_RESPONSE'
-        SUCCESS = 'SUCCESS'
-        DELAYED_SUCCESS = 'DELAYED_SUCCESS'
-        FAILED = 'FAILED'
-        SIDE_EFFECT = 'SIDE_EFFECT'
+        PENDING = "PENDING"  # before notification sent
+        NO_RESPONSE = "NO_RESPONSE"
+        SUCCESS = "SUCCESS"
+        DELAYED_SUCCESS = "DELAYED_SUCCESS"
+        FAILED = "FAILED"
+        SIDE_EFFECT = "SIDE_EFFECT"
 
-    patient = models.ForeignKey('Patient', on_delete=models.SET_NULL, related_name='medication_results', blank=True,
-                                null=True)
-    date = models.DateField(verbose_name='날짜', auto_now_add=True)
-    medication_time_num = models.IntegerField(verbose_name='복약 회차', blank=True, null=True)
-    medication_time = models.TimeField(verbose_name='복약 회차(시간)', blank=True, null=True)
-    status = models.CharField(max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value)
-    symptom_name = models.TextField(max_length=100, verbose_name='이상 종류', default='', blank=True, null=True)
-    symptom_severity1 = models.TextField(max_length=100, verbose_name='이상 정도1', blank=True, null=True)
-    symptom_severity2 = models.TextField(max_length=100, verbose_name='이상 정도2', blank=True, null=True)
-    symptom_severity3 = models.TextField(max_length=100, verbose_name='이상 정도3', blank=True, null=True)
-    notified_at = models.DateTimeField(verbose_name='알림 발송 시간', blank=True, null=True)
-    checked_at = models.DateTimeField(verbose_name='확인 시간', blank=True, null=True)
+    patient = models.ForeignKey(
+        "Patient",
+        on_delete=models.SET_NULL,
+        related_name="medication_results",
+        blank=True,
+        null=True,
+    )
+    date = models.DateField(verbose_name="날짜", auto_now_add=True)
+    medication_time_num = models.IntegerField(
+        verbose_name="복약 회차", blank=True, null=True
+    )
+    medication_time = models.TimeField(verbose_name="복약 회차(시간)", blank=True, null=True)
+    status = models.CharField(
+        max_length=20, choices=STATUS.choices(), default=STATUS.PENDING.value
+    )
+    symptom_name = models.TextField(
+        max_length=100, verbose_name="이상 종류", default="", blank=True, null=True
+    )
+    symptom_severity1 = models.TextField(
+        max_length=100, verbose_name="이상 정도1", blank=True, null=True
+    )
+    symptom_severity2 = models.TextField(
+        max_length=100, verbose_name="이상 정도2", blank=True, null=True
+    )
+    symptom_severity3 = models.TextField(
+        max_length=100, verbose_name="이상 정도3", blank=True, null=True
+    )
+    notified_at = models.DateTimeField(verbose_name="알림 발송 시간", blank=True, null=True)
+    checked_at = models.DateTimeField(verbose_name="확인 시간", blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = '복약 결과'
-        verbose_name_plural = '복약 결과'
+        verbose_name = "복약 결과"
+        verbose_name_plural = "복약 결과"
 
     def medication_noti_time_field_str(self):
-        return 'medication_noti_time_%s' % self.medication_time
+        return "medication_noti_time_%s" % self.medication_time
 
     def is_checked(self):
         return self.get_status() not in [self.STATUS.PENDING, self.STATUS.NO_RESPONSE]
@@ -44,8 +61,12 @@ class MedicationResult(models.Model):
         return self.get_status() == self.STATUS.PENDING
 
     def is_notification_record_creatable(self):
-        return self.is_sendable() and not self.notification_records.exists() and \
-               self.medication_time and self.date
+        return (
+            self.is_sendable()
+            and not self.notification_records.exists()
+            and self.medication_time
+            and self.date
+        )
 
     def get_notification_record(self):
         return self.notification_records.get()
@@ -62,7 +83,7 @@ class MedicationResult(models.Model):
 
     def set_success(self):
         print(self.status)
-        if self.status != 'SIDE_EFFECT':
+        if self.status != "SIDE_EFFECT":
             print("1")
             self.status = self.STATUS.SUCCESS.value
         else:
@@ -105,12 +126,11 @@ class MedicationResult(models.Model):
             self.symptom_severity3 += str(",")
         self.checked_at = datetime.datetime.now().astimezone()
 
-
-#    def set_side_effect(self, status_info, severity):
-#        self.status = self.STATUS.SIDE_EFFECT.value
-#        self.status_info = status_info
-#        self.severity = severity
-#        self.checked_at = datetime.datetime.now().astimezone()
+    #    def set_side_effect(self, status_info, severity):
+    #        self.status = self.STATUS.SIDE_EFFECT.value
+    #        self.status_info = status_info
+    #        self.severity = severity
+    #        self.checked_at = datetime.datetime.now().astimezone()
 
     def create_notification_record(self, noti_time_num: int = None):
         """
@@ -123,46 +143,65 @@ class MedicationResult(models.Model):
             return None
 
         data = {
-            'patient': self.patient.pk,
-            'biz_message_type': TYPE.MEDICATION_NOTI.value,
-            'medication_result': self.pk,
-            'recipient_number': self.patient.phone_number,
-            'send_at': datetime.datetime.combine(self.date, self.medication_time)
+            "patient": self.patient.pk,
+            "biz_message_type": TYPE.MEDICATION_NOTI.value,
+            "medication_result": self.pk,
+            "recipient_number": self.patient.phone_number,
+            "send_at": datetime.datetime.combine(self.date, self.medication_time),
         }
         if noti_time_num:
-            data['noti_time_num'] = noti_time_num
+            data["noti_time_num"] = noti_time_num
 
         serializer = NotificationRecordSerializer(data=data)
         if serializer.is_valid():
-            return serializer.save()
+            saved_result =  serializer.save()
+            if self.patient.remind_time:
+                data["send_at"] = datetime.datetime.combine(self.date, self.patient.remind_time)
+                serializer2 = NotificationRecordSerializer(data=data)
+                serializer2.save()
+            return saved_result
         else:
             return serializer.errors
+        
 
     def is_success(self):
-        return self.get_status() == self.STATUS.SUCCESS or self.get_status() == self.STATUS.SIDE_EFFECT
-    
+        return (
+            self.get_status() == self.STATUS.SUCCESS
+            or self.get_status() == self.STATUS.SIDE_EFFECT
+        )
+
     def is_side_effect(self):
         return self.get_status() == self.STATUS.SIDE_EFFECT
-    
+
     def get_sideEffect_type(self):
         rst = []
-        general = ["식욕 감소", "메스꺼움", "구토", "속 쓰림", "무른 변/설사", "피부 발진", "가려움증", "시야장애", "관절통", "피로"]
-        parsed = self.symptom_name.split(',')
+        general = [
+            "식욕 감소",
+            "메스꺼움",
+            "구토",
+            "속 쓰림",
+            "무른 변/설사",
+            "피부 발진",
+            "가려움증",
+            "시야장애",
+            "관절통",
+            "피로",
+        ]
+        parsed = self.symptom_name.split(",")
         for i in parsed:
             if i in general:
                 rst.append(i)
             else:
                 rst.append("기타")
         return rst
-    
+
     def get_symptom_severity_list(self) -> dict:
         rst = {}
-        if(self.is_side_effect()):
-            symptom_name = self.symptom_name.split(',')
-            parsed1 = self.symptom_severity1.split(',')
-            parsed2 = self.symptom_severity2.split(',')
-            parsed3 = self.symptom_severity3.split(',')
+        if self.is_side_effect():
+            symptom_name = self.symptom_name.split(",")
+            parsed1 = self.symptom_severity1.split(",")
+            parsed2 = self.symptom_severity2.split(",")
+            parsed3 = self.symptom_severity3.split(",")
             for i in range(len(symptom_name)):
                 rst[symptom_name[i]] = [parsed1[i], parsed2[i], parsed3[i]]
         return rst
-        
