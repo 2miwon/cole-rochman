@@ -212,18 +212,18 @@ class PcrAdmin(admin.ModelAdmin):
     search_fields = ["patient_set__code", "patient_set__nickname"]
 
 
-# @admin.register(Patient)
-# class NotificationTimeTableAdmin(GuardedModelAdmin, ImportExportModelAdmin):
-#     list_display = [
-#         "patient_id",
-#         "notification_time",
-#         "daily_num",
-#         "activate",
-#     ]
-#     search_fields = ("patient__code", "patient__kakao_user_id", "name", "phone_number")
-#     list_filter = [
-#         "activate",
-#     ]
+@admin.register(Patient)
+class NotificationTimeTableAdmin(GuardedModelAdmin, ImportExportModelAdmin):
+    list_display = [
+        "patient",
+        "notification_time",
+        "daily_num",
+        "activate",
+    ]
+    search_fields = ("patient__code", "patient__kakao_user_id", "name", "phone_number")
+    list_filter = [
+        "activate",
+    ]
 
 
 # @admin.register(Certificaion)
