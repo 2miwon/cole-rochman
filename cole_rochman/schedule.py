@@ -27,11 +27,6 @@ SCHEDULE = {
         "schedule": crontab(minute=40, hour=0),
         "options": {**RETRY_OPTIONS, **QUEUE_NOTIFICATION},
     },
-    "create-medication-notification-every-12-40-am": {
-        "task": "core.tasks.notification.create_medication_notification",
-        "schedule": crontab(minute=50, hour=2),
-        "options": {**RETRY_OPTIONS, **QUEUE_NOTIFICATION},
-    },
     "create-visit-notification-every-12-40-am": {
         "task": "core.tasks.notification.create_visit_notification",
         "schedule": crontab(minute=40, hour=0),
@@ -54,7 +49,7 @@ if settings.AUTO_SEND_NOTIFICAITON:
     SCHEDULE.update(
         {
             "send-notification-every-1-minutes": {
-                "task": "core.tasks.notification.elastic_send_notifications",
+                "task": "core.tasks.notification.elastic_send_notification",
                 "schedule": crontab(),
                 "options": {**RETRY_OPTIONS, **QUEUE_NOTIFICATION},
             }
