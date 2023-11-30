@@ -3,7 +3,8 @@ from datetime import datetime
 
 from core.tasks.util.biz_message import TYPE as BIZ_MESSAGE_TYPE
 from core.models.helper.helper import EnumField
-from util.dayModule import get_today
+from core.util.dayModule import get_today
+
 
 class NotificationTime(models.Model):
     class Meta:
@@ -36,6 +37,7 @@ class NotificationTime(models.Model):
     msg_type = models.CharField(
         max_length=20, choices=TYPE.choices(), default=TYPE.MEDICATION_NOTI.value
     )
+
     #
     # WTF !!!!!!!!!!!!!!!
     #
@@ -64,7 +66,7 @@ class NotificationTime(models.Model):
         self.result = result
         self.save()
         return success
-    
+
     def build_biz_message_request(self):
         from core.tasks.util.biz_message import BizMessageBuilder
 

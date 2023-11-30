@@ -156,7 +156,7 @@ def elastic_send_notification(self):
         notification_time__range=time_range,
     ).all()
 
-    result = {"notifications_counts": len(notifications), "sent_count": 0}
+    result = {"notifications_counts": len(time_table), "sent_count": 0}
     for noti_time in time_table:
         success = noti.send()
         if success:
