@@ -6,7 +6,7 @@ from rest_framework.utils import json
 from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 from core.models import MedicationResult
-from core.util.dayModule import *
+from core.utils.dayModule import *
 
 
 # 현재 시간 이전의 가장 최근 복약 알림 시간 출력
@@ -128,7 +128,8 @@ class PastMedicationFailed(KakaoResponseAPI):
         recent_medication_result.set_failed()
         recent_medication_result.save()
         response.add_simple_text(
-            text="%s님, 다음 회차에는 꼭 복약하셔야합니다. 제가 늘 응원하고 있습니다!" % patient.nickname)
+            text="%s님, 다음 회차에는 꼭 복약하셔야합니다. 제가 늘 응원하고 있습니다!" % patient.nickname
+        )
         response.add_quick_reply(
             action="block",
             label="처음으로 돌아가기",

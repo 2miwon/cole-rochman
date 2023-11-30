@@ -33,8 +33,12 @@ def get_month_first_date(req_day) -> datetime:
     return datetime.datetime.now()
 
 
+def get_now() -> datetime:
+    return datetime.datetime.now().astimezone()
+
+
 def get_today() -> datetime:
-    return datetime.datetime.now().astimezone().date()
+    return get_now().date()
 
 
 def get_today_str() -> datetime:

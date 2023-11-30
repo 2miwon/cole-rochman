@@ -7,7 +7,7 @@ from core.models.patient import Patient, Pcr_Inspection, Sputum_Inspection
 from datetime import timedelta
 from django.utils import timezone
 from django.http import HttpResponseRedirect, JsonResponse
-from core.util.dayModule import *
+from core.utils.dayModule import *
 from core.util.resultModule import *
 import calendar
 from django.core import serializers
