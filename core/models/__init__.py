@@ -8,4 +8,4 @@ from .profile import Profile
 from .community import Post, Comment
 from .certification import Certificaion
 from .side_effect import SideEffect
-from .notification_timetable import NotificationTimeTable
+from .notification_timetable import NotificationTime

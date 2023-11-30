@@ -155,10 +155,10 @@ class MedicationResult(models.Model):
         serializer = NotificationRecordSerializer(data=data)
         if serializer.is_valid():
             saved_result =  serializer.save()
-            if self.patient.remind_time:
-                data["send_at"] = datetime.datetime.combine(self.date, self.patient.remind_time)
-                serializer2 = NotificationRecordSerializer(data=data)
-                serializer2.save()
+            # if self.patient.remind_time:
+            #     data["send_at"] = datetime.datetime.combine(self.date, self.patient.remind_time)
+            #     serializer2 = NotificationRecordSerializer(data=data)
+            #     serializer2.save()
             return saved_result
         else:
             return serializer.errors

@@ -3,8 +3,7 @@ import functools
 from rest_framework.generics import GenericAPIView, get_object_or_404
 
 from core.api.util.response_builder import ResponseBuilder
-from core.models import Patient, Guardian
-
+from core.models import Patient, Guardian, NotificationTime
 
 # decorators
 def require_kakao_user_id(method):
@@ -15,6 +14,7 @@ def require_kakao_user_id(method):
         return method(self, *args, **kwargs)
 
     return wrapper
+
 
 def require_patient_code(method):
     @functools.wraps(method)
@@ -34,7 +34,7 @@ def find_nested_key_from_dict(_dict: dict, keys):
     :return: dict or str
     """
     try:
-        for key in keys.split('.'):
+        for key in keys.split("."):
             _dict = _dict.get(key)
         return _dict
     except AttributeError:
@@ -45,20 +45,21 @@ class Kakao:
     """
     :var data: saving dict data from request_data parsed
     """
-    DATETIME_STRPTIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
 
-    DATETIME_STRFTIME_FORMAT = '%Y년 %m월 %d일 %H시 %M분'
-    DATE_STRFTIME_FORMAT = '%Y년 %m월 %d일'
-    TIME_STRFTIME_FORMAT = '%H시 %M분'
+    DATETIME_STRPTIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
-    RESPONSE_VALIDATION = 'validation'
-    RESPONSE_SKILL = 'skill'
+    DATETIME_STRFTIME_FORMAT = "%Y년 %m월 %d일 %H시 %M분"
+    DATE_STRFTIME_FORMAT = "%Y년 %m월 %d일"
+    TIME_STRFTIME_FORMAT = "%H시 %M분"
+
+    RESPONSE_VALIDATION = "validation"
+    RESPONSE_SKILL = "skill"
 
     def __init__(self):
         self.request_data = {}
 
-        self.kakao_user_id = ''
-        self.patient_code = ''
+        self.kakao_user_id = ""
+        self.patient_code = ""
         self.params = {}
         self.detail_params = {}
 
@@ -79,36 +80,38 @@ class Kakao:
         return result
 
     def parse_params(self):
-        keys = 'action.params'
+        keys = "action.params"
         parsed = self.__parse_request(keys)
         if parsed is None:
             return
-        setattr(self, 'params', parsed)
+        setattr(self, "params", parsed)
         self.params_parsed = True
         self.data.update(parsed)
 
     def parse_detail_params(self):
-        keys = 'action.detailParams'
+        keys = "action.detailParams"
         parsed = self.__parse_request(keys)
         if parsed is None:
             return
         for key, value in parsed.items():
-            self.detail_params[key] = value['value']
+            self.detail_params[key] = value["value"]
 
         self.detail_params_parsed = True
         self.data.update(self.detail_params)
 
     def parse_kakao_user_id(self):
-        parsed = self.__parse_request(keys='userRequest.user.id')  # TODO parse 할수없는 경우 400 response -> 모든 폴백에 적용 고려
-        setattr(self, 'kakao_user_id', parsed)
+        parsed = self.__parse_request(
+            keys="userRequest.user.id"
+        )  # TODO parse 할수없는 경우 400 response -> 모든 폴백에 적용 고려
+        setattr(self, "kakao_user_id", parsed)
         self.kakao_user_id_parsed = True
-        self.data.update({'kakao_user_id': parsed})
+        self.data.update({"kakao_user_id": parsed})
 
     def parse_patient_code(self):
-        code = self.params.get('patient_code')
-        code = code or self.detail_params.get('patient_code')
+        code = self.params.get("patient_code")
+        code = code or self.detail_params.get("patient_code")
 
-        self.data.update({'code': code})
+        self.data.update({"code": code})
         self.patient_code = code
         self.patient_code_parsed = True
 
@@ -120,34 +123,34 @@ class Kakao:
 class KakaoResponseAPI(Kakao, GenericAPIView):
     serializer_class = None
     queryset = None
-    lookup_field = 'kakao_user_id'
+    lookup_field = "kakao_user_id"
     response = {}
 
     @require_kakao_user_id
     def get_object_by_kakao_user_id(self) -> Patient:
         queryset = Patient.objects.all()
-        filter_kwargs = {'kakao_user_id': self.kakao_user_id}
+        filter_kwargs = {"kakao_user_id": self.kakao_user_id}
         obj = get_object_or_404(queryset, **filter_kwargs)
         return obj
 
     @require_kakao_user_id
     def get_guardian_by_kakao_user_id(self) -> Guardian:
         queryset = Guardian.objects.all()
-        filter_kwargs = {'kakao_user_id': self.kakao_user_id}
+        filter_kwargs = {"kakao_user_id": self.kakao_user_id}
         obj = get_object_or_404(queryset, **filter_kwargs)
         return obj
 
     def get_object_by_kakao_id(self) -> Patient:
         queryset = Patient.objects.all()
-#        for key in queryset:
-#            print('Queryset: ', key)
-        obj = Patient.objects.filter(lookup_field = self.kakao_user_id)
-        
-        # May raise a permission denied
-        #self.check_object_permissions(self.request, obj)
-
+        #        for key in queryset:
+        #            print('Queryset: ', key)
+        obj = Patient.objects.filter(lookup_field=self.kakao_user_id)
         return obj
 
+    def get_notification_time_by_kakao_id(self) -> NotificationTime:
+        patient_id = self.get_guardian_by_kakao_user_id.id
+        obj = NotificationTime.objects.filter(lookup_field=patient_id)
+        return obj
 
     @staticmethod
     def build_response_fallback_404():
@@ -157,9 +160,9 @@ class KakaoResponseAPI(Kakao, GenericAPIView):
         :return: dict of response
         """
         response = ResponseBuilder(response_type=ResponseBuilder.SKILL)
-        response.add_simple_text(text='계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?')
+        response.add_simple_text(text="계정을 먼저 등록해주셔야 해요. 계정을 등록하러 가볼까요?")
         response.set_quick_replies_yes_or_no(
-            block_id_for_yes='5d8e22948192ac0001fbf889',  # (블록) 02 계정등록_별명 등록
-            block_id_for_no='5dc38fa2b617ea0001320fbd'  # (블록) 계정등록_취소
+            block_id_for_yes="5d8e22948192ac0001fbf889",  # (블록) 02 계정등록_별명 등록
+            block_id_for_no="5dc38fa2b617ea0001320fbd",  # (블록) 계정등록_취소
         )
         return response.get_response_200()

@@ -1,7 +1,7 @@
 import datetime
 
 from cole_rochman.celery import app
-from core.models import Patient, NotificationRecord
+from core.models import Patient, NotificationRecord, NotificationTime
 from core.serializers import NotificationRecordSerializer
 from core.tasks.util.biz_message import TYPE
 
@@ -133,8 +133,6 @@ def send_notifications(self):
     now = datetime.datetime.now().astimezone()
     time_range = [now - datetime.timedelta(minutes=1), now]
 
-    #    notifications = NotificationRecord.objects.all()
-    #    notifications = NotificationRecord.objects.filter(tries_left__gt=0, send_at__range=time_range).all()
     notifications = NotificationRecord.objects.filter(
         status__in=[NotificationRecord.STATUS.PENDING, NotificationRecord.STATUS.RETRY],
         tries_left__gt=0,
@@ -147,3 +145,19 @@ def send_notifications(self):
         if success:
             result["sent_count"] += 1
     return result
+
+# @app.task(bind=True)
+# def test_send_notification(self):
+#     now = datetime.datetime.now().astimezone()
+#     time_range = [now - datetime.timedelta(minutes=1), now]
+
+#     notifications = NotificationTime.objects.filter(
+#         send_at__range=time_range,
+
+#     ).all()
+
+#     for noti in notifications:
+#         success = noti.send()
+#         if success:
+#             result["sent_count"] += 1
+#     return result

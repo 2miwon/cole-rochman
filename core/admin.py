@@ -12,7 +12,7 @@ from import_export import resources, fields
 from core.models.patient import Pcr_Inspection, Sputum_Inspection
 from core.models.guardian import Guardian
 from core.models.community import Post, Comment
-from core.models.notification_timetable import NotificationTimeTable
+from core.models.notification_timetable import NotificationTime
 
 
 class PatientResource(resources.ModelResource):
@@ -212,8 +212,8 @@ class PcrAdmin(admin.ModelAdmin):
     search_fields = ["patient_set__code", "patient_set__nickname"]
 
 
-@admin.register(NotificationTimeTable)
-class NotificationTimeTableAdmin(GuardedModelAdmin, ImportExportModelAdmin):
+@admin.register(NotificationTime)
+class NotificationTimeAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     list_display = [
         "patient",
         "notification_time",
