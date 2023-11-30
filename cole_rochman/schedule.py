@@ -48,7 +48,7 @@ if settings.AUTO_SEND_NOTIFICAITON:
     )
     SCHEDULE.update(
         {
-            "send-notification-every-1-minutes": {
+            "test-notification-every-1-minutes": {
                 "task": "core.tasks.notification.elastic_send_notifications",
                 "schedule": crontab(),
                 "options": {**RETRY_OPTIONS, **QUEUE_NOTIFICATION},
