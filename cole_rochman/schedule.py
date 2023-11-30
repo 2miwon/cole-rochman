@@ -24,7 +24,7 @@ SCHEDULE = {
     # },
     "create-medication-notification-every-12-40-am": {
         "task": "core.tasks.notification.create_medication_notification",
-        "schedule": crontab(minute=40, hour=0),
+        "schedule": crontab(minute=30, hour=4),
         "options": {**RETRY_OPTIONS, **QUEUE_NOTIFICATION},
     },
     "create-visit-notification-every-12-40-am": {
