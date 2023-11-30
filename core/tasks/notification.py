@@ -146,18 +146,19 @@ def send_notifications(self):
             result["sent_count"] += 1
     return result
 
-# @app.task(bind=True)
-# def test_send_notification(self):
-#     now = datetime.datetime.now().astimezone()
-#     time_range = [now - datetime.timedelta(minutes=1), now]
 
-#     notifications = NotificationTime.objects.filter(
-#         send_at__range=time_range,
+@app.task(bind=True)
+def elastic_send_notification(self):
+    now = datetime.datetime.now().astimezone()
+    time_range = [now - datetime.timedelta(minutes=2), now]
 
-#     ).all()
+    time_table = NotificationTime.objects.filter(
+        notification_time__range=time_range,
+    ).all()
 
-#     for noti in notifications:
-#         success = noti.send()
-#         if success:
-#             result["sent_count"] += 1
-#     return result
+    result = {"notifications_counts": len(notifications), "sent_count": 0}
+    for noti_time in time_table:
+        success = noti.send()
+        if success:
+            result["sent_count"] += 1
+    return result

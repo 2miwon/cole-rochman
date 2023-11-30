@@ -141,7 +141,6 @@ class NotificationRecord(models.Model):
     def build_biz_message_request(self):
         from core.tasks.util.biz_message import BizMessageBuilder
 
-        #        print('alarm printed')
         biz_message = BizMessageBuilder(
             message_type=self.biz_message_type,
             patient=self.patient,

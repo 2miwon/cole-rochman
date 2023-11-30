@@ -8,6 +8,7 @@ MINUTES = 60
 HOURS = 60 * MINUTES
 DAYS = 24 * HOURS
 
+
 def get_date(req_day) -> datetime:
     """
     req_day : "yyyy,mm,dd"
@@ -33,6 +34,10 @@ def get_month_first_date(req_day) -> datetime:
 
 
 def get_today() -> datetime:
+    return datetime.datetime.now().astimezone().date()
+
+
+def get_today_str() -> datetime:
     """
     output : datetime (오늘 날짜를 "yyyy-mm-dd" 형식으로 반환)
     """
@@ -77,7 +82,6 @@ def time_formatiing(time) -> str:
 
 
 def week_first_day(date):
-    
     return date - timedelta(days=date.weekday())
 
 

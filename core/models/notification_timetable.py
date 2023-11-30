@@ -3,7 +3,7 @@ from datetime import datetime
 
 from core.tasks.util.biz_message import TYPE as BIZ_MESSAGE_TYPE
 from core.models.helper.helper import EnumField
-
+from util.dayModule import get_today
 
 class NotificationTime(models.Model):
     class Meta:
@@ -36,40 +36,42 @@ class NotificationTime(models.Model):
     msg_type = models.CharField(
         max_length=20, choices=TYPE.choices(), default=TYPE.MEDICATION_NOTI.value
     )
+    #
+    # WTF !!!!!!!!!!!!!!!
+    #
+    def send(self) -> bool:
+        import traceback
+        from core.tasks.util.bizppurio.bizppurio import BizppurioRequest
 
-    # def send(self) -> bool:
-    #     import traceback
-    #     from core.tasks.util.bizppurio.bizppurio import BizppurioRequest
+        try:
+            payload = self.build_biz_message_request()
+        except:
+            # self.result = traceback.format_exc()
+            return False
 
-    #     try:
-    #         self.build_biz_message_request()
-    #     except:
-    #         self.result = traceback.format_exc()
-    #         self.set_failed()
-    #         self.save()
-    #         return False
+        if not self.activate:
+            return False
 
-    #     if not self.is_sendable():
-    #         if self.get_status() in [
-    #             self.STATUS.PENDING,
-    #             self.STATUS.SUSPENDED,
-    #             self.STATUS.RETRY,
-    #         ]:
-    #             self.result = self.result or "NOT SENDABLE"
-    #             self.set_failed()
-    #             self.save()
-    #         return False
+        success, result = BizppurioRequest(payload=payload).send()
 
-    #     self.tries_left -= 1
-    #     success, result = BizppurioRequest(payload=self.payload).send()
+        if success:
+            self.set_delivered()
+        elif self.tries_left > 0:
+            self.set_retry()
+        else:
+            self.set_failed()
 
-    #     if success:
-    #         self.set_delivered()
-    #     elif self.tries_left > 0:
-    #         self.set_retry()
-    #     else:
-    #         self.set_failed()
+        self.result = result
+        self.save()
+        return success
+    
+    def build_biz_message_request(self):
+        from core.tasks.util.biz_message import BizMessageBuilder
 
-    #     self.result = result
-    #     self.save()
-    #     return success
+        biz_message = BizMessageBuilder(
+            message_type=BIZ_MESSAGE_TYPE[self.msg_type],
+            patient=self.patient,
+            date=get_today(),
+            noti_time_num=self.noti_time_num,
+        )
+        return biz_message.to_dict()
