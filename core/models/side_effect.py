@@ -11,3 +11,5 @@ class SideEffect(models.Model):
         blank=True,
         null=True,
     )
+    intensity = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)

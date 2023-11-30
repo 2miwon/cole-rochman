@@ -113,7 +113,7 @@ class MeasurementResultAdmin(admin.ModelAdmin):
     make_status_canceled.short_description = "Mark selected as CANCELED"
 
 
-@admin.register(MedicationResult)
+@admin.register(ㅔ)
 class MedicationResultAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     list_display = [
         "id",

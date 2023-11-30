@@ -12,6 +12,11 @@ from core.models.medication_result import MedicationResult
 
 
 class Patient(models.Model):
+    class Meta:
+        verbose_name = "환자"
+        verbose_name_plural = "환자"
+        ordering = ["name"]
+
     class NOTI_TYPE(Enum):
         MEDICATION = "Medication"
         VISIT = "Visit"
@@ -100,10 +105,6 @@ class Patient(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = "환자"
-        verbose_name_plural = "환자"
 
     def __str__(self):
         return "%s/%s" % (self.code, self.name)

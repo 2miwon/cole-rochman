@@ -3,6 +3,10 @@ from datetime import datetime
 
 
 class NotificationTimeTable(models.Model):
+    class Meta:
+        verbose_name = "복약 알림 시간"
+        verbose_name_plural = "복약 알림 시간"
+
     patient = models.ForeignKey(
         "Patient",
         on_delete=models.SET_NULL,
