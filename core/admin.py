@@ -220,7 +220,7 @@ class NotificationTimeTableAdmin(GuardedModelAdmin, ImportExportModelAdmin):
         "daily_num",
         "activate",
     ]
-    search_fields = ("patient__code", "patient__kakao_user_id", "name", "phone_number")
+    # search_fields = ("patient__code", "patient__kakao_user_id", "name", "phone_number")
     list_filter = [
         "activate",
     ]
