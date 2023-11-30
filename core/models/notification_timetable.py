@@ -22,9 +22,7 @@ class NotificationTime(models.Model):
         blank=True,
         null=True,
     )
-    notification_time = models.TimeField(
-        verbose_name="복약알림 시간", blank=True, null=True, default=None
-    )
+    notification_time = models.DateTimeField()
     daily_num = models.IntegerField(
         verbose_name="복약 번호", default=1
     )  # 0 = reminder, 1 = 1회차, 2 = 2회차...

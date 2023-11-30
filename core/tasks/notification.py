@@ -150,7 +150,7 @@ def send_notifications(self):
 @app.task(bind=True)
 def elastic_send_notification(self):
     now = datetime.datetime.now().astimezone()
-    time_range = [now - datetime.timedelta(minutes=2), now]
+    time_range = [now - datetime.timedelta(minutes=1), now]
 
     time_table = NotificationTime.objects.filter(
         notification_time__range=time_range,
