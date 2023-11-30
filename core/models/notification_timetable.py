@@ -18,7 +18,7 @@ class NotificationTimeTable(models.Model):
         verbose_name="복약알림 시간", blank=True, null=True, default=None
     )
     daily_num = models.IntegerField(
-        verbose_name="복약 번호", default=0
+        verbose_name="복약 번호", default=1
     )  # 0 = reminder, 1 = 1회차, 2 = 2회차...
     activate = models.BooleanField(
         verbose_name="알림 활성화 여부", blank=False, null=False, default=True
