@@ -1,12 +1,18 @@
 from django.db import models
 from datetime import datetime
-from core.tasks.util.biz_message import TYPE
+
+from core.tasks.util.biz_message import TYPE as BIZ_MESSAGE_TYPE
+from core.models.helper.helper import EnumField
 
 
 class NotificationTime(models.Model):
     class Meta:
         verbose_name = "복약 알림 시간"
         verbose_name_plural = "복약 알림 시간"
+
+    class TYPE(EnumField):
+        MEDICATION_NOTI = "MEDICATION_NOTI"
+        VISIT_NOTI = "VISIT_NOTI"
 
     patient = models.ForeignKey(
         "Patient",
@@ -28,44 +34,42 @@ class NotificationTime(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     msg_type = models.CharField(
-        max_length=20,
-        choices=TYPE.choices(),
-        default=TYPE.MEDICATION_NOTI,
+        max_length=20, choices=TYPE.choices(), default=TYPE.MEDICATION_NOTI.value
     )
 
-    def send(self) -> bool:
-        import traceback
-        from core.tasks.util.bizppurio.bizppurio import BizppurioRequest
+    # def send(self) -> bool:
+    #     import traceback
+    #     from core.tasks.util.bizppurio.bizppurio import BizppurioRequest
 
-        try:
-            self.build_biz_message_request()
-        except:
-            self.result = traceback.format_exc()
-            self.set_failed()
-            self.save()
-            return False
+    #     try:
+    #         self.build_biz_message_request()
+    #     except:
+    #         self.result = traceback.format_exc()
+    #         self.set_failed()
+    #         self.save()
+    #         return False
 
-        if not self.is_sendable():
-            if self.get_status() in [
-                self.STATUS.PENDING,
-                self.STATUS.SUSPENDED,
-                self.STATUS.RETRY,
-            ]:
-                self.result = self.result or "NOT SENDABLE"
-                self.set_failed()
-                self.save()
-            return False
+    #     if not self.is_sendable():
+    #         if self.get_status() in [
+    #             self.STATUS.PENDING,
+    #             self.STATUS.SUSPENDED,
+    #             self.STATUS.RETRY,
+    #         ]:
+    #             self.result = self.result or "NOT SENDABLE"
+    #             self.set_failed()
+    #             self.save()
+    #         return False
 
-        self.tries_left -= 1
-        success, result = BizppurioRequest(payload=self.payload).send()
+    #     self.tries_left -= 1
+    #     success, result = BizppurioRequest(payload=self.payload).send()
 
-        if success:
-            self.set_delivered()
-        elif self.tries_left > 0:
-            self.set_retry()
-        else:
-            self.set_failed()
+    #     if success:
+    #         self.set_delivered()
+    #     elif self.tries_left > 0:
+    #         self.set_retry()
+    #     else:
+    #         self.set_failed()
 
-        self.result = result
-        self.save()
-        return success
+    #     self.result = result
+    #     self.save()
+    #     return success
