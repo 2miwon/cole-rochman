@@ -1,6 +1,6 @@
 from celery.schedules import crontab
 from django.conf import settings
-from core.utils.dayModule import *
+from core.util.dayModule import *
 
 RETRY_OPTIONS = {
     "retry": True,

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from core.tasks.util.biz_message import TYPE as BIZ_MESSAGE_TYPE
 from core.models.helper.helper import EnumField
-from core.utils.dayModule import get_today
+from core.util.dayModule import get_today
 
 
 class NotificationTime(models.Model):

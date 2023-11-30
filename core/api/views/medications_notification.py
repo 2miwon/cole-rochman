@@ -6,7 +6,7 @@ from rest_framework.utils import json
 from core.api.serializers import PatientUpdateSerializer
 from core.api.util.helper import KakaoResponseAPI
 from core.models import MedicationResult
-from core.utils.dayModule import *
+from core.util.dayModule import *
 
 
 # 현재 시간 이전의 가장 최근 복약 알림 시간 출력

@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "guardian",
     "import_export",
-    "utils",
 ]
 
 MIDDLEWARE = [
