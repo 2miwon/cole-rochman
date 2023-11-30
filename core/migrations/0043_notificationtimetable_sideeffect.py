@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             name='NotificationTimeTable',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('notification_time', models.TimeField(blank=True, default=None, null=True, verbose_name='복약알림 시간')),
+                ('notification_time', models.field=models.DateTimeField(),
                 ('activate', models.BooleanField(default=True, verbose_name='알림 활성화 여부')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),

@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import datetime
 
 from core.tasks.util.biz_message import TYPE as BIZ_MESSAGE_TYPE
 from core.models.helper.helper import EnumField
