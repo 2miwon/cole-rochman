@@ -12,6 +12,7 @@ from import_export import resources, fields
 from core.models.patient import Pcr_Inspection, Sputum_Inspection
 from core.models.guardian import Guardian
 from core.models.community import Post, Comment
+from core.models.notification_timetable import NotificationTimeTable
 
 
 class PatientResource(resources.ModelResource):
@@ -209,6 +210,20 @@ class SputumAdmin(admin.ModelAdmin):
 class PcrAdmin(admin.ModelAdmin):
     list_display = ["patient_set", "insp_date", "method", "pcr_result"]
     search_fields = ["patient_set__code", "patient_set__nickname"]
+
+
+@admin.register(Patient)
+class NotificationTimeTableAdmin(GuardedModelAdmin, ImportExportModelAdmin):
+    list_display = [
+        "patient",
+        "notification_time",
+        "daily_num",
+        "activate",
+    ]
+    search_fields = ("patient__code", "patient__kakao_user_id", "name", "phone_number")
+    list_filter = [
+        "activate",
+    ]
 
 
 # @admin.register(Certificaion)
