@@ -212,7 +212,7 @@ class PcrAdmin(admin.ModelAdmin):
     search_fields = ["patient_set__code", "patient_set__nickname"]
 
 
-@admin.register(Notification_Time_Table)
+@admin.register(NotificationTimeTable)
 class NotificationTimeTableAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     list_display = [
         "patient",
