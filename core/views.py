@@ -20,3 +20,4 @@ def error500(request):
         "message": "Internal Server Error",
     }
     return render(request, "error.html", context=context, status=500)
+
