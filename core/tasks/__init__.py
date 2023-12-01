@@ -1,2 +1,2 @@
-from notification import *
-from tasks import *
+from .notification import *
+from .tasks import *
