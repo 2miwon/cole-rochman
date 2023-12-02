@@ -1,7 +1,7 @@
 # import logging
 import datetime
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
 from django_apscheduler.jobstores import register_events, DjangoJobStore
 from apscheduler.triggers.cron import CronTrigger
 from core.models import Patient, NotificationRecord, NotificationTime
@@ -17,9 +17,8 @@ from django.conf import settings
 
 def start():
     # def handle(self, *args, **options):
-    scheduler = BackgroundScheduler(
-        timezone=settings.TIME_ZONE
-    )  # BlockingScheduler를 사용할 수도 있습니다.
+    # scheduler = BackgroundScheduler(timezone=settings.TIME_ZONE)
+    scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
     scheduler.add_jobstore(DjangoJobStore(), "default")
 
     scheduler.add_job(
