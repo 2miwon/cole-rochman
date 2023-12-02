@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.conf import settings
 
 
 def error400(request, exception):
@@ -21,3 +22,9 @@ def error500(request):
     }
     return render(request, "error.html", context=context, status=500)
 
+
+if settings.AUTO_SEND_NOTIFICAITON:
+    from . import runapscheduler
+
+    print("start scheduler")
+    runapscheduler.start()

@@ -3,58 +3,70 @@ import datetime
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import register_events, DjangoJobStore
+from apscheduler.triggers.cron import CronTrigger
 from core.models import Patient, NotificationRecord, NotificationTime
 from core.serializers import NotificationRecordSerializer
 from core.tasks.util.biz_message import TYPE
 
+# from core.tasks.notification import *
+from django.conf import settings
+
 
 logger = logging.getLogger(__name__)
+KST = datetime.timezone(datetime.timedelta(hours=9))
 
 
 def start():
-    def handle(self, *args, **options):
-        scheduler = BackgroundScheduler(
-            timezone=settings.TIME_ZONE
-        )  # BlockingScheduler를 사용할 수도 있습니다.
-        scheduler.add_jobstore(DjangoJobStore(), "default")
+    # def handle(self, *args, **options):
+    scheduler = BackgroundScheduler(
+        timezone=settings.TIME_ZONE
+    )  # BlockingScheduler를 사용할 수도 있습니다.
+    scheduler.add_jobstore(DjangoJobStore(), "default")
 
-        scheduler.add_job(
-            send_notifications,
-            trigger=CronTrigger(second="*/60"),  # 60초마다 작동합니다.
-            id="my_job",  # id는 고유해야합니다.
-            max_instances=1,
-            replace_existing=True,
-        )
-        logger.info("Added job 'my_job_a'.")
+    scheduler.add_job(
+        create_medication_noti_aps,
+        trigger=CronTrigger(hour="0", minute="40"),  # 실행 시간입니다.
+        id="create-medication-notification-every-12-40-am",
+        max_instances=1,
+        replace_existing=True,
+    )
+    # logger.info("Added job 'create-medication-notification-every-12-40-am'.")
 
-        scheduler.add_job(
-            my_job_b,
-            trigger=CronTrigger(
-                hour="00", minute="40"
-            ),  # 실행 시간입니다. 여기선 매주 월요일 3시에 실행합니다.
-            id="my_job_b",
-            max_instances=1,
-            replace_existing=True,
-        )
-        logger.info("Added job 'my_job_b'.")
+    scheduler.add_job(
+        create_visit_noti_aps,
+        trigger=CronTrigger(hour="0", minute="40"),
+        id="create-medication-notification-every-12-40-am",  # id는 고유해야합니다.
+        max_instances=1,
+        replace_existing=True,
+    )
 
-        try:
-            logger.info("Starting scheduler...")
-            scheduler.start()  # 없으면 동작하지 않습니다.
-        except KeyboardInterrupt:
-            logger.info("Stopping scheduler...")
-            scheduler.shutdown()
-            logger.info("Scheduler shut down successfully!")
+    scheduler.add_job(
+        send_noti_aps,
+        trigger=CronTrigger(minute="*"),
+        id="send-notification-every-1-minutes",  # id는 고유해야합니다.
+        max_instances=1,
+        replace_existing=True,
+    )
+
+    
+    # logger.info("Added job 'send-notification-every-1-minutes'.")
+
+    try:
+        # logger.info("Starting scheduler...")
+        scheduler.start()  # 없으면 동작하지 않습니다.
+    except KeyboardInterrupt:
+        # logger.info("Stopping scheduler...")
+        scheduler.shutdown()
+        # logger.info("Scheduler shut down successfully!")
 
 
-def create_medication_notification():
+def create_medication_noti_aps():
+    print("debug:: invoke create medication notification")
     patients = Patient.objects.all()
     result = {"patient_counts": len(patients)}
-
     for patient in patients:
         if not patient.is_medication_noti_sendable():
             continue
-
         for noti_time_num, noti_time in enumerate(patient.medication_noti_time_list()):
             if noti_time is None:
                 continue
@@ -66,11 +78,11 @@ def create_medication_notification():
                     noti_time_num=noti_time_num + 1
                 )
                 result["created_count"] = (result.get("created_count") or 0) + 1
-
     return result
 
 
-def create_visit_notification():
+def create_visit_noti_aps():
+    print("debug:: invoke create visit notification")
     patients = Patient.objects.all()
     result = {"patient_counts": len(patients)}
 
@@ -98,43 +110,22 @@ def create_visit_notification():
                 notification_record.build_biz_message_request()
                 notification_record.save()
                 result["created_count"] = (result.get("created_count") or 0) + 1
-
     return result
 
-
-def send_notifications():
+def send_noti_aps():
+    print("debug:: invoke notification at ", datetime.datetime.now().astimezone())
     now = datetime.datetime.now().astimezone()
     time_range = [now - datetime.timedelta(minutes=1), now]
-
     notifications = NotificationRecord.objects.filter(
         status__in=[NotificationRecord.STATUS.PENDING, NotificationRecord.STATUS.RETRY],
         tries_left__gt=0,
         send_at__range=time_range,
     ).all()
-
     result = {"notifications_counts": len(notifications), "sent_count": 0}
     for noti in notifications:
         success = noti.send()
         if success:
             result["sent_count"] += 1
+    if result["sent_count"]:
+        print("debug:: send notification")
     return result
-
-
-def elastic_send_notifications():
-    try:
-        now = datetime.datetime.now().astimezone()
-        time_range = [now - datetime.timedelta(minutes=1), now]
-
-        time_table = NotificationTime.objects.filter(
-            notification_time__range=time_range,
-        ).all()
-
-        result = {"notifications_counts": len(time_table), "sent_count": 0}
-        for noti in time_table:
-            success = noti.send()
-            if success:
-                result["sent_count"] += 1
-        return result
-    except Exception as e:
-        print(e)
-        return e
