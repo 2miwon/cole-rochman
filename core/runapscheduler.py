@@ -18,7 +18,9 @@ from django.conf import settings
 def start():
     def handle(self, *args, **options):
         print("debug:: start scheduler")
-        scheduler = BackgroundScheduler(timezone=settings.TIME_ZONE)
+        scheduler = BackgroundScheduler(
+            timezone=settings.TIME_ZONE, coalesce=True, max_instances=1
+        )
         # scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(), "default")
 
@@ -49,13 +51,13 @@ def start():
 
         # logger.info("Added job 'send-notification-every-1-minutes'.")
 
-        scheduler.add_job(
-            elastic_send_noti_aps,
-            trigger=CronTrigger(minute="*"),
-            id="send-elastic-notification-every-1-minutes",  # id는 고유해야합니다.
-            max_instances=1,
-            replace_existing=True,
-        )
+        # scheduler.add_job(
+        #     elastic_send_noti_aps,
+        #     trigger=CronTrigger(minute="*"),
+        #     id="send-elastic-notification-every-1-minutes",  # id는 고유해야합니다.
+        #     max_instances=1,
+        #     replace_existing=True,
+        # )
 
         try:
             # logger.info("Starting scheduler...")
