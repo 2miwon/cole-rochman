@@ -10,4 +10,4 @@ class CoreConfig(AppConfig):
         if settings.AUTO_SEND_NOTIFICAITON:
             from . import runapscheduler
 
-            runapscheduler.start()
+            # runapscheduler.start()
