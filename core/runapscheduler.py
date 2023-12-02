@@ -1,4 +1,4 @@
-import logging
+# import logging
 import datetime
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -12,8 +12,7 @@ from core.tasks.util.biz_message import TYPE
 from django.conf import settings
 
 
-logger = logging.getLogger(__name__)
-KST = datetime.timezone(datetime.timedelta(hours=9))
+# logger = logging.getLogger(__name__)
 
 
 def start():
@@ -35,7 +34,7 @@ def start():
     scheduler.add_job(
         create_visit_noti_aps,
         trigger=CronTrigger(hour="0", minute="40"),
-        id="create-medication-notification-every-12-40-am",  # id는 고유해야합니다.
+        id="create-visit-notification-every-12-40-am",  # id는 고유해야합니다.
         max_instances=1,
         replace_existing=True,
     )
@@ -48,8 +47,15 @@ def start():
         replace_existing=True,
     )
 
-    
     # logger.info("Added job 'send-notification-every-1-minutes'.")
+
+    scheduler.add_job(
+        elastic_send_noti_aps,
+        trigger=CronTrigger(minute="*"),
+        id="send-elastic-notification-every-1-minutes",  # id는 고유해야합니다.
+        max_instances=1,
+        replace_existing=True,
+    )
 
     try:
         # logger.info("Starting scheduler...")
@@ -112,6 +118,7 @@ def create_visit_noti_aps():
                 result["created_count"] = (result.get("created_count") or 0) + 1
     return result
 
+
 def send_noti_aps():
     print("debug:: invoke notification at ", datetime.datetime.now().astimezone())
     now = datetime.datetime.now().astimezone()
@@ -123,6 +130,24 @@ def send_noti_aps():
     ).all()
     result = {"notifications_counts": len(notifications), "sent_count": 0}
     for noti in notifications:
+        success = noti.send()
+        if success:
+            result["sent_count"] += 1
+    if result["sent_count"]:
+        print("debug:: send notification")
+    return result
+
+
+def elastic_send_noti_aps():
+    print("debug:: invoke elastic noti at ", datetime.datetime.now().astimezone())
+    now = datetime.datetime.now().astimezone()
+    time_range = [now - datetime.timedelta(minutes=1), now]
+
+    time_table = NotificationTime.objects.filter(
+        notification_time__range=time_range,
+    ).all()
+    result = {"notifications_counts": len(time_table), "sent_count": 0}
+    for noti in time_table:
         success = noti.send()
         if success:
             result["sent_count"] += 1

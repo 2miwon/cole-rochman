@@ -26,5 +26,5 @@ def error500(request):
 if settings.AUTO_SEND_NOTIFICAITON:
     from . import runapscheduler
 
-    print("start scheduler")
+    print("debug:: start scheduler")
     runapscheduler.start()

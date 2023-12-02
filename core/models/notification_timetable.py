@@ -47,10 +47,8 @@ class NotificationTime(models.Model):
         except:
             # self.result = traceback.format_exc()
             return False
-
         if not self.activate:
             return False
-
         success, result = BizppurioRequest(payload=payload).send()
 
         if success:
@@ -71,6 +69,6 @@ class NotificationTime(models.Model):
             message_type=BIZ_MESSAGE_TYPE[self.msg_type],
             patient=self.patient,
             date=get_today(),
-            noti_time_num=self.noti_time_num,
+            noti_time_num=self.daily_num,
         )
         return biz_message.to_dict()
