@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.conf import settings
-from threading import Lock
 
 def error400(request, exception):
     context = {"code": 400, "message": "Bad Request"}
@@ -22,10 +20,5 @@ def error500(request):
     }
     return render(request, "error.html", context=context, status=500)
 
-def initialize_scheduler():
-    with initialization_lock:
-        if settings.AUTO_SEND_NOTIFICAITON:
-            from . import runapscheduler
-            runapscheduler.start()
-            initialization_lock = Lock()
+
 
