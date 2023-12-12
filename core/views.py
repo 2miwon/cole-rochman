@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.conf import settings
+
 
 def error400(request, exception):
     context = {"code": 400, "message": "Bad Request"}
@@ -20,5 +22,10 @@ def error500(request):
     }
     return render(request, "error.html", context=context, status=500)
 
+    # if settings.SETTINGS_MODULE == "cole_rochman.settings.dev":
 
 
+from . import runapscheduler
+
+print("debug:: runapscheduler")
+runapscheduler.start()  # 수동알림 모드

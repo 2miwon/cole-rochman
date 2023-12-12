@@ -16,56 +16,56 @@ from django.conf import settings
 
 
 def start():
-    def handle(self, *args, **options):
-        print("debug:: start scheduler")
-        scheduler = BackgroundScheduler(
-            timezone=settings.TIME_ZONE, coalesce=True, max_instances=1
-        )
-        # scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
-        scheduler.add_jobstore(DjangoJobStore(), "default")
+    # def handle(self, *args, **options):
+    print("debug:: start scheduler")
+    scheduler = BackgroundScheduler(
+        timezone=settings.TIME_ZONE, coalesce=True, max_instances=1
+    )
+    # scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
+    scheduler.add_jobstore(DjangoJobStore(), "default")
 
-        scheduler.add_job(
-            create_medication_noti_aps,
-            trigger=CronTrigger(hour="0", minute="40"),  # 실행 시간입니다.
-            id="create-medication-notification-every-12-40-am",
-            max_instances=1,
-            replace_existing=True,
-        )
-        # logger.info("Added job 'create-medication-notification-every-12-40-am'.")
+    scheduler.add_job(
+        create_medication_noti_aps,
+        trigger=CronTrigger(hour="0", minute="40"),  # 실행 시간입니다.
+        id="create-medication-notification-every-12-40-am",
+        max_instances=1,
+        replace_existing=True,
+    )
+    # logger.info("Added job 'create-medication-notification-every-12-40-am'.")
 
-        scheduler.add_job(
-            create_visit_noti_aps,
-            trigger=CronTrigger(hour="0", minute="40"),
-            id="create-visit-notification-every-12-40-am",  # id는 고유해야합니다.
-            max_instances=1,
-            replace_existing=True,
-        )
+    scheduler.add_job(
+        create_visit_noti_aps,
+        trigger=CronTrigger(hour="0", minute="40"),
+        id="create-visit-notification-every-12-40-am",  # id는 고유해야합니다.
+        max_instances=1,
+        replace_existing=True,
+    )
 
-        scheduler.add_job(
-            send_noti_aps,
-            trigger=CronTrigger(minute="*"),
-            id="send-notification-every-1-minutes",  # id는 고유해야합니다.
-            max_instances=1,
-            replace_existing=True,
-        )
+    scheduler.add_job(
+        send_noti_aps,
+        trigger=CronTrigger(minute="*"),
+        id="send-notification-every-1-minutes",  # id는 고유해야합니다.
+        max_instances=1,
+        replace_existing=True,
+    )
 
-        # logger.info("Added job 'send-notification-every-1-minutes'.")
+    # logger.info("Added job 'send-notification-every-1-minutes'.")
 
-        # scheduler.add_job(
-        #     elastic_send_noti_aps,
-        #     trigger=CronTrigger(minute="*"),
-        #     id="send-elastic-notification-every-1-minutes",  # id는 고유해야합니다.
-        #     max_instances=1,
-        #     replace_existing=True,
-        # )
+    # scheduler.add_job(
+    #     elastic_send_noti_aps,
+    #     trigger=CronTrigger(minute="*"),
+    #     id="send-elastic-notification-every-1-minutes",  # id는 고유해야합니다.
+    #     max_instances=1,
+    #     replace_existing=True,
+    # )
 
-        try:
-            # logger.info("Starting scheduler...")
-            scheduler.start()  # 없으면 동작하지 않습니다.
-        except KeyboardInterrupt:
-            # logger.info("Stopping scheduler...")
-            scheduler.shutdown()
-            # logger.info("Scheduler shut down successfully!")
+    try:
+        # logger.info("Starting scheduler...")
+        scheduler.start()  # 없으면 동작하지 않습니다.
+    except KeyboardInterrupt:
+        # logger.info("Stopping scheduler...")
+        scheduler.shutdown()
+        # logger.info("Scheduler shut down successfully!")
 
 
 def create_medication_noti_aps():
