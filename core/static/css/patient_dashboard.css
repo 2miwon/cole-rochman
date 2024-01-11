@@ -94,7 +94,7 @@ header {
 
 #box_current_med {
   color: var(--bg-color-white);
-  background-color: var(--bg-color-blue);
+  /* background-color: var(--bg-color-blue); */
   padding: 15px;
   border-radius: 5px;
   overflow: hidden;

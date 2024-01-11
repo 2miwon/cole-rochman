@@ -5,7 +5,6 @@ import email
 from http.client import REQUEST_ENTITY_TOO_LARGE
 import imp
 from multiprocessing import context
-import datetime
 from unicodedata import category
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
@@ -18,12 +17,10 @@ from core.models.community import Post, Comment
 from core.models.profile import Profile
 from django.contrib.auth.models import User
 from django.contrib import auth
-import datetime
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 import os
-
 # from sendgrid import SendGridAPIClient
 # from sendgrid.helpers.mail import Mail
 import random
@@ -39,9 +36,9 @@ from dotenv import load_dotenv
 import os
 from django.http import HttpResponseRedirect
 from core.util.dayModule import *
+from core.util.resultModule import *
 
 load_dotenv()
-
 
 def sign_up(request):
     msg = []
@@ -142,7 +139,7 @@ def main(request):
 @login_required(login_url="/", redirect_field_name="next")
 def patient_dashboard(request):
     patient = Patient.objects.get(code=request.user.username)
-
+    pid = patient.id
     nickname = patient.nickname
 
     start_date = ""
@@ -437,6 +434,10 @@ def patient_dashboard(request):
     prev_year, prev_month = get_prev_month(month, year)
     next_year, next_month = get_next_month(month, year)
 
+    today_med_list = MedicationResult.objects.filter(
+        patient__id__contains=pid, date=datetime.date.today(), status__in=["SUCCESS", "SIDE_EFFECT"]
+    )
+
     context = {
         "nickname": nickname,
         "start_date": start_date,
@@ -471,7 +472,11 @@ def patient_dashboard(request):
         "md_side_effect_list": md_side_effect_list,
         "today_md_success_list": today_md_success_list,
         "symptoms": symptoms,
+        "daily_med_fullfill": len(today_med_list) == patient.daily_medication_count,
     }
+    
+    debug_context(context)
+
     return render(request, "patient_dashboard2.html", context=context)
 
 
@@ -688,6 +693,7 @@ def post_list(request):
 def post(request):
     if request.method == "POST":
         post = Post()
+        print(request.POST["category"])
         post.category = request.POST["category"]
         post.anonymous = request.POST.get("anonymous", False)
         post.writer = request.user
@@ -788,7 +794,7 @@ def patient_dashboard_by_day(
     picked_day=str(datetime.date.today())[-2:],
 ):
     patient = Patient.objects.get(code=request.user.username)
-
+    pid = patient.id
     nickname = patient.nickname
 
     start_date = ""
@@ -909,7 +915,7 @@ def patient_dashboard_by_day(
         daily_hour_list = ["재설정 필요"]
 
     # 달력
-    datetime_list = get_year_month_days()
+    datetime_list = get_now_ymd_list()
     year = int(picked_year)
     month = int(picked_month)
     day = [int(picked_day)]
@@ -1092,6 +1098,10 @@ def patient_dashboard_by_day(
     # 이전 월, 다음 월 달력
     next_year, next_month = get_next_month(month, year)
     prev_year, prev_month = get_prev_month(month, year)
+    
+    today_med_list = MedicationResult.objects.filter(
+        patient__id__contains=pid, date=datetime.date.today(), status__in=["SUCCESS", "SIDE_EFFECT"]
+    )
 
     context = {
         "nickname": nickname,
@@ -1128,6 +1138,7 @@ def patient_dashboard_by_day(
         "today_md_success_list": today_md_success_list,
         "symptoms": symptoms,
         "med_cnt": med_cnt,
+        "daily_med_fullfill": len(today_med_list) == patient.daily_medication_count,
     }
     return render(request, "patient_dashboard2.html", context=context)
 
@@ -1208,3 +1219,7 @@ def mailSend(msg):  # 메일전송 함수
 
     smtp_server.send_message(msg)  # 메세지 전송
     smtp_server.quit()  # stmp 종료
+
+def debug_context(context: dict):
+    for i in context:
+        print(i, ":", context[i])

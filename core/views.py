@@ -25,7 +25,7 @@ def error500(request):
     # if settings.SETTINGS_MODULE == "cole_rochman.settings.dev":
 
 
-from . import runapscheduler
+# from . import runapscheduler
 
-print("debug:: runapscheduler")
-runapscheduler.start()  # 수동알림 모드
+# print("debug:: runapscheduler")
+# runapscheduler.start()  # 수동알림 모드
