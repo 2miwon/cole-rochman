@@ -693,8 +693,10 @@ def post_list(request):
 def post(request):
     if request.method == "POST":
         post = Post()
-        print(request.POST["category"])
-        post.category = request.POST["category"]
+        if "category" in request.POST:
+            post.category = request.POST["category"]
+        else:
+            post.category = 'common'
         post.anonymous = request.POST.get("anonymous", False)
         post.writer = request.user
         post.title = request.POST["title"]
