@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import F
 from datetime import timedelta
-
+from core.util.dayModule import *
 from core.models.medication_result import MedicationResult
 
 
@@ -244,6 +244,12 @@ class Patient(models.Model):
         else:
             return None
 
+    def get_age(self):
+        if self.birth is None:
+            return None
+        current_date = get_now()
+        age = current_date.year - self.birth.year - ((current_date.month, current_date.day) < (self.birth.month, self.birth.day))
+        return age
 
 class Sputum_Inspection(models.Model):
     patient_set = models.ForeignKey(Patient, on_delete=models.CASCADE)

@@ -17,7 +17,9 @@
               ({{ patient.gender|default:"성별" }}) {{ patient.birth|default:"생년월일" }}
             </span>
           </div>
-          <span class="txt_lightgray">{{ patient.code_hyphen }}</span>
+          <span class="txt_lightgray">
+            {{ patient.code_hyphen }} [만 {{ patient.get_age|default:"-"}} 세]
+          </span>
           <span style="display: none;">{{ patient.code }}</span>
         </a>
       </li>
