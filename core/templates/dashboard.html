@@ -271,9 +271,15 @@
         if (sortBy === null || sortBy === "id") {
           document.querySelector(`#sort_by_id_btn`).classList = "active"
           document.querySelector(`#sort_by_name_btn`).classList = ""
-        } else {
+          document.querySelector(`#sort_by_birth_btn`).classList = ""
+        } else if (sortBy === "name") {
           document.querySelector(`#sort_by_name_btn`).classList = "active"
           document.querySelector(`#sort_by_id_btn`).classList = ""
+          document.querySelector(`#sort_by_birth_btn`).classList = ""
+        } else {
+          document.querySelector(`#sort_by_id_btn`).classList = ""
+          document.querySelector(`#sort_by_name_btn`).classList = ""
+          document.querySelector(`#sort_by_birth_btn`).classList = "active"
         }
       });
 
@@ -305,10 +311,12 @@
      // 이름순 / 번호순 sort
      const sortByNameBtn = document.querySelector("#sort_by_name_btn")
      const sortByIdBtn = document.querySelector("#sort_by_id_btn")
+     const sortByBirthBtn = document.querySelector("#sort_by_birth_btn")
 
      function handleSortBtnClick(e) {
         sortByNameBtn.classList = ""
         sortByIdBtn.classList = ""
+        sortByBirthBtn.classList = ""
         sessionStorage.setItem("sortBy", e.target.name)
         e.target.classList.add("active")
 
@@ -327,7 +335,7 @@
 
      sortByNameBtn.addEventListener("click", handleSortBtnClick)
      sortByIdBtn.addEventListener("click", handleSortBtnClick)
-
+     sortByBirthBtn.addEventListener("click", handleSortBtnClick)
 
      // 달력
      const prevMonthBtn = document.querySelector("#prev_month")
