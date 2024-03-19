@@ -210,7 +210,7 @@ def patient_status(request, pid):
     month_data_list = []
     for i in range(1, 8):
         week_date_list.append(get_date_by_weekday(week_date, i))
-    for i in range(1, calendar.monthrange(week_date.year, week_date.month)[1]):
+    for i in range(1, day_of_month+1):
         month_data_list.append(
             get_date(
                 str(month_first_day.year)
@@ -469,7 +469,7 @@ def monthly_list(patient, year, month):
     md_failed_list = []
     md_side_effect_list = []
 
-    for i in get_monthly_dayList_int(date):
+    for i in get_monthly_day_list_int(date):
         date_str = get_date_str(date, i)
         dailyresult = MedicationResult.objects.filter(
             patient__code__contains=patient.code, date=date_str
@@ -511,7 +511,7 @@ def get_sputum_data(pid: int, date):
     )
 
 
-def get_monthly_dayList_int(date):
+def get_monthly_day_list_int(date):
     day_of_month = calendar.monthrange(date.year, date.month)[1]
     day_list = []
     for i in range(1, day_of_month + 1):
