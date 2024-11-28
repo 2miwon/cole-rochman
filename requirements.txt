@@ -66,7 +66,7 @@ python-dateutil==2.8.1
 python-dotenv==1.0.0
 python-http-client==3.3.7
 pytz==2022.1
-PyYAML==5.1.2
+PyYAML==5.4
 redis==3.3.11
 requests==2.22.0
 sendgrid==6.10.0
